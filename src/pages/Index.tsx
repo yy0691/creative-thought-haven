@@ -1,12 +1,30 @@
-// Update this page (the content is just a fallback if you fail to update the page)
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
-      </div>
+    <div className="page-transition space-y-12 py-12">
+      <section className="text-center space-y-6">
+        <div className="space-y-2">
+          <h4 className="text-sm font-medium text-primary">Welcome to my portfolio</h4>
+          <h1 className="text-4xl font-bold sm:text-5xl">Frontend Developer & Designer</h1>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            Creating beautiful and functional web experiences with modern technologies
+          </p>
+        </div>
+      </section>
+
+      <section className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        {[1, 2, 3].map((i) => (
+          <div
+            key={i}
+            className="glass rounded-lg p-6 card-hover space-y-4"
+          >
+            <h3 className="text-xl font-semibold">Featured Project {i}</h3>
+            <p className="text-muted-foreground">
+              A brief description of this featured project and its key features.
+            </p>
+          </div>
+        ))}
+      </section>
     </div>
   );
 };
