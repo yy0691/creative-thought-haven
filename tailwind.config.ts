@@ -8,6 +8,7 @@ export default {
     "./components/**/*.{ts,tsx}",
     "./app/**/*.{ts,tsx}",
     "./src/**/*.{ts,tsx}",
+    "./src/content/**/*.mdx",  // 添加这一行
   ],
   prefix: "",
   theme: {

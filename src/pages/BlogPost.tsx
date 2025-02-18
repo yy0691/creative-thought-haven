@@ -53,66 +53,62 @@ const BlogPost = () => {
           .slice(0, 3);
         setRelatedPosts(related);
       } catch (error) {
-        console.error('Failed to load blog post:', error);
+        console.error('加载文章失败:', error);
       } finally {
         setIsLoading(false);
       }
     };
-
-    if (slug) {
-      loadPost();
-    }
+    loadPost();
   }, [slug]);
 
   if (isLoading) {
     return (
-      <div className="page-transition py-12 text-center">
-        <p className="text-muted-foreground">Loading post...</p>
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
       </div>
     );
   }
 
   if (!post) {
     return (
-      <div className="page-transition py-12 text-center">
-        <p className="text-muted-foreground">Post not found</p>
+      <div className="text-center py-12">
+        <h1 className="text-2xl font-bold mb-4">文章未找到</h1>
+        <Link to="/blog" className="text-primary hover:underline">返回博客列表</Link>
       </div>
     );
   }
 
   return (
-    <div className="page-transition py-12">
+    <div className="page-transition max-w-4xl mx-auto py-12 px-4">
       <article className="prose prose-lg dark:prose-invert mx-auto">
-        <header className="text-center mb-8 not-prose">
-          <div className="text-sm text-muted-foreground mb-2">{formatDate(post.date)}</div>
+        <header className="text-center mb-8">
           <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
+          <div className="text-muted-foreground mb-4">{formatDate(post.date)}</div>
           <div className="flex gap-2 justify-center flex-wrap">
             {post.tags.map(tag => (
-              <span key={tag} className="text-sm bg-muted px-2 py-1 rounded">
+              <span key={tag} className="px-3 py-1 bg-muted rounded-full text-sm">
                 {tag}
               </span>
             ))}
           </div>
         </header>
 
-        <div className="mb-12">
-          <MDXProvider components={components}>
-            {typeof post.content === 'function' ? <post.content /> : post.content}
-          </MDXProvider>
-        </div>
+        <MDXProvider components={components}>
+          <post.content />
+        </MDXProvider>
 
         {relatedPosts.length > 0 && (
-          <aside className="mt-16 not-prose">
+          <aside className="mt-12 pt-8 border-t">
             <h2 className="text-2xl font-bold mb-6">相关文章</h2>
-            <div className="grid gap-8 md:grid-cols-3">
-              {relatedPosts.map(relatedPost => (
+            <div className="grid gap-6 md:grid-cols-3">
+              {relatedPosts.map(related => (
                 <Link
-                  key={relatedPost.slug}
-                  to={`/blog/${relatedPost.slug}`}
-                  className="block p-6 bg-muted rounded-lg hover:bg-muted/80 transition-colors"
+                  key={related.slug}
+                  to={`/blog/${related.slug}`}
+                  className="glass rounded-lg p-4 card-hover"
                 >
-                  <h3 className="font-semibold mb-2">{relatedPost.title}</h3>
-                  <p className="text-sm text-muted-foreground">{relatedPost.excerpt}</p>
+                  <h3 className="font-semibold mb-2">{related.title}</h3>
+                  <p className="text-sm text-muted-foreground">{related.excerpt}</p>
                 </Link>
               ))}
             </div>

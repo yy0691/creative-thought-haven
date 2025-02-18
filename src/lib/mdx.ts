@@ -6,6 +6,7 @@ import remarkFrontmatter from 'remark-frontmatter';
 import remarkMdxFrontmatter from 'remark-mdx-frontmatter';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import rehypePrism from 'rehype-prism';
 
 export const mdxConfig = {
   remarkPlugins: [
@@ -15,7 +16,8 @@ export const mdxConfig = {
   ],
   rehypePlugins: [
     [rehypeSlug] as any,
-    [rehypeAutolinkHeadings] as any
+    [rehypeAutolinkHeadings] as any,
+    [rehypePrism] as any
   ],
   providerImportSource: '@mdx-js/react'
 };
