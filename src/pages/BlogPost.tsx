@@ -4,6 +4,8 @@ import { type BlogPost, type BlogPostMeta, formatDate, getBlogPosts } from '../l
 import { MDXProvider } from '@mdx-js/react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { tomorrow } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { Alert } from '../components/ui/alert';  // 添加这行
+import { RandomEmoji } from '../components/RandomEmoji';
 
 const components = {
   h1: props => <h1 className="text-3xl font-bold mt-8 mb-4" {...props} />,
@@ -13,14 +15,20 @@ const components = {
   ul: props => <ul className="list-disc list-inside my-4 space-y-2" {...props} />,
   ol: props => <ol className="list-decimal list-inside my-4 space-y-2" {...props} />,
   li: props => <li className="ml-4" {...props} />,
-  code: ({ children, className }) => {
-    const language = className ? className.replace(/language-/, '') : '';
-    return (
-      <SyntaxHighlighter language={language} style={tomorrow}>
-        {children}
-      </SyntaxHighlighter>
-    );
+  code: ({ children, className, ...props }) => {
+    // 如果有 className，说明是代码块
+    if (className) {
+      const language = className.replace(/language-/, '');
+      return (
+        <SyntaxHighlighter language={language} style={tomorrow}>
+          {children}
+        </SyntaxHighlighter>
+      );
+    }
+    return <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">{children}</code>;
   },
+  Alert: Alert,
+  RandomEmoji: RandomEmoji  // 添加这行
 };
 
 const BlogPost = () => {

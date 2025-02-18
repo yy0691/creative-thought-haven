@@ -3,7 +3,7 @@ const About = () => {
   return (
     <div className="page-transition space-y-12 py-12 max-w-4xl mx-auto">
       <header className="text-center space-y-4">
-        <h1 className="text-4xl font-bold">About Me</h1>
+        <h1 className="text-4xl font-bold">关于我</h1>
         <p className="text-muted-foreground">Get to know me better</p>
       </header>
 
@@ -19,7 +19,7 @@ const About = () => {
         </section>
 
         <section className="space-y-4">
-          <h2 className="text-2xl font-semibold">Skills</h2>
+          <h2 className="text-2xl font-semibold">技能</h2>
           <div className="flex gap-2 flex-wrap">
             {[
               "React",
@@ -48,7 +48,7 @@ const About = () => {
             Feel free to reach out for collaborations or just to say hi!
           </p>
           <a
-            href="mailto:contact@example.com"
+            href="yuyuan3162021@163.com"
             className="inline-block text-primary hover:underline"
           >
             contact@example.com

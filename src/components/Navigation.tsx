@@ -9,11 +9,11 @@ const Navigation = () => {
   const location = useLocation();
 
   const routes = [
-    { path: "/", label: "Home" },
-    { path: "/blog", label: "Blog" },
-    { path: "/portfolio", label: "Portfolio" },
-    { path: "/designs", label: "Designs" },
-    { path: "/about", label: "About" },
+    { path: "/", label: "首页" },
+    { path: "/blog", label: "文章" },
+    { path: "/portfolio", label: "软件" },
+    { path: "/designs", label: "设计" },
+    { path: "/about", label: "关于" },
   ];
 
   return (

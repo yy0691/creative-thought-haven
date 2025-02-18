@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { videos } from '../content/videos';
+import { projects } from '../content/projects';
+import { videoMeta } from '../content/videos';
 
 type Category = 'all' | 'tutorial' | 'demo' | 'showcase';
 
@@ -7,12 +8,18 @@ const Videos = () => {
   const [category, setCategory] = useState<Category>('all');
   const [searchQuery, setSearchQuery] = useState('');
 
-  const filteredVideos = videos.filter(video => {
-    const matchesCategory = category === 'all' || video.category === category;
+  // 过滤有视频的项目
+  const videoPosts = projects.filter(project => project.videoUrl);
+
+  const filteredVideos = videoPosts.filter(project => {
+    const meta = videoMeta[project.id];
+    if (!meta) return false;
+
+    const matchesCategory = category === 'all' || meta.category === category;
     const matchesSearch = 
-      video.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      video.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      video.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
+      project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      project.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      meta.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
     return matchesCategory && matchesSearch;
   });
 
@@ -53,51 +60,45 @@ const Videos = () => {
         </div>
 
         <div className="grid gap-8 md:grid-cols-2">
-          {filteredVideos.map((video) => (
-            <div 
-              key={video.id} 
-              className="glass rounded-lg overflow-hidden card-hover border border-white/20 shadow-lg"
-              style={{
-                background: `linear-gradient(to bottom right, rgba(255,255,255,0.9), rgba(255,255,255,0.6))`,
-              }}
-            >
-              <div className="aspect-video bg-gradient-to-br from-primary/5 to-primary/10 relative">
-                <img 
-                  src={video.thumbnail} 
-                  alt={video.title}
-                  className="w-full h-full object-cover"
-                />
-                <span className="absolute bottom-2 right-2 bg-black/70 text-white px-2 py-1 rounded text-sm">
-                  {video.duration}
-                </span>
-              </div>
-              <div className="p-6 space-y-4">
-                <h3 className="text-xl font-semibold text-primary">{video.title}</h3>
-                <p className="text-muted-foreground">{video.description}</p>
-                <div className="flex gap-2 flex-wrap">
-                  {video.tags.map((tag) => (
-                    <span 
-                      key={tag}
-                      className="text-xs bg-primary/5 text-primary px-3 py-1 rounded-full border border-primary/10 hover:bg-primary/10 transition-colors"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                <div className="flex justify-between items-center pt-2">
-                  <span className="text-sm text-muted-foreground">
-                    {new Date(video.publishDate).toLocaleDateString('zh-CN')}
+          {filteredVideos.map((project) => {
+            const meta = videoMeta[project.id];
+            return (
+              <div key={project.id} className="glass rounded-lg overflow-hidden card-hover">
+                <div className="aspect-video bg-gradient-to-br from-primary/5 to-primary/10 relative">
+                  <img 
+                    src={project.thumbnail} 
+                    alt={project.title}
+                    className="w-full h-full object-cover"
+                  />
+                  <span className="absolute bottom-2 right-2 bg-black/70 text-white px-2 py-1 rounded text-sm">
+                    {meta?.duration}
                   </span>
-                  <a 
-                    href={`/videos/${video.id}`}
-                    className="text-sm text-primary hover:underline"
-                  >
-                    观看视频
-                  </a>
+                </div>
+                <div className="p-6 space-y-4">
+                  <h3 className="text-xl font-semibold text-primary">{project.title}</h3>
+                  <p className="text-muted-foreground">{project.description}</p>
+                  <div className="flex gap-2 flex-wrap">
+                    {meta?.tags.map((tag) => (
+                      <span key={tag} className="text-xs bg-primary/5 text-primary px-3 py-1 rounded-full">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="flex justify-between items-center pt-2">
+                    <span className="text-sm text-muted-foreground">
+                      {new Date(project.publishDate).toLocaleDateString('zh-CN')}
+                    </span>
+                    <a 
+                      href={`/videos/${project.id}`}
+                      className="text-sm text-primary hover:underline"
+                    >
+                      观看视频
+                    </a>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>
