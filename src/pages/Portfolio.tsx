@@ -1,4 +1,5 @@
 
+import { Link } from 'react-router-dom';
 import { projects } from '../content/projects';
 
 const Portfolio = () => {
@@ -62,6 +63,14 @@ const Portfolio = () => {
                   >
                     Live Demo
                   </a>
+                )}
+                {project.videoUrl && (
+                  <Link 
+                    to={`/videos/${project.id}`}
+                    className="text-sm text-primary hover:underline"
+                  >
+                    观看视频
+                  </Link>
                 )}
               </div>
             </div>

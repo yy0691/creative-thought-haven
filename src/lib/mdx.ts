@@ -6,18 +6,17 @@ import remarkFrontmatter from 'remark-frontmatter';
 import remarkMdxFrontmatter from 'remark-mdx-frontmatter';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
-import rehypePrism from 'rehype-prism';
+import type { Options } from '@mdx-js/rollup';
 
-export const mdxConfig = {
+export const mdxConfig: Options = {
   remarkPlugins: [
-    [remarkGfm] as any,
-    [remarkFrontmatter] as any,
-    [remarkMdxFrontmatter, { name: 'metadata' }] as any
+    remarkGfm,
+    remarkFrontmatter,
+    [remarkMdxFrontmatter, { name: 'metadata', exports: true }]
   ],
   rehypePlugins: [
-    [rehypeSlug] as any,
-    [rehypeAutolinkHeadings] as any,
-    [rehypePrism] as any
+    rehypeSlug,
+    rehypeAutolinkHeadings
   ],
   providerImportSource: '@mdx-js/react'
 };

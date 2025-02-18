@@ -1,6 +1,8 @@
 import { useParams } from 'react-router-dom';
-import { videos } from '../content/videos';
+import { videoMeta } from '../content/videos';
+import { projects } from '../content/projects';
 import { useState } from 'react';
+import VideoPlayer from '../components/VideoPlayer';  // 添加这行
 
 interface Comment {
   id: number;
@@ -11,12 +13,13 @@ interface Comment {
 
 const VideoDetails = () => {
   const { id } = useParams<{ id: string }>();
-  const video = videos.find(v => v.id === id);
-  const [comments, setComments] = useState<Comment[]>([]);
+  const project = projects.find(p => p.id === id);
+  const meta = videoMeta[id || ''];
+  const [comments, setComments] = useState<Comment[]>(meta?.comments || []);
   const [newComment, setNewComment] = useState('');
   const [author, setAuthor] = useState('');
 
-  if (!video) {
+  if (!project || !project.videoUrl) {
     return (
       <div className="flex items-center justify-center min-h-[50vh]">
         <p className="text-xl text-muted-foreground">视频未找到</p>
@@ -44,25 +47,22 @@ const VideoDetails = () => {
       <div className="space-y-8">
         {/* 视频播放器 */}
         <div className="aspect-video bg-black rounded-lg overflow-hidden shadow-lg">
-          <video
-            src={video.videoUrl}
-            controls
-            poster={video.thumbnail}
+          <VideoPlayer
+            url={project.videoUrl}
+            title={project.title}
             className="w-full h-full"
-          >
-            您的浏览器不支持 HTML5 视频播放
-          </video>
+          />
         </div>
 
         {/* 视频信息 */}
         <div className="space-y-4">
-          <h1 className="text-3xl font-bold text-primary">{video.title}</h1>
+          <h1 className="text-3xl font-bold text-primary">{project.title}</h1>
           <div className="flex gap-4 text-sm text-muted-foreground">
-            <span>发布于 {new Date(video.publishDate).toLocaleDateString('zh-CN')}</span>
-            <span>时长 {video.duration}</span>
+            <span>发布于 {new Date(project.publishDate).toLocaleDateString('zh-CN')}</span>
+            <span>时长 {meta?.duration}</span>
           </div>
           <div className="flex gap-2">
-            {video.tags.map(tag => (
+            {meta?.tags.map(tag => (
               <span
                 key={tag}
                 className="px-3 py-1 rounded-full text-sm bg-primary/5 text-primary"
@@ -72,7 +72,7 @@ const VideoDetails = () => {
             ))}
           </div>
           <div className="prose prose-primary max-w-none">
-            {video.details.split('\n').map((line, index) => (
+            {project.details.split('\n').map((line, index) => (
               <p key={index}>{line}</p>
             ))}
           </div>

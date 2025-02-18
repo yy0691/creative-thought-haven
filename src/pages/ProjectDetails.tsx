@@ -1,6 +1,8 @@
 import { useParams } from 'react-router-dom';
 import { projects } from '../content/projects';
 import { marked } from 'marked';
+import VideoPlayer from '../components/VideoPlayer';
+import FigmaEmbed from '../components/FigmaEmbed';  // 添加这行
 
 const ProjectDetails = () => {
   const { id } = useParams();
@@ -16,7 +18,7 @@ const ProjectDetails = () => {
   }
 
   return (
-    <div className="page-transition py-12 max-w-4xl mx-auto space-y-8">
+    <div className="page-transition py-12 max-w-6xl mx-auto px-4">
       <header className="space-y-4">
         <h1 className="text-4xl font-bold bg-gradient-to-r from-primary/90 to-primary bg-clip-text text-transparent">
           {project.title}
@@ -32,13 +34,12 @@ const ProjectDetails = () => {
         />
       </div>
 
-      {project.videoUrl && (
+      {(project.videoUrl || project.demoUrl) && (
         <div className="space-y-4">
           <h2 className="text-2xl font-semibold text-primary">项目演示</h2>
-          <video 
-            src={project.videoUrl} 
-            controls 
-            className="w-full rounded-lg"
+          <VideoPlayer 
+            url={project.videoUrl || project.demoUrl || ''} 
+            title={project.title}
           />
         </div>
       )}
@@ -83,6 +84,18 @@ const ProjectDetails = () => {
       <div className="prose prose-primary max-w-none">
         <div dangerouslySetInnerHTML={{ __html: marked(project.details) }} />
       </div>
+
+      {/* Figma 预览部分 */}
+      {project.figmaUrl && (
+        <div className="mt-8">
+          <h2 className="text-2xl font-semibold mb-4">设计原型</h2>
+          <FigmaEmbed 
+            url={project.figmaUrl} 
+            title={`${project.title} - 设计原型`}
+            className="shadow-lg"
+          />
+        </div>
+      )}
     </div>
   );
 };
