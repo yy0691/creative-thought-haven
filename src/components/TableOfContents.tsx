@@ -65,7 +65,7 @@ export const TableOfContents = ({ content }: TableOfContentsProps) => {
 
   return (
     <nav
-      className={`fixed left-0 top-24 h-[calc(100vh-6rem)] transition-all duration-500 ease-in-out ${isCollapsed ? 'w-8' : 'w-64'} bg-background border-r shadow-lg`}
+      className={`fixed left-0 top-24 h-[calc(100vh-6rem)] transition-all duration-500 ease-in-out ${isCollapsed ? 'w-8' : 'w-64'} bg-background border-r shadow-sm`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >

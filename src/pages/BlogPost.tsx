@@ -47,6 +47,7 @@ const BlogPost = () => {
         
         const post: BlogPost = {
           slug: slug || '',
+          category: metadata.category || '',
           title: metadata.title || '无标题',
           date: metadata.date || new Date().toISOString(),
           excerpt: metadata.excerpt || '暂无描述',

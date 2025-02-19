@@ -1,8 +1,21 @@
 
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { projects } from '../content/projects';
+import { CategorySelector } from '../components/CategorySelector';
+
+const projectCategories = [
+  { id: 'custom', name: '自制作品', description: '个人开发的原创软件作品' },
+  { id: 'common', name: '常用软件', description: '精选的高效实用软件推荐' },
+  { id: 'automation', name: '自动化工具', description: '提升工作效率的自动化解决方案' },
+];
 
 const Portfolio = () => {
+  const [selectedCategory, setSelectedCategory] = useState<string>('');
+  const filteredProjects = selectedCategory
+    ? projects.filter(project => project.category === selectedCategory)
+    : projects;
+
   return (
     <div className="page-transition space-y-8 py-12">
       <header className="text-center space-y-4">
@@ -12,8 +25,15 @@ const Portfolio = () => {
         <p className="text-muted-foreground">Selected works and projects</p>
       </header>
 
+      <CategorySelector
+        categories={projectCategories}
+        selectedCategory={selectedCategory}
+        onSelect={setSelectedCategory}
+        className="max-w-4xl mx-auto"
+      />
+
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {projects.map((project) => (
+        {filteredProjects.map((project) => (
           <div 
             key={project.id} 
             className="glass rounded-lg overflow-hidden card-hover border border-white/20 shadow-lg"
