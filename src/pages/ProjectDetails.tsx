@@ -38,7 +38,7 @@ const ProjectDetails = () => {
         <div className="space-y-4">
           <h2 className="text-2xl font-semibold text-primary">项目演示</h2>
           <VideoPlayer 
-            url={project.videoUrl || project.demoUrl || ''} 
+            src={project.videoUrl || project.demoUrl || ''} 
             title={project.title}
           />
         </div>

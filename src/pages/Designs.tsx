@@ -1,30 +1,54 @@
 
 import { designs } from "../content/designs";
+import { Link } from "react-router-dom";
+
+import { useEffect } from 'react';
 
 const Designs = () => {
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const ripple = document.createElement('div');
+      ripple.className = 'mouse-ripple';
+      ripple.style.left = `${e.clientX}px`;
+      ripple.style.top = `${e.clientY}px`;
+      document.body.appendChild(ripple);
+
+      setTimeout(() => {
+        ripple.remove();
+      }, 1000);
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
   return (
-    <div className="page-transition space-y-8 py-12">
-      <header className="text-center space-y-4">
-        <h1 className="text-4xl font-bold bg-gradient-to-r from-primary/90 to-primary bg-clip-text text-transparent">
+    <div className="space-y-8 py-12 animate-fadeIn">
+      <header className="text-center space-y-4 animate-slideDown">
+        <h1 className="text-4xl font-bold bg-gradient-to-r from-primary/90 to-primary bg-clip-text text-transparent hover:scale-105 transition-transform cursor-default">
           设计作品
         </h1>
-        <p className="text-muted-foreground">UI/UX 和平面设计作品展示</p>
+        <p className="text-muted-foreground hover:text-primary transition-colors">UI/UX 和平面设计作品展示</p>
       </header>
 
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         {designs.map((design) => (
-          <div 
+          <Link 
             key={design.id} 
-            className="glass rounded-lg overflow-hidden card-hover border border-white/20 shadow-lg"
+            to={`/designs/${design.id}`}
+            className="glass rounded-lg overflow-hidden border border-white/20 shadow-lg transition-all duration-300 transform-gpu hover:translate-y-[-8px] hover:shadow-xl hover:border-primary/30 group" 
             style={{
               background: `linear-gradient(to bottom right, rgba(255,255,255,0.9), rgba(255,255,255,0.6))`,
+              transformStyle: 'preserve-3d',
+              backfaceVisibility: 'hidden',
+              perspective: '1000px'
             }}
           >
             <div className="aspect-square bg-gradient-to-br from-primary/5 to-primary/10 relative overflow-hidden">
               <img 
                 src={design.thumbnail} 
                 alt={design.title}
-                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                className="w-full h-full object-cover transition-all duration-300 group-hover:rotate-2 group-hover:opacity-90"
               />
             </div>
             <div className="p-6 space-y-4">
@@ -42,26 +66,24 @@ const Designs = () => {
               </div>
               <div className="flex gap-4 pt-2">
                 {design.figmaUrl && (
-                  <a
-                    href={design.figmaUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <button
+                    onClick={() => window.open(design.figmaUrl, '_blank', 'noopener,noreferrer')}
                     className="text-sm text-primary hover:underline"
                   >
                     在 Figma 中查看
-                  </a>
+                  </button>
                 )}
                 {design.downloadUrl && (
-                  <a
-                    href={design.downloadUrl}
+                  <button
+                    onClick={() => window.open(design.downloadUrl, '_blank')}
                     className="text-sm text-primary hover:underline"
                   >
                     下载设计文件
-                  </a>
+                  </button>
                 )}
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

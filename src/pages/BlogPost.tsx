@@ -47,12 +47,12 @@ const BlogPost = () => {
         
         const post: BlogPost = {
           slug: slug || '',
-          category: metadata.category || '',
           title: metadata.title || '无标题',
           date: metadata.date || new Date().toISOString(),
           excerpt: metadata.excerpt || '暂无描述',
           tags: metadata.tags || [],
-          content: Content
+          content: Content,
+          category: ''
         };
         setPost(post);
 
@@ -90,9 +90,9 @@ const BlogPost = () => {
 
   return (
     <div className="page-transition min-h-screen">
-      <article className={`prose prose-lg dark:prose-invert mx-auto py-12 px-4 transition-all duration-500 ease-in-out ${!isCollapsed ? 'ml-64 max-w-3xl' : 'max-w-4xl'}`}>
+      <article className={`prose prose-lg dark:prose-invert mx-auto py-12 px-4 transition-all duration-500 ease-in-out ${!isCollapsed ? 'md:ml-64 max-w-3xl' : 'max-w-4xl'}`}>
         <header className="text-center mb-8">
-          <h1 className="text-4xl font-bold mb-4 hover:scale-105 transition-transform duration-300">{post.title}</h1>
+          <h1 className="text-4xl font-bold mb-4 hover:scale-105 transition-transform duration-300 transform-gpu backface-visibility-hidden will-change-transform">{post.title}</h1>
           <div className="text-muted-foreground mb-4">{formatDate(post.date)}</div>
           <div className="flex gap-2 justify-center flex-wrap">
             {post.tags.map(tag => (

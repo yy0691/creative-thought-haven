@@ -3,6 +3,7 @@ import { useState } from "react";
 import React from 'react';
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
+import SearchBar from './SearchBar';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,9 +18,9 @@ const Navigation = () => {
   ];
 
   return (
-    <nav className="fixed w-full top-0 z-50 glass px-6 py-4">
+    <nav className="fixed w-full top-0 z-50 glass px-6 py-4 backdrop-blur-sm bg-background/80 border-b border-border/40 animate-fadeIn">
       <div className="container mx-auto flex items-center justify-between">
-        <Link to="/" className="text-2xl font-semibold">
+        <Link to="/" className="text-2xl font-semibold hover:text-primary transition-colors duration-300">
           Portfolio
         </Link>
 
@@ -38,6 +39,7 @@ const Navigation = () => {
               {route.label}
             </Link>
           ))}
+          <SearchBar />
         </div>
 
         {/* Mobile Navigation */}
@@ -50,7 +52,7 @@ const Navigation = () => {
         </button>
 
         {isOpen && (
-          <div className="absolute top-full left-0 right-0 glass py-4 md:hidden animate-slideIn">
+          <div className="absolute top-full left-0 right-0 glass py-4 md:hidden animate-slideDown backdrop-blur-sm bg-background/95 border-b border-border/40">
             <div className="flex flex-col space-y-4 px-6">
               {routes.map((route) => (
                 <Link
@@ -66,6 +68,9 @@ const Navigation = () => {
                   {route.label}
                 </Link>
               ))}
+              <div className="pt-2">
+                <SearchBar />
+              </div>
             </div>
           </div>
         )}

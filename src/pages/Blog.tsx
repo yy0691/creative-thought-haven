@@ -19,6 +19,23 @@ const Blog = () => {
   const [filteredPosts, setFilteredPosts] = useState<BlogPostMeta[]>([]);
 
   useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const ripple = document.createElement('div');
+      ripple.className = 'mouse-ripple';
+      ripple.style.left = `${e.clientX}px`;
+      ripple.style.top = `${e.clientY}px`;
+      document.body.appendChild(ripple);
+
+      setTimeout(() => {
+        ripple.remove();
+      }, 1000);
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  useEffect(() => {
     const loadPosts = async () => {
       const allPosts = await getBlogPosts();
       setPosts(allPosts);
@@ -55,13 +72,24 @@ const Blog = () => {
           <Link
             key={post.slug}
             to={`/blog/${post.slug}`}
-            className="glass rounded-lg p-6 card-hover"
+            className="group hover:bg-primary/5 p-6 rounded-lg transition-all duration-300 transform-gpu cursor-default hover:translate-y-[-8px] hover:shadow-lg border border-transparent hover:border-primary/30"
+            style={{ transformStyle: 'preserve-3d', backfaceVisibility: 'hidden', perspective: '1000px' }}
           >
-            <article>
-              <div className="space-y-4">
-                <div className="text-sm text-muted-foreground">{formatDate(post.date)}</div>
-                <h2 className="text-xl font-semibold">{post.title}</h2>
-                <p className="text-muted-foreground">{post.excerpt}</p>
+            <article className="space-y-4">
+              <div className="space-y-2">
+                <h2 className="text-2xl font-semibold group-hover:text-primary transition-colors">{post.title}</h2>
+                <time className="text-sm text-muted-foreground group-hover:text-primary/80 transition-colors">{post.date}</time>
+              </div>
+              <p className="text-muted-foreground group-hover:text-primary/80 transition-colors">{post.description}</p>
+              <div className="flex gap-2 flex-wrap">
+                {post.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="text-xs bg-primary/5 text-primary px-3 py-1 rounded-full border border-primary/10 hover:bg-primary/10 transition-colors"
+                  >
+                    {tag}
+                  </span>
+                ))}
               </div>
             </article>
           </Link>

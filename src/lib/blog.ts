@@ -9,6 +9,7 @@ export interface BlogPost {
 }
 
 export interface BlogPostMeta {
+  [x: string]: any;
   category: string;
   slug: string;
   title: string;
@@ -36,6 +37,10 @@ export async function getBlogPosts(): Promise<BlogPostMeta[]> {
     });
 
     return posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+}
+
+export async function getAllPosts(): Promise<BlogPostMeta[]> {
+  return getBlogPosts();
 }
 
 export function formatDate(date: string) {
