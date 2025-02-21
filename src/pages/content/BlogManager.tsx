@@ -2,7 +2,9 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getAllPosts } from '../../lib/blog';
 import { toast } from '@/components/ui/use-toast';
-import { savePost } from '../../lib/file-system';
+import { savePost, deletePost } from '../../lib/file-system';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 
 interface BlogPost {
   title: string;
@@ -66,11 +68,15 @@ const BlogManager = () => {
   const loadPosts = async () => {
     try {
       const allPosts = await getAllPosts();
-      // 将 BlogPostMeta 类型转换为 BlogPost 类型
-      const postsWithContent = allPosts.map(post => ({
-        ...post,
-        description: post.excerpt || '',
-        content: ''
+      // 将 BlogPostMeta 类型转换为 BlogPost 类型，并获取文章内容
+      const postsWithContent = await Promise.all(allPosts.map(async post => {
+        const response = await fetch(`http://localhost:3001/api/posts/${post.slug}`);
+        const data = await response.json();
+        return {
+          ...post,
+          description: post.excerpt || '',
+          content: data.content || ''
+        };
       }));
       setPosts(postsWithContent);
     } catch (error) {
@@ -101,66 +107,200 @@ const BlogManager = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleInputChange = (field: keyof BlogPost, value: string) => {
-    if (field === 'tags') {
-      setFormData(prev => ({
-        ...prev,
-        tags: value.split(',').map(tag => tag.trim()).filter(Boolean)
-      }));
-    } else {
-      setFormData(prev => ({
-        ...prev,
-        [field]: value,
-        slug: field === 'title' ? value.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') : prev.slug
-      }));
-    }
+  // 添加生成 slug 的函数
+  const generateSlug = (title: string) => {
+    return title
+      .toLowerCase()
+      .replace(/[\s\u4e00-\u9fa5]/g, '-') // 将空格和中文字符替换为连字符
+      .replace(/[^a-z0-9-]/g, '') // 移除非字母数字和连字符的字符
+      .replace(/-+/g, '-') // 将多个连字符替换为单个
+      .replace(/^-|-$/g, ''); // 移除首尾的连字符
+  };
+
+  // 修改表单数据变更的处理函数
+  const handleInputChange = (field: keyof typeof formData, value: string) => {
+    setFormData(prev => {
+      const newData = { ...prev, [field]: value };
+      
+      // 当标题改变时，自动生成 slug
+      if (field === 'title') {
+        newData.slug = generateSlug(value);
+      }
+      
+      return newData;
+    });
+  };
+
+  const handleTagsChange = (value: string) => {
+    // 允许输入英文逗号，并正确分割标签
+    const tags = value
+      .split(/[,，]/) // 同时支持中英文逗号
+      .map(tag => tag.trim())
+      .filter(Boolean); // 过滤空标签
+
+    setFormData(prev => ({
+      ...prev,
+      tags
+    }));
   };
 
   const handleSave = async () => {
-    if (!validateForm()) {
-      toast({
-        title: '错误',
-        description: '请填写所有必填字段',
-        variant: 'destructive',
-      });
-      return;
-    }
-    if (!formData.slug) {
-      toast({
-        title: '错误',
-        description: '文章标题不能为空，无法生成 URL',
-        variant: 'destructive',
-      });
-      return;
-    }
+    if (!validateForm()) return;
 
     try {
+      // 检查 slug 是否存在
+      if (!formData.slug) {
+        toast({
+          title: '错误',
+          description: '无法生成文章链接，请检查标题',
+          variant: 'destructive',
+        });
+        return;
+      }
+
+      // 构建 frontmatter
+      const frontmatter = {
+        title: formData.title,
+        date: formData.date,
+        category: formData.category,
+        tags: formData.tags,
+        excerpt: formData.description
+      };
+
+      const frontmatterContent = Object.entries(frontmatter)
+        .map(([key, value]) => {
+          if (key === 'tags' && Array.isArray(value)) {
+            return `${key}: [${value.map(tag => `"${tag}"`).join(', ')}]`;
+          }
+          return `${key}: "${value}"`;
+        })
+        .join('\n');
+
       const mdxContent = `---
-title: ${formData.title}
-date: ${formData.date}
-category: ${formData.category}
-tags: [${formData.tags.map(tag => `"${tag}"`).join(', ')}]
-description: ${formData.description}
+${frontmatterContent}
 ---
 
 ${formData.content}`;
 
-      const success = await savePost(formData.slug, mdxContent);
-      if (success) {
-        toast({
-          title: '成功',
-          description: '文章保存成功',
-        });
-        await loadPosts();
-        setIsEditing(false);
-      } else {
-        throw new Error('保存文章失败');
+      // 确保 URL 路径正确
+      const baseUrl = 'http://localhost:3001/api/posts';
+      const url = selectedPost 
+        ? `${baseUrl}/${formData.slug}` 
+        : baseUrl;
+
+      console.log('请求 URL:', url); // 调试用
+
+      const response = await fetch(url, {
+        method: selectedPost ? 'PUT' : 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          slug: formData.slug,
+          content: mdxContent
+        }),
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('服务器响应:', errorText); // 调试用
+        throw new Error(`保存失败: ${errorText}`);
       }
+
+      const data = await response.json();
+      
+      if (!data.success) {
+        throw new Error(data.message || '保存失败');
+      }
+
+      toast({
+        title: '成功',
+        description: '文章已保存',
+      });
+
+      await loadPosts();
+      setIsEditing(false);
+      setSelectedPost(null);
     } catch (error) {
       console.error('保存文章失败:', error);
       toast({
         title: '错误',
-        description: '保存文章失败',
+        description: error instanceof Error ? error.message : '保存文章失败',
+        variant: 'destructive',
+      });
+    }
+  };
+
+  // 添加解析 frontmatter 的函数
+  const parseFrontmatter = (content: string) => {
+    const match = content.match(/^---([\s\S]*?)---\n([\s\S]*)$/);
+    if (!match) return null;
+
+    try {
+      const [, frontmatterStr, contentStr] = match;
+      const frontmatter = frontmatterStr
+        .split('\n')
+        .filter(Boolean)
+        .reduce((acc, line) => {
+          const [key, ...values] = line.split(':').map(s => s.trim());
+          const value = values.join(':').replace(/^["']|["']$/g, ''); // 移除引号
+          if (key === 'tags') {
+            // 处理标签数组
+            acc[key] = value
+              .replace(/[\[\]]/g, '') // 移除方括号
+              .split(',')
+              .map(tag => tag.trim().replace(/^["']|["']$/g, '')); // 移除引号
+          } else {
+            acc[key] = value;
+          }
+          return acc;
+        }, {} as Record<string, any>);
+
+      return {
+        frontmatter,
+        content: contentStr.trim()
+      };
+    } catch (error) {
+      console.error('解析 frontmatter 失败:', error);
+      return null;
+    }
+  };
+
+  // 修改选择文章的处理函数
+  const handleSelectPost = async (post: BlogPost) => {
+    try {
+      const response = await fetch(`http://localhost:3001/api/posts/${post.slug}`);
+      const data = await response.json();
+      
+      if (!data.success) {
+        throw new Error('获取文章内容失败');
+      }
+
+      const parsed = parseFrontmatter(data.content);
+      if (!parsed) {
+        throw new Error('解析文章内容失败');
+      }
+
+      const { frontmatter, content } = parsed;
+
+      // 确保设置 slug
+      setFormData({
+        title: frontmatter.title || '',
+        date: frontmatter.date || '',
+        category: frontmatter.category || '',
+        tags: frontmatter.tags || [],
+        description: frontmatter.excerpt || '', // 注意这里使用 excerpt
+        content: content,
+        slug: post.slug // 确保设置 slug
+      });
+
+      setSelectedPost(post);
+      setIsEditing(true);
+    } catch (error) {
+      console.error('加载文章失败:', error);
+      toast({
+        title: '错误',
+        description: '加载文章失败',
         variant: 'destructive',
       });
     }
@@ -246,8 +386,7 @@ ${formData.content}`;
                     <div
                       key={post.slug}
                       onClick={() => {
-                        setSelectedPost(post);
-                        setIsEditing(true);
+                        handleSelectPost(post);
                       }}
                       className="p-4 border border-gray-200 rounded-lg hover:border-primary/50 cursor-pointer transition-colors"
                     >
@@ -262,6 +401,37 @@ ${formData.content}`;
                             {tag}
                           </span>
                         ))}
+                      </div>
+                      <div className="mt-2 flex justify-end">
+                        <button
+                          onClick={async (e) => {
+                            e.stopPropagation();
+                            if (window.confirm('确定要删除这篇文章吗？')) {
+                              try {
+                                const success = await deletePost(post.slug);
+                                if (success) {
+                                  toast({
+                                    title: '成功',
+                                    description: '文章已删除',
+                                  });
+                                  await loadPosts();
+                                } else {
+                                  throw new Error('删除文章失败');
+                                }
+                              } catch (error) {
+                                console.error('删除文章失败:', error);
+                                toast({
+                                  title: '错误',
+                                  description: '删除文章失败',
+                                  variant: 'destructive',
+                                });
+                              }
+                            }
+                          }}
+                          className="text-sm text-red-500 hover:text-red-700"
+                        >
+                          删除
+                        </button>
                       </div>
                     </div>
                   ))}
@@ -311,12 +481,10 @@ ${formData.content}`;
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">标签</label>
-                  <input
-                    type="text"
-                    placeholder="输入标签，用逗号分隔"
-                    className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50"
+                  <Input
                     value={formData.tags.join(', ')}
-                    onChange={(e) => handleInputChange('tags', e.target.value)}
+                    onChange={(e) => handleTagsChange(e.target.value)}
+                    placeholder="输入标签，用逗号分隔"
                   />
                 </div>
 
@@ -344,19 +512,18 @@ ${formData.content}`;
                   {errors.content && <p className="text-red-500 text-sm mt-1">{errors.content}</p>}
                 </div>
 
-                <div className="flex justify-end space-x-4">
-                  <button
+                <div className="flex justify-end gap-4 mt-6">
+                  <Button 
+                    variant="outline" 
                     onClick={() => setIsEditing(false)}
-                    className="px-4 py-2 text-gray-600 hover:text-gray-900 transition-colors"
                   >
                     取消
-                  </button>
-                  <button 
+                  </Button>
+                  <Button 
                     onClick={handleSave}
-                    className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
                   >
                     保存
-                  </button>
+                  </Button>
                 </div>
               </div>
             ) : (

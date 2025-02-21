@@ -10,11 +10,15 @@ export async function savePost(slug: string, content: string) {
       },
       body: JSON.stringify({ slug, content }),
     });
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || '保存文章失败');
+    }
     const data = await response.json();
     return data.success;
   } catch (error) {
     console.error('保存文章失败:', error);
-    return false;
+    throw error; // 向上传递错误，以便 UI 组件可以显示具体错误信息
   }
 }
 
