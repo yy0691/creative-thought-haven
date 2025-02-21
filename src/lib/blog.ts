@@ -1,5 +1,6 @@
 export interface BlogPost {
   slug: string;
+  category: string;
   title: string;
   date: string;
   excerpt: string;
@@ -8,6 +9,8 @@ export interface BlogPost {
 }
 
 export interface BlogPostMeta {
+  [x: string]: any;
+  category: string;
   slug: string;
   title: string;
   date: string;
@@ -25,6 +28,7 @@ export async function getBlogPosts(): Promise<BlogPostMeta[]> {
         
         return {
             slug,
+            category: metadata.category || '未分类', // 添加 category 属性
             title: metadata.title || '无标题',
             date: metadata.date || new Date().toISOString(),
             excerpt: metadata.excerpt || '暂无描述',
@@ -33,6 +37,10 @@ export async function getBlogPosts(): Promise<BlogPostMeta[]> {
     });
 
     return posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+}
+
+export async function getAllPosts(): Promise<BlogPostMeta[]> {
+  return getBlogPosts();
 }
 
 export function formatDate(date: string) {

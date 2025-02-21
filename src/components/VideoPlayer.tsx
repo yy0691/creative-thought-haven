@@ -1,63 +1,96 @@
 import React, { useState } from 'react';
+import Loader from './Loader';
 
 interface VideoPlayerProps {
-  url: string;
+  src: string;
   title?: string;
+  poster?: string;
   className?: string;
 }
 
-const VideoPlayer: React.FC<VideoPlayerProps> = ({ url, title, className = '' }) => {
-  const [isLoading, setIsLoading] = useState(true);  // 添加这行
-  
-  // 判断是否为第三方视频链接
-  const isExternalVideo = url.includes('youtube.com') || 
-                         url.includes('bilibili.com') || 
-                         url.includes('pan.quark.cn');  // 添加夸克网盘判断
+const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, title, poster }) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [isReady, setIsReady] = useState(false);
 
-  // 处理第三方视频链接
-  const getEmbedUrl = (url: string) => {
-    if (url.includes('youtube.com')) {
-      const videoId = url.split('v=')[1];
-      return `https://www.youtube.com/embed/${videoId}`;
-    }
-    if (url.includes('bilibili.com')) {
-      // 从URL中提取视频ID
-      const bvid = url.split('BV')[1]?.split('?')[0];
-      return `https://player.bilibili.com/player.html?bvid=BV${bvid}&high_quality=1&danmaku=0`;
-    }
-    if (url.includes('pan.quark.cn')) {
-      // 夸克网盘视频链接格式：https://pan.quark.cn/s/********?preview=video
-      const shareId = url.split('/s/')[1]?.split('?')[0];
-      return `https://pan.quark.cn/s/${shareId}?preview=video&embed=true`;
-    }
-    return url;
+  const handleLoadedData = () => {
+    setIsLoading(false);
+    setIsReady(true);
   };
 
-  return (
-    <div className={`video-player w-full relative ${className}`}>
-      {isLoading && (
-        <div className="absolute inset-0 flex items-center justify-center bg-black/10 backdrop-blur-sm">
-          <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
-        </div>
-      )}
-      {isExternalVideo ? (
+  // 判断是否为B站视频链接
+  const isBilibiliVideo = (url: string) => {
+    return url.includes('bilibili.com');
+  };
+
+  // 从B站链接中提取视频ID
+  const getBilibiliVideoId = (url: string) => {
+    const match = url.match(/BV[\w]+/);
+    return match ? match[0] : '';
+  };
+
+  // 渲染B站视频嵌入播放器
+  const renderBilibiliPlayer = (videoId: string) => {
+    const embedUrl = `https://player.bilibili.com/player.html?bvid=${videoId}&high_quality=1&danmaku=0`;
+    return (
+      <div className="relative w-full h-full">
+        {isLoading && (
+          <div className="absolute inset-0 flex items-center justify-center bg-black/90 z-[100]">
+            <Loader />
+          </div>
+        )}
         <iframe
-          src={getEmbedUrl(url)}
-          title={title || '视频播放器'}
-          className="w-full aspect-video rounded-lg"
+          src={embedUrl}
+          className="w-full h-full"
+          frameBorder="0"
           allowFullScreen
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           onLoad={() => setIsLoading(false)}
         />
-      ) : (
-        <video
-          src={url}
-          controls
-          className="w-full rounded-lg"
-          title={title || '视频播放器'}
-          onLoadedData={() => setIsLoading(false)}
-        />
+      </div>
+    );
+  };
+
+  // 如果是B站视频，使用嵌入播放器
+  if (isBilibiliVideo(src)) {
+    const videoId = getBilibiliVideoId(src);
+    return (
+      <div className="relative w-full aspect-video bg-black/10 rounded-lg overflow-hidden">
+        {videoId ? renderBilibiliPlayer(videoId) : (
+          <div className="flex items-center justify-center h-full text-primary">
+            无效的B站视频链接
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  // 本地视频播放
+  return (
+    <div className="relative w-full aspect-video">
+      {(!isReady || isLoading) && (
+        <div className="absolute inset-0 flex items-center justify-center bg-black/90 z-[100]">
+          <Loader />
+        </div>
       )}
+      <div className="relative w-full h-full bg-black/10 rounded-lg overflow-hidden">
+        <video
+          className={`w-full h-full object-contain transition-opacity duration-300 ${isReady ? 'opacity-100' : 'opacity-0'}`}
+          controls
+          poster={poster}
+          onLoadedData={handleLoadedData}
+          onLoadStart={() => setIsLoading(true)}
+          onError={() => {
+            setIsLoading(false);
+            setIsReady(true);
+          }}
+          onWaiting={() => setIsLoading(true)}
+          onPlaying={() => setIsLoading(false)}
+        >
+          <source src={src} type="video/mp4" />
+          {title && <track kind="captions" label={title} />}
+          Your browser does not support the video tag.
+        </video>
+      </div>
     </div>
   );
 };

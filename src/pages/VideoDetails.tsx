@@ -48,7 +48,7 @@ const VideoDetails = () => {
         {/* 视频播放器 */}
         <div className="aspect-video bg-black rounded-lg overflow-hidden shadow-lg">
           <VideoPlayer
-            url={project.videoUrl}
+            src={project.videoUrl}
             title={project.title}
             className="w-full h-full"
           />

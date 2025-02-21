@@ -1,0 +1,119 @@
+/* 水波纹背景动效 */
+.ripple-background {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background: rgba(147, 112, 219, 0.02);
+  overflow: hidden;
+  min-height: 100vh;
+  min-width: 100vw;
+}
+
+/* 鼠标悬浮水波纹效果 */
+.mouse-ripple {
+  position: fixed;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(147, 112, 219, 0.1);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  animation: mouseRipple 1s ease-out;
+}
+
+@keyframes mouseRipple {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0.3;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2);
+    opacity: 0;
+  }
+}
+
+.circle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(147, 112, 219, 0.05);
+  animation: ripple 15s infinite;
+  box-shadow: 0 0 1px 0 rgba(147, 112, 219, 0.05);
+}
+
+.circle-1 {
+  width: 400px;
+  height: 400px;
+  left: -100px;
+  bottom: -100px;
+}
+
+.circle-2 {
+  width: 600px;
+  height: 600px;
+  left: -300px;
+  bottom: -200px;
+  animation-delay: 2s;
+}
+
+.circle-3 {
+  width: 300px;
+  height: 300px;
+  right: -100px;
+  top: -100px;
+  animation-delay: 4s;
+}
+
+.circle-4 {
+  width: 500px;
+  height: 500px;
+  right: -200px;
+  top: -200px;
+  animation-delay: 6s;
+}
+
+.circle-5 {
+  width: 700px;
+  height: 700px;
+  left: 500px;
+  top: 100px;
+  animation-delay: 8s;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(1);
+    opacity: 0.15;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 0.05;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.15;
+  }
+}
+
+/* 淡入动画 */
+.animate-fade-in {
+  animation: fadeIn 1s ease-in;
+}
+
+.animate-fade-in-delay {
+  animation: fadeIn 1s ease-in 0.5s;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

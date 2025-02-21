@@ -1,4 +1,5 @@
 interface Design {
+  [x: string]: any;
   id: string;
   title: string;
   description: string;
@@ -8,6 +9,7 @@ interface Design {
   figmaPreviewUrl?: string;
   downloadUrl?: string;
   details: string;
+  images?: string[];
 }
 
 export const designs: Design[] = [
@@ -18,7 +20,10 @@ export const designs: Design[] = [
     thumbnail: 'https://www.figma.com/embed?embed_host=share&url=https://www.figma.com/proto/3B15Htl7rxlXAVBXcekpQt/%E5%BB%BA%E7%AD%91%E6%B6%88%E9%98%B2-Wb%E6%BC%94%E7%A4%BA?embed_host=share&kind=proto&node-id=1-4&page-id=0%3A1&scaling=contain&show-proto-sidebar=1&starting-point-node-id=1%3A4&t=wtEqwu0jPr7KtmNf-1',
     tools: ['Figma', 'Auto Layout', 'Variables'],
     figmaUrl: 'https://www.figma.com/proto/3B15Htl7rxlXAVBXcekpQt/%E5%BB%BA%E7%AD%91%E6%B6%88%E9%98%B2-Wb%E6%BC%94%E7%A4%BA?embed_host=share&kind=proto&node-id=1-4&page-id=0%3A1&scaling=contain&show-proto-sidebar=1&starting-point-node-id=1%3A4&t=wtEqwu0jPr7KtmNf-1',
-    details: '# 现代化仪表盘设计\n\n专注于数据可视化的现代UI设计，采用清晰的信息层级和直观的交互方式。\n\n## 设计特点\n\n- 清晰的信息层级\n- 模块化组件设计\n- 响应式布局\n- 主题定制支持'
+    details: '# 现代化仪表盘设计\n\n专注于数据可视化的现代UI设计，采用清晰的信息层级和直观的交互方式。\n\n## 设计特点\n\n- 清晰的信息层级\n- 模块化组件设计\n- 响应式布局\n- 主题定制支持',
+    images: [
+      '/png/建筑消防.png',
+    ]
   },
   {
     id: 'mobile-app-ui',
@@ -28,7 +33,10 @@ export const designs: Design[] = [
     tools: ['Figma', 'Variants', 'Interactive Components'],
     figmaUrl: 'https://www.figma.com/embed/proto/jBTXxDQYlaq7FL43zwUbD6/Blog-UI',
     downloadUrl: '/downloads/mobile-ui-kit.fig',
-    details: '# 移动应用UI套件\n\n一套完整的移动应用设计系统，提供丰富的UI组件和交互模式。\n\n## 包含内容\n\n- 基础UI组件\n- 常用页面模板\n- 交互原型\n- 设计规范'
+    details: '# 移动应用UI套件\n\n一套完整的移动应用设计系统，提供丰富的UI组件和交互模式。\n\n## 包含内容\n\n- 基础UI组件\n- 常用页面模板\n- 交互原型\n- 设计规范',
+    images: [
+      '/png/Blog.png',
+    ]
   },
   {
     id: 'design-system',

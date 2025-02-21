@@ -14,6 +14,10 @@ import NotFound from "./pages/NotFound";
 import BlogPost from './pages/BlogPost';
 import VideoDetails from './pages/VideoDetails';
 import Videos from './pages/Videos';
+import DesignDetails from './pages/DesignDetails';
+import BlogManager from './pages/content/BlogManager';
+import ProjectManager from './pages/content/ProjectManager';
+import ContentManager from './pages/ContentManager';
 
 const queryClient = new QueryClient();
 
@@ -31,10 +35,14 @@ const App = () => (
               <Route path="/blog" element={<Blog />} />
               <Route path="/portfolio" element={<Portfolio />} />
               <Route path="/designs" element={<Designs />} />
+              <Route path="/designs/:id" element={<DesignDetails />} />
               <Route path="/about" element={<About />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/videos" element={<Videos />} />
               <Route path="/videos/:id" element={<VideoDetails />} />
+              <Route path="/content" element={<ContentManager />} />
+              <Route path="/content/blog" element={<BlogManager />} />
+              <Route path="/content/projects" element={<ProjectManager />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>

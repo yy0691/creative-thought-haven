@@ -1,8 +1,22 @@
 
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { projects } from '../content/projects';
 
 const Portfolio = () => {
+  const [selectedCategory, setSelectedCategory] = useState<string>('');
+
+  const categories = [
+    { id: '', label: '全部' },
+    { id: 'original', label: '自制作品' },
+    { id: 'software', label: '常用软件' },
+    { id: 'automation', label: '自动化工具' }
+  ];
+
+  const filteredProjects = selectedCategory
+    ? projects.filter(project => project.category === selectedCategory)
+    : projects;
+
   return (
     <div className="page-transition space-y-8 py-12">
       <header className="text-center space-y-4">
@@ -12,25 +26,50 @@ const Portfolio = () => {
         <p className="text-muted-foreground">Selected works and projects</p>
       </header>
 
+      <div className="flex justify-center gap-4 flex-wrap">
+        {categories.map((category) => (
+          <button
+            key={category.id}
+            onClick={() => setSelectedCategory(category.id)}
+            className={`
+              px-4 py-2 rounded-full transition-all duration-500
+              relative overflow-hidden
+              ${selectedCategory === category.id
+                ? 'bg-gradient-to-r from-primary/90 to-primary text-white shadow-lg before:absolute before:inset-0 before:bg-white/20 before:animate-pulse'
+                : 'bg-white/60 hover:bg-white/80 text-primary border border-transparent hover:border-primary/30 backdrop-blur-sm'}
+              before:opacity-0 hover:before:opacity-100 before:transition-opacity
+              after:absolute after:inset-0 after:rounded-full after:border after:border-primary/30 after:scale-[1.02] after:opacity-0 hover:after:opacity-100 after:transition-all after:duration-500
+            `}
+          >
+            <span className="relative z-10 transition-transform duration-300 hover:scale-105">
+              {category.label}
+            </span>
+          </button>
+        ))}
+      </div>
+
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {projects.map((project) => (
+        {filteredProjects.map((project) => (
           <div 
             key={project.id} 
-            className="glass rounded-lg overflow-hidden card-hover border border-white/20 shadow-lg"
+            className="glass rounded-lg overflow-hidden border border-white/20 shadow-lg transition-all duration-300 transform-gpu hover:-translate-y-2 hover:shadow-xl hover:border-primary/30 group"
             style={{
               background: `linear-gradient(to bottom right, rgba(255,255,255,0.9), rgba(255,255,255,0.6))`,
+              transformStyle: 'preserve-3d',
+              backfaceVisibility: 'hidden',
+              perspective: '1000px'
             }}
           >
             <div className="aspect-video bg-gradient-to-br from-primary/5 to-primary/10">
               <img 
                 src={project.thumbnail} 
                 alt={project.title}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover transition-all duration-300 group-hover:scale-105 group-hover:opacity-90"
               />
             </div>
             <div className="p-6 space-y-4">
               <h3 className="text-xl font-semibold text-primary">{project.title}</h3>
-              <p className="text-muted-foreground">
+              <p className="text-muted-foreground group-hover:text-primary/80 transition-colors">
                 {project.description}
               </p>
               <div className="flex gap-2 flex-wrap">
@@ -69,7 +108,7 @@ const Portfolio = () => {
                     to={`/videos/${project.id}`}
                     className="text-sm text-primary hover:underline"
                   >
-                    观看视频
+                    演示视频
                   </Link>
                 )}
               </div>
