@@ -4,9 +4,10 @@ import { type BlogPost, type BlogPostMeta, formatDate, getBlogPosts } from '../l
 import { MDXProvider } from '@mdx-js/react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { tomorrow } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import { Alert } from '../components/ui/alert';  // 添加这行
+import { Alert } from '../components/ui/alert';
 import { RandomEmoji } from '../components/RandomEmoji';
 import { TableOfContents } from '@/components/TableOfContents';
+import { FileConverter } from '../lib/file-converter';
 
 const components = {
   h1: props => <h1 className="text-3xl font-bold mt-8 mb-4" {...props} />,
@@ -28,8 +29,37 @@ const components = {
     }
     return <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">{children}</code>;
   },
+  // 高亮块
+  div: ({ className, children, ...props }) => {
+    if (className?.includes('highlight')) {
+      const colorClass = className.match(/highlight-(yellow|red|green|blue|purple)/)?.[1] || 'yellow';
+      const colors = {
+        yellow: 'bg-yellow-100 border-yellow-200',
+        red: 'bg-red-100 border-red-200',
+        green: 'bg-green-100 border-green-200',
+        blue: 'bg-blue-100 border-blue-200',
+        purple: 'bg-purple-100 border-purple-200'
+      };
+      return (
+        <div className={`p-4 rounded-lg border ${colors[colorClass]} my-4`} {...props}>
+          {children}
+        </div>
+      );
+    }
+    return <div {...props}>{children}</div>;
+  },
+  // 文字高亮和颜色
+  span: ({ className, children, ...props }) => {
+    if (className?.includes('highlight')) {
+      return <span className="bg-yellow-200 px-1 rounded" {...props}>{children}</span>;
+    }
+    if (className?.startsWith('text-')) {
+      return <span className={className} {...props}>{children}</span>;
+    }
+    return <span {...props}>{children}</span>;
+  },
   Alert: Alert,
-  RandomEmoji: RandomEmoji  // 添加这行
+  RandomEmoji: RandomEmoji
 };
 
 const BlogPost = () => {
@@ -41,9 +71,47 @@ const BlogPost = () => {
   useEffect(() => {
     const loadPost = async () => {
       try {
-        const modules = await import(`../content/${slug}.mdx`);
-        const Content = modules.default;
-        const metadata = modules.metadata || {};
+        let content;
+        let metadata: { title?: string; date?: string; excerpt?: string; tags?: string[]; category?: string } = {};
+
+        if (slug?.endsWith('.docx')) {
+          const response = await fetch(`http://localhost:3001/api/posts/${slug}`);
+          const data = await response.json();
+          
+          if (!data.success) {
+            throw new Error('获取文档内容失败');
+          }
+          
+          content = data.content;
+          metadata = {
+            title: data.title || slug.split('.')[0],
+            date: data.date || new Date().toISOString(),
+            category: 'reading',
+            tags: ['读书笔记'],
+            excerpt: '从 Word 文档导入的笔记'
+          };
+        } else if (slug?.endsWith('.md')) {
+          // 处理 .md 文件
+          const response = await fetch(`http://localhost:3001/api/posts/${slug}`);
+          const data = await response.json();
+          
+          if (!data.success) {
+            throw new Error('获取 Markdown 文件内容失败');
+          }
+          
+          content = data.content;
+          metadata = {
+            title: data.title || slug.split('.')[0],
+            date: data.date || new Date().toISOString(),
+            category: data.category || 'reading',
+            tags: data.tags || ['学习笔记'],
+            excerpt: data.excerpt || ''
+          };
+        } else {
+          const modules = await import(`../content/${slug}.mdx`);
+          content = modules.default;
+          metadata = modules.metadata || {};
+        }
         
         const post: BlogPost = {
           slug: slug || '',
@@ -51,8 +119,8 @@ const BlogPost = () => {
           date: metadata.date || new Date().toISOString(),
           excerpt: metadata.excerpt || '暂无描述',
           tags: metadata.tags || [],
-          content: Content,
-          category: ''
+          content: content,
+          category: metadata.category || ''
         };
         setPost(post);
 
