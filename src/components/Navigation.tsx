@@ -15,6 +15,8 @@ const Navigation = () => {
     { path: "/portfolio", label: "软件" },
     { path: "/designs", label: "设计" },
     { path: "/about", label: "关于" },
+    // 仅在开发环境显示管理入口
+    ...(import.meta.env.DEV ? [{ path: "/content", label: "管理" }] : []),
   ];
 
   return (

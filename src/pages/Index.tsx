@@ -75,9 +75,9 @@ const Index = () => {
           <div className="flex flex-col md:flex-row md:justify-between gap-8 md:gap-12">
             {/* 最新文章 */}
             <div 
-              className="w-full md:w-[600px] group backdrop-blur-md p-8 rounded-2xl shadow-lg transition-all duration-500 hover:shadow-xl relative overflow-hidden"
+              className="w-full md:w-[600px] group backdrop-blur-md bg-white/80 p-8 rounded-2xl shadow-lg transition-all duration-500 hover:shadow-xl relative overflow-hidden"
               style={{
-                background: 'rgba(255, 255, 255, 0.05)',
+                background: 'rgba(255, 255, 255, 0.8)',
                 backdropFilter: 'blur(12px)',
                 position: 'relative',
                 borderRadius: '1rem',
@@ -94,7 +94,7 @@ const Index = () => {
                 const rotateY = (centerX - x) / 50;
 
                 e.currentTarget.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-                e.currentTarget.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.5))`;
+                e.currentTarget.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7))`;
                 e.currentTarget.style.setProperty('--gradient-position', `${x}px ${y}px`);
                 e.currentTarget.style.boxShadow = `
                   ${(x - centerX) / 25}px 
@@ -104,7 +104,7 @@ const Index = () => {
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'perspective(1000px)';
-                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.5)';
+                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.8)';
                 e.currentTarget.style.setProperty('--gradient-position', '0 0');
                 e.currentTarget.style.boxShadow = '';
               }}
@@ -123,9 +123,9 @@ const Index = () => {
             </div>
             {/* 最新项目 */}
             <div 
-              className="w-full md:w-[600px] group backdrop-blur-md p-8 rounded-2xl shadow-lg transition-all duration-500 hover:shadow-xl relative overflow-hidden"
+              className="w-full md:w-[600px] group backdrop-blur-md bg-white/80 p-8 rounded-2xl shadow-lg transition-all duration-500 hover:shadow-xl relative overflow-hidden"
               style={{
-                background: 'rgba(255, 255, 255, 0.05)',
+                background: 'rgba(255, 255, 255, 0.8)',
                 backdropFilter: 'blur(12px)',
                 position: 'relative',
                 borderRadius: '1rem',
@@ -142,7 +142,7 @@ const Index = () => {
                 const rotateY = (centerX - x) / 50;
 
                 e.currentTarget.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-                e.currentTarget.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1))`;
+                e.currentTarget.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7))`;
                 e.currentTarget.style.setProperty('--gradient-position', `${x}px ${y}px`);
                 e.currentTarget.style.boxShadow = `
                   ${(x - centerX) / 25}px 
@@ -152,7 +152,7 @@ const Index = () => {
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'perspective(1000px)';
-                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)';
+                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.8)';
                 e.currentTarget.style.setProperty('--gradient-position', '0 0');
                 e.currentTarget.style.boxShadow = '';
               }}
