@@ -19,10 +19,10 @@ export interface BlogPostMeta {
 }
 
 export async function getBlogPosts(): Promise<BlogPostMeta[]> {
-    // 获取 MDX 和 MD 文件
-    const mdxModules = import.meta.glob('../content/*.{md,mdx}', { eager: true });
+    // 获取 MDX 文件
+    const mdxModules = import.meta.glob('../content/*.mdx', { eager: true });
     const mdxPosts = Object.entries(mdxModules).map(([path, module]) => {
-        const slug = path.split('/').pop()?.replace(/\.(md|mdx)$/, '') || '';
+        const slug = path.split('/').pop()?.replace(/\.mdx$/, '') || '';
         const content = module as any;
         const metadata = content.metadata || {};
         
@@ -33,7 +33,7 @@ export async function getBlogPosts(): Promise<BlogPostMeta[]> {
             date: metadata.date || new Date().toISOString(),
             excerpt: metadata.excerpt || '暂无描述',
             tags: metadata.tags || [],
-            type: path.endsWith('.md') ? 'md' : 'mdx'
+            type: 'mdx'
         };
     });
 

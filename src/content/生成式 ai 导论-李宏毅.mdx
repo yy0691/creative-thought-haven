@@ -7,14 +7,17 @@ tags: ["生成式AI", "大语言模型"]
 ---
 
 
-
 > 课程官网：[生成式 AI 导论官网](https://speech.ee.ntu.edu.tw/~hylee/genai/2024-spring.php)
 >
 > 最新论文阅读：[https://arxiv.org](https://arxiv.org/abs/2205.10643)
 >
 > &#x20;  &#x20;
 
-![](images/diagram.png)
+![](/src/content/images/diagram.png)
+
+![](/src/content/images/diagram.png)
+
+测试图片：![](https://th.bing.com/th/id/R.30df2b03ca3b76b75ac7438076199a02?rik=jZ43kMCGBp0nUg&riu=http%3a%2f%2fimg2.wikia.nocookie.net%2f__cb20091208191301%2fsonic%2fimages%2fb%2fb4%2fAiai_10.png&ehk=gKiZCcNnjxUHfRmnINX%2fniStgCsEC%2fMkinExcn167LI%3d&risl=&pid=ImgRaw&r=0)
 
 # 第一讲 什么是生成式 AI
 
@@ -22,17 +25,15 @@ tags: ["生成式AI", "大语言模型"]
 
 
 
-
-
 ![](images/Pixpin_2501-49.png)
 
 ![](images/Pixpin_2501-15.png)
 
-预置成千上万个参数——>称为类神经网络
+预置成千上万个参数--->称为类神经网络
 
 其中一种：Transformer
 
-机器需要模拟在训练时从来没有看过的东西——>需要有创造力
+机器需要模拟在训练时从来没有看过的东西--->需要有创造力
 
 ChatGPT 背后的核心：文字接龙
 
@@ -46,7 +47,7 @@ ChatGPT 背后的核心：文字接龙
 
 ![](images/Pixpin_2501-08-1.png)
 
-ChatGPT 的学习基本上就是三个步骤——先做预训练，再做监督学习，然后做强化学习
+ChatGPT 的学习基本上就是三个步骤---先做预训练，再做监督学习，然后做强化学习
 
 
 
@@ -168,19 +169,19 @@ ChatGPT 的学习基本上就是三个步骤——先做预训练，再做监督
 
 GPT-4 可以上网搜索，但需要给出指令：上网搜索回答（2024 上），至 2025 年 1 月，GPT 已经可以自动上网搜索
 
-### 使用工具——写程序
+### 使用工具---写程序
 
 利用 Python 程序来解数学题，而且能够自己执行程序得到结果
 
-**Program of Thought （PoT）**——> 能够得到一个比较正确的答案
+**Program of Thought （PoT）**---> 能够得到一个比较正确的答案
 
-Finished analyzing ——> 代表 GPT 写了一个简单的程序
+Finished analyzing ---> 代表 GPT 写了一个简单的程序
 
-### 使用工具——文字生图 AI（DELL-E）
+### 使用工具---文字生图 AI（DELL-E）
 
 GPT Plug-in
 
-### 延伸阅读——能够使用工具的 AI
+### 延伸阅读---能够使用工具的 AI
 
 > 其实也是通过文字接龙来使用工具的
 >
@@ -196,7 +197,7 @@ GPT Plug-in
 
 针对一个问题共同讨论得出结论
 
-不同语言模型有不同的能力——>利用多个模型进行合作，完成任务
+不同语言模型有不同的能力--->利用多个模型进行合作，完成任务
 
 ![](images/Pixpin_2501-47-1.png)
 
@@ -226,7 +227,7 @@ GPT Plug-in
 
   * ChatDev: https://github.com/OpenBMB/ChatDev
 
-> 未來不需要打造全能的模型，語言模型可以專業分工，不同團隧可以專注於打造專業领域的語言模型
+> 未來不需要打造全能的模型，語言模型可以專業分工，不同團隧可以專注於打造專業領域的語言模型
 
 # 延伸示例  模拟 AI 村民组成虚拟村庄
 
@@ -264,7 +265,7 @@ AI 生成的一个社群示例：https://youtu.be/G44Lkj7XDsA
 
 ***
 
-* 第一阶段：**Pre-train——Foundation Model**
+* 第一阶段：**Pre-train---Foundation Model**
 
 * 第二阶段：**Instruction Fine-tuning（Alignment）**
 
@@ -272,7 +273,7 @@ AI 生成的一个社群示例：https://youtu.be/G44Lkj7XDsA
 
 ***
 
-## 前言——找参数
+## 前言---找参数
 
 * 文字接龙的方式：$$下一个Token=f(未完成的句子)=…a…b…c…d…$$（这里是包含数十亿个未知参数的函数），称为**模型。**&#x8BED;言模型需要通过**训练/学习**来找出这些未知参数，之后才可以进行接龙。
 
@@ -280,15 +281,15 @@ AI 生成的一个社群示例：https://youtu.be/G44Lkj7XDsA
 
 
 
-找参数的过程称为**最佳化（Optimization）**<—— *给一份训练资料，机器学习根据训练资料，找出符合训练资料的参数。*
+找参数的过程称为**最佳化（Optimization）**{/* *给一份训练资料，机器学习根据训练资料，找出符合训练资料的参数。* */}
 
-可以把最佳化想象成一部机器，使用前需要设定一些机器的参数，设定的参数为**超参数（hyperparameter）**（不是训练得到的参数，而是模型内设定的参数）设定**超参数**以后，就决定了最佳化的方法。
+可以把最佳化想象成一部机器，使用前需要设定一些机器的参数，设定的参数为**超参数（hyperparameter）**（不是训练得到的参数，而是模型内
 
 ![](images/Pixpin_2501-26.png)
 
 ### **训练可能失败**
 
-但是这个训练可能会失败，找到的参数没有符合的训练资料 ———方法———> 换一组超参数（调参数）
+但是这个训练可能会失败，找到的参数没有符合的训练资料 ---—方法---—> 换一组超参数（调参数）
 
 ### **训练成功，但是测试失败**&#x20;
 
@@ -314,9 +315,9 @@ AI 生成的一个社群示例：https://youtu.be/G44Lkj7XDsA
 
 * **找到”好“的初始化参数**
 
-使用最佳化机器之前，还需要设置**初始参数**，最佳化会从初始参数开始找，最终找出来的参数会比较接近初始参数。通常是不知道如何设定初始参数，需要随机生成输入参数。———— **train from scratch**
+使用最佳化机器之前，还需要设置**初始参数**，最佳化会从初始参数开始找，最终找出来的参数会比较接近初始参数。通常是不知道如何设定初始参数，需要随机生成输入参数。------ **train from scratch**
 
-找到”好“的初始化参数 ——> 可以想象成给模型（机器学习）的先验知识
+找到”好“的初始化参数 ---> 可以想象成给模型（机器学习）的先验知识
 
 如果是从”好“的初始化参数开始最佳化，最后找出来的参数有可能是我们想要的
 
@@ -336,7 +337,7 @@ AI 生成的一个社群示例：https://youtu.be/G44Lkj7XDsA
 
 **自督导式学习：Self-supervised Learning**
 
-* 网络——>Python 爬取大量的文字资料 ——>整理成训练资料（人工的介入很少）
+* 网络--->Python 爬取大量的文字资料 --->整理成训练资料（人工的介入很少）
 
 * 资料清洗：一开始就不让他接触有害内容
 
@@ -350,7 +351,7 @@ AI 生成的一个社群示例：https://youtu.be/G44Lkj7XDsA
 
 ## 第二阶段 人类教导 发挥潜力
 
-这一阶段称为：**Instruction Fine-tuning** （**微调**），需要人类老师教导，但是会耗费人力——> 需要进行资料标注：称为**督导式学习（Supervised Learning）。**&#x5982;果只靠人类老师教的话还远远不够，无法收集太多资料，只能输出通顺、像人类说的话，但不一定正确。
+这一阶段称为：**Instruction Fine-tuning** （**微调**），需要人类老师教导，但是会耗费人力---> 需要进行资料标注：称为**督导式学习（Supervised Learning）。**&#x5982;果只靠人类老师教的话还远远不够，无法收集太多资料，只能输出通顺、像人类说的话，但不一定正确。
 
 例如像之前的智能助理，说不要打开开关，但它只听到了打开开关，结果还是会打开。
 
@@ -390,7 +391,7 @@ Instruction Fine-tuning 是画龙点睛
 
 * 所以自己也能做Instruction Fine-tuning吗？
 
-* 没有高品质的Instruction Fine-tuning资料——>可以对ChatGPT进行逆向工程
+* 没有高品质的Instruction Fine-tuning资料--->可以对ChatGPT进行逆向工程
 
 ![](images/Pixpin_2501-02.png)
 
@@ -401,6 +402,8 @@ Meta 开源了 LLaMA
 * LLaMA1：https://arxiv.org/abs/2302.13971
 
 * LLaMA2：https://arxiv.org/abs/2307.09288
+
+
 
 
 
@@ -461,7 +464,7 @@ Meta 开源了 LLaMA
 
 ![](images/Pixpin_2501-50.png)
 
-**RLHF——>RLAIF**
+**RLHF--->RLAIF**
 
 使用其他 AI 来给语言模型提供回馈，甚至是可以同一个语言模型
 
@@ -529,7 +532,7 @@ PPT：https://speech.ee.ntu.edu.tw/\~hylee/genai/2024-spring-course-data/0503/05
 
    ![](images/Pixpin_2501-12.png)
 
-2. **理解每个 Token** **—— 语意**
+2. **理解每个 Token** **--- 语意**
 
    * 将每一个 Token 表示成向量（Embedding）
 
@@ -539,7 +542,7 @@ PPT：https://speech.ee.ntu.edu.tw/\~hylee/genai/2024-spring-course-data/0503/05
 
 ![](images/Pixpin_2501-01.png)
 
-2. **理解每个 Token —— 位置**
+2. **理解每个 Token --- 位置**
 
    * 在向量中添加表示位置的参数
 
@@ -607,7 +610,7 @@ PPT：https://speech.ee.ntu.edu.tw/\~hylee/genai/2024-spring-course-data/0503/05
 
 ![](images/image-12.png)
 
-# 延伸——Transformer
+# 延伸---Transformer
 
 Slides：https://speech.ee.ntu.edu.tw/\~hylee/ml/ml2021-course-data/seq2seq\_v9.pdf
 
@@ -637,7 +640,7 @@ Slides：https://speech.ee.ntu.edu.tw/\~hylee/ml/ml2021-course-data/seq2seq\_v9.
 
 ![](images/image-15.png)
 
-**Seq2seq for  Multi-label Classification**：同一个东西可以属于不止一个class。——> 机器决定可以属于哪个class
+**Seq2seq for  Multi-label Classification**：同一个东西可以属于不止一个class。---> 机器决定可以属于哪个class
 
 Multi-class Classification ：有不止一个class ，机器需要从数个class中选一个出来。
 
@@ -687,7 +690,7 @@ Multi-class Classification ：有不止一个class ，机器需要从数个class
 
 ### Transformer Decoder
 
-Self-attention ——> Mashked Self-attention：
+Self-attention ---> Mashked Self-attention：
 
 输出时不考虑后面的输入，例如产生b2时不考虑 a3、a4的信息
 
@@ -695,7 +698,7 @@ Self-attention ——> Mashked Self-attention：
 
 ![Masked Self-Attention](images/image-24.png)
 
-**？** Decoder必须自己决定输出的长度——>
+**？** Decoder必须自己决定输出的长度--->
 
 需要使用一个特殊的符号：END
 
@@ -779,7 +782,7 @@ https://speech.ee.ntu.edu.tw/\~hylee/genai/2024-spring-course-data/0503/0503\_ex
 
 
 
-語言模型會說話，所以「問」就完事了——> DeepSeek的推理过程
+語言模型會說話，所以「問」就完事了---> DeepSeek的推理过程
 
 ![](images/image-33.png)
 
@@ -795,7 +798,7 @@ https://speech.ee.ntu.edu.tw/\~hylee/genai/2024-spring-course-data/0510/0510\_ev
 
 * 考核选择题
 
-* 考核没有标准答案的题目——>可能通过人类评比最准
+* 考核没有标准答案的题目--->可能通过人类评比最准
 
 语言模型排行榜：https://chat.lmsys.org/?leaderboard
 
@@ -811,7 +814,7 @@ https://speech.ee.ntu.edu.tw/\~hylee/genai/2024-spring-course-data/0510/0510\_ev
 
 ![](images/image-35.png)
 
-* 语言模型也可能有偏见——>喜欢长的答案
+* 语言模型也可能有偏见--->喜欢长的答案
 
 
 
@@ -945,71 +948,3 @@ https://arxiv.org/abs/2309.00770
 * &#x20;Intrinsic Dimension Estimation: https://arxiv.org/abs/2306.04723
 
 ![](images/Pixpin_2502-52.png)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-***
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# 作业
-
-[ 作业](https://n1ddxc0sfaq.feishu.cn/wiki/ZYdOwJaIoiIhM1kiNWwcXGKEngf)

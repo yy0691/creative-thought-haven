@@ -1,0 +1,40 @@
+.highlight {
+  background-color: #ffeb3b;
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+
+.highlight-yellow {
+  background-color: #fff9c4;
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+.highlight-blue {
+  background-color: #e3f2fd;
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+.highlight-green {
+  background-color: #e8f5e9;
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+.highlight-red {
+  background-color: #ffebee;
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+.highlight-purple {
+  background-color: #f3e5f5;
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+}

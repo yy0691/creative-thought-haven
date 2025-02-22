@@ -8,17 +8,17 @@ import { Alert } from '../components/ui/alert';
 import { RandomEmoji } from '../components/RandomEmoji';
 import { TableOfContents } from '@/components/TableOfContents';
 import { FileConverter } from '../lib/file-converter';
+import Highlight from '../components/Highlight';
 
 const components = {
   h1: props => <h1 className="text-3xl font-bold mt-8 mb-4" {...props} />,
   h2: props => <h2 className="text-2xl font-bold mt-6 mb-3" {...props} />,
   h3: props => <h3 className="text-xl font-bold mt-4 mb-2" {...props} />,
   p: props => <p className="my-4" {...props} />,
-  ul: props => <ul className="list-disc list-inside my-4 space-y-2" {...props} />,
-  ol: props => <ol className="list-decimal list-inside my-4 space-y-2" {...props} />,
-  li: props => <li className="ml-4" {...props} />,
+  ul: props => <ul className="list-disc pl-6 my-4 space-y-2" {...props} />,
+  ol: props => <ol className="list-decimal pl-6 my-4 space-y-2" {...props} />,
+  li: props => <li className="pl-2" {...props} />,
   code: ({ children, className, ...props }) => {
-    // 如果有 className，说明是代码块
     if (className) {
       const language = className.replace(/language-/, '');
       return (
@@ -29,8 +29,15 @@ const components = {
     }
     return <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">{children}</code>;
   },
-  // 高亮块
   div: ({ className, children, ...props }) => {
+    if (className?.includes('columns')) {
+      const columnCount = className.match(/columns-(\d+)/)?.[1] || '2';
+      return (
+        <div className={`grid grid-cols-${columnCount} gap-4 my-4`} {...props}>
+          {children}
+        </div>
+      );
+    }
     if (className?.includes('highlight')) {
       const colorClass = className.match(/highlight-(yellow|red|green|blue|purple)/)?.[1] || 'yellow';
       const colors = {
@@ -48,19 +55,44 @@ const components = {
     }
     return <div {...props}>{children}</div>;
   },
-  // 文字高亮和颜色
   span: ({ className, children, ...props }) => {
     if (className?.includes('highlight')) {
-      return <span className="bg-yellow-200 px-1 rounded" {...props}>{children}</span>;
+      return <span className="bg-yellow-100 px-1 rounded-sm" {...props}>{children}</span>;
     }
     if (className?.startsWith('text-')) {
       return <span className={className} {...props}>{children}</span>;
     }
     return <span {...props}>{children}</span>;
   },
-  Alert: Alert,
-  RandomEmoji: RandomEmoji
+  a: ({ href, children, ...props }) => (
+    <a
+      href={href}
+      className="text-primary hover:text-primary/80 underline-offset-4 hover:underline transition-colors"
+      target="_blank"
+      rel="noopener noreferrer"
+      {...props}
+    >
+      {children}
+    </a>
+  ),
+  blockquote: ({ children }) => {
+    const text = children?.props?.children;
+    if (text && typeof text === 'string' && text.includes('Part')) {
+      return <Highlight type="info">{children}</Highlight>;
+    }
+    return <blockquote>{children}</blockquote>;
+  },
+  Alert,
+  RandomEmoji,
+  img: props => (
+    <img
+      {...props}
+      className="max-w-full h-auto rounded-lg my-4"
+      loading="lazy"
+    />
+  )
 };
+// 删除重复的组件声明，因为已经在上面的 components 对象中定义过了
 
 const BlogPost = () => {
   const { slug } = useParams();
@@ -171,7 +203,12 @@ const BlogPost = () => {
           </div>
         </header>
 
-        <MDXProvider components={components}>
+        <MDXProvider components={{
+          ...components,
+          blockquote: (props) => (
+            <Highlight type="info">{props.children}</Highlight>
+          )
+        }}>
           <post.content />
         </MDXProvider>
 
