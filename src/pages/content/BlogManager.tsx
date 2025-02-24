@@ -5,6 +5,7 @@ import { toast } from '@/components/ui/use-toast';
 import { savePost, deletePost } from '../../lib/file-system';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { categories } from '../../content/categories';
 
 interface BlogPost {
   title: string;
@@ -16,15 +17,6 @@ interface BlogPost {
   slug: string;
 }
 
-const blogCategories = [
-  { id: 'llm', name: '大语言模型学习笔记', description: '探索AI和大语言模型的学习心得' },
-  { id: 'windows', name: 'Windows系统使用教程', description: 'Windows系统使用技巧和教程' },
-  { id: 'software', name: '软件/工具推荐', description: '优质软件和工具的使用推荐' },
-  { id: 'automation', name: '自动化办公', description: '提升办公效率的自动化解决方案' },
-  { id: 'study', name: '学习记录', description: '个人学习过程的心得体会' },
-  { id: 'reading', name: '阅读笔记', description: '读书笔记和知识整理' },
-];
-
 const BlogManager = () => {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
@@ -34,7 +26,7 @@ const BlogManager = () => {
   const [formData, setFormData] = useState<BlogPost>({
     title: '',
     date: new Date().toISOString().split('T')[0],
-    category: 'llm',
+    category: 'llm-basics', // 使用 categories.ts 中定义的默认分类
     tags: [],
     description: '',
     content: '',
@@ -361,7 +353,7 @@ ${formData.content}`;
                 >
                   全部
                 </button>
-                {blogCategories.map((category) => (
+                {categories.map((category) => (
                   <button
                     key={category.id}
                     onClick={() => setSelectedCategory(category.id)}
@@ -455,17 +447,41 @@ ${formData.content}`;
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">分类</label>
-                    <select 
-                      className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50"
-                      value={formData.category}
-                      onChange={(e) => handleInputChange('category', e.target.value)}
-                    >
-                      {blogCategories.map((category) => (
-                        <option key={category.id} value={category.id}>
-                          {category.name}
-                        </option>
-                      ))}
-                    </select>
+                    <div className="space-y-2">
+                      <select 
+                        className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50"
+                        value={formData.category.split('-')[0]}
+                        onChange={(e) => {
+                          const mainCategory = categories.find(cat => cat.id === e.target.value);
+                          if (mainCategory?.subcategories?.length) {
+                            setFormData(prev => ({
+                              ...prev,
+                              category: `${mainCategory.id}-${mainCategory.subcategories[0].id.split('-')[1]}`
+                            }));
+                          }
+                        }}
+                      >
+                        {categories.map((category) => (
+                          <option key={category.id} value={category.id}>
+                            {category.name}
+                          </option>
+                        ))}
+                      </select>
+                      
+                      <select
+                        className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50"
+                        value={formData.category}
+                        onChange={(e) => handleInputChange('category', e.target.value)}
+                      >
+                        {categories
+                          .find(cat => cat.id === formData.category.split('-')[0])
+                          ?.subcategories?.map((subcat) => (
+                            <option key={subcat.id} value={subcat.id}>
+                              {subcat.name}
+                            </option>
+                          ))}
+                      </select>
+                    </div>
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">发布日期</label>

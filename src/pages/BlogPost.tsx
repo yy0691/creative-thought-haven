@@ -96,77 +96,73 @@ const components = {
 
 const BlogPost = () => {
   const { slug } = useParams();
+  const decodedSlug = decodeURIComponent(slug || '');
   const [post, setPost] = useState<BlogPost | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const [relatedPosts, setRelatedPosts] = useState<BlogPostMeta[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isCollapsed, setIsCollapsed] = useState(false);
   useEffect(() => {
+    // 修改文章加载部分
     const loadPost = async () => {
+      if (!slug) return;
+      
       try {
-        let content;
-        let metadata: { title?: string; date?: string; excerpt?: string; tags?: string[]; category?: string } = {};
-
-        if (slug?.endsWith('.docx')) {
-          const response = await fetch(`http://localhost:3001/api/posts/${slug}`);
-          const data = await response.json();
+        // 获取所有 MDX 文件
+        const mdxModules = import.meta.glob('../content/**/*.mdx', { eager: true });
+        
+        // 查找匹配的文件（需要处理子目录）
+        const modulePath = Object.keys(mdxModules).find(path => {
+          const fullPath = path.replace('../content/', '').replace(/\.mdx$/, '');
+          // 统一使用正斜杠并解码比较
+          const normalizedPath = fullPath.replace(/\\/g, '/');
+          const decodedSlug = decodeURIComponent(slug);
+          // 添加调试日志
+          console.log('比较路径:', {
+            normalizedPath,
+            decodedSlug,
+            originalPath: path
+          });
           
-          if (!data.success) {
-            throw new Error('获取文档内容失败');
-          }
-          
-          content = data.content;
-          metadata = {
-            title: data.title || slug.split('.')[0],
-            date: data.date || new Date().toISOString(),
-            category: 'reading',
-            tags: ['读书笔记'],
-            excerpt: '从 Word 文档导入的笔记'
-          };
-        } else if (slug?.endsWith('.md')) {
-          // 处理 .md 文件
-          const response = await fetch(`http://localhost:3001/api/posts/${slug}`);
-          const data = await response.json();
-          
-          if (!data.success) {
-            throw new Error('获取 Markdown 文件内容失败');
-          }
-          
-          content = data.content;
-          metadata = {
-            title: data.title || slug.split('.')[0],
-            date: data.date || new Date().toISOString(),
-            category: data.category || 'reading',
-            tags: data.tags || ['学习笔记'],
-            excerpt: data.excerpt || ''
-          };
-        } else {
-          const modules = await import(`../content/${slug}.mdx`);
-          content = modules.default;
-          metadata = modules.metadata || {};
+          // 处理两种可能的路径格式
+          return normalizedPath === decodedSlug || 
+                 normalizedPath === decodedSlug.replace('WINDOWS_USE_Sub/', '') ||
+                 normalizedPath.endsWith(decodedSlug);
+        });
+    
+        if (!modulePath) {
+          console.error('未找到匹配文件，可用路径:', Object.keys(mdxModules));
+          throw new Error(`找不到文章: ${slug}`);
         }
+    
+        const module = mdxModules[modulePath] as any;
+        const content = module.default;
+        const metadata = module.metadata || {};
         
         const post: BlogPost = {
-          slug: slug || '',
+          slug,
           title: metadata.title || '无标题',
           date: metadata.date || new Date().toISOString(),
           excerpt: metadata.excerpt || '暂无描述',
           tags: metadata.tags || [],
-          content: content,
+          content,
           category: metadata.category || ''
         };
+        
         setPost(post);
-
+        
         // 加载相关文章
         const allPosts = await getBlogPosts();
         const related = allPosts
           .filter(p => p.slug !== slug && p.tags.some(tag => post.tags.includes(tag)))
           .slice(0, 3);
         setRelatedPosts(related);
-      } catch (error) {
-        console.error('加载文章失败:', error);
-      } finally {
-        setIsLoading(false);
-      }
+    } catch (error) {
+      console.error('加载文章失败:', error);
+      setError(error instanceof Error ? error.message : '未知错误');
+    } finally {
+      setIsLoading(false);
+    }
     };
     loadPost();
   }, [slug]);

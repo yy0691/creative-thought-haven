@@ -5,12 +5,14 @@ type Category = {
   id: string;
   name: string;
   description?: string;
+  subcategories?: Category[];
 };
 
 type CategorySelectorProps = {
   categories: Category[];
-  onSelect: (categoryId: string) => void;
+  onSelect: (categoryId: string, subcategoryId?: string) => void;
   selectedCategory: string;
+  selectedSubcategory?: string;
   className?: string;
 };
 
@@ -18,9 +20,11 @@ export const CategorySelector = ({
   categories,
   onSelect,
   selectedCategory,
+  selectedSubcategory,
   className,
 }: CategorySelectorProps) => {
   const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
+  const selectedCategoryData = categories.find(c => c.id === selectedCategory);
 
   return (
     <div className={cn('w-full space-y-4', className)}>
@@ -62,6 +66,39 @@ export const CategorySelector = ({
           </button>
         ))}
       </div>
+
+      {selectedCategoryData?.subcategories && (
+        <div className="space-y-4">
+          <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
+            <span>{selectedCategoryData.name}</span>
+            {selectedSubcategory && (
+              <>
+                <span>/</span>
+                <span className="text-primary">
+                  {selectedCategoryData.subcategories.find(sub => sub.id === selectedSubcategory)?.name}
+                </span>
+              </>
+            )}
+          </div>
+          <div className="flex flex-wrap gap-2 justify-center">
+            {selectedCategoryData.subcategories.map((sub) => (
+              <button
+                key={sub.id}
+                onClick={() => onSelect(selectedCategory, sub.id)}
+                className={cn(
+                  'px-4 py-2 rounded-full text-sm transition-all duration-300',
+                  'border border-white/20 backdrop-blur-sm',
+                  selectedSubcategory === sub.id
+                    ? 'bg-primary/10 text-primary border-primary/30'
+                    : 'hover:bg-primary/5 hover:text-primary hover:border-primary/20'
+                )}
+              >
+                {sub.name}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -19,16 +19,23 @@ export interface BlogPostMeta {
 }
 
 export async function getBlogPosts(): Promise<BlogPostMeta[]> {
-    // 获取 MDX 文件
-    const mdxModules = import.meta.glob('../content/*.mdx', { eager: true });
+    // 获取所有分类下的 MDX 文件
+    const mdxModules = import.meta.glob('../content/**/*.mdx', { eager: true });
     const mdxPosts = Object.entries(mdxModules).map(([path, module]) => {
-        const slug = path.split('/').pop()?.replace(/\.mdx$/, '') || '';
+        const pathParts = path.split('/');
+        const fileName = pathParts.pop() || '';
+        // 保持原始文件名作为 slug，不做任何转换
+        const slug = path
+          .replace('../content/', '')
+          .replace(/\.mdx$/, '')
+          .replace(/\.docx$/, '')
+          .replace(/\\/g, '/'); // 确保使用正斜杠
         const content = module as any;
         const metadata = content.metadata || {};
         
         return {
             slug,
-            category: metadata.category || '未分类',
+            category: metadata.category || '未分类',  // 优先使用 frontmatter 中的 category
             title: metadata.title || '无标题',
             date: metadata.date || new Date().toISOString(),
             excerpt: metadata.excerpt || '暂无描述',

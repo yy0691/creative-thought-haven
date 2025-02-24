@@ -1,0 +1,68 @@
+---
+category: win-basics
+title: C盘清理方法总结
+date: 2025-10-15
+excerpt: windows、教程
+tags:
+  - windows
+  - 教程
+---
+
+# C盘清理
+
+# 一、磁盘清理
+
+1. 磁盘清理、清理系统文件 [如何打开磁盘清理？](%E5%A6%82%E4%BD%95%E6%89%93%E5%BC%80%E7%A3%81%E7%9B%98%E6%B8%85%E7%90%86%EF%BC%9F%208a4692e4541d4057b5cbc43498093202.md) 
+2. 清理系统还原和卷影复制 [如何打开系统还原和卷影复制](%E5%A6%82%E4%BD%95%E6%89%93%E5%BC%80%E7%B3%BB%E7%BB%9F%E8%BF%98%E5%8E%9F%E5%92%8C%E5%8D%B7%E5%BD%B1%E5%A4%8D%E5%88%B6%2067c9fa94a4674f08ae85980d0cf208c2.md) 
+3. 清理临时文件：**win10 设置** [如何打开临时文件清理](%E5%A6%82%E4%BD%95%E6%89%93%E5%BC%80%E4%B8%B4%E6%97%B6%E6%96%87%E4%BB%B6%E6%B8%85%E7%90%86%208d54374f92694d0196730bf1616f5564.md) 
+4. 默认下载位置：**关闭存储感知——更改新内容的保存位置/卸载某些应用**
+
+# 二、虚拟内存
+
+[如何修改虚拟内存文件位置](%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E6%96%87%E4%BB%B6%E4%BD%8D%E7%BD%AE%20ad3627f82cb947c88c02bad372914091.md) 
+
+高级系统设置——高级——性能设置——高级——更改
+取消勾选自动管理所有驱动器的分页文件大小
+选择其他盘
+
+# 三、 临时文件
+
+**清理浏览器缓存**
+
+**打开浏览器：同时按键盘上 Ctrl+Shift+Delete 选择要清理的文件点击清理即可**
+
+**可以根据自己的需要是否删除所保存的密码**
+
+# 四、文件夹清理
+
+## 1. 应用缓存文件
+
+**C:\Users\用户名\AppData\Local\Temp**
+
+**Adobe**
+
+**C:\Users\用户名\AppData\Roaming\Adobe\Common\Media Cache**
+
+**C:\Users\用户名\AppData\Roaming\Adobe\Common\Media Cache Files**
+
+**Tencent**
+
+**C:\Users\用户名\AppData\Roaming\Tencent**
+
+## 2. 系统缓存文件
+
+**C:\Windows\SoftwareDistribution\Download**
+
+**隐藏文件**
+
+**C:\Documents and Settings\用户名\Local Settings\temp**
+
+## 3. 应用安装的临时文件
+
+**C:\Windows\Temp**
+
+# 五、转移临时文件
+
+1. 创建temp文件夹
+2. 此电脑右键属性——高级系统设置——高级——环境变量
+3. 编辑 **TEMP TMP** ，修改变量值为创建temp文件夹路径
