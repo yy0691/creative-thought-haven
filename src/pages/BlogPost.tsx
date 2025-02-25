@@ -96,7 +96,9 @@ const components = {
 
 const BlogPost = () => {
   const { slug } = useParams();
-  const decodedSlug = decodeURIComponent(slug || '');
+  // 移除 /blog 前缀（如果存在）
+  const cleanSlug = slug?.replace(/^blog\//, '') || '';
+  const decodedSlug = decodeURIComponent(cleanSlug);
   const [post, setPost] = useState<BlogPost | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [relatedPosts, setRelatedPosts] = useState<BlogPostMeta[]>([]);
@@ -126,7 +128,7 @@ const BlogPost = () => {
           
           // 处理两种可能的路径格式
           return normalizedPath === decodedSlug || 
-                 normalizedPath === decodedSlug.replace('WINDOWS_USE_Sub/', '') ||
+                 normalizedPath === decodedSlug.replace('WINDOWS_USE_Sub%2F', '') ||
                  normalizedPath.endsWith(decodedSlug);
         });
     
