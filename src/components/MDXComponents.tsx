@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Highlight from './Highlight';
+import CenteredImage from './mdx/CenteredImage';
 
 interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   alt?: string;
@@ -58,18 +59,19 @@ const Image = ({ alt, src, width, height, scale = 1, ...props }: ImageProps) => 
 };
 
 export const components = {
+  CenteredImage,
   img: Image,
   a: ({ href, children }: { href?: string; children: React.ReactNode }) => {
     const isInternal = href?.startsWith('/');
     if (isInternal) {
-      return <Link to={href} className="text-primary hover:underline">{children}</Link>;
+      return <Link to={href} className="text-blue-600 hover:text-blue-800 hover:underline transition-colors">{children}</Link>;
     }
     return (
       <a
         href={href}
         target="_blank"
         rel="noopener noreferrer"
-        className="text-primary hover:underline"
+        className="text-purple-500 hover:text-purple-800 hover:underline transition-colors"
       >
         {children}
       </a>
@@ -119,3 +121,6 @@ export const components = {
     return <span {...props}>{children}</span>;
   },
 };
+
+//添加默认导出组件
+export default components;

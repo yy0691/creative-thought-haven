@@ -9,6 +9,7 @@ import { RandomEmoji } from '../components/RandomEmoji';
 import { TableOfContents } from '@/components/TableOfContents';
 import { FileConverter } from '../lib/file-converter';
 import Highlight from '../components/Highlight';
+import MDXComponents from '@/components/MDXComponents';
 
 const components = {
   h1: props => <h1 className="text-3xl font-bold mt-8 mb-4" {...props} />,
@@ -201,12 +202,15 @@ const BlogPost = () => {
           </div>
         </header>
 
-        <MDXProvider components={{
-          ...components,
-          blockquote: (props) => (
-            <Highlight type="info">{props.children}</Highlight>
-          )
-        }}>
+        <MDXProvider
+          components={{
+            ...components,
+            ...MDXComponents,
+            blockquote: (props) => (
+              <Highlight type="info">{props.children}</Highlight>
+            )
+          }}
+        >
           <post.content />
         </MDXProvider>
 
