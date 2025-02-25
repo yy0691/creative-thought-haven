@@ -2,11 +2,13 @@ import { useEffect, useState } from 'react';
 import SEO from '../components/SEO';
 import { getAllPosts } from '../lib/blog';
 import { getAllProjects } from '../lib/projects';
+import SplashCursor from '../components/cursor';
+
 const Index = () => {
   const [posts, setPosts] = useState([]);
   const [projects, setProjects] = useState([]);
   const [showContent, setShowContent] = useState(false);
-
+  
   useEffect(() => {
     const fetchData = async () => {
       const recentPosts = await getAllPosts();
@@ -15,43 +17,55 @@ const Index = () => {
       setProjects(recentProjects.slice(0, 3));
     };
     fetchData();
-
+  
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
       const windowHeight = window.innerHeight;
       setShowContent(scrollPosition > windowHeight * 0.5);
     };
-
+  
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      const ripple = document.createElement('div');
-      ripple.className = 'mouse-ripple';
-      ripple.style.left = e.clientX + 'px';
-      ripple.style.top = e.clientY + 'px';
-      document.body.appendChild(ripple);
-
-      setTimeout(() => {
-        ripple.remove();
-      }, 1000);
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-
+  
   return (
     <div className="min-h-screen relative overflow-hidden overflow-y-scroll">
-      {/* 水波纹动效背景 */}
+      {/* 添加流体效果 */}
+      <SplashCursor 
+        SPLAT_RADIUS={0.3}
+        DYE_RESOLUTION={1024}
+        SPLAT_FORCE={6000}
+        DENSITY_DISSIPATION={2.5}
+        VELOCITY_DISSIPATION={1.5}
+        COLOR_UPDATE_SPEED={8}
+        BACK_COLOR={{ r: 0, g: 0, b: 0 }}
+      />
+  
+      {/* 移除原有的鼠标效果 */}
+      {/* 删除这段 useEffect
+      useEffect(() => {
+        const handleMouseMove = (e) => {
+          const ripple = document.createElement('div');
+          ripple.className = 'mouse-ripple';
+          ripple.style.left = e.clientX + 'px';
+          ripple.style.top = e.clientY + 'px';
+          document.body.appendChild(ripple);
+  
+          setTimeout(() => {
+            ripple.remove();
+          }, 1000);
+        };
+  
+        window.addEventListener('mousemove', handleMouseMove);
+        return () => window.removeEventListener('mousemove', handleMouseMove);
+      }, []); 
+      */}
+  
+      {/* 其余内容保持不变 */}
       <div className="ripple-background absolute inset-0 z-0">
-        {[...Array(5)].map((_, i) => (
-          <div key={i} className={`circle circle-${i + 1}`} />
-        ))}
+        {/* ... */}
       </div>
-
+      
       {/* 主要内容 */}
       <div className="relative z-10">
         <SEO 
@@ -69,7 +83,7 @@ const Index = () => {
             </p>
           </div>
         </div>
-
+  
         {/* 最新内容展示 */}
         <div className="max-w-screen-2xl mx-auto px-4 pb-16 mt-32 transition-all duration-1000 transform ${showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}">
           <div className="flex flex-col md:flex-row md:justify-between gap-8 md:gap-12">
@@ -92,7 +106,7 @@ const Index = () => {
                 const centerY = rect.height / 2;
                 const rotateX = (y - centerY) / 50;
                 const rotateY = (centerX - x) / 50;
-
+  
                 e.currentTarget.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
                 e.currentTarget.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7))`;
                 e.currentTarget.style.setProperty('--gradient-position', `${x}px ${y}px`);
@@ -140,7 +154,7 @@ const Index = () => {
                 const centerY = rect.height / 2;
                 const rotateX = (y - centerY) / 50;
                 const rotateY = (centerX - x) / 50;
-
+  
                 e.currentTarget.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
                 e.currentTarget.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7))`;
                 e.currentTarget.style.setProperty('--gradient-position', `${x}px ${y}px`);
@@ -177,3 +191,4 @@ const Index = () => {
 };
 
 export default Index;
+

@@ -59,9 +59,9 @@ const Blog = () => {
   };
 
   return (
-    <div className="page-transition space-y-8 py-12">
+    <div className="page-transition space-y-8 py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       <header className="text-center space-y-4">
-        <h1 className="text-4xl font-bold">Blog</h1>
+        <h1 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/70 animate-gradient">Blog</h1>
         <p className="text-muted-foreground">Thoughts, tutorials and insights</p>
       </header>
       
@@ -73,23 +73,46 @@ const Blog = () => {
         className="max-w-4xl mx-auto"
       />
       
-      <div className="grid gap-8 md:grid-cols-2">
+      <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
         {filteredPosts.map((post) => (
           <Link
             key={post.slug}
-            to={`/blog/${encodeURIComponent(post.slug.replace(/^\//, ''))}`}
-            className="glass rounded-lg p-6 card-hover transform-gpu transition-all duration-300 hover:scale-[1.02] will-change-transform hover:shadow-xl hover:border-primary/30 group border border-white/20 shadow-lg"
+            to={`/blog/${encodeURIComponent(post.slug.replace(/^\//,''))}`}
+            className="glass rounded-xl p-6 card-hover transform-gpu transition-all duration-300 hover:scale-[1.02] will-change-transform hover:shadow-xl hover:border-primary/30 group border border-white/20 shadow-lg backdrop-blur-sm relative overflow-hidden"
             style={{
               transformStyle: 'preserve-3d',
               backfaceVisibility: 'hidden',
               perspective: '1000px'
             }}
           >
-            <article>
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <article className="relative z-10">
               <div className="space-y-4">
-                <div className="text-sm text-muted-foreground">{formatDate(post.date)}</div>
+                <div className="flex items-center justify-between">
+                  <div className="text-sm text-muted-foreground">{formatDate(post.date)}</div>
+                  <div className="h-1.5 w-1.5 rounded-full bg-primary/50 group-hover:bg-primary transition-colors" />
+                </div>
                 <h2 className="text-xl font-semibold group-hover:text-primary transition-colors">{post.title}</h2>
-                <p className="text-muted-foreground">{post.excerpt}</p>
+                <div className="flex flex-wrap gap-2 mt-2">
+                  {post.tags?.map((tag, index) => {
+                    const tagColors = [
+                      'bg-blue-100 text-blue-800',
+                      'bg-green-100 text-green-800',
+                      'bg-purple-100 text-purple-800',
+                      'bg-yellow-100 text-yellow-800',
+                      'bg-pink-100 text-pink-800'
+                    ];
+                    const colorIndex = Math.abs(tag.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0)) % tagColors.length;
+                    return (
+                      <span
+                        key={index}
+                        className={`px-2.5 py-0.5 rounded-full text-xs font-medium ${tagColors[colorIndex]} transition-colors`}
+                      >
+                        {tag}
+                      </span>
+                    );
+                  })}
+                </div>
               </div>
             </article>
           </Link>

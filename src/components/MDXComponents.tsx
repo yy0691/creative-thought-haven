@@ -120,6 +120,11 @@ export const components = {
     }
     return <span {...props}>{children}</span>;
   },
+  Link: ({ to, children, className }: { to: string; children: React.ReactNode; className?: string }) => (
+    <Link to={to} className={className}>
+      {children}
+    </Link>
+  ),
 };
 
 //添加默认导出组件
