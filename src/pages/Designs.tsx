@@ -1,7 +1,7 @@
 
 import { designs } from "../content/designs";
 import { Link } from "react-router-dom";
-
+import SplashCursor from '../components/cursor';
 import { useEffect } from 'react';
 
 const Designs = () => {
@@ -24,6 +24,16 @@ const Designs = () => {
 
   return (
     <div className="space-y-8 py-12 animate-fadeIn">
+      {/* 添加流体效果 */}
+      <SplashCursor 
+        SPLAT_RADIUS={0.15}
+        DYE_RESOLUTION={512}
+        SPLAT_FORCE={3000}
+        DENSITY_DISSIPATION={4}
+        VELOCITY_DISSIPATION={2.5}
+        COLOR_UPDATE_SPEED={10}
+        BACK_COLOR={{ r: 0, g: 0, b: 0 }}
+      />
       <header className="text-center space-y-4 animate-slideDown">
         <h1 className="text-4xl font-bold bg-gradient-to-r from-primary/90 to-primary bg-clip-text text-transparent hover:scale-105 transition-transform cursor-default">
           设计作品
@@ -36,7 +46,7 @@ const Designs = () => {
           <Link 
             key={design.id} 
             to={`/designs/${design.id}`}
-            className="glass rounded-lg overflow-hidden border border-white/20 shadow-lg transition-all duration-300 transform-gpu hover:translate-y-[-8px] hover:shadow-xl hover:border-primary/30 group" 
+            className="glass rounded-lg overflow-hidden border border-white/20 dark:border-white/10 shadow-lg transition-all duration-300 transform-gpu hover:translate-y-[-8px] hover:shadow-xl hover:border-primary/30 dark:hover:border-primary/40 group dark:shadow-lg dark:shadow-black/20" 
             style={{
               background: `linear-gradient(to bottom right, rgba(255,255,255,0.9), rgba(255,255,255,0.6))`,
               transformStyle: 'preserve-3d',

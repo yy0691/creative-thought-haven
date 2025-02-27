@@ -1,5 +1,7 @@
 
 @import './styles/highlight.css';
+@import './styles/gradient.css';
+@import './styles/starry-night.css';
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
@@ -29,6 +31,26 @@
     --radius: 0.5rem;
   }
 
+  [data-theme='dark'] {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 217.2 32.6% 12%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 75.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 25%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+  }
+
   * {
     @apply border-border;
   }
@@ -36,8 +58,30 @@
   body {
     @apply bg-background text-foreground font-inter antialiased;
   }
-  
-  /* 隐藏滚动条但保持滚动功能 */
+}
+
+@layer components {
+  [data-theme='dark'] body {
+    @apply bg-transparent;
+  }
+
+  .glass {
+    @apply bg-white/70 backdrop-blur-lg border border-white/20;
+  }
+
+  [data-theme='dark'] .glass {
+    @apply bg-black/50 backdrop-blur-lg border-white/10;
+  }
+
+  [data-theme='dark'] .starry-night {
+    @apply opacity-100 visible;
+  }
+
+  .starry-night {
+    @apply opacity-0 invisible;
+    transition: opacity 0.3s ease-in-out;
+  }
+
   ::-webkit-scrollbar {
     width: 0;
     height: 0;
@@ -47,13 +91,7 @@
     scrollbar-width: none;
     -ms-overflow-style: none;
   }
-}
 
-@layer utilities {
-  .glass {
-    @apply bg-white/70 backdrop-blur-lg border border-white/20;
-  }
-  
   .card-hover {
     @apply transition-all duration-300 hover:translate-y-[-4px] hover:shadow-lg;
   }

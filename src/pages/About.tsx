@@ -1,4 +1,4 @@
-
+import SplashCursor from '../components/cursor';
 import { useEffect } from 'react';
 
 const About = () => {
@@ -21,12 +21,22 @@ const About = () => {
 
   return (
     <div className="page-transition space-y-12 py-12 max-w-4xl mx-auto">
+      {/* 添加流体效果 */}
+      <SplashCursor 
+        SPLAT_RADIUS={0.15}
+        DYE_RESOLUTION={512}
+        SPLAT_FORCE={3000}
+        DENSITY_DISSIPATION={4}
+        VELOCITY_DISSIPATION={2.5}
+        COLOR_UPDATE_SPEED={10}
+        BACK_COLOR={{ r: 0, g: 0, b: 0 }}
+      />
       <header className="text-center space-y-4 animate-slideDown">
         <h1 className="text-4xl font-bold bg-gradient-to-r from-primary/90 to-primary bg-clip-text text-transparent hover:scale-105 transition-transform cursor-default">
           关于我
         </h1>
         <p className="text-muted-foreground hover:text-primary transition-colors">
-          我们一起探索技术与创意的无限可能
+          分享计算机、AI 与阅读的所见所想，用软件作品与文字构筑更广阔的思维空间。
         </p>
       </header>
 

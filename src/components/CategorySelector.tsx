@@ -6,6 +6,7 @@ type Category = {
   name: string;
   description?: string;
   subcategories?: Category[];
+  label?: string;
 };
 
 type CategorySelectorProps = {
@@ -37,12 +38,13 @@ export const CategorySelector = ({
             onMouseLeave={() => setHoveredCategory(null)}
             className={cn(
               'relative p-4 rounded-lg transition-all duration-300',
-              'border border-white/20 backdrop-blur-sm overflow-hidden',
+              'border backdrop-blur-sm overflow-hidden',
+              'dark:border-gray-700 border-white/20',
               selectedCategory === category.id
-                ? 'bg-gradient-to-br from-purple-100/10 to-purple-100/5 shadow-[0_0_15px_rgba(168,85,247,0.15)]'
-                : 'bg-gradient-to-br from-purple-50/5 to-transparent hover:from-purple-100/10 hover:to-purple-800/5',
+                ? 'bg-gradient-to-br from-purple-100/10 to-purple-100/5 dark:from-purple-900/30 dark:to-purple-800/20 shadow-[0_0_15px_rgba(168,85,247,0.15)]'
+                : 'bg-gradient-to-br from-purple-50/5 to-transparent hover:from-purple-100/10 hover:to-purple-800/5 dark:from-purple-900/10 dark:to-transparent dark:hover:from-purple-800/20 dark:hover:to-purple-700/10',
               'group before:absolute before:inset-0 before:rounded-lg before:border-2 before:border-transparent',
-              'before:bg-gradient-to-r before:from-purple-100/30 before:via-purple-100/20 before:to-purple-200/30',
+              'before:bg-gradient-to-r before:from-purple-100/30 before:via-purple-100/20 before:to-purple-200/30 dark:before:from-purple-700/30 dark:before:via-purple-600/20 dark:before:to-purple-500/30',
               'before:transition-all before:duration-100 before:opacity-0 hover:before:opacity-100',
               'before:[background-size:200%_100%] hover:before:[animation:shine_2s_ease-in-out_infinite]',
               'after:absolute after:inset-[1px] after:rounded-lg after:bg-white/95 after:-z-[1]'
@@ -87,10 +89,10 @@ export const CategorySelector = ({
                 onClick={() => onSelect(selectedCategory, sub.id)}
                 className={cn(
                   'px-4 py-2 rounded-full text-sm transition-all duration-300',
-                  'border border-white/20 backdrop-blur-sm',
+                  'border border-white/20 dark:border-gray-700 backdrop-blur-sm',
                   selectedSubcategory === sub.id
-                    ? 'bg-primary/10 text-primary border-primary/30'
-                    : 'hover:bg-primary/5 hover:text-primary hover:border-primary/20'
+                    ? 'bg-primary/10 text-primary border-primary/30 dark:bg-primary/20 dark:text-primary-foreground dark:border-primary/40'
+                    : 'hover:bg-primary/5 hover:text-primary hover:border-primary/20 dark:hover:bg-primary/15 dark:hover:text-primary-foreground dark:hover:border-primary/30'
                 )}
               >
                 {sub.name}

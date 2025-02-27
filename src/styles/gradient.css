@@ -1,0 +1,44 @@
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.gradient-text {
+  background: linear-gradient(
+    to right,
+    #000000 0%,
+    #787c7d 50%,
+    #505354 100%
+  );
+  background-size: 400% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation:  100s linear infinite;
+}
+
+.gradient-bg {
+  background-size: 200% 100%;
+  animation: gradient 8s linear infinite;
+}
+
+.gradient-border {
+  border-image: linear-gradient(to right, rgba(0,0,0,0.1), rgba(0,0,0,0.3)) 1;
+  animation: gradient 8s linear infinite;
+}
+
+.gradient-hover {
+  background-size: 200% 100%;
+  transition: all 0.3s ease;
+}
+
+.gradient-hover:hover {
+  background-position: right center;
+}

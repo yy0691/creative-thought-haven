@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { projects } from '../content/projects';
-
+import SplashCursor from '../components/cursor';
 const Portfolio = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('');
 
@@ -19,6 +19,16 @@ const Portfolio = () => {
 
   return (
     <div className="page-transition space-y-8 py-12">
+      {/* 添加流体效果 */}
+      <SplashCursor 
+        SPLAT_RADIUS={0.3}
+        DYE_RESOLUTION={512}
+        SPLAT_FORCE={3000}
+        DENSITY_DISSIPATION={4}
+        VELOCITY_DISSIPATION={2.5}
+        COLOR_UPDATE_SPEED={10}
+        BACK_COLOR={{ r: 0, g: 0, b: 0 }}
+      />
       <header className="text-center space-y-4">
         <h1 className="text-4xl font-bold bg-gradient-to-r from-primary/90 to-primary bg-clip-text text-transparent">
           Portfolio
@@ -35,8 +45,8 @@ const Portfolio = () => {
               px-4 py-2 rounded-full transition-all duration-500
               relative overflow-hidden
               ${selectedCategory === category.id
-                ? 'bg-gradient-to-r from-primary/90 to-primary text-white shadow-lg before:absolute before:inset-0 before:bg-white/20 before:animate-pulse'
-                : 'bg-white/60 hover:bg-white/80 text-primary border border-transparent hover:border-primary/30 backdrop-blur-sm'}
+                ? 'bg-gradient-to-r from-primary/90 to-primary text-white dark:text-primary-foreground shadow-lg before:absolute before:inset-0 before:bg-white/20 dark:before:bg-black/20 before:animate-pulse'
+                : 'bg-white/60 dark:bg-black/40 hover:bg-white/80 dark:hover:bg-black/60 text-primary dark:text-primary-foreground border border-transparent hover:border-primary/30 dark:hover:border-primary/40 backdrop-blur-sm'}
               before:opacity-0 hover:before:opacity-100 before:transition-opacity
               after:absolute after:inset-0 after:rounded-full after:border after:border-primary/30 after:scale-[1.02] after:opacity-0 hover:after:opacity-100 after:transition-all after:duration-500
             `}

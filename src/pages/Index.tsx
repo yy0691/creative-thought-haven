@@ -30,56 +30,24 @@ const Index = () => {
   
   return (
     <div className="min-h-screen relative overflow-hidden overflow-y-scroll">
-      {/* 添加流体效果 */}
       <SplashCursor 
-        SPLAT_RADIUS={0.3}
-        DYE_RESOLUTION={1024}
-        SPLAT_FORCE={6000}
-        DENSITY_DISSIPATION={2.5}
-        VELOCITY_DISSIPATION={1.5}
-        COLOR_UPDATE_SPEED={8}
-        BACK_COLOR={{ r: 0, g: 0, b: 0 }}
+        SPLAT_RADIUS={0.2}
+        DYE_RESOLUTION={512}
+        SPLAT_FORCE={300}
+        DENSITY_DISSIPATION={2}
+        VELOCITY_DISSIPATION={2}
+        COLOR_UPDATE_SPEED={2}
       />
-  
-      {/* 移除原有的鼠标效果 */}
-      {/* 删除这段 useEffect
-      useEffect(() => {
-        const handleMouseMove = (e) => {
-          const ripple = document.createElement('div');
-          ripple.className = 'mouse-ripple';
-          ripple.style.left = e.clientX + 'px';
-          ripple.style.top = e.clientY + 'px';
-          document.body.appendChild(ripple);
-  
-          setTimeout(() => {
-            ripple.remove();
-          }, 1000);
-        };
-  
-        window.addEventListener('mousemove', handleMouseMove);
-        return () => window.removeEventListener('mousemove', handleMouseMove);
-      }, []); 
-      */}
-  
-      {/* 其余内容保持不变 */}
-      <div className="ripple-background absolute inset-0 z-0">
-        {/* ... */}
-      </div>
+      <div className="ripple-background absolute inset-0 z-0"></div>
       
-      {/* 主要内容 */}
       <div className="relative z-10">
-        <SEO 
-          title="首页"
-          description="欢迎来到创意思维空间，这里展示我的技术博客、项目作品和设计思考。"
-          keywords={['首页', '个人博客', '作品集', '技术文章']}
-        />
-        
-        {/* 第一屏内容 */}
         <div className="min-h-screen flex items-center justify-center px-4">
           <div className="text-center">
-            <h1 className="text-6xl font-bold mb-6 animate-fade-in">创意思维空间</h1>
-            <p className="text-2xl mb-12 animate-fade-in-delay max-w-2xl mx-auto">
-              欢迎来到我的个人空间，这里记录着我的技术探索、项目实践和设计思考。
+          <h1 className="text-8xl font-bold mb-9 gradient-text hover:scale-105 transition-transform duration-500 cursor-default">
+            ENDLESS
+          </h1>
+            <p className="text-2xl mb-12 text-gray-600 animate-fade-in-delay max-w-2xl mx-auto hover:text-gray-800 transition-colors duration-300">
+              AI 与阅读的所见所想，用软件作品与文字构筑更广阔的思维空间。
             </p>
           </div>
         </div>
