@@ -32,19 +32,19 @@
 
   [data-theme='dark'] {
     --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
+    --foreground: 40 30% 92%; /* 修改为米白色字体 */
+    --card: 220 13% 18%; /* 修改为灰黑色 */
+    --card-foreground: 40 30% 92%; /* 修改为米白色字体 */
+    --popover: 220 13% 18%; /* 修改为灰黑色 */
+    --popover-foreground: 40 30% 92%; /* 修改为米白色字体 */
+    --primary: 40 30% 92%; /* 修改为米白色 */
     --primary-foreground: 222.2 47.4% 11.2%;
     --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary-foreground: 40 30% 92%; /* 修改为米白色字体 */
     --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted-foreground: 215 20.2% 75.1%; /* 提高亮度 */
     --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent-foreground: 40 30% 92%; /* 修改为米白色字体 */
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
@@ -60,7 +60,7 @@
   
   /* 隐藏滚动条但保持滚动功能 */
   ::-webkit-scrollbar {
-    width: 1;
+    width: 0;
     height: 0;
   }
 
@@ -81,6 +81,11 @@
   
   .card-hover {
     @apply transition-all duration-300 hover:translate-y-[-4px] hover:shadow-lg;
+  }
+
+  /* 添加夜间模式卡片样式 */
+  .dark-card {
+    @apply bg-gradient-to-br from-gray-900/80 to-gray-800/70 backdrop-blur-lg border border-white/10;
   }
 }
 
