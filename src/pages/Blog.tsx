@@ -13,59 +13,60 @@ const Blog = () => {
   const [filteredPosts, setFilteredPosts] = useState<BlogPostMeta[]>([]);
 
   useEffect(() => {
+    let lastUpdate = 0;
+    const throttleDelay = 16; // 60fps节流
+    let animationFrameId: number;
+    
     const handleMouseMove = (e: MouseEvent) => {
-      const ripple = document.createElement('div');
-      ripple.className = 'mouse-ripple';
-      ripple.style.left = `${e.clientX}px`;
-      ripple.style.top = `${e.clientY}px`;
-      document.body.appendChild(ripple);
+      const now = Date.now();
+      if (now - lastUpdate < throttleDelay) return;
+      
+      lastUpdate = now;
+      animationFrameId = requestAnimationFrame(() => {
+        const ripple = document.createElement('div');
+        ripple.className = 'mouse-ripple';
+        ripple.style.left = `${e.clientX}px`;
+        ripple.style.top = `${e.clientY}px`;
+        document.body.appendChild(ripple);
+        ripples.add(ripple);
 
-      setTimeout(() => {
-        ripple.remove();
-      }, 1000);
+        // 批量移除旧涟漪
+        if (ripples.size > 20) {
+          const oldest = ripples.values().next().value;
+          oldest.remove();
+          ripples.delete(oldest);
+        }
+
+        // 使用CSS动画替代setTimeout
+        setTimeout(() => {
+          ripple.remove();
+          ripples.delete(ripple);
+        }, 1000);
+      });
     };
 
     window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-
-  useEffect(() => {
-    const loadPosts = async () => {
-      const allPosts = await getBlogPosts();
-      setPosts(allPosts);
-      setFilteredPosts(allPosts);
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      cancelAnimationFrame(animationFrameId);
+      // 添加WebGL资源清理
+      const canvas = document.querySelector('canvas');
+      if (canvas) {
+        const gl = canvas.getContext('webgl');
+        gl?.getExtension('WEBGL_lose_context')?.loseContext();
+      }
     };
-    loadPosts();
   }, []);
-
-  useEffect(() => {
-    if (selectedCategory) {
-      const filtered = posts.filter(post => {
-        if (selectedSubcategory) {
-          return post.category === `${selectedCategory}-${selectedSubcategory}`;
-        }
-        return post.category.startsWith(`${selectedCategory}-`);
-      });
-      setFilteredPosts(filtered);
-    } else {
-      setFilteredPosts(posts);
-    }
-  }, [selectedCategory, selectedSubcategory, posts]);
-
-  const handleCategorySelect = (categoryId: string, subcategoryId?: string) => {
-    setSelectedCategory(categoryId);
-    setSelectedSubcategory(subcategoryId || '');
-  };
 
   return (
     <div className="page-transition space-y-8 py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       <SplashCursor 
-        SPLAT_RADIUS={0.15}
-        DYE_RESOLUTION={512}
-        SPLAT_FORCE={3000}
-        DENSITY_DISSIPATION={4}
-        VELOCITY_DISSIPATION={2.5}
-        COLOR_UPDATE_SPEED={10}
+        SPLAT_RADIUS={0.12}          // 降低作用半径
+        DYE_RESOLUTION={256}         // 降低渲染分辨率
+        SPLAT_FORCE={2500}           // 减小作用力
+        DENSITY_DISSIPATION={6}      // 提高密度消散
+        VELOCITY_DISSIPATION={3.5}   // 提高速度消散
+        COLOR_UPDATE_SPEED={12}
         BACK_COLOR={{ r: 0, g: 0, b: 0 }}
       />
       <header className="text-center space-y-4">
@@ -74,7 +75,10 @@ const Blog = () => {
       </header>
       
       <CategorySelector
-        categories={[{ id: '', label: '所有' }, ...categories]}
+        categories={[{
+          id: '', name: '所有', label: '所有',
+          description: ''
+        }, ...categories]}
         selectedCategory={selectedCategory}
         selectedSubcategory={selectedSubcategory}
         onSelect={handleCategorySelect}
@@ -85,7 +89,7 @@ const Blog = () => {
         {filteredPosts.map((post) => (
           <Link
             key={post.slug}
-            to={`/blog/${encodeURIComponent(post.slug.replace(/^//,''))}`}
+            to={`/blog/${encodeURIComponent(post.slug.replace(/^\//, ''))}`}
             className="glass rounded-xl p-6 transform-gpu transition-all duration-500 hover:scale-[1.02] will-change-transform hover:shadow-2xl hover:border-primary/30 group border border-white/20 shadow-lg backdrop-blur-sm relative overflow-hidden"
             style={{
               transformStyle: 'preserve-3d',
@@ -109,7 +113,7 @@ const Blog = () => {
                       'bg-yellow-100 text-yellow-800',
                       'bg-pink-100 text-pink-800'
                     ];
-                    const colorIndex = Math.abs(tag.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0)) % tagColors.length;
+                    const colorIndex = Math.abs(tag.split('').reduce((acc: number, char) => acc + char.charCodeAt(0), 0)) % tagColors.length;
                     return (
                       <span
                         key={index}

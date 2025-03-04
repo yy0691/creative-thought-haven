@@ -1,0 +1,8 @@
+.mouse-ripple {
+  /* 添加GPU加速 */
+  will-change: transform, opacity;
+  /* 禁用鼠标事件 */
+  pointer-events: none;
+  /* 使用硬件加速 */
+  transform: translateZ(0);
+}
