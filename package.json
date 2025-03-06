@@ -8,7 +8,8 @@
     "build": "rm -rf build dist && vite build",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "postinstall": "npm uninstall @babel/preset-es2015 && npm install --save-dev @babel/core@latest @babel/preset-env@latest"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",

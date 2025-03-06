@@ -40,21 +40,14 @@ export default defineConfig(({ mode }) => ({
     outDir: 'build',
     rollupOptions: {
       output: {
-        manualChunks: (id) => {
-          if (id.includes('node_modules/react') || 
-              id.includes('node_modules/react-dom') || 
-              id.includes('node_modules/react-router-dom')) {
-            return 'vendor-react';
-          }
-          
-          if (id.includes('node_modules/@radix-ui') || 
-              id.includes('node_modules/lucide-react')) {
-            return 'vendor-ui';
-          }
-          
-          if (id.includes('node_modules')) {
-            return 'vendor';
-          }
+        manualChunks: {
+          'vendor-react-core': ['react', 'react-dom'],
+          'vendor-react-router': ['react-router-dom'],
+          'vendor-ui-core': ['@radix-ui/react-dropdown-menu', '@radix-ui/react-tooltip'],
+          'vendor-ui-icons': ['lucide-react'],
+          'vendor-markdown': ['remark-gfm', 'rehype-slug', 'rehype-autolink-headings'],
+          'vendor-utils': ['date-fns', 'clsx', 'class-variance-authority'],
+          'vendor-animations': ['framer-motion', 'tailwindcss-animate'],
         }
       }
     },
@@ -62,6 +55,12 @@ export default defineConfig(({ mode }) => ({
     sourcemap: mode === 'development',
     commonjsOptions: {
       ignoreTryCatch: id => id !== 'stream'
+    },
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true
+      }
     }
   },
   plugins: [
