@@ -17,17 +17,21 @@ export default defineConfig(({ mode }) => ({
     minify: 'terser',
     cssMinify: true,
     cssCodeSplit: true,
+    outDir: 'build',
     rollupOptions: {
       output: {
         manualChunks: {
-          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-          'ui-vendor': ['@radix-ui/react-toast', '@radix-ui/react-dialog'],
+          vendor: ['react', 'react-dom', 'react-router-dom'],
+          ui: ['@/components/ui'],
           'mdx-vendor': ['@mdx-js/react', '@mdx-js/rollup']
         }
       }
     },
-    chunkSizeWarningLimit: 1000,
-    sourcemap: mode === 'development'
+    chunkSizeWarningLimit: 1500,
+    sourcemap: mode === 'development',
+    commonjsOptions: {
+      ignoreTryCatch: id => id !== 'stream'
+    }
   },
   plugins: [
     mdxPlugin(),
