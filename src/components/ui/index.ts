@@ -1,7 +1,7 @@
 // 导出所有UI组件
 export * from './button';
 export * from './card';
-export * from './toaster';
+export { Toaster } from './toaster';
 export * from './toast';
 export * from './sonner';
 export * from './tooltip';

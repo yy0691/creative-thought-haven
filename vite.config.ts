@@ -2,8 +2,28 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { componentTagger } from "lovable-tagger";
-import { mdxPlugin } from "./src/lib/mdx";
+import mdx from "@mdx-js/rollup";
+import remarkGfm from "remark-gfm";
+import remarkFrontmatter from "remark-frontmatter";
+import remarkMdxFrontmatter from "remark-mdx-frontmatter";
+import rehypeSlug from "rehype-slug";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import { splitVendorChunkPlugin } from 'vite';
+
+const mdxConfig = {
+  remarkPlugins: [
+    remarkGfm,
+    remarkFrontmatter,
+    [remarkMdxFrontmatter, { name: 'metadata', exports: true }]
+  ],
+  rehypePlugins: [
+    rehypeSlug,
+    rehypeAutolinkHeadings
+  ],
+  providerImportSource: '@mdx-js/react'
+} as import('@mdx-js/rollup').Options;
+
+const mdxPlugin = () => mdx(mdxConfig);
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
