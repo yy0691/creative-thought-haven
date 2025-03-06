@@ -1,0 +1,80 @@
+# VLAN-TRUNK
+
+# Virtual LAN  虚拟局域网
+
+<aside>
+🙌🏻 **VLAN是干什么的？**
+
+**控制广播，逻辑隔离广播域**
+
+</aside>
+
+1. 广播/广播域
+2. 广播的危害：增加网络/终端负担，传播病毒，安全性
+3. **如何控制广播**
+控制广播=隔离广播域
+    
+    路由器隔离广播（物理隔离广播）
+    缺点：成本高、不灵活
+    
+4. 采用VLAN技术来控制
+    
+    **VLAN技术是在交换机上实现的且是通过逻辑隔离划分的广播域**
+    
+    VLAN表/频段表
+    
+5. 一个VLAN = 一个广播域 = 一个网段
+6. VLAN的类型
+    1. 静态VLAN
+        
+        手工配置
+        基于端口划分的VLAN
+        
+    2. 动态VLAN
+        
+        手工配置
+        基于MAC地址划分的VLAN/采用802.1X端口认证基于账号划分VLAN
+        
+7. 命令
+    
+    ```cpp
+    //创建VLAN
+    **conf t
+    	vlan ID,ID,ID-ID //逗号不连续， -连续
+    	 [name  自定义名称]
+    	exit
+    
+    //查看VLAN 表
+    do sh vlan b
+    
+    //将端口加入到VLAN
+    int f0/x    //思科锐捷
+    	switchport access vlan ID**
+    ```
+    
+
+# TRUNK
+
+### 公共端口/中继链路
+
+1. 作用：**允许所有VLAN数据通过turnk链路**
+
+方法：通过在数据帧上加标签，来区分不同的vlan的数据
+
+1. trunk标签
+    1. ISL标签：cisco私有，标签大小30字节26+4
+    2. 802.1q标签：公有协议，所有厂家都支持，标签大小4字节 属于内部标签 
+2. 交换机端口链路类型
+    1. 接入端口：也称为access端口，一般用于链接PC，只属于某一个VLAN端口，也只能传输一个VLAN数据
+    2. 中继端口：也称为trunk端口，一般用于链接其他交换机，属于公共端口，允许所有VLAN的数据通过
+    
+    ```cpp
+    **//配置trunk命令
+    int f0/x
+    	[switchport trunk encapsulation dotlq/isl]
+    	switchport mode trunk
+    	exit**
+    ```
+    
+
+### 交换机的工作原理（配置了VLAN和trunk的）

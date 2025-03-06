@@ -1,0 +1,35 @@
+# HSRP协议/VRRP协议
+
+### 热备份路由协议  hot  standby route p
+
+1. HSRP组号：1-255 没有大小之分
+2. 虚拟路由器的IP称为虚拟IP地址
+3. HSRP组的成员：
+    1. 虚拟路由器（老大）
+    2. 活跃路由器
+    3. 备份路由器
+    4. 其他路由器
+4. HSRP优先级：1-255  默认为100
+5. HSRP组成员通过定时发送hello包来交流，默认每隔3秒
+hello时间3秒，坚持时间10秒
+6. 占先权preempt
+    
+    作用：当检测不到对方或检测到对方优先级比自己低，立即抢占活跃路由的名分
+    
+7. 配置跟踪track，跟踪外网端口状态，若外网down掉，则自降优先级
+    
+    ```cpp
+    **R1:
+    int f0/0
+    	standby 1 ip 192.168.1.254    //加入到HSRP组中
+    	standby 1 priority 200        //设置优先级
+    	standby 1 preempt             //设置占先权
+    	standby 1 track f0/1          //跟踪外网端口
+    
+    show standby br     //查看HSRP状态
+    show standby** 
+    ```
+    
+    ![Untitled](Untitled%2093.png)
+    
+    ## STP—>pvst(cisco)/MST

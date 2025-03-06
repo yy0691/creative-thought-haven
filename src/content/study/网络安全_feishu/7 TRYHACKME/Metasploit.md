@@ -1,0 +1,286 @@
+# Metasploit
+
+# 概述
+
+## 版本
+
+* <u>Metasploit</u> Pro：商业版本，有GUI界面
+* <u>Metasploit</u> Framework：开源版本
+Tips：SMB (Server Message Block)服务被广泛使用在文件共享和向打印机发送文件
+
+# 主要组件
+
+* **msfconsole:**命令行界面
+* **Modules**: 支持漏洞攻击、扫描器、有效载荷等模块
+* **Tools**: 帮助漏洞研究、漏洞评估或渗透测试的独立工具  包括msfvenom、pattern_create和pattern_offset
+# 使用方法
+
+### 常用命令
+
+
+```Bash
+msfconsole         #启动Metasploit框架
+msf6 > exit        #退出
+msf6 > ls          #列出Metasploit文件夹中的文件
+clear              #清除终端屏幕
+msf6 > help set    #帮助命令
+msf6 > search XX   #搜索xx模块
+msf6 > search ms17-010  #seatch命令可以使用CVE编号、漏洞攻击名称或目标系统
+msf6 > history     #查看之前输入的命令
+
+msf6 > use exploit/windows/smb/ms17_010_eternalblue    #使用xx模块进行漏洞攻击
+msf6 > use 0        #可以使用结果行开头的数字
+msf6 exploit(windows/smb/ms17_010_eternalblue) > show options  #查看选项
+msf6 exploit(windows/smb/ms17_010_eternalblue) > set  PARAMETER_NAME VALUE  #设置参数
+msf6 exploit(windows/smb/ms17_010_eternalblue) > run        #启动
+msf6 exploit(windows/smb/ms17_010_eternalblue) > exploit    #启动
+
+msf6 > unset all    #清除全部设置
+msf6 > unset        #清除全部设置
+msf6 > setg         #设置用于所有模块的值、清除
+msf6 > unsetg       #设置用于所有模块的值、清除
+
+msf6 >  back       #离开上下文
+msf6 >  info       #获得更多信息
+```
+
+* 不支持输出重定向
+* 支持tab补全
+* 支持上下文环境中设置参数
+* `show` 命令可以在任何上下文中使用，后跟模块类型
+### 提示符类型
+
+
+```Bash
+#常规提示符
+root@ip-10-10-XX-XX:~#
+#metasploit提示符
+msf6 >
+#环境命令提示符
+msf6 exploit(windows/smb/ms17_010_eternalblue) >
+#<u>Meterpreter提示</u>
+#意味着Meterpreter代理已经加载到目标系统并连接回您。你可以使用 Meterpreter特定的命令。
+meterpreter >
+#目标系统上的shell
+#一旦漏洞攻击完成，你就可以访问命令行shell 目标系统
+C:\Windows\system32>
+```
+
+### 常用参数
+
+* `RHOSTS`:目标系统的IP地址，可以设置为单个IP地址或地址范围,也可以使用文件列出目标。
+  * CIDR (Classless Inter-Domain Routing) notation `(/24, /16, etc.)`
+  * 地址范围 `(10.10.10.x – 10.10.10.y)`
+  * `文件路径：File:/path/of/ target_file.txt`
+* `RPORT`:Remote port  目标系统上运行的端口
+* `PAYLOAD`:用于漏洞攻击的有效载荷
+* `LHOST`:Localhost，攻击者的IP
+* `LPORT`:Local Port  反向shell连接的端口
+* `SESSION`:每个使用Metasploit建立到目标系统的连接将具有一个会话ID。使用`post-exploitation`模块，可以连接到目标系统的漏洞
+# 模块介绍
+
+设置好模块的参数后，可以使用`exploit`命令启动该模块，还支持`run`命令，`exploit`命令可以不带参数使用，也可以使用`-z`参数
+
+* `exploit -z`  命令会在会话打开后立即运行漏洞攻击程序并将其置于后台
+* 一些模块支持  `check` 选项。这将检查目标系统是否存在漏洞，而不会对其进行攻击
+* 使用  `background` 命令将会话提示置于后台，并返回到msfconsole提示符
+* `CTRL+Z` 可用于后台会话
+* `sessions` 命令可以从msfconsole提示符或任何上下文查看现有的 会话
+* `sessions -i` 命令后得到所需的会话编号
+
+> **漏洞利用 Exploit：**利用目标系统上存在漏洞的一段代码
+> **漏洞Vulnerability：**影响目标系统的设计、编码或逻辑缺陷
+> **有效载荷Payload：**将在目标系统上运行的代码
+
+
+### Auxiliary 辅助
+
+
+```Bash
+root@ip-10-10-135-188:/opt/metasploit-framework/embedded/framework/modules# tree -L 1 auxiliary/
+auxiliary/
+├── admin
+├── analyze
+├── bnat
+├── client
+├── cloud
+├── crawler
+├── docx
+├── dos
+├── example.py
+├── example.rb
+├── fileformat
+├── fuzzers
+├── gather
+├── parser
+├── pdf
+├── scanner
+├── server
+├── sniffer
+├── spoof
+├── sqli
+├── voip
+└── vsploit
+
+20 directories, 2 files
+```
+
+### Encoders 编码器
+
+可对漏洞攻击和有效载荷进行编码，避开基于签名的反病毒解决方案。
+
+
+
+
+```Bash
+root@ip-10-10-135-188:/opt/metasploit-framework/embedded/framework/modules# tree -L 1 encoders/
+encoders/
+├── cmd
+├── generic
+├── mipsbe
+├── mipsle
+├── php
+├── ppc
+├── ruby
+├── sparc
+├── x64
+└── x86
+
+10 directories, 0 files
+```
+
+### Evasion
+
+躲过杀毒软件
+
+
+```Bash
+root@ip-10-10-135-188:/opt/metasploit-framework/embedded/framework/modules# tree -L 2 evasion/
+evasion/
+└── windows
+    ├── applocker_evasion_install_util.rb
+    ├── applocker_evasion_msbuild.rb
+    ├── applocker_evasion_presentationhost.rb
+    ├── applocker_evasion_regasm_regsvcs.rb
+    ├── applocker_evasion_workflow_compiler.rb
+    ├── process_herpaderping.rb
+    ├── syscall_inject.rb
+    ├── windows_defender_exe.rb
+    └── windows_defender_js_hta.rb
+
+1 directory, 9 files
+```
+
+### Exploits 漏洞利用
+
+
+```Bash
+root@ip-10-10-135-188:/opt/metasploit-framework/embedded/framework/modules# tree -L 1 exploits/
+exploits/
+├── aix
+├── android
+├── apple_ios
+├── bsd
+├── bsdi
+├── dialup
+├── example_linux_priv_esc.rb
+├── example.py
+├── example.rb
+├── example_webapp.rb
+├── firefox
+├── freebsd
+├── hpux
+├── irix
+├── linux
+├── mainframe
+├── multi
+├── netware
+├── openbsd
+├── osx
+├── qnx
+├── solaris
+├── unix
+└── windows
+
+20 directories, 4 files
+```
+
+### NOPs 空操作
+
+在Intel x86 CPU族中，使用`0x90`表示，`0x90`之后，CPU在一个周期内什么都不做，通常用作缓冲区，以实现一致的载荷有效大小
+
+
+```Bash
+root@ip-10-10-135-188:/opt/metasploit-framework/embedded/framework/modules# tree -L 1 nops/
+nops/
+├── aarch64
+├── armle
+├── cmd
+├── mipsbe
+├── php
+├── ppc
+├── sparc
+├── tty
+├── x64
+└── x86
+
+10 directories, 0 files
+```
+
+### Payloads 有效载荷
+
+可以启动计算机程序  calc.exe 作为概念证明
+
+Metasploit提供了发送不同有效载荷的能力，可以在目标系统上打开`shell`
+
+
+```Bash
+root@ip-10-10-135-188:/opt/metasploit-framework/embedded/framework/modules# tree -L 1 payloads/
+payloads/
+├── adapters
+├── singles
+├── stagers
+└── stages
+
+4 directories, 0 files
+```
+
+* Adapters：封装有单个有效载荷转换为不同的格式，例如将一个普通的有效载荷封装在一个Powershell中
+* Singles：自包含的有效载荷（添加用户，启动记事本.exe）
+* Stagers：在Metasploit和目标系统之间建立连接通道。“分阶段有效载荷”先在目标系统上传一个stager，然后再下载剩余的有效载荷
+* Stages：由stager下载，将允许传递更多、更复杂的有效载荷
+
+识别单个有效载荷和暂存有效载荷
+
+* generic/shell_reverse_tcp            内联/单个载荷
+* windows/x64/shell/reverse_tcp     暂态的有效载荷
+两者都是反向windows shell
+
+### Post 
+
+
+```Bash
+root@ip-10-10-135-188:/opt/metasploit-framework/embedded/framework/modules# tree -L 1 post/
+post/
+├── aix
+├── android
+├── apple_ios
+├── bsd
+├── firefox
+├── hardware
+├── linux
+├── multi
+├── networking
+├── osx
+├── solaris
+└── windows
+
+12 directories, 0 files
+```
+
+## 常用模块
+
+`scanner/discovery/udp_sweep` module will allow you to quickly identify services running over the UDP (User Datagram Protocol). 
+
+
+

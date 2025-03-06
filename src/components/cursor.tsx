@@ -90,12 +90,7 @@ export default function SplashCursor({
     fps: 60,
     lowPerformanceCount: 0
   });
-  const performanceRef = useRef({
-    frameCount: 0,
-    lastFrameTime: 0,
-    fps: 60,
-    lowPerformanceCount: 0
-  });
+
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return; // Guard canvas early
@@ -122,12 +117,14 @@ export default function SplashCursor({
       BACK_COLOR,
       TRANSPARENT,
     };
-  
-    // Get WebGL context (WebGL1 or WebGL2)
-    const { gl, ext } = getWebGLContext(canvas);
-    if (!gl || !ext) return;
-  
-    // If no linear filtering, reduce resolution
+    // 获取WebGL上下文(WebGL1或WebGL2)
+    const gl = canvas.getContext('webgl2') || canvas.getContext('webgl');
+    if (!gl) return;
+
+    // 获取扩展
+    const ext = {
+      supportLinearFiltering: gl.getExtension('OES_texture_float_linear')
+    };
     if (!ext.supportLinearFiltering) {
       config.DYE_RESOLUTION = 256;
       config.SHADING = false;
@@ -148,8 +145,15 @@ export default function SplashCursor({
       webGLResourcesRef.current.programs.push(program);
       return program;
     }
-  
     // 启动性能监控
+    const monitorPerformance = () => {
+      // 计算FPS
+      const now = performance.now();
+      const deltaTime = now - performanceRef.current.lastFrameTime;
+      performanceRef.current.lastFrameTime = now;
+      performanceRef.current.fps = 1000 / deltaTime;
+      requestAnimationFrame(monitorPerformance);
+    };
     requestAnimationFrame(monitorPerformance);
   
     // 添加定期清理机制
@@ -160,16 +164,45 @@ export default function SplashCursor({
         // 确保清理操作不会太频繁（至少间隔30秒）
         if (now - webGLResourcesRef.current.lastCleanup > 30000) {
           console.log('检测到性能下降，执行资源清理');
-          cleanupResources();
+          // 清理WebGL资源
+          if (webGLResourcesRef.current) {
+            // 清理纹理
+            webGLResourcesRef.current.textures.forEach(texture => {
+              gl.deleteTexture(texture);
+            });
+            // 清理帧缓冲区
+            webGLResourcesRef.current.framebuffers.forEach(framebuffer => {
+              gl.deleteFramebuffer(framebuffer);
+            });
+            // 清理着色器程序
+            webGLResourcesRef.current.programs.forEach(program => {
+              gl.deleteProgram(program);
+            });
+            webGLResourcesRef.current.lastCleanup = now;
+          }
         }
       }
     }, 60000);
-  
+
     // 清理函数
     return () => {
       clearInterval(cleanupInterval);
       // 清理WebGL资源
-      cleanupResources();
+      if (webGLResourcesRef.current) {
+        // 清理纹理
+        webGLResourcesRef.current.textures.forEach(texture => {
+          gl.deleteTexture(texture);
+        });
+        // 清理帧缓冲区
+        webGLResourcesRef.current.framebuffers.forEach(framebuffer => {
+          gl.deleteFramebuffer(framebuffer);
+        });
+        // 清理着色器程序
+        webGLResourcesRef.current.programs.forEach(program => {
+          gl.deleteProgram(program);
+        });
+        webGLResourcesRef.current.lastCleanup = Date.now();
+      }
       
       // 释放WebGL上下文
       const loseContext = gl.getExtension('WEBGL_lose_context');
