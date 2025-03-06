@@ -1,0 +1,22 @@
+{
+  "envId": "pages-15hybfi8clcl",
+  "version": "2.0",
+  "framework": {
+    "name": "react-vite",
+    "plugins": {
+      "client": {
+        "use": "@cloudbase/framework-plugin-website",
+        "inputs": {
+          "outputPath": "build",
+          "installCommand": "npm install",
+          "buildCommand": "npm run build",
+          "ignore": [
+            "node_modules",
+            "cloudbaserc.js",
+            ".git"
+          ]
+        }
+      }
+    }
+  }
+} 

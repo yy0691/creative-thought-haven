@@ -40,18 +40,15 @@ export default defineConfig(({ mode }) => ({
     outDir: 'build',
     rollupOptions: {
       output: {
-        manualChunks: {
-          'vendor-react-core': ['react', 'react-dom'],
-          'vendor-react-router': ['react-router-dom'],
-          'vendor-ui-core': ['@radix-ui/react-dropdown-menu', '@radix-ui/react-tooltip'],
-          'vendor-ui-icons': ['lucide-react'],
-          'vendor-markdown': ['remark-gfm', 'rehype-slug', 'rehype-autolink-headings'],
-          'vendor-utils': ['date-fns', 'clsx', 'class-variance-authority'],
-          'vendor-animations': ['framer-motion', 'tailwindcss-animate'],
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            const packageName = id.toString().split('node_modules/')[1].split('/')[0];
+            return `vendor-${packageName}`;
+          }
         }
       }
     },
-    chunkSizeWarningLimit: 1500,
+    chunkSizeWarningLimit: 500,
     sourcemap: mode === 'development',
     commonjsOptions: {
       ignoreTryCatch: id => id !== 'stream'

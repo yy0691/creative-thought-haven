@@ -1,0 +1,15 @@
+envId: pages-15hybfi8clcl
+framework:
+  name: vite-react
+  plugins:
+    client:
+      use: '@cloudbase/framework-plugin-website'
+      inputs:
+        outputPath: build
+        installCommand: npm install
+        buildCommand: npm run build
+        ignore:
+          - node_modules
+          - .git
+          - .github
+          - .cache 
