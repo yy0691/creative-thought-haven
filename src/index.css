@@ -56,42 +56,17 @@
   body {
     @apply bg-background text-foreground font-inter antialiased;
   }
-  
+}
+
+@layer components {
   /* 毛玻璃效果基础样式 */
   .glassmorphism {
-    @apply bg-card/70 backdrop-blur-md border border-border/40;
+    @apply bg-white/70 backdrop-blur-md border border-border/40;
   }
   
   /* 暗色模式下的特殊毛玻璃效果 */
   [data-theme='dark'] .glassmorphism {
-    @apply bg-gradient-to-br from-card/90 to-card/70 backdrop-blur-md border-border/30 shadow-md;
-  }
-  
-  /* 卡片基础样式 */
-  .card {
-    @apply rounded-lg border border-border bg-card p-4 shadow-sm transition-all duration-200;
-  }
-
-  /* 暗色模式下的卡片样式 */
-  [data-theme='dark'] .card {
-    @apply bg-gradient-to-br from-card/90 to-card/70 backdrop-blur-md border-border/30 shadow-md;
-  }
-  
-  /* 按钮悬停效果优化 */
-  [data-theme='dark'] button:hover:not(:disabled),
-  [data-theme='dark'] .btn:hover:not(:disabled) {
-    @apply shadow-md shadow-primary/10;
-  }
-  
-  /* 隐藏滚动条但保持滚动功能 */
-  ::-webkit-scrollbar {
-    width: 0;
-    height: 0;
-  }
-
-  * {
-    scrollbar-width: none;
-    -ms-overflow-style: none;
+    @apply bg-black/70;
   }
 }
 
