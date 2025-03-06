@@ -76,17 +76,13 @@ const Blog = () => {
   };
 
   return (
-    <div className="page-transition space-y-6 py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-      <SplashCursor 
-        SPLAT_RADIUS={0.12}
-        DYE_RESOLUTION={256}
-        SPLAT_FORCE={2500}
-        DENSITY_DISSIPATION={6}
-        VELOCITY_DISSIPATION={3.5}
-        COLOR_UPDATE_SPEED={12}
-        BACK_COLOR={{ r: 0, g: 0, b: 0 }}
-      />
-      <header className="text-center space-y-4">
+    <div className="page-transition space-y-6 py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative">
+      {/* 确保 SplashCursor 在最顶层并且添加适当的定位和 z-index */}
+      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+        
+      </div>
+      
+      <header className="text-center space-y-4 relative z-10">
         <h1 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/70 animate-gradient">博客文章</h1>
         <p className="text-muted-foreground">Thoughts, tutorials and insights</p>
       </header>
@@ -212,16 +208,22 @@ const Blog = () => {
           <Link
             key={post.slug}
             to={`/blog/${encodeURIComponent(post.slug.replace(/^\//, ''))}`}
-            className={`glass dark:dark-card rounded-xl p-6 transform-gpu transition-all duration-500 hover:scale-[1.02] will-change-transform hover:shadow-2xl hover:border-primary/30 group border border-white/20 shadow-lg backdrop-blur-sm relative overflow-hidden ${
+            className={`glass dark:dark-card rounded-xl p-6 transition-all duration-300 border border-white/20 shadow-lg backdrop-blur-sm relative overflow-hidden ${
               viewMode === 'list' ? 'flex gap-4 items-start' : ''
-            }`}
+            } group hover:shadow-xl hover:border-primary/30`}
           >
+            {/* 悬浮效果元素 - 渐变光效 */}
             <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out" />
+            
+            {/* 悬浮效果元素 - 微妙的边框光晕 */}
+            <div className="absolute inset-px rounded-[10px] opacity-0 group-hover:opacity-100 transition-all duration-300 ease-out" 
+                 style={{background: 'linear-gradient(90deg, transparent, var(--primary-50) 50%, transparent)'}} />
+            
             <article className="relative z-10 flex-1">
               <div className={viewMode === 'list' ? 'flex items-start justify-between gap-4' : 'space-y-4'}>
                 <div className={viewMode === 'list' ? 'flex-1' : ''}>
                   <h2 className="text-xl font-semibold group-hover:text-primary transition-colors duration-300 mb-2">{post.title}</h2>
-                  <p className="text-muted-foreground text-sm mb-3">{post.excerpt}</p>
+                  <p className="text-muted-foreground text-sm mb-3 transition-opacity duration-300 group-hover:text-foreground/90">{post.excerpt}</p>
                   <div className="flex flex-wrap gap-2">
                     {post.tags?.map((tag, index) => {
                       const tagColors = [
@@ -235,7 +237,7 @@ const Blog = () => {
                       return (
                         <span
                           key={index}
-                          className={`px-2.5 py-0.5 rounded-full text-xs font-medium ${tagColors[colorIndex]} transition-colors`}
+                          className={`px-2.5 py-0.5 rounded-full text-xs font-medium ${tagColors[colorIndex]} transition-all duration-300 group-hover:shadow-sm group-hover:translate-y-[-1px]`}
                         >
                           {tag}
                         </span>

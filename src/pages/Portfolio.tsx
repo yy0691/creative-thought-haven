@@ -20,15 +20,7 @@ const Portfolio = () => {
   return (
     <div className="page-transition space-y-8 py-12">
       {/* 添加流体效果 */}
-      <SplashCursor 
-        SPLAT_RADIUS={0.3}
-        DYE_RESOLUTION={512}
-        SPLAT_FORCE={3000}
-        DENSITY_DISSIPATION={4}
-        VELOCITY_DISSIPATION={2.5}
-        COLOR_UPDATE_SPEED={10}
-        BACK_COLOR={{ r: 0, g: 0, b: 0 }}
-      />
+      
       <header className="text-center space-y-4">
         <h1 className="text-4xl font-bold bg-gradient-to-r from-primary/90 to-primary bg-clip-text text-transparent">
           Portfolio

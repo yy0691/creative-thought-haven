@@ -1,0 +1,14 @@
+.navbar {
+  @apply fixed top-0 left-0 right-0 z-50 backdrop-blur-md transition-all duration-300;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* 亮色模式样式 */
+.navbar {
+  @apply bg-white/75;
+}
+
+/* 深色模式样式 */
+[data-theme='dark'] .navbar {
+  @apply bg-black/75 border-b border-white/5;
+} 

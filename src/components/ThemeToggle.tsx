@@ -1,34 +1,21 @@
-import { useEffect, useState } from 'react';
-import { Moon, Sun } from 'lucide-react';
+import { Moon, Sun } from "lucide-react";
+import { useTheme } from "./ThemeProvider";
+import { Button } from "./ui/button";
 
-const ThemeToggle = () => {
-  const [theme, setTheme] = useState(() => {
-    const savedTheme = localStorage.getItem('theme');
-    return savedTheme || 'light';
-  });
-
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
-  }, [theme]);
-
-  const toggleTheme = () => {
-    setTheme(theme === 'light' ? 'dark' : 'light');
-  };
+export function ThemeToggle() {
+  const { theme, setTheme } = useTheme();
 
   return (
-    <button
-      onClick={toggleTheme}
-      className="p-2 rounded-full hover:bg-accent transition-colors duration-200"
-      aria-label="切换主题"
+    <Button
+      variant="ghost"
+      size="icon"
+      onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+      className="rounded-full hover:bg-primary/10"
+      title={theme === "light" ? "切换到暗色模式" : "切换到亮色模式"}
     >
-      {theme === 'light' ? (
-        <Moon size={20} className="text-primary hover:text-primary/80" />
-      ) : (
-        <Sun size={20} className="text-primary hover:text-primary/80" />
-      )}
-    </button>
+      <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:rotate-90 dark:scale-0" />
+      <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+      <span className="sr-only">切换主题</span>
+    </Button>
   );
-};
-
-export default ThemeToggle;
+}

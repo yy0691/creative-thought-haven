@@ -30,14 +30,7 @@ const Index = () => {
   
   return (
     <div className="min-h-screen relative overflow-hidden overflow-y-scroll">
-      <SplashCursor 
-        SPLAT_RADIUS={0.2}
-        DYE_RESOLUTION={512}
-        SPLAT_FORCE={300}
-        DENSITY_DISSIPATION={2}
-        VELOCITY_DISSIPATION={2}
-        COLOR_UPDATE_SPEED={2}
-      />
+      
       <div className="ripple-background absolute inset-0 z-0"></div>
       
       <div className="relative z-10">

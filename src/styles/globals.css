@@ -6,3 +6,83 @@
   /* 使用硬件加速 */
   transform: translateZ(0);
 }
+
+/* 滚动条样式 - 基础 */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+/* 滚动条轨道 */
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+}
+
+/* 滚动条滑块 */
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  background: linear-gradient(180deg, var(--primary) 0%, var(--primary-dark, var(--primary)) 100%);
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+  transition: all 0.3s ease;
+}
+
+/* 滚动条滑块悬停效果 */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+  border: 1px solid transparent;
+  background-clip: content-box;
+}
+
+/* Firefox滚动条支持 */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary) rgba(0, 0, 0, 0.05);
+}
+
+/* 暗色模式下的滚动条样式 */
+@media (prefers-color-scheme: dark) {
+  ::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--primary) 0%, var(--primary-dark, var(--primary)) 100%);
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+}
+
+/* 清理冲突样式 */
+/* 多彩涟漪效果 */
+.colorful-ripple {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  mix-blend-mode: overlay;
+  animation: rippleEffect 1s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+  will-change: transform, opacity;
+}
+
+@keyframes rippleEffect {
+  0% {
+    width: 0px;
+    height: 0px;
+    opacity: 0.7;
+    box-shadow: 0 0 15px 2px rgba(255, 255, 255, 0.5);
+  }
+  100% {
+    width: 100px;
+    height: 100px;
+    opacity: 0;
+    box-shadow: 0 0 40px 10px rgba(255, 255, 255, 0);
+  }
+}
+
+/* 移除各页面中的重复鼠标效果代码 */
