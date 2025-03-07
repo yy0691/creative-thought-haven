@@ -38,17 +38,7 @@ export default defineConfig(({ mode }) => ({
     cssMinify: true,
     cssCodeSplit: true,
     outDir: 'build',
-    rollupOptions: {
-      output: {
-        manualChunks(id) {
-          if (id.includes('node_modules')) {
-            const packageName = id.toString().split('node_modules/')[1].split('/')[0];
-            return `vendor-${packageName}`;
-          }
-        }
-      }
-    },
-    chunkSizeWarningLimit: 500,
+    chunkSizeWarningLimit: 400,
     sourcemap: mode === 'development',
     commonjsOptions: {
       ignoreTryCatch: id => id !== 'stream'
@@ -57,6 +47,21 @@ export default defineConfig(({ mode }) => ({
       compress: {
         drop_console: true,
         drop_debugger: true
+      }
+    },
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          // 分割React相关库
+          'react-vendor': ['react', 'react-dom'],
+          // 分割路由相关库
+          'router-vendor': ['react-router-dom', 'react-router'],
+          // 将语法高亮库分成多个块
+          'highlight-core': ['react-syntax-highlighter/dist/esm/styles/prism'],
+          'highlight-langs': ['refractor/lang/javascript', 'refractor/lang/typescript', 'refractor/lang/jsx', 'refractor/lang/css'],
+          // UI组件库
+          'ui-vendor': ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu']
+        }
       }
     }
   },

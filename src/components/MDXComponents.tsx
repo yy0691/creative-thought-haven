@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Highlight from './Highlight';
 import CenteredImage from './mdx/CenteredImage';
+import LazyCodeBlock from './LazyCodeBlock';
 
 interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   alt?: string;
@@ -85,9 +86,14 @@ export const components = {
       <pre {...props} className="rounded-lg p-4 bg-muted overflow-x-auto" />
     </div>
   ),
-  code: (props: any) => (
-    <code {...props} className="bg-muted px-1.5 py-0.5 rounded text-sm" />
-  ),
+  code: ({ className, ...props }) => {
+    const match = /language-(\w+)/.exec(className || '');
+    return match ? (
+      <LazyCodeBlock language={match[1]} value={props.children} />
+    ) : (
+      <code className="bg-muted px-1 py-0.5 rounded text-sm" {...props} />
+    );
+  },
   div: ({ className, children, ...props }: { className?: string; children: React.ReactNode }) => {
     if (className?.includes('columns-')) {
       const columnCount = className.match(/columns-(\d+)/)?.[1] || '2';
