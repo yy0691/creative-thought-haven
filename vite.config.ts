@@ -37,7 +37,7 @@ export default defineConfig(({ mode }) => ({
     minify: 'terser',
     cssMinify: true,
     cssCodeSplit: true,
-    outDir: 'build',
+    outDir: 'dist',
     chunkSizeWarningLimit: 400,
     sourcemap: mode === 'development',
     commonjsOptions: {
