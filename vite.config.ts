@@ -9,7 +9,6 @@ import remarkMdxFrontmatter from "remark-mdx-frontmatter";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import { splitVendorChunkPlugin } from 'vite';
-import { defineConfig } from 'vite';
 
 const mdxConfig = {
   remarkPlugins: [
@@ -39,29 +38,55 @@ export default defineConfig(({ mode }) => ({
     cssMinify: true,
     cssCodeSplit: true,
     outDir: 'dist',
-    chunkSizeWarningLimit: 400,
-    sourcemap: mode === 'development',
+    chunkSizeWarningLimit: 200,
+    sourcemap: false,
     commonjsOptions: {
       ignoreTryCatch: id => id !== 'stream'
     },
     terserOptions: {
       compress: {
         drop_console: true,
-        drop_debugger: true
+        drop_debugger: true,
+        pure_funcs: ['console.log']
       }
     },
     rollupOptions: {
       output: {
-        manualChunks: {
-          // 分割React相关库
-          'react-vendor': ['react', 'react-dom'],
-          // 分割路由相关库
-          'router-vendor': ['react-router-dom', 'react-router'],
-          // 将语法高亮库分成多个块
-          'highlight-core': ['react-syntax-highlighter/dist/esm/styles/prism'],
-          'highlight-langs': ['refractor/lang/javascript', 'refractor/lang/typescript', 'refractor/lang/jsx', 'refractor/lang/css'],
-          // UI组件库
-          'ui-vendor': ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu']
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('react-dom')) {
+              if (id.includes('client')) return 'vendor-react-dom-client';
+              if (id.includes('server')) return 'vendor-react-dom-server';
+              return 'vendor-react-dom-core';
+            }
+            if (id.includes('react-router')) return 'vendor-react-router';
+            if (id.includes('react-syntax-highlighter')) return 'vendor-syntax-highlighter';
+            if (id.includes('@radix-ui')) return 'vendor-radix-ui';
+            if (id.includes('sonner')) return 'vendor-sonner';
+            if (id.includes('tailwind-merge')) return 'vendor-tailwind-merge';
+            if (id.includes('@tanstack')) return 'vendor-tanstack';
+            if (id.includes('react-helmet')) return 'vendor-react-helmet';
+            
+            const packageName = id.toString().split('node_modules/')[1].split('/')[0];
+            return `vendor-${packageName}`;
+          }
+          
+          if (id.includes('/src/pages/')) {
+            const pageName = id.toString().split('/pages/')[1].split('.')[0].split('/')[0];
+            return `page-${pageName}`;
+          }
+          
+          if (id.includes('/src/components/')) {
+            return 'components';
+          }
+          
+          if (id.includes('/src/lib/')) {
+            return 'lib';
+          }
+          
+          if (id.includes('/src/content/')) {
+            return 'content';
+          }
         }
       }
     }

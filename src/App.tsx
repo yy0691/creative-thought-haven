@@ -24,8 +24,18 @@ import Loading from './components/Loading';
 
 const queryClient = new QueryClient();
 
-// 懒加载页面组件
+// 将布局也懒加载以减小初始加载大小
+const LayoutComponent = lazy(() => import('./components/Layout'));
+
+// 懒加载所有页面
 const Home = lazy(() => import('./pages/index'));
+const AboutComponent = lazy(() => import('./pages/About'));
+const Projects = lazy(() => import('./pages/Portfolio'));
+const ProjectDetails = lazy(() => import('./pages/ProjectDetails'));
+const Contact = lazy(() => import('./pages/Designs'));
+const BlogComponent = lazy(() => import('./pages/Blog'));
+const BlogPostComponent = lazy(() => import('./pages/BlogPost'));
+const NotFoundComponent = lazy(() => import('./pages/NotFound'));
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -39,20 +49,42 @@ const App = () => (
             <main className="pt-20 container mx-auto px-4">
               <Suspense fallback={<Loading />}>
                 <Routes>
-                  <Route element={<Layout />}>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/blog" element={<Blog />} />
-                    <Route path="/portfolio" element={<Portfolio />} />
-                    <Route path="/designs" element={<Designs />} />
-                    <Route path="/designs/:id" element={<DesignDetails />} />
-                    <Route path="/about" element={<About />} />
-                    <Route path="/blog/:slug" element={<BlogPost />} />
-                    <Route path="/videos" element={<Videos />} />
-                    <Route path="/videos/:id" element={<VideoDetails />} />
-                    <Route path="/content" element={<ContentManager />} />
-                    <Route path="/content/blog" element={<BlogManager />} />
-                    <Route path="/content/projects" element={<ProjectManager />} />
-                    <Route path="*" element={<NotFound />} />
+                  <Route element={<LayoutComponent />}>
+                    <Route index element={
+                      <Suspense fallback={<Loading />}>
+                        <Home />
+                      </Suspense>
+                    } />
+                    <Route path="about" element={
+                      <Suspense fallback={<Loading />}>
+                        <AboutComponent />
+                      </Suspense>
+                    } />
+                    <Route path="projects" element={
+                      <Suspense fallback={<Loading />}>
+                        <Projects />
+                      </Suspense>
+                    } />
+                    <Route path="contact" element={
+                      <Suspense fallback={<Loading />}>
+                        <Contact />
+                      </Suspense>
+                    } />
+                    <Route path="blog" element={
+                      <Suspense fallback={<Loading />}>
+                        <BlogComponent />
+                      </Suspense>
+                    } />
+                    <Route path="blog/:slug" element={
+                      <Suspense fallback={<Loading />}>
+                        <BlogPostComponent />
+                      </Suspense>
+                    } />
+                    <Route path="*" element={
+                      <Suspense fallback={<Loading />}>
+                        <NotFoundComponent />
+                      </Suspense>
+                    } />
                   </Route>
                 </Routes>
               </Suspense>
