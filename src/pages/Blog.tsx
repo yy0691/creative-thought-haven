@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { type BlogPostMeta, getBlogPosts, formatDate } from '../lib/blog';
 import { CategorySelector } from '../components/CategorySelector';
@@ -6,8 +6,17 @@ import { categories } from '../content/categories';
 import SplashCursor from '../components/cursor';
 import { LayoutGrid, List, ArrowUpDown, Clock, Tag } from 'lucide-react';
 
+// 定义博客摘要类型
+interface PostSummary {
+  slug: string;
+  title: string;
+  date: string;
+  excerpt: string;
+}
+
 const Blog = () => {
-  const [posts, setPosts] = useState<BlogPostMeta[]>([]);
+  const [posts, setPosts] = useState<PostSummary[]>([]);
+  const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState<string>('');
   const [selectedSubcategory, setSelectedSubcategory] = useState<string>('');
   const [filteredPosts, setFilteredPosts] = useState<BlogPostMeta[]>([]);
@@ -16,12 +25,20 @@ const Blog = () => {
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc');
 
   useEffect(() => {
-    const loadPosts = async () => {
-      const allPosts = await getBlogPosts();
-      setPosts(allPosts);
-      setFilteredPosts(allPosts);
+    // 只加载博客摘要列表，不加载全部内容
+    const loadPostSummaries = async () => {
+      try {
+        // 导入摘要文件而不是全部内容
+        const postSummaries = await import('../content/blog-summaries.json');
+        setPosts(postSummaries.default);
+        setLoading(false);
+      } catch (e) {
+        console.error('Failed to load blog summaries:', e);
+        setLoading(false);
+      }
     };
-    loadPosts();
+
+    loadPostSummaries();
   }, []);
 
   useEffect(() => {
@@ -74,6 +91,8 @@ const Blog = () => {
   const toggleSortDirection = () => {
     setSortDirection(prev => prev === 'desc' ? 'asc' : 'desc');
   };
+
+  if (loading) return <div>加载博客列表中...</div>;
 
   return (
     <div className="page-transition space-y-6 py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative">

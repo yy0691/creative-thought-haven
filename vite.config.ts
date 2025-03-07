@@ -53,6 +53,22 @@ export default defineConfig(({ mode }) => ({
     rollupOptions: {
       output: {
         manualChunks(id) {
+          if (id.includes('refractor')) {
+            if (id.includes('/lang/')) {
+              const langName = id.split('/lang/')[1].split('.')[0];
+              return `syntax-lang-${langName}`;
+            }
+            return 'syntax-core';
+          }
+          
+          if (id.includes('/src/content/')) {
+            if (id.includes('/blog/')) {
+              const postName = id.split('/blog/')[1].split('.')[0];
+              return `blog-post-${postName}`;
+            }
+            return 'content-base';
+          }
+          
           if (id.includes('node_modules')) {
             if (id.includes('react-dom')) {
               if (id.includes('client')) return 'vendor-react-dom-client';
@@ -60,12 +76,16 @@ export default defineConfig(({ mode }) => ({
               return 'vendor-react-dom-core';
             }
             if (id.includes('react-router')) return 'vendor-react-router';
-            if (id.includes('react-syntax-highlighter')) return 'vendor-syntax-highlighter';
-            if (id.includes('@radix-ui')) return 'vendor-radix-ui';
-            if (id.includes('sonner')) return 'vendor-sonner';
-            if (id.includes('tailwind-merge')) return 'vendor-tailwind-merge';
-            if (id.includes('@tanstack')) return 'vendor-tanstack';
-            if (id.includes('react-helmet')) return 'vendor-react-helmet';
+            if (id.includes('react-syntax-highlighter')) {
+              if (id.includes('prism-light')) return 'vendor-syntax-light';
+              if (id.includes('prism')) return 'vendor-syntax-prism';
+              return 'vendor-syntax-core';
+            }
+            if (id.includes('@radix-ui')) {
+              const componentPath = id.toString().split('@radix-ui/')[1];
+              const componentName = componentPath.split('/')[0];
+              return `vendor-radix-${componentName}`;
+            }
             
             const packageName = id.toString().split('node_modules/')[1].split('/')[0];
             return `vendor-${packageName}`;
@@ -77,15 +97,16 @@ export default defineConfig(({ mode }) => ({
           }
           
           if (id.includes('/src/components/')) {
-            return 'components';
+            const componentPath = id.toString().split('/components/')[1];
+            if (componentPath) {
+              const componentName = componentPath.split('/')[0].split('.')[0];
+              return `component-${componentName}`;
+            }
+            return 'components-misc';
           }
           
           if (id.includes('/src/lib/')) {
             return 'lib';
-          }
-          
-          if (id.includes('/src/content/')) {
-            return 'content';
           }
         }
       }
