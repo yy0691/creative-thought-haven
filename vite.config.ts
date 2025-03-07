@@ -9,6 +9,7 @@ import remarkMdxFrontmatter from "remark-mdx-frontmatter";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import { splitVendorChunkPlugin } from 'vite';
+import { defineConfig } from 'vite';
 
 const mdxConfig = {
   remarkPlugins: [
