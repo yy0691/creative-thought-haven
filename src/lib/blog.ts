@@ -16,6 +16,7 @@ export interface BlogPostMeta {
   date: string;
   excerpt: string;
   tags: string[];
+  isSticky?: boolean;
 }
 
 export async function getBlogPosts(): Promise<BlogPostMeta[]> {

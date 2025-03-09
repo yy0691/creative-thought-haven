@@ -69,7 +69,7 @@ const Index = () => {
               ENDLESS
             </h1>
             <p className="text-lg md:text-2xl mb-8 md:mb-12 text-gray-600 dark:text-white animate-fade-in-delay max-w-2xl mx-auto hover:text-gray-800 dark:hover:text-gray-100 transition-colors duration-300">
-              AI 与阅读的所见所想，用软件作品与文字构筑更广阔的思维空间。
+             用软件作品与文字构筑更广阔的思维空间。
             </p>
           </div>
         </div>

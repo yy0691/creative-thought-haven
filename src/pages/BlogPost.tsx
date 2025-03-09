@@ -189,13 +189,13 @@ const BlogPost = () => {
 
   return (
     <div className="page-transition min-h-screen">
-      <article className={`prose prose-primary dark:prose-invert mx-auto py-12 px-4 transition-all duration-500 ease-in-out ${!isCollapsed ? 'md:ml-64 max-w-3xl' : 'max-w-4xl'}`}>
+      <article className={`prose prose-primary dark:prose-invert mx-auto py-12 px-4 transition-all duration-500 ease-in-out ${!isCollapsed ? 'md:ml-64 max-w-3xl' : 'max-w-4xl'} dark:text-white`}>
         <header className="text-center mb-8">
-          <h1 className="text-4xl font-bold mb-4 hover:scale-105 transition-transform duration-300 transform-gpu backface-visibility-hidden will-change-transform">{post.title}</h1>
-          <div className="text-muted-foreground mb-4">{formatDate(post.date)}</div>
+          <h1 className="text-4xl font-bold mb-4 hover:scale-105 transition-transform duration-300 transform-gpu backface-visibility-hidden will-change-transform dark:text-white">{post.title}</h1>
+          <div className="text-muted-foreground mb-4 dark:text-gray-300">{formatDate(post.date)}</div>
           <div className="flex gap-2 justify-center flex-wrap">
             {post.tags.map(tag => (
-              <span key={tag} className="px-3 py-1 bg-muted rounded-full text-sm">
+              <span key={tag} className="px-3 py-1 bg-muted rounded-full text-sm dark:bg-gray-700 dark:text-gray-200">
                 {tag}
               </span>
             ))}
@@ -215,17 +215,17 @@ const BlogPost = () => {
         </MDXProvider>
 
         {relatedPosts.length > 0 && (
-          <aside className="mt-12 pt-8 border-t">
-            <h2 className="text-2xl font-bold mb-6">相关文章</h2>
+          <aside className="mt-12 pt-8 border-t dark:border-gray-700">
+            <h2 className="text-2xl font-bold mb-6 dark:text-white">相关文章</h2>
             <div className="grid gap-6 md:grid-cols-3">
               {relatedPosts.map(related => (
                 <Link
                   key={related.slug}
                   to={`/blog/${related.slug}`}
-                  className="glass rounded-lg p-4 card-hover"
+                  className="glass dark:bg-gray-800/50 rounded-lg p-4 card-hover dark:text-white dark:border-gray-700"
                 >
-                  <h3 className="font-semibold mb-2">{related.title}</h3>
-                  <p className="text-sm text-muted-foreground">{related.excerpt}</p>
+                  <h3 className="font-semibold mb-2 dark:text-white">{related.title}</h3>
+                  <p className="text-sm text-muted-foreground dark:text-gray-300">{related.excerpt}</p>
                 </Link>
               ))}
             </div>

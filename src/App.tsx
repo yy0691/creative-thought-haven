@@ -30,12 +30,14 @@ const LayoutComponent = lazy(() => import('./components/Layout'));
 // 懒加载所有页面
 const Home = lazy(() => import('./pages/index'));
 const AboutComponent = lazy(() => import('./pages/About'));
-const Projects = lazy(() => import('./pages/Portfolio'));
+const PortfolioComponent = lazy(() => import('./pages/Portfolio'));
 const ProjectDetails = lazy(() => import('./pages/ProjectDetails'));
-const Contact = lazy(() => import('./pages/Designs'));
+const DesignsComponent = lazy(() => import('./pages/Designs'));
 const BlogComponent = lazy(() => import('./pages/Blog'));
 const BlogPostComponent = lazy(() => import('./pages/BlogPost'));
 const NotFoundComponent = lazy(() => import('./pages/NotFound'));
+const VideoDetailsComponent = lazy(() => import('./pages/VideoDetails'));
+const DesignDetailsComponent = lazy(() => import('./pages/DesignDetails'));
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -60,14 +62,24 @@ const App = () => (
                         <AboutComponent />
                       </Suspense>
                     } />
-                    <Route path="projects" element={
+                    <Route path="portfolio" element={
                       <Suspense fallback={<Loading />}>
-                        <Projects />
+                        <PortfolioComponent />
                       </Suspense>
                     } />
-                    <Route path="contact" element={
+                    <Route path="portfolio/:id" element={
                       <Suspense fallback={<Loading />}>
-                        <Contact />
+                        <ProjectDetails />
+                      </Suspense>
+                    } />
+                    <Route path="designs" element={
+                      <Suspense fallback={<Loading />}>
+                        <DesignsComponent />
+                      </Suspense>
+                    } />
+                    <Route path="designs/:id" element={
+                      <Suspense fallback={<Loading />}>
+                        <DesignDetailsComponent />
                       </Suspense>
                     } />
                     <Route path="blog" element={
@@ -78,6 +90,11 @@ const App = () => (
                     <Route path="blog/:slug" element={
                       <Suspense fallback={<Loading />}>
                         <BlogPostComponent />
+                      </Suspense>
+                    } />
+                    <Route path="videos/:id" element={
+                      <Suspense fallback={<Loading />}>
+                        <VideoDetailsComponent />
                       </Suspense>
                     } />
                     <Route path="*" element={

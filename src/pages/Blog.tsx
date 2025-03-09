@@ -58,10 +58,15 @@ const Blog = () => {
 
     // 应用排序
     filtered.sort((a, b) => {
+      // 首先按置顶状态排序
+      if (a.isSticky && !b.isSticky) return -1;
+      if (!a.isSticky && b.isSticky) return 1;
+      
+      // 然后按选定的排序字段排序
       if (sortBy === 'date') {
-        const dateA = new Date(a.date).getTime();
-        const dateB = new Date(b.date).getTime();
-        return sortDirection === 'desc' ? dateB - dateA : dateA - dateB;
+        const dateA = new Date(a.date);
+        const dateB = new Date(b.date);
+        return sortDirection === 'desc' ? dateB.getTime() - dateA.getTime() : dateA.getTime() - dateB.getTime();
       } else if (sortBy === 'title') {
         return sortDirection === 'desc' 
           ? b.title.localeCompare(a.title)
@@ -102,13 +107,17 @@ const Blog = () => {
       </header>
       
       {/* 第一层：主要分类选择按钮 - 单行排列，更小的按钮，增加圆角 */}
-      <div className="flex flex-wrap justify-center gap-3 py-3 bg-background/40 backdrop-blur-md rounded-xl">
+      <div className="flex flex-wrap justify-center gap-3 py-3 bg-background/40 backdrop-blur-md rounded-xl dark:bg-black/30">
         <button 
           onClick={() => {
             setSelectedCategory('');
             setSelectedSubcategory('');
           }}
-          className={`px-4 py-2 rounded-full text-center transition-all text-sm ${selectedCategory === '' ? 'bg-primary text-primary-foreground shadow-sm' : 'hover:bg-accent'}`}
+          className={`px-4 py-2 rounded-full text-center transition-all text-sm dark:text-gray-200 ${
+            selectedCategory === '' 
+              ? 'bg-primary text-primary-foreground shadow-sm dark:text-gray-900' 
+              : 'hover:bg-accent hover:text-foreground dark:hover:bg-gray-800 dark:hover:text-white'
+          }`}
         >
           所有
         </button>
@@ -120,7 +129,11 @@ const Blog = () => {
               setSelectedCategory(category.id);
               setSelectedSubcategory('');
             }}
-            className={`px-4 py-2 rounded-full text-center transition-all text-sm ${selectedCategory === category.id ? 'bg-primary text-primary-foreground shadow-sm' : 'hover:bg-accent'}`}
+            className={`px-4 py-2 rounded-full text-center transition-all text-sm dark:text-gray-200 ${
+              selectedCategory === category.id 
+                ? 'bg-primary text-primary-foreground shadow-sm dark:text-gray-900' 
+                : 'hover:bg-accent hover:text-foreground dark:hover:bg-gray-800 dark:hover:text-white'
+            }`}
           >
             {category.name}
           </button>
@@ -128,7 +141,7 @@ const Blog = () => {
       </div>
       
       {/* 第二层：二级分类和控制按钮 */}
-      <div className="flex flex-wrap justify-between items-center gap-3 py-3 bg-background/40 backdrop-blur-md rounded-xl">
+      <div className="flex flex-wrap justify-between items-center gap-3 py-3 bg-background/40 backdrop-blur-md rounded-xl dark:bg-black/30">
         {/* 左侧：二级分类按钮 */}
         <div className="flex flex-wrap gap-2">
           {selectedCategory && (
@@ -143,9 +156,9 @@ const Blog = () => {
                       <button
                         key={subcat.id}
                         onClick={() => setSelectedSubcategory(subcat.id)}
-                        className={`px-3 py-1.5 rounded-full text-xs transition-all 
+                        className={`px-3 py-1.5 rounded-full text-xs transition-all dark:text-gray-300
                           ${selectedSubcategory === subcat.id 
-                            ? 'bg-primary/10 text-primary border-primary/30 dark:bg-primary/20 dark:text-primary-foreground dark:border-primary/40' 
+                            ? 'bg-primary/10 text-primary border-primary/30 dark:bg-primary/80 dark:text-gray-900 dark:border-primary/40' 
                             : 'hover:bg-primary/5 hover:text-primary hover:border-primary/20 dark:hover:bg-primary/15 dark:hover:text-primary-foreground'}
                           border border-white/20 dark:border-gray-700`}
                       >
@@ -162,31 +175,43 @@ const Blog = () => {
         {/* 右侧：控制按钮 */}
         <div className="flex items-center gap-3">
           {/* 排序控制 */}
-          <div className="flex items-center bg-background/70 rounded-lg p-1">
+          <div className="flex items-center bg-background/70 dark:bg-black/50 rounded-lg p-1">
             <button
               onClick={() => setSortBy('date')}
-              className={`p-1.5 rounded-md transition-colors ${sortBy === 'date' ? 'bg-primary text-primary-foreground' : 'hover:bg-accent'}`}
+              className={`p-1.5 rounded-md transition-colors dark:text-gray-300 ${
+                sortBy === 'date' 
+                  ? 'bg-primary text-primary-foreground dark:text-gray-900' 
+                  : 'hover:bg-accent dark:hover:bg-gray-700'
+              }`}
               title="按日期排序"
             >
               <Clock size={16} />
             </button>
             <button
               onClick={() => setSortBy('title')}
-              className={`p-1.5 rounded-md transition-colors ${sortBy === 'title' ? 'bg-primary text-primary-foreground' : 'hover:bg-accent'}`}
+              className={`p-1.5 rounded-md transition-colors dark:text-gray-300 ${
+                sortBy === 'title' 
+                  ? 'bg-primary text-primary-foreground dark:text-gray-900' 
+                  : 'hover:bg-accent dark:hover:bg-gray-700'
+              }`}
               title="按标题排序"
             >
               <ArrowUpDown size={16} />
             </button>
             <button
               onClick={() => setSortBy('tag')}
-              className={`p-1.5 rounded-md transition-colors ${sortBy === 'tag' ? 'bg-primary text-primary-foreground' : 'hover:bg-accent'}`}
+              className={`p-1.5 rounded-md transition-colors dark:text-gray-300 ${
+                sortBy === 'tag' 
+                  ? 'bg-primary text-primary-foreground dark:text-gray-900' 
+                  : 'hover:bg-accent dark:hover:bg-gray-700'
+              }`}
               title="按标签排序"
             >
               <Tag size={16} />
             </button>
             <button
               onClick={toggleSortDirection}
-              className="p-1.5 rounded-md hover:bg-accent transition-colors"
+              className="p-1.5 rounded-md hover:bg-accent dark:text-gray-300 dark:hover:bg-gray-700 transition-colors"
               title={sortDirection === 'desc' ? '降序' : '升序'}
             >
               {sortDirection === 'desc' ? '↓' : '↑'}
@@ -194,17 +219,25 @@ const Blog = () => {
           </div>
 
           {/* 视图切换 */}
-          <div className="flex items-center bg-background/70 rounded-lg p-1">
+          <div className="flex items-center bg-background/70 dark:bg-black/50 rounded-lg p-1">
             <button
               onClick={() => setViewMode('grid')}
-              className={`p-1.5 rounded-md transition-colors ${viewMode === 'grid' ? 'bg-primary text-primary-foreground' : 'hover:bg-accent'}`}
+              className={`p-1.5 rounded-md transition-colors dark:text-gray-300 ${
+                viewMode === 'grid' 
+                  ? 'bg-primary text-primary-foreground dark:text-gray-900' 
+                  : 'hover:bg-accent dark:hover:bg-gray-700'
+              }`}
               title="网格视图"
             >
               <LayoutGrid size={16} />
             </button>
             <button
               onClick={() => setViewMode('list')}
-              className={`p-1.5 rounded-md transition-colors ${viewMode === 'list' ? 'bg-primary text-primary-foreground' : 'hover:bg-accent'}`}
+              className={`p-1.5 rounded-md transition-colors dark:text-gray-300 ${
+                viewMode === 'list' 
+                  ? 'bg-primary text-primary-foreground dark:text-gray-900' 
+                  : 'hover:bg-accent dark:hover:bg-gray-700'
+              }`}
               title="列表视图"
             >
               <List size={16} />
@@ -236,8 +269,17 @@ const Blog = () => {
             <article className="relative z-10 flex-1">
               <div className={viewMode === 'list' ? 'flex items-start justify-between gap-4' : 'space-y-4'}>
                 <div className={viewMode === 'list' ? 'flex-1' : ''}>
-                  <h2 className="text-xl font-semibold group-hover:text-primary transition-colors duration-300 mb-2">{post.title}</h2>
-                  <p className="text-muted-foreground text-sm mb-3 transition-opacity duration-300 group-hover:text-foreground/90">{post.excerpt}</p>
+                  <div className="flex items-center gap-2 mb-2">
+                    <h2 className="text-xl font-semibold group-hover:text-primary transition-colors duration-300 dark:text-white">
+                      {post.title}
+                      {post.isSticky && (
+                        <span className="bg-primary/20 text-primary text-xs px-2 py-0.5 rounded-full dark:bg-primary/30 dark:text-primary-foreground ml-2">
+                          置顶
+                        </span>
+                      )}
+                    </h2>
+                  </div>
+                  <p className="text-muted-foreground text-sm mb-3 transition-opacity duration-300 group-hover:text-foreground/90 dark:text-gray-300">{post.excerpt}</p>
                   <div className="flex flex-wrap gap-2">
                     {post.tags?.map((tag, index) => {
                       const tagColors = [

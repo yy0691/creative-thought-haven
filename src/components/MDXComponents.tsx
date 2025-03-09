@@ -59,7 +59,7 @@ const Image = ({ alt, src, width, height, scale = 1, ...props }: ImageProps) => 
   );
 };
 
-export const components = {
+const components = {
   CenteredImage,
   img: Image,
   a: ({ href, children }: { href?: string; children: React.ReactNode }) => {
@@ -78,9 +78,16 @@ export const components = {
       </a>
     );
   },
-  blockquote: (props: any) => (
-    <Highlight type="info">{props.children}</Highlight>
-  ),
+  blockquote: (props: any) => {
+    // 如果是Highlight组件的用法
+    if (props.children && typeof props.children === 'object') {
+      return <Highlight type="info">{props.children}</Highlight>;
+    }
+    // 否则使用普通的blockquote样式
+    return (
+      <blockquote className="border-l-4 border-primary pl-4 italic my-4 dark:border-primary-foreground dark:text-gray-300" {...props} />
+    );
+  },
   pre: (props: any) => (
     <div className="my-6">
       <pre {...props} className="rounded-lg p-4 bg-muted overflow-x-auto" />
@@ -122,7 +129,7 @@ export const components = {
   },
   span: ({ className, children, ...props }: { className?: string; children: React.ReactNode }) => {
     if (className?.includes('highlight')) {
-      return <span className="bg-yellow-100 px-1 rounded-sm" {...props}>{children}</span>;
+      return <span className="bg-yellow-100 px-1 rounded-sm dark:bg-yellow-900/30 dark:text-yellow-100" {...props}>{children}</span>;
     }
     return <span {...props}>{children}</span>;
   },
@@ -131,7 +138,21 @@ export const components = {
       {children}
     </Link>
   ),
+  h1: (props: any) => <h1 className="text-3xl font-bold mt-8 mb-4 dark:text-white" {...props} />,
+  h2: (props: any) => <h2 className="text-2xl font-bold mt-6 mb-3 dark:text-white" {...props} />,
+  h3: (props: any) => <h3 className="text-xl font-bold mt-4 mb-2 dark:text-white" {...props} />,
+  h4: (props: any) => <h4 className="text-lg font-bold mt-3 mb-2 dark:text-white" {...props} />,
+  p: (props: any) => <p className="my-4 dark:text-gray-200" {...props} />,
+  ul: (props: any) => <ul className="list-disc pl-6 my-4 space-y-2 dark:text-gray-200" {...props} />,
+  ol: (props: any) => <ol className="list-decimal pl-6 my-4 space-y-2 dark:text-gray-200" {...props} />,
+  li: (props: any) => <li className="pl-2 dark:text-gray-200" {...props} />,
+  table: (props: any) => (
+    <div className="overflow-x-auto my-6">
+      <table className="w-full border-collapse dark:text-gray-200" {...props} />
+    </div>
+  ),
+  th: (props: any) => <th className="border border-border px-4 py-2 text-left font-bold dark:border-gray-700 dark:text-white" {...props} />,
+  td: (props: any) => <td className="border border-border px-4 py-2 dark:border-gray-700 dark:text-gray-200" {...props} />,
 };
 
-//添加默认导出组件
 export default components;

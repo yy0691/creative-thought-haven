@@ -36,8 +36,8 @@ const Portfolio = () => {
               px-4 py-2 rounded-full transition-all duration-500
               relative overflow-hidden
               ${selectedCategory === category.id
-                ? 'bg-gradient-to-r from-primary/90 to-primary text-white dark:text-primary-foreground shadow-lg before:absolute before:inset-0 before:bg-white/20 dark:before:bg-black/20 before:animate-pulse'
-                : 'bg-white/60 dark:bg-black/40 hover:bg-white/80 dark:hover:bg-black/60 text-primary dark:text-primary-foreground border border-transparent hover:border-primary/30 dark:hover:border-primary/40 backdrop-blur-sm'}
+                ? 'bg-gradient-to-r from-primary/90 to-primary text-white dark:text-gray-900 shadow-lg before:absolute before:inset-0 before:bg-white/20 dark:before:bg-black/20 before:animate-pulse'
+                : 'bg-white/60 dark:bg-black/40 hover:bg-white/80 dark:hover:bg-black/60 text-primary dark:text-gray-200 border border-transparent hover:border-primary/30 dark:hover:border-primary/40 backdrop-blur-sm'}
               before:opacity-0 hover:before:opacity-100 before:transition-opacity
               after:absolute after:inset-0 after:rounded-full after:border after:border-primary/30 after:scale-[1.02] after:opacity-0 hover:after:opacity-100 after:transition-all after:duration-500
             `}
@@ -51,9 +51,10 @@ const Portfolio = () => {
 
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         {filteredProjects.map((project) => (
-          <div 
+          <Link 
             key={project.id} 
-            className="glass dark:bg-black/80 dark:border-white/10 rounded-lg overflow-hidden border border-white/20 shadow-lg transition-all duration-300 transform-gpu hover:-translate-y-2 hover:shadow-xl hover:border-primary/30 group dark:text-white"
+            to={`/portfolio/${project.id}`}
+            className="glass dark:bg-black/80 dark:border-white/10 rounded-lg overflow-hidden border border-white/20 shadow-lg transition-all duration-300 transform-gpu hover:-translate-y-2 hover:shadow-xl hover:border-primary/30 group dark:text-white no-underline"
             style={{
               background: `linear-gradient(to bottom right, rgba(255,255,255,0.9), rgba(255,255,255,0.6))`,
               transformStyle: 'preserve-3d',
@@ -77,7 +78,7 @@ const Portfolio = () => {
                 {project.technologies.map((tech) => (
                   <span 
                     key={tech}
-                    className="text-xs bg-primary/5 text-primary px-3 py-1 rounded-full border border-primary/10 hover:bg-primary/10 transition-colors"
+                    className="text-xs bg-primary/5 text-primary px-3 py-1 rounded-full border border-primary/10 hover:bg-primary/10 transition-colors dark:bg-primary/20 dark:text-gray-200"
                   >
                     {tech}
                   </span>
@@ -89,7 +90,8 @@ const Portfolio = () => {
                     href={project.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm text-primary hover:underline"
+                    className="text-sm text-primary hover:underline dark:text-primary-foreground"
+                    onClick={(e) => e.stopPropagation()}
                   >
                     GitHub
                   </a>
@@ -99,7 +101,8 @@ const Portfolio = () => {
                     href={project.demoUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm text-primary hover:underline"
+                    className="text-sm text-primary hover:underline dark:text-primary-foreground"
+                    onClick={(e) => e.stopPropagation()}
                   >
                     Live Demo
                   </a>
@@ -107,14 +110,15 @@ const Portfolio = () => {
                 {project.videoUrl && (
                   <Link 
                     to={`/videos/${project.id}`}
-                    className="text-sm text-primary hover:underline"
+                    className="text-sm text-primary hover:underline dark:text-primary-foreground"
+                    onClick={(e) => e.stopPropagation()}
                   >
                     演示视频
                   </Link>
                 )}
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>
