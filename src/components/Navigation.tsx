@@ -15,14 +15,14 @@ const Navigation = () => {
     { path: "/blog", label: "文章" },
     { path: "/portfolio", label: "软件" },
     { path: "/designs", label: "设计" },
-    { path: "/about", label: "关于" },
+    { path: "/about", label: "关于我" },
   ];
 
   return (
     <header className={styles.navbar}>
-      <nav className="fixed w-full top-0 z-50 glass px-6 py-4 backdrop-blur-sm bg-background/80 border-b border-border/40 animate-fadeIn">
-        <div className="container mx-auto flex items-center justify-between">
-          <Link to="/" className="text-2xl font-semibold hover:text-primary transition-colors duration-300">
+      <nav className="container mx-auto px-6 py-4">
+        <div className="flex items-center justify-between">
+          <Link to="/" className="text-2xl font-semibold text-foreground dark:text-white hover:text-primary transition-colors duration-300">
             LuoYuan
           </Link>
 
@@ -36,8 +36,8 @@ const Navigation = () => {
                 to={route.path}
                 className={`transition-colors hover:text-primary ${
                   location.pathname === route.path
-                    ? "text-primary font-medium"
-                    : "text-muted-foreground"
+                    ? "text-primary font-medium dark:text-white"
+                    : "text-muted-foreground dark:text-gray-300"
                 }`}
               >
                 {route.label}
@@ -55,12 +55,10 @@ const Navigation = () => {
           </button>
 
           {isOpen && (
-            <div className="absolute top-full left-0 right-0 glass py-4 md:hidden animate-slideDown backdrop-blur-sm bg-background/95 border-b border-border/40">
+            <div className={styles.mobileMenu}>
               <div className="flex flex-col space-y-4 px-6">
-                <div className="pt-2">
+                <div className="flex justify-between items-center pt-2">
                   <SearchBar />
-                </div>
-                <div className="flex justify-center">
                   <ThemeToggle />
                 </div>
                 {routes.map((route) => (
@@ -70,8 +68,8 @@ const Navigation = () => {
                     onClick={() => setIsOpen(false)}
                     className={`transition-colors hover:text-primary ${
                       location.pathname === route.path
-                        ? "text-primary font-medium"
-                        : "text-muted-foreground"
+                        ? "text-primary font-medium dark:text-white"
+                        : "text-muted-foreground dark:text-gray-300"
                     }`}
                   >
                     {route.label}
@@ -82,7 +80,7 @@ const Navigation = () => {
           )}
         </div>
       </nav>
-      </header>
+    </header>
   );
 };
 

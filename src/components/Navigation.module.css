@@ -1,14 +1,47 @@
 .navbar {
-  @apply fixed top-0 left-0 right-0 z-50 backdrop-blur-md transition-all duration-300;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  transition: all 0.3s;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 
-/* 亮色模式样式 */
+/* Light mode style */
 .navbar {
-  @apply bg-white/75;
+  background-color: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.5s ease forwards;
 }
 
-/* 深色模式样式 */
+/* Dark mode style */
 [data-theme='dark'] .navbar {
-  @apply bg-black/75 border-b border-white/5;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  animation: fadeIn 0.5s ease forwards;
+}
+
+/* Mobile dropdown menu */
+.mobileMenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  display: block;
+  animation: slideDown 0.5s ease forwards;
+  backdrop-filter: blur(12px);
+  background-color: rgba(255, 255, 255, 0.8);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Dark mode mobile dropdown menu */
+[data-theme='dark'] .mobileMenu {
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 } 

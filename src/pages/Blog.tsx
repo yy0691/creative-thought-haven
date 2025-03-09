@@ -6,20 +6,15 @@ import { categories } from '../content/categories';
 import SplashCursor from '../components/cursor';
 import { LayoutGrid, List, ArrowUpDown, Clock, Tag } from 'lucide-react';
 
-// 定义博客摘要类型
-interface PostSummary {
-  slug: string;
-  title: string;
-  date: string;
-  excerpt: string;
-}
+// 定义博客摘要类型，与BlogPostMeta兼容
+type PostSummary = BlogPostMeta;
 
 const Blog = () => {
   const [posts, setPosts] = useState<PostSummary[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState<string>('');
   const [selectedSubcategory, setSelectedSubcategory] = useState<string>('');
-  const [filteredPosts, setFilteredPosts] = useState<BlogPostMeta[]>([]);
+  const [filteredPosts, setFilteredPosts] = useState<PostSummary[]>([]);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [sortBy, setSortBy] = useState<'date' | 'title' | 'tag'>('date');
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc');
@@ -29,8 +24,8 @@ const Blog = () => {
     const loadPostSummaries = async () => {
       try {
         // 导入摘要文件而不是全部内容
-        const postSummaries = await import('../content/blog-summaries.json');
-        setPosts(postSummaries.default);
+        const postSummaries = await getBlogPosts();
+        setPosts(postSummaries);
         setLoading(false);
       } catch (e) {
         console.error('Failed to load blog summaries:', e);
@@ -103,7 +98,7 @@ const Blog = () => {
       
       <header className="text-center space-y-4 relative z-10">
         <h1 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/70 animate-gradient">博客文章</h1>
-        <p className="text-muted-foreground">Thoughts, tutorials and insights</p>
+        <p className="text-muted-foreground dark:text-gray-300">Thoughts, tutorials and insights</p>
       </header>
       
       {/* 第一层：主要分类选择按钮 - 单行排列，更小的按钮，增加圆角 */}

@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { projects } from '../content/projects';
@@ -25,7 +24,7 @@ const Portfolio = () => {
         <h1 className="text-4xl font-bold bg-gradient-to-r from-primary/90 to-primary bg-clip-text text-transparent">
           Portfolio
         </h1>
-        <p className="text-muted-foreground">Selected works and projects</p>
+        <p className="text-muted-foreground dark:text-gray-300">Selected works and projects</p>
       </header>
 
       <div className="flex justify-center gap-4 flex-wrap">
@@ -54,7 +53,7 @@ const Portfolio = () => {
         {filteredProjects.map((project) => (
           <div 
             key={project.id} 
-            className="glass rounded-lg overflow-hidden border border-white/20 shadow-lg transition-all duration-300 transform-gpu hover:-translate-y-2 hover:shadow-xl hover:border-primary/30 group"
+            className="glass dark:bg-black/80 dark:border-white/10 rounded-lg overflow-hidden border border-white/20 shadow-lg transition-all duration-300 transform-gpu hover:-translate-y-2 hover:shadow-xl hover:border-primary/30 group dark:text-white"
             style={{
               background: `linear-gradient(to bottom right, rgba(255,255,255,0.9), rgba(255,255,255,0.6))`,
               transformStyle: 'preserve-3d',
@@ -70,8 +69,8 @@ const Portfolio = () => {
               />
             </div>
             <div className="p-6 space-y-4">
-              <h3 className="text-xl font-semibold text-primary">{project.title}</h3>
-              <p className="text-muted-foreground group-hover:text-primary/80 transition-colors">
+              <h3 className="text-xl font-semibold text-primary dark:text-primary-foreground">{project.title}</h3>
+              <p className="text-muted-foreground dark:text-gray-300 group-hover:text-primary/80 transition-colors">
                 {project.description}
               </p>
               <div className="flex gap-2 flex-wrap">

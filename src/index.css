@@ -47,9 +47,9 @@
 
   [data-theme='dark'] {
     --background: 222.2 20% 9%;
-    --foreground: 38 25% 90%; /* 米白色字体 */
+    --foreground: 0 0% 0%; /* 米白色字体 */
     --card: 220 15% 16%; /* 灰黑色 */
-    --card-foreground: 38 25% 90%; /* 米白色字体 */
+    --card-foreground: 0 0% 0%; /* 米白色字体 */
     --popover: 220 15% 16%; /* 灰黑色 */
     --popover-foreground: 38 25% 90%; /* 米白色字体 */
     --primary: 38 25% 90%; /* 米白色 */
@@ -82,7 +82,7 @@
   
   /* 暗色模式下的特殊毛玻璃效果 */
   [data-theme='dark'] .glassmorphism {
-    @apply bg-black/70;
+    @apply bg-black/70 backdrop-blur-md ;
   }
 }
 

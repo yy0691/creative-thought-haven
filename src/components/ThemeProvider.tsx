@@ -42,10 +42,12 @@ export function ThemeProvider({
         : "light";
         
       root.dataset.theme = systemTheme;
+      root.classList.add(systemTheme);
       return;
     }
     
     root.dataset.theme = theme;
+    root.classList.add(theme);
   }, [theme]);
 
   const value = {

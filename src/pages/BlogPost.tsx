@@ -189,7 +189,7 @@ const BlogPost = () => {
 
   return (
     <div className="page-transition min-h-screen">
-      <article className={`prose prose-lg dark:prose-invert mx-auto py-12 px-4 transition-all duration-500 ease-in-out ${!isCollapsed ? 'md:ml-64 max-w-3xl' : 'max-w-4xl'}`}>
+      <article className={`prose prose-primary dark:prose-invert mx-auto py-12 px-4 transition-all duration-500 ease-in-out ${!isCollapsed ? 'md:ml-64 max-w-3xl' : 'max-w-4xl'}`}>
         <header className="text-center mb-8">
           <h1 className="text-4xl font-bold mb-4 hover:scale-105 transition-transform duration-300 transform-gpu backface-visibility-hidden will-change-transform">{post.title}</h1>
           <div className="text-muted-foreground mb-4">{formatDate(post.date)}</div>

@@ -10,7 +10,7 @@ export function ThemeToggle() {
       variant="ghost"
       size="icon"
       onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-      className="rounded-full hover:bg-primary/10"
+      className="rounded-full hover:bg-primary/10 dark:text-white"
       title={theme === "light" ? "切换到暗色模式" : "切换到亮色模式"}
     >
       <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:rotate-90 dark:scale-0" />
