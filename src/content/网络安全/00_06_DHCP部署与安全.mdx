@@ -1,3 +1,15 @@
+
+---
+category: study-tech
+title: DHCP部署与安全
+date: 2025-10-15
+excerpt: Web安全、网络安全、笔记
+tags:
+  - 笔记
+  - 网络安全
+  - Web安全
+---
+
 # DHCP部署与安全
 
 # 1. DHCP作用
@@ -23,19 +35,19 @@ DHCP服务器需要为客户端分配IP地址，因此需要在DHCP服务器上�
 DHCP租约过程，分为四个步骤：
 
 1. **发送DHCP Discovery广播包**
-    
+   
     客户机广播请求IP地址（包含客户机的MAC地址）
     
 2. **响应DHCP Offer广播包**
-    
+   
     服务器响应提供的IP地址（但无子网掩码、网关等参数）
     
 3. **客户机发送DHCP Request广播包**
-    
+   
     客户机选择IP（也可以认为确认使用哪个IP）
     
 4. **服务器发送DHCP ACK广播包** 
-    
+   
     acknowledge
     
     服务器确定了租约，并提供网卡详细参数IP（IP地址、子网掩码、默认网关和DNS、租期等）
@@ -77,14 +89,14 @@ ipconfig /renew       //重新获取IP（有IP时，发送request取悦，无IP�
 
 # 10. 练习
 
-![Untitled](Untitled%2057.png)
+![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_Notion/Untitled%2057.png)
 
 # 11. DHCP攻击和防御
 
 1. 攻击DHCP服务器：频繁发送伪装DHCP请求，直到讲DHCP地址池资源耗尽
-    
+   
     防御：在交换机（管理型）的端口上做动态MAC地址绑定
     
 2. 伪装DHCP服务器攻击：hack通过将自己部署为DHCP服务器，为客户机提供非法ip地址
-    
+   
     防御：在交换机上，除合法的DHCP服务器所在接口外，全部设置为禁止发送DHCP Offer包

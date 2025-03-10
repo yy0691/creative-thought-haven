@@ -1,0 +1,95 @@
+---
+category: study-net
+date: 2025-03-10
+excerpt: "\u6F0F\u6D1E\u5229\u7528"
+tags:
+- "\u7B14\u8BB0"
+- "\u7F51\u7EDC\u5B89\u5168"
+- "Web\u5B89\u5168"
+title: "\u6F0F\u6D1E\u5229\u7528"
+---
+# 漏洞利用
+
+## 漏洞分类
+
+|**Vulnerability 漏洞分类** |**Description 描述** |
+|---|---|
+|Operating System操作系统 |These types of vulnerabilities are found within Operating Systems (OSs) and often result in privilege escalation.这些类型的漏洞是在操作系统(OSs)中发现的，通常会导致权限提升。 |
+|(Mis)Configuration-based(Mis)基于配置 |These types of vulnerability stem from an incorrectly configured application or service. For example, a website exposing customer details.这些类型的漏洞源于配置错误的应用程序或服务。例如，一个公开客户详细信息的网站。 |
+|Weak or Default Credentials弱证书或默认证书 |Applications and services that have an element of authentication will come with default credentials when installed. For example, an administrator dashboard may have the username and password of "admin". These are easy to guess by an attacker. 具有身份验证元素的应用程序和服务在安装时将附带默认凭据。例如，管理员仪表板的用户名和密码可能是“admin”。这些很容易被攻击者猜到。 |
+|Application Logic应用程序逻辑 |These vulnerabilities are a result of poorly designed applications. For example, poorly implemented authentication mechanisms that may result in an attacker being able to impersonate a user.这些漏洞是设计不当的应用程序造成的。例如，实现不当的身份验证机制可能导致攻击者能够冒充用户。 |
+|Human-Factor人为因素 |Human-Factor vulnerabilities are vulnerabilities that leverage human behaviour. For example, phishing emails are designed to trick humans into believing they are legitimate.人为因素的脆弱性是利用人类行为的脆弱性。例如，网络钓鱼邮件旨在欺骗人们，让人们相信它们是合法的。 |
+## 漏洞评分框架
+
+Version Disclosure
+
+### CVSS
+
+Common Vulnerability Scoring System 通用漏洞评分系统
+
+当前版本：CVSSv3.1(版本4.0目前在草案中)
+
+漏洞分数决定因素：
+
+1. 利用这个漏洞有多容易?
+2. 这方面存在漏洞攻击吗?
+3. 这个弱点如何干扰数据的三元性?
+
+### VPR
+
+Vulnerability Priority Rating 脆弱性优先级评级(VPR)
+
+|**框架** |**优点** |**缺点** |
+|---|---|---|
+|CVSS |存在时间长 |没有设计来帮助需要优先处理的漏洞 |
+| |在组织中较流行 |评估大量漏洞，但很多漏洞难被利用 |
+| |免费 |host discovery only |
+|VPR |现代框架 |不开源 |
+| |考虑了超过150个因素 |商用平台不可用 |
+| |风险驱动型；可用来确定优先修补的安全漏洞 |不考虑数据的机密性、完整性和可用性 |
+| |动态评估漏洞分数 | |
+## 漏洞数据库
+
+1. [NVD](https://nvd.nist.gov/vuln) – National Vulnerability DatabaseNVD -国家脆弱性数据库：列出所有公开分类的漏洞
+
+CVE：<span style="color: #D4C1F3">**C**</span><span style="color: #D4C1F3">ommon </span><span style="color: #D4C1F3">**V**</span><span style="color: #D4C1F3">ulnerabilities and </span><span style="color: #D4C1F3">**E**</span><span style="color: #D4C1F3">xposures</span>
+
+1. [Exploit-DB](http://exploit-db.com/)：漏洞以软件或应用程序的名称、作者和软件版本命名；可查找用于利用特定漏洞的代码片段（称为概念证明<u> PoC</u>）
+    <span style="color: #E0E1E4">Tips：</span><span style="color: #E0E1E4">**概念证明**</span><span style="color: #E0E1E4">(proof of concept)通常是一段代码或一个应用程序，用来证明一个想法或理论是可行的。</span>
+
+# 漏洞利用
+
+自动扫描漏洞软件：[Nessus](https://www.tenable.com/products/nessus)
+
+自动扫描和手动扫描漏洞包括：
+
+|漏洞 |描述 |
+|---|---|
+|Security Misconfigurations安全配置错误 |开发人员疏忽造成的漏洞。例如，在应用程序和攻击者之间的消息中暴露服务器信息 |
+|Broken Access Control访问控制失效 |当攻击者能够访问应用程序中不应该访问的部分时 |
+|Insecure Deserialization不安全的反序列化 |是对通过应用程序发送的数据的不安全处理。攻击者可以将恶意代码传递给应用程序，然后在那里执行。 |
+|Injection   注入 |攻击者能够向应用程序输入恶意数据 |
+[OWASP Top Ten | OWASP Foundation](https://owasp.org/www-project-top-ten/) - **漏洞信息**
+
+#### 手动扫描
+
+[Rapid7](https://www.rapid7.com/db/) - 漏洞研究数据库、漏洞攻击程序数据库；包含Metasploit工具开发应用程序的说明。
+
+[GitHub](https://github.com/) - 寻找罕见或新的漏洞攻击;可以搜索关键字"PoC" "vulnerability" 
+
+<span style="color: #C7D5F6">Searchsploit - </span>Kali中的工具，是Exploit-DB的离线版本   [exp文件下载地址](https://gist.github.com/anir0y/8529960c18e212948b0e40ed1fb18d6d#file-fuel-cms-py)
+
+
+```Bash
+#searchsploit使用
+searchsploit server_name  #server_name为服务名称
+WordPress Theme Think Responsive 1.0 - Arbitr | php/webapps/29332.txt
+WordPress Theme This Way - upload_settings_i | php/webapps/38820.php
+#复制文件到本地
+searchsploit -m php/webapps/29332.txt
+#exploit.py
+exploit.py -u http://10.10.10.10 -c "whoami"
+```
+
+
+

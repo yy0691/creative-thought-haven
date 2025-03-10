@@ -1,0 +1,32 @@
+/* 主要链接样式 */
+.mdx-link {
+  color: #0066cc;
+  text-decoration: none;
+  transition: color 0.2s, text-decoration 0.2s;
+}
+
+.mdx-link:hover {
+  color: #004499;
+  text-decoration: underline;
+}
+
+/* 内部链接特殊样式 */
+.mdx-internal-link {
+  color: #0066cc;
+  font-weight: 500;
+}
+
+/* 外部链接特殊样式 */
+.mdx-external-link {
+  color: #0066cc;
+  position: relative;
+  padding-right: 1.2em;
+}
+
+.mdx-external-link::after {
+  content: '↗';
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 0.8em;
+} 

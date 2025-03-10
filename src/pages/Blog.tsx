@@ -1,13 +1,39 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { type BlogPostMeta, getBlogPosts, formatDate } from '../lib/blog';
 import { CategorySelector } from '../components/CategorySelector';
 import { categories } from '../content/categories';
 import SplashCursor from '../components/cursor';
 import { LayoutGrid, List, ArrowUpDown, Clock, Tag } from 'lucide-react';
+import { Virtuoso } from 'react-virtuoso';
 
 // 定义博客摘要类型，与BlogPostMeta兼容
 type PostSummary = BlogPostMeta;
+
+const BlogList = ({ posts }) => {
+  return (
+    <Virtuoso
+      style={{ height: 'calc(100vh - 300px)' }}
+      totalCount={posts.length}
+      itemContent={index => {
+        const post = posts[index];
+        return (
+          <div className="p-4 border rounded-lg mb-4 hover:shadow-md transition-shadow">
+            <Link to={`/blog/${post.slug}`} className="block">
+              <h2 className="text-xl font-bold">{post.title}</h2>
+              <p className="text-gray-600">{post.excerpt}</p>
+              <div className="mt-2 flex items-center text-sm text-gray-500">
+                <span>{new Date(post.date).toLocaleDateString('zh-CN')}</span>
+                <span className="mx-2">•</span>
+                <span>{post.category}</span>
+              </div>
+            </Link>
+          </div>
+        );
+      }}
+    />
+  );
+};
 
 const Blog = () => {
   const [posts, setPosts] = useState<PostSummary[]>([]);

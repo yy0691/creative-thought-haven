@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { type BlogPost, type BlogPostMeta, formatDate, getBlogPosts } from '../lib/blog';
 import { MDXProvider } from '@mdx-js/react';
@@ -10,6 +10,7 @@ import { TableOfContents } from '@/components/TableOfContents';
 import { FileConverter } from '../lib/file-converter';
 import Highlight from '../components/Highlight';
 import MDXComponents from '@/components/MDXComponents';
+import ErrorBoundary from '../components/ErrorBoundary';
 
 const components = {
   h1: props => <h1 className="text-3xl font-bold mt-8 mb-4" {...props} />,
@@ -93,11 +94,9 @@ const components = {
     />
   )
 };
-// 删除重复的组件声明，因为已经在上面的 components 对象中定义过了
 
 const BlogPost = () => {
   const { slug } = useParams();
-  // 移除 /blog 前缀（如果存在）
   const cleanSlug = slug?.replace(/^blog\//, '') || '';
   const decodedSlug = decodeURIComponent(cleanSlug);
   const [post, setPost] = useState<BlogPost | null>(null);
@@ -105,29 +104,24 @@ const BlogPost = () => {
   const [relatedPosts, setRelatedPosts] = useState<BlogPostMeta[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isCollapsed, setIsCollapsed] = useState(false);
+
   useEffect(() => {
-    // 修改文章加载部分
     const loadPost = async () => {
       if (!slug) return;
       
       try {
-        // 获取所有 MDX 文件
         const mdxModules = import.meta.glob('../content/**/*.mdx', { eager: true });
         
-        // 查找匹配的文件（需要处理子目录）
         const modulePath = Object.keys(mdxModules).find(path => {
           const fullPath = path.replace('../content/', '').replace(/\.mdx$/, '');
-          // 统一使用正斜杠并解码比较
           const normalizedPath = fullPath.replace(/\\/g, '/');
           const decodedSlug = decodeURIComponent(slug);
-          // 添加调试日志
           console.log('比较路径:', {
             normalizedPath,
             decodedSlug,
             originalPath: path
           });
           
-          // 处理两种可能的路径格式
           return normalizedPath === decodedSlug || 
                  normalizedPath === decodedSlug.replace('WINDOWS_USE_Sub%2F', '') ||
                  normalizedPath.endsWith(decodedSlug);
@@ -154,7 +148,6 @@ const BlogPost = () => {
         
         setPost(post);
         
-        // 加载相关文章
         const allPosts = await getBlogPosts();
         const related = allPosts
           .filter(p => p.slug !== slug && p.tags.some(tag => post.tags.includes(tag)))
@@ -202,17 +195,27 @@ const BlogPost = () => {
           </div>
         </header>
 
-        <MDXProvider
-          components={{
-            ...components,
-            ...MDXComponents,
-            blockquote: (props) => (
-              <Highlight type="info">{props.children}</Highlight>
-            )
-          }}
-        >
-          <post.content />
-        </MDXProvider>
+        <ErrorBoundary fallback={
+          <div className="p-6 bg-red-50 border border-red-200 rounded-lg my-4">
+            <h3 className="text-xl font-semibold text-red-700">文章内容渲染错误</h3>
+            <p className="mt-2">很抱歉，此文章内容无法正确显示。</p>
+            <p className="mt-1">可能原因：文章格式问题或含有不兼容的HTML标签。</p>
+          </div>
+        }>
+          <Suspense fallback={<div>加载内容中...</div>}>
+            <MDXProvider
+              components={{
+                ...components,
+                ...MDXComponents,
+                blockquote: (props) => (
+                  <Highlight type="info">{props.children}</Highlight>
+                )
+              }}
+            >
+              <post.content />
+            </MDXProvider>
+          </Suspense>
+        </ErrorBoundary>
 
         {relatedPosts.length > 0 && (
           <aside className="mt-12 pt-8 border-t dark:border-gray-700">

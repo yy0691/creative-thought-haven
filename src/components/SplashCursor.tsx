@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useRef } from "react";
+import { useCursor } from '../contexts/CursorContext';
 
 interface ColorRGB {
   r: number;
@@ -65,10 +66,11 @@ export default function SplashCursor({
   SPLAT_FORCE = 6000,
   SHADING = true,
   COLOR_UPDATE_SPEED = 10,
-  BACK_COLOR = { r: 0.5, g: 0, b: 0 },
+  BACK_COLOR = { r: 0.2, g: 0.2, b: 0.2 },
   TRANSPARENT = true
 }: SplashCursorProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const { showCursor } = useCursor();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -1383,8 +1385,8 @@ export default function SplashCursor({
       return delta;
     }
 
-    function generateColor(): ColorRGB {
-      const c = HSVtoRGB(Math.random(), 1.0, 1.0);
+    function generateColor() {
+      let c = HSVtoRGB(Math.random(), 0.4, 1.0);
       c.r *= 0.15;
       c.g *= 0.15;
       c.b *= 0.15;
@@ -1537,6 +1539,8 @@ export default function SplashCursor({
     BACK_COLOR,
     TRANSPARENT,
   ]);
+
+  if (!showCursor) return null;
 
   return (
     <div

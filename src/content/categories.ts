@@ -87,6 +87,11 @@ export const categories: Category[] = [
         description: '技术相关的学习笔记'
       },
       {
+        id: 'net',
+        name: '网络安全',
+        description: '网络安全相关的学习笔记'
+      },
+      {
         id: 'general',
         name: '通用学习',
         description: '通用知识学习笔记'

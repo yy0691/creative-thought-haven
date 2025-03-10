@@ -1,0 +1,15 @@
+---
+category: study-net
+date: 2025-03-10
+excerpt: "3 \u7F51\u7EDC\u5C42"
+tags:
+- "\u7B14\u8BB0"
+- "\u7F51\u7EDC\u5B89\u5168"
+- "Web\u5B89\u5168"
+title: "3 \u7F51\u7EDC\u5C42"
+---
+# 3 网络层
+
+> <mark style="background-color: #F2F3F5">进行逻辑地址寻址，实现不同网络之间的路径选择。控制子网的运行，如逻辑编址、分组传输、路由选择</mark><mark style="background-color: #F2F3F5">协议：ICMP（互联网控制信息协议） IGMP（组管理协议） IP（IPV4 IPV6）（互联网协议）</mark><mark style="background-color: #F2F3F5">安全协议、路由协议（vrrp虚拟路由冗余）</mark>
+
+

@@ -1,3 +1,13 @@
+---
+category: study-tech
+title: 00 21 单臂路由与Icmp协议
+date: 2023-05-01
+excerpt: 00 21 单臂路由与Icmp协议
+tags:
+  - 笔记
+  - 网络安全
+  - Web安全
+---
 # 单臂路由与ICMP协议
 
 1. VLAN控制广播域
@@ -20,7 +30,7 @@ int f0/0.2
 1. 路由器只转发单播通信
 2. **不同VLAN间通信是靠路由来实现的**
 
-![Untitled](Untitled%2086.png)
+![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_Notion/Untitled%2086.png)
 
 ### 在三层路由器上部署DHCP服务器
 
@@ -37,7 +47,7 @@ vtp domain
 		exit**
 ```
 
-![Untitled](Untitled%2087.png)
+![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_Notion/Untitled%2087.png)
 
 ### 在服务器上部署DHCP服务器
 
@@ -48,7 +58,7 @@ vtp domain
 			ip helper-address 40.1.1.1**
 ```
 
-![Untitled](Untitled%2088.png)
+![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_Notion/Untitled%2088.png)
 
 <aside>
 🙌🏻 **单臂路由缺点：
@@ -69,7 +79,7 @@ vtp domain
     3. 错误反馈  
 3. **封装格式**
     
-    ![Untitled](Untitled%2089.png)
+    ![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_Notion/Untitled%2089.png)
     
     ping的时候，会生成icpm探测报文
     

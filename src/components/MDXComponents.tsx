@@ -2,7 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Highlight from './Highlight';
 import CenteredImage from './mdx/CenteredImage';
-import LazyCodeBlock from './LazyCodeBlock';
+import { MDXProvider } from '@mdx-js/react';
+import { Math } from './MathJax';
+import 'katex/dist/katex.min.css';
+import LazyImage from './LazyImage';
+import { lazy, Suspense } from 'react';
+import ErrorBoundary from './ErrorBoundary';
+import { ColoredSpan, HighlightedMark, WarningText, NoteText, InfoText } from './StyledElements';
 
 interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   alt?: string;
@@ -59,9 +65,62 @@ const Image = ({ alt, src, width, height, scale = 1, ...props }: ImageProps) => 
   );
 };
 
+// 懒加载代码块组件
+const CodeBlock = lazy(() => import('./CodeBlock'));
+
+const LazyCodeBlock = (props) => (
+  <Suspense fallback={<div className="bg-muted p-4 rounded-lg">加载代码块...</div>}>
+    <CodeBlock {...props} />
+  </Suspense>
+);
+
+// 安全处理样式属性的辅助函数
+const processStyleString = (styleString) => {
+  if (!styleString) return {};
+  
+  try {
+    // 尝试处理旧格式的样式字符串
+    const styleObj = {};
+    styleString.split(';').forEach(item => {
+      const [key, value] = item.split(':').map(s => s?.trim());
+      if (key && value) {
+        // 转换CSS属性为驼峰命名
+        const camelKey = key.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
+        styleObj[camelKey] = value;
+      }
+    });
+    return styleObj;
+  } catch (e) {
+    console.error('样式处理错误:', e);
+    return {};
+  }
+};
+
+// 安全包装HTML元素的函数
+const withSafeProps = (Component) => {
+  return (props) => {
+    const safeProps = {...props};
+    
+    // 处理样式属性
+    if (typeof props.style === 'string') {
+      safeProps.style = processStyleString(props.style);
+    }
+    
+    return <Component {...safeProps} />;
+  };
+};
+
 const components = {
   CenteredImage,
-  img: Image,
+  img: ({ src, alt, style, ...props }) => {
+    if (!src) return null;
+    const safeStyle = typeof style === 'string' ? processStyleString(style) : style;
+    return <LazyImage 
+      src={src} 
+      alt={alt || ""} 
+      {...props} 
+    />;
+  },
   a: ({ href, children }: { href?: string; children: React.ReactNode }) => {
     const isInternal = href?.startsWith('/');
     if (isInternal) {
@@ -72,7 +131,7 @@ const components = {
         href={href}
         target="_blank"
         rel="noopener noreferrer"
-        className="text-purple-500 hover:text-purple-800 hover:underline transition-colors"
+        className="text-blue-600 hover:text-blue-800 hover:underline transition-colors"
       >
         {children}
       </a>
@@ -93,19 +152,41 @@ const components = {
       <pre {...props} className="rounded-lg p-4 bg-muted overflow-x-auto" />
     </div>
   ),
-  code: ({ className, ...props }) => {
+  code: ({ className, children, ...props }) => {
     const match = /language-(\w+)/.exec(className || '');
+    
+    if (match && match[1] === 'math') {
+      return (
+        <ErrorBoundary>
+          <Math inline={false}>{children as string}</Math>
+        </ErrorBoundary>
+      );
+    }
+    
+    if (match && match[1] === 'inline-math') {
+      return (
+        <ErrorBoundary>
+          <Math inline={true}>{children as string}</Math>
+        </ErrorBoundary>
+      );
+    }
+    
     return match ? (
-      <LazyCodeBlock language={match[1]} value={props.children} />
+      <ErrorBoundary>
+        <LazyCodeBlock language={match[1]} value={children} />
+      </ErrorBoundary>
     ) : (
-      <code className="bg-muted px-1 py-0.5 rounded text-sm" {...props} />
+      <code className="text-sm bg-muted px-1 py-0.5 rounded dark:bg-gray-800" {...props}>
+        {children}
+      </code>
     );
   },
-  div: ({ className, children, ...props }: { className?: string; children: React.ReactNode }) => {
+  div: ({ className, children, style, ...props }: { className?: string; children: React.ReactNode; style?: React.CSSProperties }) => {
+    const safeStyle = typeof style === 'string' ? processStyleString(style) : style;
     if (className?.includes('columns-')) {
       const columnCount = className.match(/columns-(\d+)/)?.[1] || '2';
       return (
-        <div className={`grid grid-cols-${columnCount} gap-4 my-4`} {...props}>
+        <div className={`grid grid-cols-${columnCount} gap-4 my-4`} style={safeStyle} {...props}>
           {children}
         </div>
       );
@@ -120,32 +201,65 @@ const components = {
         purple: 'bg-purple-100 border-purple-200'
       };
       return (
-        <div className={`p-4 rounded-lg border ${colors[colorClass]} my-4`} {...props}>
+        <div className={`p-4 rounded-lg border ${colors[colorClass]} my-4`} style={safeStyle} {...props}>
           {children}
         </div>
       );
     }
-    return <div {...props}>{children}</div>;
+    return <div style={safeStyle} {...props}>{children}</div>;
   },
-  span: ({ className, children, ...props }: { className?: string; children: React.ReactNode }) => {
-    if (className?.includes('highlight')) {
-      return <span className="bg-yellow-100 px-1 rounded-sm dark:bg-yellow-900/30 dark:text-yellow-100" {...props}>{children}</span>;
-    }
-    return <span {...props}>{children}</span>;
-  },
+  span: withSafeProps((props) => <span {...props} />),
   Link: ({ to, children, className }: { to: string; children: React.ReactNode; className?: string }) => (
     <Link to={to} className={className}>
       {children}
     </Link>
   ),
-  h1: (props: any) => <h1 className="text-3xl font-bold mt-8 mb-4 dark:text-white" {...props} />,
-  h2: (props: any) => <h2 className="text-2xl font-bold mt-6 mb-3 dark:text-white" {...props} />,
-  h3: (props: any) => <h3 className="text-xl font-bold mt-4 mb-2 dark:text-white" {...props} />,
-  h4: (props: any) => <h4 className="text-lg font-bold mt-3 mb-2 dark:text-white" {...props} />,
-  p: (props: any) => <p className="my-4 dark:text-gray-200" {...props} />,
-  ul: (props: any) => <ul className="list-disc pl-6 my-4 space-y-2 dark:text-gray-200" {...props} />,
+  h1: withSafeProps(props => <h1 className="text-3xl font-bold mt-10 mb-6" {...props} />),
+  h2: withSafeProps(props => <h2 className="text-2xl font-semibold mt-8 mb-4" {...props} />),
+  h3: withSafeProps(props => <h3 className="text-xl font-semibold mt-6 mb-3" {...props} />),
+  h4: withSafeProps(props => <h4 {...props} />),
+  h5: withSafeProps(props => <h5 {...props} />),
+  h6: withSafeProps(props => <h6 {...props} />),
+  p: props => {
+    const { children, className, ...rest } = props;
+    
+    const content = children?.toString() || '';
+    
+    // 检查是否包含数学公式 $...$
+    if (typeof content === 'string' && (content.includes('$') && !content.includes('\\$'))) {
+      try {
+        const parts = content.split(/(\$[^$]+\$)/g);
+        
+        return (
+          <p className="mb-5 leading-7" {...rest}>
+            {parts.map((part, i) => {
+              if (part.startsWith('$') && part.endsWith('$') && part.length > 2) {
+                const formula = part.slice(1, -1);
+                return (
+                  <ErrorBoundary key={i} fallback={`$${formula}$`}>
+                    <Math inline={true}>{formula}</Math>
+                  </ErrorBoundary>
+                );
+              }
+              return part;
+            })}
+          </p>
+        );
+      } catch (error) {
+        console.error('LaTeX渲染错误:', error);
+        return <p className="mb-5 leading-7" {...rest}>{children}</p>;
+      }
+    }
+    
+    return <p className="mb-5 leading-7" {...rest}>{children}</p>;
+  },
+  ul: withSafeProps(props => (
+    <ul className="list-disc pl-6 my-4 space-y-2 dark:text-gray-200" {...props} />
+  )),
+  li: withSafeProps(props => (
+    <li className="mb-2" {...props} />
+  )),
   ol: (props: any) => <ol className="list-decimal pl-6 my-4 space-y-2 dark:text-gray-200" {...props} />,
-  li: (props: any) => <li className="pl-2 dark:text-gray-200" {...props} />,
   table: (props: any) => (
     <div className="overflow-x-auto my-6">
       <table className="w-full border-collapse dark:text-gray-200" {...props} />
@@ -153,6 +267,12 @@ const components = {
   ),
   th: (props: any) => <th className="border border-border px-4 py-2 text-left font-bold dark:border-gray-700 dark:text-white" {...props} />,
   td: (props: any) => <td className="border border-border px-4 py-2 dark:border-gray-700 dark:text-gray-200" {...props} />,
+  mark: withSafeProps((props) => <mark {...props} />),
+  ColoredSpan,
+  HighlightedMark,
+  WarningText,
+  NoteText,
+  InfoText,
 };
 
 export default components;

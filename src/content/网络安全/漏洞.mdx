@@ -1,3 +1,13 @@
+---
+category: study-tech
+title: 漏洞
+date: 2023-05-01
+excerpt: 漏洞
+tags:
+  - 笔记
+  - 网络安全
+  - Web安全
+---
 # 漏洞
 
 漏洞靶场之DVWA
@@ -11,9 +21,9 @@ OWASP TOP 10
 | 文件包含 |  |
 |  |  |
 
-![Untitled](Untitled%2032.png)
+![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_Notion/Untitled%2032.png)
 
-![Untitled](Untitled%2033.png)
+![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_Notion/Untitled%2033.png)
 
 # 靶场攻击
 
@@ -23,28 +33,28 @@ OWASP TOP 10
     
     DVWA源代码
     
-    ![Untitled](Untitled%2034.png)
+    ![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_Notion/Untitled%2034.png)
     
-    ![Untitled](Untitled%2035.png)
+    ![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_Notion/Untitled%2035.png)
     
     # 命令执行
     
-    ![Untitled](Untitled%2036.png)
+    ![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_Notion/Untitled%2036.png)
     
-    ![Untitled](Untitled%2037.png)
+    ![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_Notion/Untitled%2037.png)
     
     `<?phpif( isset( $_POST[ 'Submit' ]  ) ) {    // Get input    $target = $_REQUEST[ 'ip' ];    // Determine OS and execute the ping command.    if( stristr( php_uname( 's' ), 'Windows NT' ) ) {        // Windows        $cmd = shell_exec( 'ping  ' . $target );    }    else {        // *nix        $cmd = shell_exec( 'ping  -c 4 ' . $target );    }    // Feedback for the end user    echo "<pre>{$cmd}</pre>";}?>`
     
     ---
     
-    ![Untitled](Untitled%2038.png)
+    ![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_Notion/Untitled%2038.png)
     
     **防御命令：过滤命令连接符**
     
-    ![Untitled](Untitled%2039.png)
+    ![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_Notion/Untitled%2039.png)
     
-    ![Untitled](Untitled%2040.png)
+    ![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_Notion/Untitled%2040.png)
     
-    ![Untitled](Untitled%2041.png)
+    ![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_Notion/Untitled%2041.png)
     
-    ![Untitled](Untitled%2042.png)
+    ![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_Notion/Untitled%2042.png)

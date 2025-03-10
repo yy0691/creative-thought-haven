@@ -1,8 +1,18 @@
+---
+category: study-tech
+title: ARP协议
+date: 2023-05-01
+excerpt: 00 17 Arp协议
+tags:
+  - 笔记
+  - 网络安全
+  - Web安全
+---
 # ARP协议
 
 ### **在已知对方IP地址的情况下解析成MAC地址**
 
-![Untitled](Untitled%2082.png)
+![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_Notion/Untitled%2082.png)
 
 ## 广播与广播域概述
 
@@ -47,7 +57,7 @@ ARP缓存
 1） 发送ARP广播请求
 2）发送ARP单薄应答
 
-![Untitled](Untitled%2083.png)
+![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_Notion/Untitled%2083.png)
 
 # ARP攻击原理
 
@@ -78,9 +88,9 @@ arp  -s  10.1.1.254  00-3c-df-d3-d7-55
 自动绑定静态ARP
 主动防御
 3. **硬件级ARP防御**
-交换机支持**端口**做动态ARP绑定（配合DHCP服务）
-或做静态ARP绑定
-    
+   交换机支持**端口**做动态ARP绑定（配合DHCP服务）
+   或做静态ARP绑定
+   
     ```cpp
     conf t
     ip dhcp snooping   //开启DHCP监听功能

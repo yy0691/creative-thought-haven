@@ -1,11 +1,22 @@
+
+---
+category: study-tech
+title: 数据链路层
+date: 2025-10-15
+excerpt: Web安全、网络安全、笔记
+tags:
+  - 笔记
+  - 网络安全
+  - Web安全
+---
 # 数据链路层
 
 2层  **Data Link Layer**
 
 1. 传输单元：帧
 2. 帧结构
-    
-    ![Untitled](Untitled%2073.png)
+   
+    ![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_Notion/Untitled%2073.png)
     
     帧头：6+6+2=14 字节
     
@@ -23,8 +34,8 @@
     
 3. 工作在数据链路层的设备：交换机/网卡
 4. 交换机工作原理
-    
-    ![Untitled](Untitled%2074.png)
+   
+    ![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_Notion/Untitled%2074.png)
     
     1) 收到一个数据帧后，首先学习帧中的源MAC地址来形成MAC地址表
     
@@ -66,18 +77,18 @@
 ```
 
 1. **用户模式**
-    
+   
     switch>     可以查看交换机的基本简单信息，且不能做任何修改配置
     
 2. **特权模式**
-    
+   
     进入特权模式： switch> enable
     switch#
     
     可以查看所有配置，且不能修改配置，但可做测试、保存、初始化等操作
     
 3. **全局配置模式**
-    
+   
     进入：switch# **configure terminal**
     
     switch(config)# 
@@ -85,7 +96,7 @@
     默认不能查看配置**，可以修改配置，且全局生效**
     
 4. 接口配置模式
-    
+   
     进入：switch(config)# interface f0/1
     
     switch(config-if)#
@@ -93,13 +104,13 @@
     默认不能查看配置**，可以修改配置，且对该端口生效**
     
 5. console口/线/控制台模式
-    
+   
     进入：switch(config)# line console 0
     
     默认不能查看配置**，可以修改配置，且对console端口生效**
     
 6. exit 退出一级
-    
+   
     end直接退到特权模式
     
 7. 支持命令缩写
@@ -107,7 +118,7 @@
 9. 历史命令
 10. tab补全键
 11. 配置主机名
-**conf  t**
+    **conf  t**
     
     hostname  sw1  交换机编号
     
@@ -172,7 +183,7 @@ no hostname**
 ```
 
 1. 查看MAC地址表
-    
+   
     ```c
     **show mac-address-table   
     
@@ -224,7 +235,7 @@ username sa password 234.com**
 ```
 
 1. 为交换机配置管理IP
-    
+   
     ```cpp
     **conf t
     int vlan 1
@@ -232,7 +243,7 @@ username sa password 234.com**
     ```
     
 2. 为交换机配置默认网关
-    
+   
     目的：可被跨网段管理
     
     ```cpp
@@ -251,4 +262,4 @@ no ip domain-lookup**
 1. 成功实现在PC上telnet或ssh远程连接到路由器上，其中只做login验证
 2. 成功实现在PC上telnet或ssh远程连接到路由器上，其中做login local验证
 
-![Untitled](Untitled%2075.png)
+![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_Notion/Untitled%2075.png)

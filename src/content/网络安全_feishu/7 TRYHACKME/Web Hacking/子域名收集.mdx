@@ -1,0 +1,42 @@
+---
+category: study-net
+date: 2025-03-10
+excerpt: "\u5B50\u57DF\u540D\u6536\u96C6"
+tags:
+- "\u7B14\u8BB0"
+- "\u7F51\u7EDC\u5B89\u5168"
+- "Web\u5B89\u5168"
+title: "\u5B50\u57DF\u540D\u6536\u96C6"
+---
+# 子域名收集
+
+> 扩大攻击范围，找到更多潜在的漏洞
+
+
+# DNS 暴力破解
+
+# 开源工具
+
+## SSL/TLS 证书
+
+> 证书创建时有certificate transparency logs 证书日志，是公开可访问的
+
+
+数据库：[crt.sh | Certificate Sea](http://crt.sh/)、[Certificate Transparency (CT)](https://ui.ctsearch.entrust.com/ui/ctsearchui)
+
+## 搜索引擎
+
+`-site:``www.domain.com`` site:*.``domain.com`
+
+Sublist3r
+
+
+
+# 虚拟主机
+
+`ffuf -w /usr/share/wordlists/SecLists/Discovery/DNS/namelist.txt -H "Host: FUZZ.acmeitsupport.thm" -u ``http://MACHINE_IP`
+
+
+
+`ffuf -w /usr/share/wordlists/SecLists/Discovery/DNS/namelist.txt -H "Host: FUZZ.acmeitsupport.thm" -u ``http://MACHINE_IP`` -fs {size}`
+
