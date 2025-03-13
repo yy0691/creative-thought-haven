@@ -1,0 +1,71 @@
+/* 时间轴组件样式 */
+
+/* 隐藏滚动条但保留滚动功能 */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari, Opera */
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* 时间轴容器的渐变背景 */
+.timeline-gradient-bg {
+  background: linear-gradient(270deg, var(--background) 0%, var(--primary-50) 50%, var(--background) 100%);
+  background-size: 200% 100%;
+}
+
+/* 时间轴日期与标题对齐样式 */
+.timeline-labels {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 10px;
+}
+
+.timeline-date,
+.timeline-title {
+  width: 120px;
+  text-align: center;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.timeline-date {
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.timeline-title {
+  margin-top: 1.5rem;
+  font-weight: 500;
+}
+
+/* 节点动画效果 */
+@keyframes pulse-glow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(90, 103, 216, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(90, 103, 216, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(90, 103, 216, 0);
+  }
+}
+
+.timeline-node-active {
+  animation: pulse-glow 2s infinite;
+}
+
+/* 时间轴滚动指示器 */
+.timeline-scroll-indicator {
+  height: 3px;
+  background: linear-gradient(to right, var(--primary-300), var(--primary-500));
+  border-radius: 3px;
+  transition: width 0.3s ease, transform 0.3s ease;
+} 

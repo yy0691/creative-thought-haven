@@ -4,7 +4,7 @@ import { type BlogPostMeta, getBlogPosts, formatDate } from '../lib/blog';
 import { CategorySelector } from '../components/CategorySelector';
 import { categories } from '../content/categories';
 import SplashCursor from '../components/cursor';
-import { LayoutGrid, List, ArrowUpDown, Clock, Tag } from 'lucide-react';
+import { LayoutGrid, List, ArrowUpDown, Clock, Tag, AlignJustify } from 'lucide-react';
 import { Virtuoso } from 'react-virtuoso';
 
 // 定义博客摘要类型，与BlogPostMeta兼容
@@ -41,7 +41,7 @@ const Blog = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('');
   const [selectedSubcategory, setSelectedSubcategory] = useState<string>('');
   const [filteredPosts, setFilteredPosts] = useState<PostSummary[]>([]);
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [viewMode, setViewMode] = useState<'grid' | 'list' | 'compact'>('grid');
   const [sortBy, setSortBy] = useState<'date' | 'title' | 'tag'>('date');
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc');
 
@@ -268,72 +268,177 @@ const Blog = () => {
             >
               <List size={16} />
             </button>
+            <button
+              onClick={() => setViewMode('compact')}
+              className={`p-1.5 rounded-md transition-colors dark:text-gray-300 ${
+                viewMode === 'compact' 
+                  ? 'bg-primary text-primary-foreground dark:text-gray-900' 
+                  : 'hover:bg-accent dark:hover:bg-gray-700'
+              }`}
+              title="紧凑视图"
+            >
+              <AlignJustify size={16} />
+            </button>
           </div>
         </div>
       </div>
       
       {/* 文章列表 */}
-      <div className={viewMode === 'grid' ? 
-        "grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3" : 
-        "flex flex-col gap-4"
+      <div className={
+        viewMode === 'grid' 
+          ? "grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3" 
+          : viewMode === 'compact'
+            ? "max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-6"
+            : "flex flex-col gap-4"
       }>
-        {filteredPosts.map((post) => (
-          <Link
-            key={post.slug}
-            to={`/blog/${encodeURIComponent(post.slug.replace(/^\//, ''))}`}
-            className={`glass dark:dark-card rounded-xl p-6 transition-all duration-300 border border-white/20 shadow-lg backdrop-blur-sm relative overflow-hidden ${
-              viewMode === 'list' ? 'flex gap-4 items-start' : ''
-            } group hover:shadow-xl hover:border-primary/30`}
-          >
-            {/* 悬浮效果元素 - 渐变光效 */}
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out" />
-            
-            {/* 悬浮效果元素 - 微妙的边框光晕 */}
-            <div className="absolute inset-px rounded-[10px] opacity-0 group-hover:opacity-100 transition-all duration-300 ease-out" 
-                 style={{background: 'linear-gradient(90deg, transparent, var(--primary-50) 50%, transparent)'}} />
-            
-            <article className="relative z-10 flex-1">
-              <div className={viewMode === 'list' ? 'flex items-start justify-between gap-4' : 'space-y-4'}>
-                <div className={viewMode === 'list' ? 'flex-1' : ''}>
-                  <div className="flex items-center gap-2 mb-2">
-                    <h2 className="text-xl font-semibold group-hover:text-primary transition-colors duration-300 dark:text-white">
-                      {post.title}
-                      {post.isSticky && (
-                        <span className="bg-primary/20 text-primary text-xs px-2 py-0.5 rounded-full dark:bg-primary/30 dark:text-primary-foreground ml-2">
-                          置顶
-                        </span>
-                      )}
-                    </h2>
-                  </div>
-                  <p className="text-muted-foreground text-sm mb-3 transition-opacity duration-300 group-hover:text-foreground/90 dark:text-gray-300">{post.excerpt}</p>
-                  <div className="flex flex-wrap gap-2">
-                    {post.tags?.map((tag, index) => {
-                      const tagColors = [
-                        'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-200',
-                        'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-200',
-                        'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-200',
-                        'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-200',
-                        'bg-pink-100 text-pink-800 dark:bg-pink-900/30 dark:text-pink-200'
-                      ];
-                      const colorIndex = Math.abs(tag.split('').reduce((acc: number, char) => acc + char.charCodeAt(0), 0)) % tagColors.length;
-                      return (
-                        <span
-                          key={index}
-                          className={`px-2.5 py-0.5 rounded-full text-xs font-medium ${tagColors[colorIndex]} transition-all duration-300 group-hover:shadow-sm group-hover:translate-y-[-1px]`}
+        {viewMode === 'compact' ? (
+          <>
+            {[0, 1].map((colIndex) => {
+              // 计算每列显示的文章数量
+              const postsPerColumn = Math.ceil(filteredPosts.length / 2);
+              // 根据列索引获取对应的文章列表
+              const columnPosts = filteredPosts.slice(
+                colIndex * postsPerColumn, 
+                Math.min((colIndex + 1) * postsPerColumn, filteredPosts.length)
+              );
+              
+              return columnPosts.length > 0 ? (
+                <div key={colIndex} className="border border-border dark:border-gray-800 rounded-md overflow-hidden">
+                  <table className="w-full text-base">
+                    <thead className="bg-muted/50 dark:bg-gray-800/50">
+                      <tr className="border-b border-border dark:border-gray-700">
+                        <th className="text-left py-3 px-4 font-medium text-muted-foreground dark:text-gray-300">标题</th>
+                        <th className="text-right py-3 px-4 font-medium text-muted-foreground dark:text-gray-300 w-[120px]">标签</th>
+                        <th className="text-right py-3 px-4 font-medium text-muted-foreground dark:text-gray-300 w-[130px]">日期</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {columnPosts.map((post) => (
+                        <tr 
+                          key={post.slug} 
+                          className="border-b border-border/50 dark:border-gray-800/70 hover:bg-muted/30 dark:hover:bg-gray-800/30 transition-colors"
                         >
-                          {tag}
-                        </span>
-                      );
-                    })}
+                          <td className="py-3 px-4">
+                            <Link 
+                              to={`/blog/${encodeURIComponent(post.slug.replace(/^\//, ''))}`}
+                              className="block hover:text-primary transition-colors"
+                            >
+                              <div className="flex items-center">
+                                <h2 className="text-[16px] font-medium leading-[1.6] line-clamp-1 pr-2">
+                                  {post.title}
+                                  {post.isSticky && (
+                                    <span className="bg-primary/20 text-primary text-xs px-2 py-0.5 rounded-full dark:bg-primary/30 dark:text-primary-foreground ml-2">
+                                      置顶
+                                    </span>
+                                  )}
+                                </h2>
+                              </div>
+                            </Link>
+                          </td>
+                          <td className="py-3 px-4 text-right">
+                            <div className="flex items-center justify-end gap-1">
+                              {post.tags && post.tags.length > 0 && (
+                                <>
+                                  {(() => {
+                                    const tag = post.tags[0];
+                                    const tagColors = [
+                                      'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-200',
+                                      'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-200',
+                                      'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-200',
+                                      'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-200',
+                                      'bg-pink-100 text-pink-800 dark:bg-pink-900/30 dark:text-pink-200'
+                                    ];
+                                    const colorIndex = Math.abs(tag.split('').reduce((acc: number, char) => acc + char.charCodeAt(0), 0)) % tagColors.length;
+                                    
+                                    return (
+                                      <span
+                                        className={`px-2 py-0.5 rounded-full text-xs font-medium ${tagColors[colorIndex]}`}
+                                      >
+                                        {tag}
+                                      </span>
+                                    );
+                                  })()}
+                                  
+                                  {post.tags.length > 1 && (
+                                    <span className="text-xs text-muted-foreground">
+                                      +{post.tags.length - 1}
+                                    </span>
+                                  )}
+                                </>
+                              )}
+                            </div>
+                          </td>
+                          <td className="py-3 px-4 text-sm text-muted-foreground text-right whitespace-nowrap">
+                            {formatDate(post.date)}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              ) : null;
+            })}
+          </>
+        ) : (
+          filteredPosts.map((post) => (
+            <Link
+              key={post.slug}
+              to={`/blog/${encodeURIComponent(post.slug.replace(/^\//, ''))}`}
+              className={`glass dark:dark-card rounded-xl transition-all duration-300 border border-white/20 shadow-lg backdrop-blur-sm relative overflow-hidden ${
+                viewMode === 'list' ? 'flex gap-4 items-start p-6' : 'p-6'
+              } group hover:shadow-xl hover:border-primary/30`}
+            >
+              {/* 悬浮效果元素 - 渐变光效 */}
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out" />
+              
+              {/* 悬浮效果元素 - 微妙的边框光晕 */}
+              <div className="absolute inset-px rounded-[10px] opacity-0 group-hover:opacity-100 transition-all duration-300 ease-out" 
+                   style={{background: 'linear-gradient(90deg, transparent, var(--primary-50) 50%, transparent)'}} />
+              
+              <article className="relative z-10 flex-1">
+                <div className={viewMode === 'list' ? 'flex items-start justify-between gap-4' : 'space-y-4'}>
+                  <div className={viewMode === 'list' ? 'flex-1' : ''}>
+                    <div className="flex items-center gap-2 mb-2">
+                      <h2 className="text-xl font-semibold group-hover:text-primary transition-colors duration-300 dark:text-white">
+                        {post.title}
+                        {post.isSticky && (
+                          <span className="bg-primary/20 text-primary text-xs px-2 py-0.5 rounded-full dark:bg-primary/30 dark:text-primary-foreground ml-2">
+                            置顶
+                          </span>
+                        )}
+                      </h2>
+                    </div>
+                    <p className="text-muted-foreground text-sm mb-3 transition-opacity duration-300 group-hover:text-foreground/90 dark:text-gray-300">{post.excerpt}</p>
+                    <div className="flex flex-wrap gap-2">
+                      {post.tags?.map((tag, index) => {
+                        const tagColors = [
+                          'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-200',
+                          'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-200',
+                          'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-200',
+                          'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-200',
+                          'bg-pink-100 text-pink-800 dark:bg-pink-900/30 dark:text-pink-200'
+                        ];
+                        const colorIndex = Math.abs(tag.split('').reduce((acc: number, char) => acc + char.charCodeAt(0), 0)) % tagColors.length;
+                        
+                        return (
+                          <span
+                            key={index}
+                            className={`px-2.5 py-0.5 rounded-full text-xs font-medium ${tagColors[colorIndex]} transition-all duration-300 group-hover:shadow-sm group-hover:translate-y-[-1px]`}
+                          >
+                            {tag}
+                          </span>
+                        );
+                      })}
+                    </div>
+                  </div>
+                  <div className="text-sm text-muted-foreground group-hover:text-primary/80 transition-colors duration-300 whitespace-nowrap">
+                    {formatDate(post.date)}
                   </div>
                 </div>
-                <div className="text-sm text-muted-foreground group-hover:text-primary/80 transition-colors duration-300 whitespace-nowrap">
-                  {formatDate(post.date)}
-                </div>
-              </div>
-            </article>
-          </Link>
-        ))}
+              </article>
+            </Link>
+          ))
+        )}
       </div>
     </div>
   );

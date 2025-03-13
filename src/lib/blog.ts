@@ -17,6 +17,7 @@ export interface BlogPostMeta {
   excerpt: string;
   tags: string[];
   isSticky?: boolean;
+  isRecommended?: boolean;
 }
 
 export async function getBlogPosts(): Promise<BlogPostMeta[]> {
@@ -25,22 +26,23 @@ export async function getBlogPosts(): Promise<BlogPostMeta[]> {
     const mdxPosts = Object.entries(mdxModules).map(([path, module]) => {
         const pathParts = path.split('/');
         const fileName = pathParts.pop() || '';
-        // 保持原始文件名作为 slug，不做任何转换
         const slug = path
           .replace('../content/', '')
           .replace(/\.mdx$/, '')
           .replace(/\.docx$/, '')
-          .replace(/\\/g, '/'); // 确保使用正斜杠
+          .replace(/\\/g, '/');
         const content = module as any;
         const metadata = content.metadata || {};
         
         return {
             slug,
-            category: metadata.category || '未分类',  // 优先使用 frontmatter 中的 category
+            category: metadata.category || '未分类',
             title: metadata.title || '无标题',
             date: metadata.date || new Date().toISOString(),
             excerpt: metadata.excerpt || '暂无描述',
             tags: metadata.tags || [],
+            isSticky: metadata.isSticky || false,
+            isRecommended: metadata.isRecommended || false,
             type: 'mdx'
         };
     });
@@ -53,11 +55,13 @@ export async function getBlogPosts(): Promise<BlogPostMeta[]> {
         
         return {
             slug,
-            category: 'reading',  // 默认归类到阅读笔记
-            title: slug,  // 使用文件名作为标题
+            category: 'reading',
+            title: slug,
             date: new Date().toISOString(),
             excerpt: '从 Word 文档导入的笔记',
             tags: ['读书笔记'],
+            isSticky: false,
+            isRecommended: false,
             type: 'docx'
         };
     });

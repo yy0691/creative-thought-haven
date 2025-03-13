@@ -1,0 +1,32 @@
+/* 添加到现有的 CSS 文件或创建新文件 */
+.compact-article-row {
+  transition: background-color 0.2s ease;
+}
+
+.compact-article-row:hover {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+.dark .compact-article-row:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* 文章标题溢出时显示省略号 */
+.article-title-truncate {
+  max-width: 300px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (min-width: 768px) {
+  .article-title-truncate {
+    max-width: 400px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .article-title-truncate {
+    max-width: 500px;
+  }
+} 

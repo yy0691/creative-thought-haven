@@ -123,12 +123,14 @@ const BlogPost = () => {
           });
           
           return normalizedPath === decodedSlug || 
-                 normalizedPath === decodedSlug.replace('WINDOWS_USE_Sub%2F', '') ||
                  normalizedPath.endsWith(decodedSlug);
         });
     
         if (!modulePath) {
-          console.error('未找到匹配文件，可用路径:', Object.keys(mdxModules));
+          console.error('未找到匹配文件，可用路径:', Object.keys(mdxModules).map(path => {
+            const fullPath = path.replace('../content/', '').replace(/\.mdx$/, '');
+            return fullPath.replace(/\\/g, '/');
+          }));
           throw new Error(`找不到文章: ${slug}`);
         }
     

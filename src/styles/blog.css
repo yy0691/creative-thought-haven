@@ -1,0 +1,68 @@
+.blog-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* 网格布局 */
+.blog-list-container.grid-layout {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .blog-list-container.grid-layout {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* 紧凑模式样式 */
+.blog-post-item.compact-mode {
+  padding: 0.75rem 1rem;
+}
+
+.blog-post-item.compact-mode h2 {
+  max-width: 70%;
+}
+
+@media (max-width: 640px) {
+  .blog-post-item.compact-mode h2 {
+    max-width: 60%;
+  }
+}
+
+/* 修改紧凑视图样式 */
+.compact-blog-container {
+  font-size: 17px;
+  line-height: 1.7;
+  width: 100%;
+  max-width: 700px;
+}
+
+.compact-blog-item {
+  padding: 0.75rem 0;
+  width: 100%;
+  border-bottom: 1px solid var(--border-color, #eaeaea);
+}
+
+.compact-blog-item:hover {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.compact-blog-item h3 {
+  max-width: 65%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 767px) {
+  .compact-blog-container .grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .compact-blog-item h3 {
+    max-width: 60%;
+  }
+} 

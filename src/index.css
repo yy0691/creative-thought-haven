@@ -2,6 +2,7 @@
 
 @import './styles/highlight.css';
 @import './styles/gradient.css';
+@import './styles/timeline.css';
 
 @font-face {
   font-family: 'Inter';
