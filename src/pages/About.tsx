@@ -105,26 +105,26 @@ const About = () => {
         <section className="space-y-4">
           <h2 className="text-2xl font-semibold bg-gradient-to-r from-primary/80 to-primary bg-clip-text text-transparent">联系方式</h2>
           <p className="text-muted-foreground dark:text-gray-300">
-          我始终相信技术存在的意义是解决真实世界的难题，如果你正在：
-            🔧 寻找虚拟仿真领域的解决方案
-            💡 探索AI+垂直行业的创新可能
-            🚀 构建高效可靠的技术产品团队
+          我始终相信技术存在的意义是解决真实世界的难题，如果你正在:
+            🔧 寻找虚拟仿真领域的解决方案  
+            💡 探索AI+垂直行业的创新可能  
+            🚀 构建高效可靠的技术产品团队  
           欢迎与我交流！
           </p>
-          <div className="flex gap-4">
+          <div className="flex flex-col sm:flex-row gap-3">
             <a
-              href="mailto:contact@example.com"
-              className="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-all duration-300 group"
+              href="mailto:yuyuan3162021@163.com"
+              className="inline-flex items-center justify-center space-x-2 px-4 py-2 rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-all duration-300 group w-full sm:w-auto"
             >
               <span className="group-hover:scale-110 transition-transform">📧</span>
-              <span>yuyuan3162021@163.com</span>
+              <span className="truncate">yuyuan3162021@163.com</span>
             </a>
             <button
               onClick={() => {
                 // TODO: 实现微信二维码弹窗
                 alert("微信号：yyflu-");
               }}
-              className="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-all duration-300 group"
+              className="inline-flex items-center justify-center space-x-2 px-4 py-2 rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-all duration-300 group w-full sm:w-auto"
             >
               <span className="group-hover:scale-110 transition-transform">💬</span>
               <span>添加微信</span>

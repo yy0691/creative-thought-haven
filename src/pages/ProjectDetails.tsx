@@ -5,6 +5,9 @@ import VideoPlayer from '../components/VideoPlayer';
 import FigmaEmbed from '../components/FigmaEmbed';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import ReactMarkdown from 'react-markdown';
+import MDXComponents from '../components/MDXComponents';
+import remarkGfm from 'remark-gfm';
 
 const ProjectDetails = () => {
   const { id } = useParams();
@@ -77,15 +80,27 @@ const ProjectDetails = () => {
     return details.replace(/\n(?!\n)/g, '  \n');
   };
 
-  // 渲染Markdown内容为HTML
+  // 渲染 Markdown 内容
   const renderMarkdown = (content: string) => {
     try {
-      const formattedContent = formatDetails(content);
-      return marked(formattedContent);
+      return (
+        <ReactMarkdown
+          remarkPlugins={[remarkGfm]}
+          components={MDXComponents}
+        >
+          {content}
+        </ReactMarkdown>
+      );
     } catch (error) {
-      console.error('Markdown渲染错误:', error);
-      return `<p class="text-red-500">Markdown渲染错误: ${error}</p>
-              <pre class="bg-gray-100 p-4 rounded dark:bg-gray-800 overflow-auto">${content}</pre>`;
+      console.error('Markdown 渲染错误:', error);
+      return (
+        <div className="text-red-500">
+          <p>Markdown 渲染错误: {String(error)}</p>
+          <pre className="bg-gray-100 p-4 rounded dark:bg-gray-800 overflow-auto">
+            {content}
+          </pre>
+        </div>
+      );
     }
   };
 
@@ -178,12 +193,12 @@ const ProjectDetails = () => {
           </div>
         )}
         
-        <div className="prose prose-primary max-w-none dark:prose-invert prose-headings:mt-6 prose-headings:mb-4 prose-p:my-4 prose-li:my-1 prose-a:text-primary dark:prose-a:text-primary-foreground prose-img:rounded-lg prose-pre:bg-gray-100 dark:prose-pre:bg-gray-800/80 prose-pre:p-4 prose-pre:rounded-lg prose-pre:overflow-auto">
+        <div className="prose prose-primary max-w-none dark:prose-invert">
           {!isLoadingReadme && (
             readmeContent ? (
-              <div dangerouslySetInnerHTML={{ __html: renderMarkdown(readmeContent) }} />
+              renderMarkdown(readmeContent)
             ) : (
-              <div dangerouslySetInnerHTML={{ __html: renderMarkdown(project.details) }} />
+              renderMarkdown(project.details)
             )
           )}
         </div>
