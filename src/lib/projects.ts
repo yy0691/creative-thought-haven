@@ -11,6 +11,9 @@ export interface Project {
   githubUrl?: string;
   demoUrl?: string;
   videoUrl?: string;
+  publishDate?: string;
+  isRecommended?: boolean;
+  coverImage?: string;
 }
 
 export async function getAllProjects(): Promise<Project[]> {

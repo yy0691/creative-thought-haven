@@ -26,10 +26,10 @@
 
 .timeline-date,
 .timeline-title {
-  width: 120px;
+  width: 150px;
   text-align: center;
-  font-size: 0.875rem;
-  line-height: 1.25rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -68,4 +68,125 @@
   background: linear-gradient(to right, var(--primary-300), var(--primary-500));
   border-radius: 3px;
   transition: width 0.3s ease, transform 0.3s ease;
+}
+
+/* 时间轴基础样式 */
+.timeline-container {
+  @apply relative py-8 overflow-hidden;
+}
+
+/* 时间轴主轴线 */
+.timeline-line {
+  @apply absolute h-0.5 bg-gray-200/50 dark:bg-gray-700/50 left-0 right-0 top-1/2 transform -translate-y-1/2;
+}
+
+/* 时间轴节点容器 */
+.timeline-nodes {
+  @apply flex items-center gap-8 md:gap-16 px-6 relative z-10 min-w-max;
+}
+
+/* 时间轴节点 */
+.timeline-node {
+  @apply flex flex-col items-center gap-4 w-28 md:w-36;
+}
+
+/* 日期样式 */
+.timeline-date {
+  @apply text-lg font-medium text-gray-600 dark:text-gray-300 whitespace-nowrap mb-2 opacity-80 transition-all duration-300;
+}
+
+/* 节点圆点 */
+.timeline-dot {
+  @apply w-10 h-10 rounded-full bg-primary/60 dark:bg-primary/40 border-2 border-white dark:border-gray-800 transition-all duration-300 cursor-pointer relative;
+  box-shadow: 0 0 0 0 rgba(var(--primary), 0.4);
+}
+
+/* 节点圆点悬浮效果 */
+.timeline-dot:hover {
+  @apply bg-primary scale-125;
+  animation: pulse 2s infinite;
+}
+
+/* 标题样式 */
+.timeline-title {
+  @apply text-lg font-medium text-gray-800 dark:text-gray-200 text-center mt-2 transition-all duration-300 whitespace-nowrap;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 滚动容器 */
+.timeline-scroll {
+  @apply overflow-x-auto scrollbar-hide relative;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* 滚动指示器 */
+.timeline-indicator {
+  @apply absolute bottom-0 left-1/2 transform -translate-x-1/2 h-1 w-16 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden opacity-60;
+}
+
+.timeline-indicator-progress {
+  @apply h-full bg-primary rounded-full transition-all duration-300;
+}
+
+/* 脉冲动画 */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(var(--primary), 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(var(--primary), 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(var(--primary), 0);
+  }
+}
+
+/* 移动端优化 */
+@media (max-width: 768px) {
+  .timeline-nodes {
+    @apply gap-6;
+  }
+  
+  .timeline-node {
+    @apply w-24;
+  }
+  
+  .timeline-date {
+    @apply text-sm transform -rotate-45 origin-left;
+  }
+  
+  .timeline-title {
+    @apply text-sm max-w-[100px];
+  }
+  
+  .timeline-dot {
+    @apply w-8 h-8;
+  }
+}
+
+/* 悬浮卡片样式 */
+.timeline-hover-card {
+  @apply absolute bottom-full mb-4 w-64 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm p-4 rounded-lg shadow-lg border border-gray-100/20 dark:border-gray-700/30 transition-all duration-300;
+  transform: translateX(-50%) translateY(10px);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.timeline-node:hover .timeline-hover-card {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* 悬浮卡片内容样式 */
+.timeline-hover-card .text-sm {
+  font-size: 1rem; /* text-base */
+}
+
+.timeline-hover-card .text-xs {
+  font-size: 0.875rem; /* text-sm */
+  line-height: 1.5rem; /* leading-relaxed */
 } 

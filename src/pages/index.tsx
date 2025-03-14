@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import SEO from '../components/SEO';
 import { getAllPosts } from '../lib/blog';
 import { getAllProjects } from '../lib/projects';
@@ -14,6 +14,10 @@ const Index = () => {
   const [recommendedProjects, setRecommendedProjects] = useState([]);
   const [showContent, setShowContent] = useState(false);
   const [showTimeline, setShowTimeline] = useState(false);
+  const [isPostsHovering, setIsPostsHovering] = useState(false);
+  const [isProjectsHovering, setIsProjectsHovering] = useState(false);
+  const postsRef = useRef<HTMLDivElement>(null);
+  const projectsRef = useRef<HTMLDivElement>(null);
   
   // 添加标签颜色生成函数
   const getTagColors = (tag: string) => {
@@ -110,6 +114,68 @@ const Index = () => {
     };
     return colors[tech] || 'from-purple-500 to-pink-500';
   };
+
+  // 处理鼠标滚轮事件 - 推荐文章
+  const handlePostsWheel = (e: WheelEvent) => {
+    if (!postsRef.current || !isPostsHovering) return;
+    
+    // 阻止默认的垂直滚动
+    e.preventDefault();
+    
+    // 使用deltaY控制水平滚动
+    postsRef.current.scrollBy({
+      left: e.deltaY,
+      behavior: 'smooth'
+    });
+  };
+
+  // 处理鼠标滚轮事件 - 推荐项目
+  const handleProjectsWheel = (e: WheelEvent) => {
+    if (!projectsRef.current || !isProjectsHovering) return;
+    
+    // 阻止默认的垂直滚动
+    e.preventDefault();
+    
+    // 使用deltaY控制水平滚动
+    projectsRef.current.scrollBy({
+      left: e.deltaY,
+      behavior: 'smooth'
+    });
+  };
+
+  // 设置和移除事件监听器 - 推荐文章
+  useEffect(() => {
+    const postsElement = postsRef.current;
+    if (!postsElement) return;
+
+    // 只在鼠标悬停时添加滚轮事件监听
+    if (isPostsHovering) {
+      postsElement.addEventListener('wheel', handlePostsWheel, { passive: false });
+    }
+    
+    return () => {
+      if (postsElement) {
+        postsElement.removeEventListener('wheel', handlePostsWheel);
+      }
+    };
+  }, [isPostsHovering]);
+
+  // 设置和移除事件监听器 - 推荐项目
+  useEffect(() => {
+    const projectsElement = projectsRef.current;
+    if (!projectsElement) return;
+
+    // 只在鼠标悬停时添加滚轮事件监听
+    if (isProjectsHovering) {
+      projectsElement.addEventListener('wheel', handleProjectsWheel, { passive: false });
+    }
+    
+    return () => {
+      if (projectsElement) {
+        projectsElement.removeEventListener('wheel', handleProjectsWheel);
+      }
+    };
+  }, [isProjectsHovering]);
   
   return (
     <div className="min-h-screen relative overflow-hidden">
@@ -142,41 +208,20 @@ const Index = () => {
         }`}>
           {/* 推荐阅读 */}
           <div className="mb-20">
-            <div className="flex items-center justify-between mb-10">
+            <div className="flex items-center mb-10">
               <div className="flex items-center gap-3">
                 <BookOpen className="w-8 h-8 text-primary" />
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white">推荐阅读</h2>
               </div>
-              <div className="flex items-center gap-2">
-                <button 
-                  className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                  onClick={() => {
-                    const container = document.getElementById('recommended-posts');
-                    if (container) {
-                      container.scrollBy({ left: -300, behavior: 'smooth' });
-                    }
-                  }}
-                >
-                  <ArrowLeft className="w-5 h-5" />
-                </button>
-                <button 
-                  className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                  onClick={() => {
-                    const container = document.getElementById('recommended-posts');
-                    if (container) {
-                      container.scrollBy({ left: 300, behavior: 'smooth' });
-                    }
-                  }}
-                >
-                  <ArrowRight className="w-5 h-5" />
-                </button>
-              </div>
             </div>
             
             <div 
+              ref={postsRef}
               id="recommended-posts"
               className="flex overflow-x-auto gap-6 pb-4 snap-x snap-mandatory scrollbar-hide"
               style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+              onMouseEnter={() => setIsPostsHovering(true)}
+              onMouseLeave={() => setIsPostsHovering(false)}
             >
               {recommendedPosts.map((article) => (
                 <Link
@@ -229,41 +274,20 @@ const Index = () => {
 
           {/* 推荐项目 */}
           <div>
-            <div className="flex items-center justify-between mb-10">
+            <div className="flex items-center mb-10">
               <div className="flex items-center gap-3">
                 <Star className="w-8 h-8 text-primary" />
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white">推荐项目</h2>
               </div>
-              <div className="flex items-center gap-2">
-                <button 
-                  className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                  onClick={() => {
-                    const container = document.getElementById('recommended-projects');
-                    if (container) {
-                      container.scrollBy({ left: -300, behavior: 'smooth' });
-                    }
-                  }}
-                >
-                  <ArrowLeft className="w-5 h-5" />
-                </button>
-                <button 
-                  className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                  onClick={() => {
-                    const container = document.getElementById('recommended-projects');
-                    if (container) {
-                      container.scrollBy({ left: 300, behavior: 'smooth' });
-                    }
-                  }}
-                >
-                  <ArrowRight className="w-5 h-5" />
-                </button>
-              </div>
             </div>
             
             <div 
+              ref={projectsRef}
               id="recommended-projects"
-              className="flex overflow-x-auto gap-8 pb-4 snap-x snap-mandatory scrollbar-hide"
+              className="flex overflow-x-auto gap-6 pb-4 snap-x snap-mandatory scrollbar-hide"
               style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+              onMouseEnter={() => setIsProjectsHovering(true)}
+              onMouseLeave={() => setIsProjectsHovering(false)}
             >
               {recommendedProjects.map((project) => (
                 <Link
