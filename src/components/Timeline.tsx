@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { IconName } from 'react-icons/fa'; // 假设使用 FontAwesome 图标库
+import { throttle } from 'lodash';
 
 // 定义时间轴节点类型
 export interface TimelineNode {
@@ -19,7 +19,6 @@ interface TimelineProps {
 }
 
 const Timeline: React.FC<TimelineProps> = ({ nodes, className = '' }) => {
-  const [selectedNode, setSelectedNode] = useState<TimelineNode | null>(null);
   const timelineRef = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
@@ -34,39 +33,53 @@ const Timeline: React.FC<TimelineProps> = ({ nodes, className = '' }) => {
   };
 
   // 处理鼠标滚轮事件
-  const handleWheel = (e: WheelEvent) => {
+  const handleWheel = throttle((e: WheelEvent) => {
     if (!timelineRef.current || !isHovering) return;
     
     // 阻止默认的垂直滚动
     e.preventDefault();
+    e.stopPropagation();
     
-    // 使用deltaY控制水平滚动
+    // 使用deltaY控制水平滚动，调整滚动速度
     timelineRef.current.scrollBy({
-      left: e.deltaY,
+      left: e.deltaY * 10 , // 减小滚动速度
       behavior: 'smooth'
     });
-  };
+  }, 100); // 提高响应速度
 
   // 设置和移除事件监听器
   useEffect(() => {
     const timelineElement = timelineRef.current;
     if (!timelineElement) return;
 
-    // 只在鼠标悬停时添加滚轮事件监听
+    const wheelHandler = (e: WheelEvent) => {
+      handleWheel(e);
+      if (isHovering) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    };
+
+    // 添加事件监听
     if (isHovering) {
-      timelineElement.addEventListener('wheel', handleWheel, { passive: false });
+      timelineElement.addEventListener('wheel', wheelHandler, { passive: false });
+      // 阻止页面滚动
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
     }
     
     return () => {
       if (timelineElement) {
-        timelineElement.removeEventListener('wheel', handleWheel);
+        timelineElement.removeEventListener('wheel', wheelHandler);
+        document.body.style.overflow = 'auto';
       }
     };
   }, [isHovering]);
 
   return (
     <div className={`timeline-container ${className}`}>
-      <h2 className="text-3xl font-bold text-center mb-10 dark:text-white">学习历程</h2>
+      <h2 className="text-3xl font-bold text-center mb-10 dark:text-white"> </h2>
       
       <div className="relative">
         {/* 时间轴滚动容器 */}
@@ -93,50 +106,21 @@ const Timeline: React.FC<TimelineProps> = ({ nodes, className = '' }) => {
                 <span className="timeline-date">{node.date}</span>
                 
                 <motion.div
-                  className={`timeline-dot bg-primary text-white`}
+                  className="timeline-dot text-white"
+                  style={{ backgroundColor: node.color }}
                   whileHover={{ scale: 1.2 }}
-                  onClick={() => setSelectedNode(node)}
                 >
-                  {node.icon && (
-                    <span className="absolute inset-0 flex items-center justify-center text-[20px] md:text-[24px]">
-                      <IconName />
-                    </span>
-                  )}
+                  <span
+                    className="absolute inset-0 flex items-center justify-center text-[20px] md:text-[24px]"
+                  >
+                    {node.icon}
+                  </span>
                 </motion.div>
                 
                 <span className="timeline-title">{node.title}</span>
-                
-                {/* 悬浮卡片 */}
-                <div className="timeline-hover-card">
-                  <div className="text-sm font-medium mb-1 dark:text-white">
-                    {node.title}
-                  </div>
-                  <div className="text-xs text-gray-600 dark:text-gray-300">
-                    {node.description}
-                  </div>
-                  {node.category && (
-                    <div className="mt-2 flex items-center gap-1">
-                      <span 
-                        className="w-2 h-2 rounded-full"
-                        style={{ backgroundColor: node.color }}
-                      />
-                      <span className="text-xs text-gray-500 dark:text-gray-400">
-                        {node.category}
-                      </span>
-                    </div>
-                  )}
-                </div>
               </motion.div>
             ))}
           </div>
-        </div>
-
-        {/* 滚动进度指示器 */}
-        <div className="timeline-indicator">
-          <div 
-            className="timeline-indicator-progress"
-            style={{ width: `${scrollProgress}%` }}
-          />
         </div>
       </div>
     </div>

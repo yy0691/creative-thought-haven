@@ -78,6 +78,7 @@
 /* 时间轴主轴线 */
 .timeline-line {
   @apply absolute h-0.5 bg-gray-200/50 dark:bg-gray-700/50 left-0 right-0 top-1/2 transform -translate-y-1/2;
+  min-width: 1800px;
 }
 
 /* 时间轴节点容器 */
@@ -87,7 +88,12 @@
 
 /* 时间轴节点 */
 .timeline-node {
-  @apply flex flex-col items-center gap-4 w-28 md:w-36;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 7rem;
 }
 
 /* 日期样式 */
@@ -167,26 +173,8 @@
   }
 }
 
-/* 悬浮卡片样式 */
-.timeline-hover-card {
-  @apply absolute bottom-full mb-4 w-64 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm p-4 rounded-lg shadow-lg border border-gray-100/20 dark:border-gray-700/30 transition-all duration-300;
-  transform: translateX(-50%) translateY(10px);
-  opacity: 0;
-  pointer-events: none;
-}
-
-.timeline-node:hover .timeline-hover-card {
-  transform: translateX(-50%) translateY(0);
-  opacity: 1;
-  pointer-events: auto;
-}
-
-/* 悬浮卡片内容样式 */
-.timeline-hover-card .text-sm {
-  font-size: 1rem; /* text-base */
-}
-
-.timeline-hover-card .text-xs {
-  font-size: 0.875rem; /* text-sm */
-  line-height: 1.5rem; /* leading-relaxed */
+@media (min-width: 768px) {
+  .timeline-node {
+    width: 9rem;
+  }
 } 

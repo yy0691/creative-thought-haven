@@ -2,11 +2,19 @@ import os
 import re
 import subprocess
 import urllib.parse
+from qiniu import Auth, put_file, etag
+import qiniu.config
+
+# 七牛云配置
+access_key = 'your_access_key'
+secret_key = 'your_secret_key'
+bucket_name = 'your_bucket_name'
+bucket_domain = 'your_bucket_domain'  # 例如：http://xxx.bkt.clouddn.com
 
 # 需要递归处理所有 Markdown 文件的根目录
 MD_ROOT = r"F:\Blog2025\creative-thought-haven\src\content\网络安全"
 
-# 如果你的 Markdown 有 "/src/content/..." 这种“绝对”路径，
+# 如果你的 Markdown 有 "/src/content/..." 这种"绝对"路径，
 # 你需要指定 PROJECT_ROOT，用来拼接。例如：
 PROJECT_ROOT = r"F:\Blog2025\creative-thought-haven"
 
@@ -17,33 +25,40 @@ centered_img_pattern = re.compile(r'<CenteredImage.*?src="(.*?)".*?>')
 
 def upload_image(local_path):
     """
-    调用 PicGo 上传图片，并返回图床 URL（如果成功）。
-    如果 PicGo 返回多行，只要其中一行以 http 开头，就视为上传成功。
+    使用七牛云 SDK 上传图片，并返回图床 URL（如果成功）。
     """
     abs_path = os.path.abspath(local_path)
     if not os.path.isfile(abs_path):
         print(f"❌ 无效图片路径，跳过：{abs_path}")
         return None
 
-    print(f"📤 上传图片: {abs_path}")
-    # 请根据你的 PicGo 安装位置修改下面的命令
-    result = subprocess.run(
-        [r"C:\Users\q\AppData\Roaming\npm\picgo.cmd", "upload", abs_path],
-        capture_output=True, text=True
-    )
-    output = result.stdout.strip()
-    print("📜 PicGo 输出:")
-    print(output)
-
-    # PicGo 可能输出多行，尝试寻找以 "http" 开头的行作为 URL
-    for line in output.splitlines():
-        line = line.strip()
-        if line.startswith("http"):
-            print(f"✅ 上传成功，提取 URL: {line}")
-            return line
-
-    print(f"❌ 上传失败: {output}")
-    return None
+    try:
+        print(f"📤 上传图片: {abs_path}")
+        
+        # 构建鉴权对象
+        q = Auth(access_key, secret_key)
+        
+        # 生成上传文件的key（文件名）
+        key = os.path.basename(local_path)
+        
+        # 生成上传 Token
+        token = q.upload_token(bucket_name, key, 3600)
+        
+        # 上传文件
+        ret, info = put_file(token, key, local_path)
+        
+        if ret and ret['key'] == key:
+            # 拼接访问地址
+            url = f"{bucket_domain}/{key}"
+            print(f"✅ 上传成功，URL: {url}")
+            return url
+        else:
+            print(f"❌ 上传失败: {info}")
+            return None
+            
+    except Exception as e:
+        print(f"❌ 上传出错: {str(e)}")
+        return None
 
 def resolve_image_path(md_file_path, image_ref):
     """
