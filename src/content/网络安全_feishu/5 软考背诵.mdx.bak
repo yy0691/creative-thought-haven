@@ -284,7 +284,7 @@ allow from  a.b.c.d
 
 * 包过滤 –根据ip地址、目的IP地址、源端口、目的端口、方向进行判断是否允许包通过
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/PkUSbwJk7oG9ZaxbQ2yckPBEngO.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/PkUSbwJk7oG9ZaxbQ2yckPBEngO.png)
 
 优点：低负载、高通过率、对用户透明
 

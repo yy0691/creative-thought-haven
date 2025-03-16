@@ -51,7 +51,7 @@ Https=http+ssl/tls
 - 在传输数据之前，客户端会和服务器端去协商数据在传输过程中的加密算法，包含自己的非对称加密的密钥交换算法（RSA/DH），数据签名摘要算法（MD5/SHA），加密传输数据的对称加密算法（DES/3DES/AES）
 - 客户端生成随机的字符串，通过协商好的非对称加密算法，使用服务端的公钥对该字符串进行加密，发送给服务端。服务端接收到之后，使用自己的私钥解密得到该字符串，在随后的数据传输中，使用这个字符串作为密钥进行对称加密。
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_Notion/Untitled%2068.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_Notion/Untitled%2068.png)
 
 # 三、PKI体系
 
@@ -69,7 +69,7 @@ Https=http+ssl/tls
     - 发送方ALice首先将原始数据通过摘要算法（SHA）算出信息摘要，并且用自己的私钥进行签名得到数字签名，将数字签名和原始数据发送给接收方bob
     - 接收方bob收到Alice发送来的原始数据和数字签名后，将原属数据通过相同的（SHA）得出信息摘要，再使用Alice的公钥，将数字签名解开得出Alice的信息摘要（完成ALice的身份认证），对比两个摘要是否一致，如果一致，说明数据在传输过程中没有被修改。
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_Notion/Untitled%2069.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_Notion/Untitled%2069.png)
 
 - 数字证书
     - 保证密钥的合法性
@@ -83,7 +83,7 @@ Https=http+ssl/tls
 
 ## 2. 数据安全传输案例
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_Notion/Untitled%2070.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_Notion/Untitled%2070.png)
 
 # 3. 数字证书颁发机构
 

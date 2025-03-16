@@ -38,7 +38,7 @@ title: "\u7B2C\u516D\u7AE0 \u8BA4\u8BC1\u539F\u7406\u53CA\u6280\u672F"
 > 鉴别实体：验证者
 
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/CdsObjuQko0G3gxUSfzceNWYnJe.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/CdsObjuQko0G3gxUSfzceNWYnJe.png)
 
 * 根据对验证对象要求提供的认证凭据的类型数量，可分为单因素认证、双因素认证、多因素认证
 * 根据所利用的时间长度，可分为一次性口令（One Time Password）、持续认证（Continuous authentication）
@@ -78,11 +78,11 @@ title: "\u7B2C\u516D\u7AE0 \u8BA4\u8BC1\u539F\u7406\u53CA\u6280\u672F"
 
 ### 基于共享秘密
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/PiU8bkgZroeJGAxxWl3cW8Uunid.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/PiU8bkgZroeJGAxxWl3cW8Uunid.png)
 
 ### 基于挑战响应
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/XOilbgSJcokRlixJjgQcLlw4nJg.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/XOilbgSJcokRlixJjgQcLlw4nJg.png)
 
 ## 双向认证
 
@@ -90,7 +90,7 @@ title: "\u7B2C\u516D\u7AE0 \u8BA4\u8BC1\u539F\u7406\u53CA\u6280\u672F"
 > 
 
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/YlwPbN7o0oLr6OxI1ekc1JxMnnb.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/YlwPbN7o0oLr6OxI1ekc1JxMnnb.png)
 
 ## 第三方认证
 
@@ -124,7 +124,7 @@ title: "\u7B2C\u516D\u7AE0 \u8BA4\u8BC1\u539F\u7406\u53CA\u6280\u672F"
 在挑战/响应认证中，用户会提供一张智能卡，智能卡会一直显示一个随时间而变化的数字。假如用户试图登录目标系统，则系统首先将对用户进行认证，步骤如下：
 <span style="color: #E0E1E4">（1）用户将自己的ID发送到目标系统；</span><span style="color: #E0E1E4">（2）系统提示用户输入数字；</span><span style="color: #E0E1E4">（3）用户从智能卡上读取数字：</span><span style="color: #E0E1E4">（4）用户将数字发送给系统；</span><span style="color: #E0E1E4">（5）系统用收到的数字对ID进行确认，如果ID有效，系统会生成一个数字并将其显示给用户，称为挑战；</span><span style="color: #E0E1E4">（6）用户将上面的挑战输入智能卡中；</span><span style="color: #E0E1E4">（7）智能卡用这个输入的值根据一定算法计算出一个新的数字并显示这个结果，该数字称为应答；</span><span style="color: #E0E1E4">（8）用户将应答输入系统；</span><span style="color: #E0E1E4">（9）系统验证应答是否正确，如果正确，用户通过验证并登录进入系统</span>
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/Ycehb0MC0oVRFCxszQhc9O8SnOc.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/Ycehb0MC0oVRFCxszQhc9O8SnOc.png)
 
 ## 基于生物特征认证技术
 
@@ -154,27 +154,27 @@ title: "\u7B2C\u516D\u7AE0 \u8BA4\u8BC1\u539F\u7406\u53CA\u6280\u672F"
 * 会话密钥
 ### **KerberosV5认证协议流程**
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/FMNUbDFrNoG7VPxxsStc5EtGnrd.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/FMNUbDFrNoG7VPxxsStc5EtGnrd.png)
 
 1. 申请票据
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/W9Gdb6q8ooH0l2xCcuNchsfHnyg.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/W9Gdb6q8ooH0l2xCcuNchsfHnyg.png)
 
 1. AS收到消息后，AS在认证数据库检查确认kerberos客户，产生一个会话密钥，同时使用客户的秘密密钥对会话密钥进行加密，然后生成一个票据TGT，中TGT由Kerberos客户的实体名、地址、时间戳、限制时间、会话密钥组成。
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/ZJYTbToQGo9FHnxR76lcsvu1nKg.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/ZJYTbToQGo9FHnxR76lcsvu1nKg.png)
 
 1. 客户收到TGT后，用自己的秘密密钥解密得到会话密钥，然后利用解密的信息重新构造认证请求单，向TGS发送请求，申请访问应用服务器AP所需要的票据
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/Oxqebr3lXoVTwYxsti3cvK9fnSc.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/Oxqebr3lXoVTwYxsti3cvK9fnSc.png)
 
 1. TGS使用其秘密密钥对TGT解密，同时使用TGT中的会话密钥对客户的请求认证单进行解密，并将解密后的认证单信息和TGT中的信息进行比较。然后TGS生成新的会话密钥以供客户和服务器使用，并利用各自的秘密密钥加密会话密钥。最后，生成一个票据。
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/Em4SbFcCVoogAmxpSRrciJzanVg.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/Em4SbFcCVoogAmxpSRrciJzanVg.png)
 
 1. 客户收到TGS的响应后，获得与AP共享的会话密钥，同时，客户生成一个新的用于访问AP的认证单，并用该会话密钥加密，然后与TGS发来的票据一起发送到AP。
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/VUo7bcArxoC7xWx5zmYctiBCnth.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/VUo7bcArxoC7xWx5zmYctiBCnth.png)
 
 ### 优点
 

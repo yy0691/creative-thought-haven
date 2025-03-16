@@ -82,7 +82,7 @@ Enumeration
     * `find / -writable -type d 2>/dev/null`
     * `find / -perm -222 -type d 2>/dev/null`
     * `find / -perm -o w -type d 2>/dev/null`
-    ![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/RoLKbn6rvoD8lxxOkRacfB0OnQf.png)
+    ![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/RoLKbn6rvoD8lxxOkRacfB0OnQf.png)
 
   * 查找所有用户可执行文件夹
     * `find / -perm -o x -type d 2>/dev/null`
@@ -144,7 +144,7 @@ Enumeration
 
 有些系统中，可能会有LD_PRELOAD环境选项,LD_PRELOAD 是一个允许任何程序使用共享库的功能。如果启用了 "env_keep" 选项，我们可以生成一个将在程序运行之前加载和执行的共享库。请注意，如果实际用户 ID 与有效用户 ID 不同，则 LD_PRELOAD 选项将被忽略
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/CQgsbyXzuoNx8ExC94Vc5qr1nEh.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/CQgsbyXzuoNx8ExC94Vc5qr1nEh.png)
 
 提权步骤：
 
@@ -182,7 +182,7 @@ Linux权限控制很大程度上依赖用户和文件的交互，由许可权来
 
 `find / -type f -perm -04000 -ls 2>/dev/null` 将列出设置了SUID或SGID位的文件
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/VRgBbO2TvoceopxAoIHc01Zente.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/VRgBbO2TvoceopxAoIHc01Zente.png)
 
 然后将列表中的可执行文件与[GTFOBins](https://gtfobins.github.io/)进行对比，上面的列表显示nano已经设置了SUID位，但CTFOBins中没有nano+suid，在实际提权场景中，需要找到中间步骤，能够帮助我们利用发现哪怕是很小的漏洞。
 
@@ -197,13 +197,13 @@ Linux权限控制很大程度上依赖用户和文件的交互，由许可权来
     4. [John the Ripper工具介绍：TryHackMe | Cyber Security Training](https://tryhackme.com/room/johntheripper0)
 2. 添加一个具有root权限的新用户
     1. 生成新用户密码的哈希值，利用Kali Linux上的openssl工具：`openssl passed -l -salt THM password1`
-    ![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/XD3jb6gdDoIZH9xVjj2cD7FQnuf.png)
+    ![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/XD3jb6gdDoIZH9xVjj2cD7FQnuf.png)
 
     3. 然后，将这个密码和用户名添加到 `/etc/passwd`  文件
-    ![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/KSyIbepz1oAKudx68yQcwMV7nOf.png)
+    ![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/KSyIbepz1oAKudx68yQcwMV7nOf.png)
 
     5. 添加后，需要切换至此用户并希望拥有root权限，注意 `root:/bin/bash` 是如何使用的
-    ![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/ErCsbfcNqoF5zyxHYdlcY62onkb.png)
+    ![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/ErCsbfcNqoF5zyxHYdlcY62onkb.png)
 
 
 权限提升:能力
@@ -222,9 +222,9 @@ Cron任务配置存储为crontabs (Cron表)，以便查看任务下一次运行�
 
 任何用户都可以在 `/etc/crontab`文件中读取保持系统范围的cron作业
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/W9aAblu9UouXzZx0Yc4c4vXvnWb.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/W9aAblu9UouXzZx0Yc4c4vXvnWb.png)
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/KUCsb2Oypoww8PxI8S3c9qj9n4g.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/KUCsb2Oypoww8PxI8S3c9qj9n4g.png)
 
 这个例子中可以看到 `backup.sh` 脚本被配置为每分钟运行一次。该文件的内容显示了一个创建prices.xls文件备份的简单脚本。
 
@@ -235,17 +235,17 @@ Tips：
 
 修改后的文件：
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/AdhlbD9GZotfYoxr1vdcF3qVnud.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/AdhlbD9GZotfYoxr1vdcF3qVnud.png)
 
 在攻击机器上运行一个监听器来接收传入的连接：
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/JxfRbRij1o4K67xmvDicvw49nJg.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/JxfRbRij1o4K67xmvDicvw49nJg.png)
 
 以下场景在网络安全性不够成熟的公司中很常见：系统管理员需要定期运行一个脚本，然后创建了一个cron任务来完成这项工作，过一段时间，脚本没用了，然后删除脚本，但是没有清理相关的cron工作。
 
 
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/BodUb0pIyoJzU7xyEfrcrhaAnkf.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/BodUb0pIyoJzU7xyEfrcrhaAnkf.png)
 
 
 
@@ -255,11 +255,11 @@ Tips：
 
 目标系统上的文件：
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/H1aqbjVXQoEs0MxwxmjcJiWPnUe.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/H1aqbjVXQoEs0MxwxmjcJiWPnUe.png)
 
 传入的反向shell连接具有root权限:
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/Pq5bbjR7YoU6rfx6KeFcrxU7nOE.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/Pq5bbjR7YoU6rfx6KeFcrxU7nOE.png)
 
 如果能够找到附属于cron作业的脚本或任务，可以了解脚本的功能以及如何在环境中使用工具，例如tar、7z、rsync等可以利用通配符特性进行攻击。
 
@@ -279,13 +279,13 @@ Tips：
 
 使用以下脚本：
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/DerNb0FoPovJ3gxHqwwcsxRYn1c.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/DerNb0FoPovJ3gxHqwwcsxRYn1c.png)
 
 这个脚本试图启动一个名为“thm”的系统二进制文件，但是 示例可以很容易地用任何二进制文件复制。
 
 编译为可执行文件并设置suid位
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/GDibbenCXoxlZWxtkjfcZujGnsf.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/GDibbenCXoxlZWxtkjfcZujGnsf.png)
 
 执行该程序，“path”将在PATH下列出的文件夹中查找名为“thm”的可执行文件
 
@@ -293,27 +293,27 @@ Tips：
 
 搜索可写文件夹命令：`find / -writable 2>/dev/null`
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/XlnIboTQSo4MynxZAlqcir3Fnsh.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/XlnIboTQSo4MynxZAlqcir3Fnsh.png)
 
 它与 PATH 比较将帮助我们找到可以使用的文件夹。
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/Vxtbbfe83orY64xb3rZcOdIjnif.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/Vxtbbfe83orY64xb3rZcOdIjnif.png)
 
 使用命令在/usr文件夹下搜索
 
 `find / -writable 2>/dev/null | cut -d "/" -f 2,3 | grep -v proc | sort -u` 但是 /usr下的子文件夹不可写
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/JcNfbxajBorPYrx7sFgchWj9nIh.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/JcNfbxajBorPYrx7sFgchWj9nIh.png)
 
  更容易写入的文件夹可能是/tmp，。因为/tmp是 PATH中不存在，所以我们需要添加它。正如我们在下面看到的， 使用“ `export PATH=/tmp:$PATH` ”命令可以完成此操作。
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/IxLxb9joYo76pDx5U1VcoGI0nue.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/IxLxb9joYo76pDx5U1VcoGI0nue.png)
 
 此时，path脚本也将在/tmp文件夹下查找名为“thm”的可执行文件，只需将/bin/bash复制到/ tmp文件夹的“thm” 
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/T2QsbEOUVoKdF2x6qgfcaJDFnPd.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/T2QsbEOUVoKdF2x6qgfcaJDFnPd.png)
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/LmYKbXJPeo77LKxclr6cq8Kunvf.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/LmYKbXJPeo77LKxclr6cq8Kunvf.png)
 
 
 
@@ -325,29 +325,29 @@ Tips：
 
 NFS (Network File Sharing)配置保存在/etc/exports文件中。该文件是在NFS服务器安装期间创建的，用户通常可以读取该文件。
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/LjIybt9ggo6woOxYXDqcvkvXnjh.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/LjIybt9ggo6woOxYXDqcvkvXnjh.png)
 
 这个权限提升向量的关键元素是上面可以看到的“no_root_squash”选项。默认情况下，NFS将把root用户更改为nfsnobody，并剥夺任何文件的root权限。如果" no_root_squash "选项存在于可写共享中，我们可以创建一个设置了SUID位的可执行文件，并在目标系统上运行它。
 
 1. 从攻击机器上枚举可挂载的共享。
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/GPU0bmS0AoYUuCxRIaZcEXFknLb.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/GPU0bmS0AoYUuCxRIaZcEXFknLb.png)
 
 1. 挂载一个“no_root_squash”共享到我们的攻击中 机器并开始构建我们的可执行文件。
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/SAXzb91aVogzXqx1zg9cd4FtnEd.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/SAXzb91aVogzXqx1zg9cd4FtnEd.png)
 
 因为我们可以设置SUID位，一个简单的可执行文件，将运行/bin/bash 将在目标系统上完成这项工作。
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/SdVLbBRE2odS8uxtur8cEOoxnHe.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/SdVLbBRE2odS8uxtur8cEOoxnHe.png)
 
 一旦我们编译代码，我们将设置SUID位。
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/UEVZbmaSDohnQ9xcmosc1G9Wnce.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/UEVZbmaSDohnQ9xcmosc1G9Wnce.png)
 
 在下面可以看到两个文件(nfs.c和nfs在 目标系统。我们已经在挂载共享上工作了，所以不需要转移)。
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/BVPzbUwlzo00StxdpxicNugynac.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/BVPzbUwlzo00StxdpxicNugynac.png)
 
 
 

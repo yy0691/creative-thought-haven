@@ -48,7 +48,7 @@ title: "1 \u7269\u7406\u5C42"
 
 网卡中的PHY(MAU)模块负责将包转换成电信号，信号通过RJ-45接口进入双绞线。
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/DT0Tb07eFoG7zdxy1QVcn5gInSh.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/DT0Tb07eFoG7zdxy1QVcn5gInSh.png)
 
 电信号的频率越高，能量损失越大。方形的信号拐角会变圆
 
@@ -76,11 +76,11 @@ title: "1 \u7269\u7406\u5C42"
 
 由于正负信号线产生的噪声影响是相反的，故两者就会相互抵消
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/GoPdbBrfeowTn6xTR7qc5XbQnFg.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/GoPdbBrfeowTn6xTR7qc5XbQnFg.png)
 
 ## **双绞线的种类**
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/O5V1bvvOAoSICYxkofHc2Wesn3f.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/O5V1bvvOAoSICYxkofHc2Wesn3f.png)
 
 ## 集线器
 
@@ -88,7 +88,7 @@ title: "1 \u7269\u7406\u5C42"
 2. <span style="color: #FBBFBC">**以太网的基本架构：**</span>将包发到所有的设备，然后由设备根据接收方的MAC地址来判断应该接受哪个包
 3. **内部结构：**
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/EV0hbamNho63F3xnWsYcGxu3nsg.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/EV0hbamNho63F3xnWsYcGxu3nsg.png)
 
 每个接口后面装有和网卡中的PHY功能相同的模块
 

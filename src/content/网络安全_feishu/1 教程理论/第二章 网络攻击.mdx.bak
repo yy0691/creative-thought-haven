@@ -266,7 +266,7 @@ XMAS 扫描的原理和 NULL 扫描相同，只是将要发送的数据包中的
 
 缓冲区溢出攻击可使攻击者有机会获得一台主机的部分或全部的控制权。
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/AHcvbNuQroxPCHxTvj6cZZm0n6c.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/AHcvbNuQroxPCHxTvj6cZZm0n6c.png)
 
 ## 恶意代码
 
@@ -350,7 +350,7 @@ Teardrop攻击是一种拒绝服务攻击，是一种针对IP协议的攻击方�
 
 <span style="color: #E0E1E4">攻击者发起攻击并向代理机发送控制指令，代理机就会向被攻击目标主机发送大量的服务请求数据包，这些数据包经过伪装，无法识别它的来源，而且这些数据包所请求的服务往往要消耗大量的系统资源，造成被攻击目标主机无法为用户提供正常服务，甚至导致系统崩溃。</span>
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/M0osb2mGhogO22xxjrucXemUnhx.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/M0osb2mGhogO22xxjrucXemUnhx.png)
 
 <span style="color: #C7D5F6">【参考阅读：</span>[DDOS攻击原理](https://blog.csdn.net/leah126/article/details/135190729)<span style="color: #C7D5F6">】</span>
 
@@ -491,7 +491,7 @@ Teardrop攻击是一种拒绝服务攻击，是一种针对IP协议的攻击方�
 
 # 常用工具
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/DUafbZo9LoLhgpxSvxFczm12nbe.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/DUafbZo9LoLhgpxSvxFczm12nbe.png)
 
 ## 扫描器。
 

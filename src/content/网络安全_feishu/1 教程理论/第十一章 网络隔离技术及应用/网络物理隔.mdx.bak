@@ -59,7 +59,7 @@ title: "\u7F51\u7EDC\u7269\u7406\u9694"
 
 上外网的计算机上连一个<span style="color: #C0ECBC">物理线路A/B交换盒</span>，通过交换盒的开关设置控制计算机的网络物理连接
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/OGdObb9EcoFyX9xiDU7ce9Dwn1d.jpeg)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/OGdObb9EcoFyX9xiDU7ce9Dwn1d.jpeg)
 
 <span style="color: #E0E1E4">"内外网线路切换器"物理隔离原理</span>
 
@@ -131,7 +131,7 @@ title: "\u7F51\u7EDC\u7269\u7406\u9694"
 
 采用“2+1”功能：两台主机+专用隔离部件
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/PwgOblZdeoNDorxpxyYcyOIhnSd.jpeg)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/PwgOblZdeoNDorxpxyYcyOIhnSd.jpeg)
 
 3、网络单向导入产品
 
@@ -155,7 +155,7 @@ title: "\u7F51\u7EDC\u7269\u7406\u9694"
 
 电子政务网络=政务内网+政务外网
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/BzgXbuSZjoNPYyxdCHRcjHatncg.jpeg)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/BzgXbuSZjoNPYyxdCHRcjHatncg.jpeg)
 
 <span style="color: #E0E1E4">电子政务两网之间物理隔离，政务外网与互联网之间逻辑隔离</span>
 
