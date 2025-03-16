@@ -111,20 +111,29 @@ const BlogPost = () => {
       
       try {
         const mdxModules = import.meta.glob('../content/**/*.mdx', { eager: true });
+        const decodedSlug = decodeURIComponent(slug);
         
-        const modulePath = Object.keys(mdxModules).find(path => {
+        console.log('尝试加载文章:', decodedSlug);
+        
+        // 首先尝试精确匹配路径
+        let modulePath = Object.keys(mdxModules).find(path => {
           const fullPath = path.replace('../content/', '').replace(/\.mdx$/, '');
           const normalizedPath = fullPath.replace(/\\/g, '/');
-          const decodedSlug = decodeURIComponent(slug);
-          console.log('比较路径:', {
-            normalizedPath,
-            decodedSlug,
-            originalPath: path
-          });
-          
-          return normalizedPath === decodedSlug || 
-                 normalizedPath.endsWith(decodedSlug);
+          return normalizedPath === decodedSlug;
         });
+        
+        // 如果没有找到精确匹配，尝试查找包含该slug末尾部分的路径
+        if (!modulePath && decodedSlug.includes('/')) {
+          const slugParts = decodedSlug.split('/');
+          const lastPart = slugParts[slugParts.length - 1];
+          
+          modulePath = Object.keys(mdxModules).find(path => {
+            const pathParts = path.split('/');
+            const fileNameWithExt = pathParts[pathParts.length - 1];
+            const fileName = fileNameWithExt.replace(/\.mdx$/, '');
+            return fileName === lastPart;
+          });
+        }
     
         if (!modulePath) {
           console.error('未找到匹配文件，可用路径:', Object.keys(mdxModules).map(path => {

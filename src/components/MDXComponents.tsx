@@ -21,15 +21,6 @@ const Image = ({ alt, src, width, height, scale = 1, ...props }: ImageProps) => 
   const [error, setError] = React.useState(false);
   const [loaded, setLoaded] = React.useState(false);
 
-  // 处理图片路径
-  const imageSrc = src?.startsWith('/')
-    ? src
-    : src?.startsWith('http')
-    ? src
-    : src?.startsWith('images/')
-    ? src
-    : `/images/${src}`;
-
   const imageStyle = {
     width: width || '100%',
     height: height || 'auto',
@@ -38,19 +29,20 @@ const Image = ({ alt, src, width, height, scale = 1, ...props }: ImageProps) => 
     transformOrigin: 'center center'
   };
 
+  // 使用 span 替代 div，因为 span 是行内元素，可以放在 p 标签内
   return (
-    <div className="my-6 relative">
+    <span className="block my-6 relative">
       {!loaded && !error && (
-        <div className="w-full h-48 bg-gray-100 animate-pulse rounded-lg" />
+        <span className="block w-full h-48 bg-gray-100 animate-pulse rounded-lg" />
       )}
       {error ? (
-        <div className="w-full h-48 bg-gray-100 flex items-center justify-center rounded-lg">
-          <p className="text-gray-500">图片加载失败</p>
-        </div>
+        <span className="block w-full h-48 bg-gray-100 flex items-center justify-center rounded-lg">
+          <span className="text-gray-500">图片加载失败</span>
+        </span>
       ) : (
         <img
           {...props}
-          src={imageSrc}
+          src={src}
           alt={alt || ''}
           style={imageStyle}
           className={`rounded-lg shadow-md transition-opacity duration-300 ${loaded ? 'opacity-100' : 'opacity-0'}`}
@@ -59,9 +51,9 @@ const Image = ({ alt, src, width, height, scale = 1, ...props }: ImageProps) => 
         />
       )}
       {alt && loaded && !error && (
-        <p className="text-sm text-center text-muted-foreground mt-2">{alt}</p>
+        <span className="block text-sm text-center text-muted-foreground mt-2">{alt}</span>
       )}
-    </div>
+    </span>
   );
 };
 
@@ -144,7 +136,7 @@ const components = {
     }
     // 否则使用普通的blockquote样式
     return (
-      <blockquote className="border-l-4 border-primary pl-4 italic my-4 dark:border-primary-foreground dark:text-gray-300" {...props} />
+      <blockquote className="border-l-4 border-primary pl-4 italic my-2 dark:border-primary-foreground dark:text-gray-300" {...props} />
     );
   },
   pre: (props: any) => (
@@ -201,8 +193,8 @@ const components = {
         purple: 'bg-purple-100 border-purple-200'
       };
       return (
-        <div className={`p-4 rounded-lg border ${colors[colorClass]} my-4`} style={safeStyle} {...props}>
-          {children}
+        <div className={`p-4 rounded-lg border ${colors[colorClass]} my-4`}>
+          <p className="mb-5 last:mb-0 leading-7">{children}</p>
         </div>
       );
     }

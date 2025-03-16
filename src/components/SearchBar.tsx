@@ -54,7 +54,7 @@ const SearchBar = () => {
         title: post.title,
         description: post.excerpt || post.description,
         slug: post.slug,
-        url: `/blog/${post.slug}`
+        url: `/blog/${encodeURIComponent(post.slug)}`
       }));
 
     // 搜索项目
@@ -82,8 +82,8 @@ const SearchBar = () => {
         type: 'design' as const,
         title: design.title,
         description: design.description,
-        slug: design.slug,
-        url: `/designs/${design.slug}`
+        slug: design.id,
+        url: `/designs/${design.id}`
       }));
 
     setResults([...blogResults, ...projectResults, ...designResults]);

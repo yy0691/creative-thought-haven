@@ -44,8 +44,8 @@ const About = () => {
         <section className="space-y-4">
           <h2 className="text-2xl font-semibold bg-gradient-to-r from-primary/80 to-primary bg-clip-text text-transparent">你好！</h2>
           <p className="text-muted-foreground leading-relaxed dark:text-gray-300">
-            一位游走于机械工程严谨性与产品创新可能性之间的技术型产品经理。
-            擅长将复杂技术转化为可落地的行业解决方案，专注AI科技领域。
+            一位喜欢把技术编程实用工具的产品经理。<br />
+            擅长利用Python实现自动化，并利用AI技术优化工作流程。<br />
             持续探索AI赋能垂直场景的实践路径……
           </p>
         </section>
@@ -54,19 +54,19 @@ const About = () => {
           <h2 className="text-2xl font-semibold bg-gradient-to-r from-primary/80 to-primary bg-clip-text text-transparent">专业技能</h2>
           <div className="flex gap-2 flex-wrap">
             {[
-              { name: "React", type: "frontend" },
-              { name: "TypeScript", type: "frontend" },
-              { name: "JavaScript", type: "frontend" },
+              { name: "Python", type: "backend" },
+              { name: "C/C++", type: "backend" },
+              { name: "C#", type: "backend" },
               { name: "HTML/CSS", type: "frontend" },
               { name: "UI/UX 设计", type: "design" },
               { name: "Figma", type: "design" },
               { name: "Node.js", type: "backend" },
               { name: "Git", type: "tool" },
               { name: "响应式设计", type: "design" },
-              { name: "性能优化", type: "performance" },
-              { name: "Python", type: "frontend" },
-              { name: "C++", type: "frontend" },
-              { name: "组件开发", type: "frontend" }
+              { name: "UE4", type: "tech" },
+              { name: "网络安全", type: "tech" },
+              { name: "Photoshop", type: "design" },
+              { name: "Premiere Pro", type: "design" }
             ].map((skill, index) => (
               <span
                 key={skill.name}
@@ -89,11 +89,11 @@ const About = () => {
         </section>
 
         <section className="space-y-4">
-          <h2 className="text-2xl font-semibold bg-gradient-to-r from-primary/80 to-primary bg-clip-text text-transparent">工作经历</h2>
+          <h2 className="text-2xl font-semibold bg-gradient-to-r from-primary/80 to-primary bg-clip-text text-transparent">最近在做什么</h2>
           <div className="space-y-6">
             <div className="group hover:bg-primary/5 p-4 rounded-lg transition-all duration-300 transform-gpu cursor-default hover:translate-y-[-8px] hover:shadow-lg dark:hover:bg-primary/20" style={{ transformStyle: 'preserve-3d', backfaceVisibility: 'hidden', perspective: '1000px' }}>
               <h3 className="text-lg font-medium group-hover:text-primary transition-colors dark:text-gray-200">产品经理</h3>
-              <p className="text-muted-foreground group-hover:text-primary/80 transition-colors dark:text-gray-300">负责企业级应用的前端架构设计和开发，优化用户体验和性能表现。</p>
+              <p className="text-muted-foreground group-hover:text-primary/80 transition-colors dark:text-gray-300">负责虚拟仿真产品交互设计。</p>
             </div>
             <div className="group hover:bg-primary/5 p-4 rounded-lg transition-all duration-300 transform-gpu cursor-default hover:translate-y-[-8px] hover:shadow-lg dark:hover:bg-primary/20" style={{ transformStyle: 'preserve-3d', backfaceVisibility: 'hidden', perspective: '1000px' }}>
               <h3 className="text-lg font-medium group-hover:text-primary transition-colors dark:text-gray-200">UI/UX 设计师</h3>
@@ -105,9 +105,9 @@ const About = () => {
         <section className="space-y-4">
           <h2 className="text-2xl font-semibold bg-gradient-to-r from-primary/80 to-primary bg-clip-text text-transparent">联系方式</h2>
           <p className="text-muted-foreground dark:text-gray-300">
-          我始终相信技术存在的意义是解决真实世界的难题，如果你正在:
-            🔧 寻找虚拟仿真领域的解决方案  
-            💡 探索AI+垂直行业的创新可能  
+          我始终相信技术存在的意义是解决真实世界的难题，如果你正在:<br />
+            🔧 琢磨利用AI技术优化工作流程  <br />
+            💡 探索AI+垂直行业的创新可能  <br />
             🚀 构建高效可靠的技术产品团队  
           欢迎与我交流！
           </p>

@@ -122,13 +122,7 @@ const ProjectDetails = () => {
         <p className="text-lg text-muted-foreground dark:text-gray-300">{project.description}</p>
       </header>
 
-      <div className="aspect-video rounded-lg overflow-hidden bg-gradient-to-br from-primary/5 to-primary/10 mt-8">
-        <img 
-          src={project.thumbnail} 
-          alt={project.title}
-          className="w-full h-full object-cover"
-        />
-      </div>
+      
 
       {(project.videoUrl || project.demoUrl) && (
         <div className="space-y-4 mt-8">

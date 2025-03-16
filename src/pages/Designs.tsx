@@ -45,7 +45,7 @@ const Designs = () => {
               perspective: '1000px'
             }}
           >
-            <div className="aspect-square bg-gradient-to-br from-primary/5 to-primary/10 relative overflow-hidden">
+            <div className="aspect-video bg-gradient-to-br from-primary/5 to-primary/10 relative overflow-hidden">
               <img 
                 src={design.thumbnail} 
                 alt={design.title}
