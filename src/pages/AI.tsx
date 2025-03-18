@@ -263,13 +263,13 @@ const AI = () => {
                   <button
                     key={tab.id}
                     onClick={() => handleTabChange(tab.id)}
-                    className={`flex items-center w-full px-4 py-2 text-sm ${
+                    className={`flex items-center w-full px-4 py-2 text-sm transition-all duration-200 ease-in-out ${
                       activeTab === tab.id 
-                        ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-200 font-medium' 
-                        : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700/50'
+                        ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-200 font-medium transform translate-x-1' 
+                        : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700/50 hover:translate-x-1'
                     }`}
                   >
-                    <span className="mr-3">
+                    <span className="mr-3 transition-transform duration-200">
                       <TabIcon iconName={tab.icon} />
                     </span>
                     {tab.label}
@@ -324,7 +324,7 @@ const AI = () => {
       {/* 移动菜单遮罩 */}
       {isMenuOpen && (
         <div 
-          className="fixed inset-0 bg-black/50 z-40 lg:hidden" 
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden transition-opacity duration-300 ease-in-out" 
           onClick={toggleMenu}
         />
       )}
@@ -337,15 +337,15 @@ const AI = () => {
             {localTabCategories.map(category => 
               category.tabs.find(tab => tab.id === activeTab)
             ).filter(Boolean).map(tab => (
-              <div key={tab?.id} className="flex items-center">
-                <span className="mr-2 p-2 bg-primary/10 dark:bg-primary/20 rounded-lg">
+              <div key={tab?.id} className="flex items-center animate-fade-in">
+                <span className="mr-2 p-2 bg-primary/10 dark:bg-primary/20 rounded-lg transition-colors duration-200">
                   <TabIcon iconName={tab?.icon || ''} />
                 </span>
                 <div>
-                  <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
+                  <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white transition-colors duration-200">
                     {tab?.label}
                   </h1>
-                  <p className="mt-2 text-gray-600 dark:text-gray-400">
+                  <p className="mt-2 text-gray-600 dark:text-gray-400 transition-colors duration-200">
                     {getTabDescription(tab?.id)}
                   </p>
                 </div>
@@ -356,7 +356,7 @@ const AI = () => {
         
         {/* 错误信息 */}
         {activeTab === 'news' && newsError && (
-          <div className="mb-4 p-3 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded">
+          <div className="mb-4 p-3 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded animate-fade-in">
             {newsError}
           </div>
         )}
@@ -378,7 +378,11 @@ const AI = () => {
               </div>
             ))
           ) : (
-            getTabContent().map(item => renderCard(item))
+            getTabContent().map((item, index) => (
+              <div key={item.id} className="animate-fade-in-up" style={{ animationDelay: `${index * 50}ms` }}>
+                {renderCard(item)}
+              </div>
+            ))
           )}
         </div>
       </div>
@@ -390,7 +394,7 @@ const AI = () => {
           <button
             onClick={handleRefreshNews}
             disabled={isLoadingNews}
-            className="p-3 bg-white dark:bg-gray-800 rounded-full shadow-lg hover:shadow-xl"
+            className="p-3 bg-white dark:bg-gray-800 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 ease-in-out hover:scale-110"
           >
             <LucideIcons.RefreshCw className={isLoadingNews ? 'animate-spin' : ''} size={20} />
           </button>
@@ -399,7 +403,7 @@ const AI = () => {
         {/* 移动菜单按钮 */}
         <button
           onClick={toggleMenu}
-          className="lg:hidden p-3 bg-white dark:bg-gray-800 rounded-full shadow-lg hover:shadow-xl"
+          className="lg:hidden p-3 bg-white dark:bg-gray-800 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 ease-in-out hover:scale-110"
         >
           <LucideIcons.Menu size={20} />
         </button>
