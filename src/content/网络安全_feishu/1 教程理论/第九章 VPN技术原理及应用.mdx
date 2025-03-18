@@ -83,7 +83,7 @@ IPsec VPN保护的是<u>点对点之间的通信</u>，通过IPsec VPN可以在�
 * **IKE 阶段 2：**通过安全通道进行，在该通道中，两台主机协商在会话中使用的加密算法类型，主机还同意并交换双方计划用于进出流量的加密和解密密钥。
 * **IPSec 传输：**通过新创建的 IPSec 加密隧道交换数据，之前设置的 IPSec SA 用于加密和解密数据包。
 * **IPSec 终止：**当主机之间的会话超时或通信完成时，通信双方之间的隧道在空闲时间达到一定值后会自动删除。
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/ZcWxbh1arowTd5x41grcoGHMn4b.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/ZcWxbh1arowTd5x41grcoGHMn4b.png)
 
 ### 三个重要协议
 
@@ -95,9 +95,9 @@ IPsec VPN保护的是<u>点对点之间的通信</u>，通过IPsec VPN可以在�
 
 过程：TCP/IP 通信过程中，IP包发送之前都事先计算好每个IP包的ICV, 按照 IPAH 的协议规定重新构造包含ICV的新IP包，然后再发送到接收方。通信接收方在收到用IPAH方式处理过的IP包后，根据IP包的AH信息验证ICV，从而确认IP包的完整性和来源。
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/GJ6fb2x1DoMgVQxbLAFctcESnnb.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/GJ6fb2x1DoMgVQxbLAFctcESnnb.png)
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/VGnmbvUs9o1CC5xbVJIcTfZZnJc.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/VGnmbvUs9o1CC5xbVJIcTfZZnJc.png)
 
 #### **IP ESP**
 
@@ -132,7 +132,7 @@ IPSec隧道模式是默认模式。<mark style={{"backgroundColor": "#FAF390"}}>
 
 在隧道模式下，IPSec头(AH或ESP头)插入IP头和上层协议之间。ESP最常用于AH和ESP之间的IPSec隧道配置。当IPSec处于隧道模式时，AH可以单独应用，也可以和ESP一起应用。AH的工作是保护整个数据包。
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/RbGqb2VKdoCZT4x2IWKclNB7n3d.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/RbGqb2VKdoCZT4x2IWKclNB7n3d.png)
 
 
 
@@ -144,7 +144,7 @@ IPSec传输模式<mark style={{"backgroundColor": "#FAF390"}}>用于端到端通
 
 原始IP标头已经移到了前面。将发送方的IP标头放在前面(稍微更改协议ID)，证明传输方式不能为原始IP标头提供保护或加密，ESP标头标注在IP协议ID为50的新IP标头中。
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/ITMTbK2IoojlmfxYiN0c3JW1noe.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/ITMTbK2IoojlmfxYiN0c3JW1noe.png)
 
 AH的工作是保护整个数据包。但是，传输模式下的IPSec不会在数据包前创建新的IP标头，而是放置原始协议的副本，并对协议ID进行一些细微的变更，因此不会为详细信息提供必要的保护，包括在IP标头(源IP、目标IP等)。).AH识别的新IP报头IP协议ID的51。
 
@@ -169,7 +169,7 @@ SSL 协议是介于应用层和 TCP 层之间的安全通信协议。其主要�
 
 工作原理：将应用层的信息加密或签证处理后经 TCP/IP 网络送至对方，收方经验证无误后解密还原信息。
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/FqEebk4LHo0Ih0xSP7ociUcNnHh.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/FqEebk4LHo0Ih0xSP7ociUcNnHh.png)
 
 SSL 协议提供三种安全通信服务：
 
@@ -296,7 +296,7 @@ IPSec VPN 主要性能指标如下。
 
 企业内部虚拟网：Intranet VPN是通过公用网络，如因特网，把分散在不同地理区域的企业办公点的局域网安全互联起来，实现企业内部信息的安全共享和企业办公自动化。
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/L07MbCBLNoCzSvxKg64cBb5Qnvh.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/L07MbCBLNoCzSvxKg64cBb5Qnvh.png)
 
 企业扩展虚拟网：Extranet VPN 则是利用 VPN 技术，在公共通信基础设施（如因特网）上把合作伙伴的网络或主机安全 接到企业内部网，以方便企业与合作伙伴共享信息和服务。 Extranet VPN 解决了企业外部机构 接入安全和通信安全的问题，同时也降低了网络建设成本。
 

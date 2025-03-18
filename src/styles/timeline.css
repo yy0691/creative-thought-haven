@@ -72,63 +72,163 @@
 
 /* 时间轴基础样式 */
 .timeline-container {
-  @apply relative py-8 overflow-hidden;
+  position: relative;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  overflow: hidden;
 }
 
 /* 时间轴主轴线 */
 .timeline-line {
-  @apply absolute h-0.5 bg-gray-200/50 dark:bg-gray-700/50 left-0 right-0 top-1/2 transform -translate-y-1/2;
+  position: absolute;
+  height: 0.125rem;
+  background-color: rgba(229, 231, 235, 0.5);
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  min-width: 1800px;
+}
+
+/* 暗色模式下的轴线 */
+@media (prefers-color-scheme: dark) {
+  .timeline-line {
+    background-color: rgba(55, 65, 81, 0.5);
+  }
 }
 
 /* 时间轴节点容器 */
 .timeline-nodes {
-  @apply flex items-center gap-8 md:gap-16 px-6 relative z-10 min-w-max;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  position: relative;
+  z-index: 10;
+  min-width: max-content;
 }
 
 /* 时间轴节点 */
 .timeline-node {
-  @apply flex flex-col items-center gap-4 w-28 md:w-36;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 7rem;
 }
 
 /* 日期样式 */
 .timeline-date {
-  @apply text-lg font-medium text-gray-600 dark:text-gray-300 whitespace-nowrap mb-2 opacity-80 transition-all duration-300;
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: rgb(75, 85, 99);
+  white-space: nowrap;
+  margin-bottom: 0.5rem;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+
+/* 暗色模式下的日期 */
+@media (prefers-color-scheme: dark) {
+  .timeline-date {
+    color: rgb(209, 213, 219);
+  }
 }
 
 /* 节点圆点 */
 .timeline-dot {
-  @apply w-10 h-10 rounded-full bg-primary/60 dark:bg-primary/40 border-2 border-white dark:border-gray-800 transition-all duration-300 cursor-pointer relative;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  background-color: var(--primary-color-60);
+  border: 2px solid white;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
   box-shadow: 0 0 0 0 rgba(var(--primary), 0.4);
+}
+
+/* 暗色模式 */
+@media (prefers-color-scheme: dark) {
+  .timeline-dot {
+    background-color: var(--primary-color-40);
+    border-color: rgb(31, 41, 55);
+  }
 }
 
 /* 节点圆点悬浮效果 */
 .timeline-dot:hover {
-  @apply bg-primary scale-125;
+  background-color: var(--primary-color);
+  transform: scale(1.25);
   animation: pulse 2s infinite;
 }
 
 /* 标题样式 */
 .timeline-title {
-  @apply text-lg font-medium text-gray-800 dark:text-gray-200 text-center mt-2 transition-all duration-300 whitespace-nowrap;
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: rgb(31, 41, 55);
+  text-align: center;
+  margin-top: 0.5rem;
+  transition: all 0.3s ease;
+  white-space: nowrap;
   max-width: 150px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
+/* 暗色模式下的标题 */
+@media (prefers-color-scheme: dark) {
+  .timeline-title {
+    color: rgb(229, 231, 235);
+  }
+}
+
 /* 滚动容器 */
 .timeline-scroll {
-  @apply overflow-x-auto scrollbar-hide relative;
+  overflow-x: auto;
+  position: relative;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
 }
 
+.timeline-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.timeline-scroll {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 /* 滚动指示器 */
 .timeline-indicator {
-  @apply absolute bottom-0 left-1/2 transform -translate-x-1/2 h-1 w-16 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden opacity-60;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 0.25rem;
+  width: 4rem;
+  background-color: rgb(229, 231, 235);
+  border-radius: 9999px;
+  overflow: hidden;
+  opacity: 0.6;
+}
+
+/* 暗色模式下的指示器 */
+@media (prefers-color-scheme: dark) {
+  .timeline-indicator {
+    background-color: rgb(55, 65, 81);
+  }
 }
 
 .timeline-indicator-progress {
-  @apply h-full bg-primary rounded-full transition-all duration-300;
+  height: 100%;
+  background-color: var(--primary-color);
+  border-radius: 9999px;
+  transition: all 0.3s ease;
 }
 
 /* 脉冲动画 */
@@ -147,46 +247,36 @@
 /* 移动端优化 */
 @media (max-width: 768px) {
   .timeline-nodes {
-    @apply gap-6;
+    gap: 1.5rem;
   }
   
   .timeline-node {
-    @apply w-24;
+    width: 6rem;
   }
   
   .timeline-date {
-    @apply text-sm transform -rotate-45 origin-left;
+    font-size: 0.875rem;
+    transform: rotate(-45deg);
+    transform-origin: left;
   }
   
   .timeline-title {
-    @apply text-sm max-w-[100px];
+    font-size: 0.875rem;
+    max-width: 100px;
   }
   
   .timeline-dot {
-    @apply w-8 h-8;
+    width: 2rem;
+    height: 2rem;
   }
 }
 
-/* 悬浮卡片样式 */
-.timeline-hover-card {
-  @apply absolute bottom-full mb-4 w-64 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm p-4 rounded-lg shadow-lg border border-gray-100/20 dark:border-gray-700/30 transition-all duration-300;
-  transform: translateX(-50%) translateY(10px);
-  opacity: 0;
-  pointer-events: none;
-}
-
-.timeline-node:hover .timeline-hover-card {
-  transform: translateX(-50%) translateY(0);
-  opacity: 1;
-  pointer-events: auto;
-}
-
-/* 悬浮卡片内容样式 */
-.timeline-hover-card .text-sm {
-  font-size: 1rem; /* text-base */
-}
-
-.timeline-hover-card .text-xs {
-  font-size: 0.875rem; /* text-sm */
-  line-height: 1.5rem; /* leading-relaxed */
+@media (min-width: 768px) {
+  .timeline-nodes {
+    gap: 4rem;
+  }
+  
+  .timeline-node {
+    width: 9rem;
+  }
 } 

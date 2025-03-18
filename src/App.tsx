@@ -37,6 +37,7 @@ const AboutComponent = lazy(() => import('./pages/About'));
 const PortfolioComponent = lazy(() => import('./pages/Portfolio'));
 const ProjectDetails = lazy(() => import('./pages/ProjectDetails'));
 const DesignsComponent = lazy(() => import('./pages/Designs'));
+const AIComponent = lazy(() => import('./pages/AI'));
 const BlogComponent = lazy(() => import('./pages/Blog'));
 const BlogPostComponent = lazy(() => import('./pages/BlogPost'));
 const NotFoundComponent = lazy(() => import('./pages/NotFound'));
@@ -106,6 +107,11 @@ const App = () => {
                           <Route path="designs/:id" element={
                             <Suspense fallback={<Loading />}>
                               <DesignDetailsComponent />
+                            </Suspense>
+                          } />
+                          <Route path="ai" element={
+                            <Suspense fallback={<Loading />}>
+                              <AIComponent />
                             </Suspense>
                           } />
                           <Route path="blog" element={

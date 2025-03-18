@@ -224,7 +224,7 @@ WAF 可以采用白名单和黑名单两种安全模式，也可以两者相结�
 
 #### 安全功能表
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/XBFVbMKSpotImcxAGiXcmSo3nhd.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/XBFVbMKSpotImcxAGiXcmSo3nhd.png)
 
 #### 性能要求
 
@@ -250,11 +250,11 @@ WAF 可以采用白名单和黑名单两种安全模式，也可以两者相结�
 
 ## **基于双宿主主机防火墙**
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/OMqTbRuMwoCcRVxKJDFc4Wo4nLv.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/OMqTbRuMwoCcRVxKJDFc4Wo4nLv.png)
 
 ## **基于代理型防火墙**
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/V1h1b3vdnoo1dbxxh9gc30CFnJf.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/V1h1b3vdnoo1dbxxh9gc30CFnJf.png)
 
 这种结构中，代理主机位于内部网络。一般情况下，过滤路由器可按如下规则进行配置。
 
@@ -272,7 +272,7 @@ WAF 可以采用白名单和黑名单两种安全模式，也可以两者相结�
 
 ## **基于屏蔽子网的防火墙**
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/HYqnbQUzZowShsx0jhlc7NBMnlf.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/HYqnbQUzZowShsx0jhlc7NBMnlf.png)
 
 ### **特点：**
 

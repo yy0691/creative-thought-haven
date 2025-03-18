@@ -1,3 +1,17 @@
+@import './fonts.css';
+
+:root {
+  --primary: 24, 24, 27;
+  --primary-color-60: rgba(var(--primary), 0.6);
+  --primary-color-40: rgba(var(--primary), 0.4);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary: 244, 244, 245;
+  }
+}
+
 .mouse-ripple {
   /* 添加GPU加速 */
   will-change: transform, opacity;

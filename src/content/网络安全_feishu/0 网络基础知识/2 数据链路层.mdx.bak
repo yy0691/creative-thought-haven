@@ -20,7 +20,7 @@ title: "2 \u6570\u636E\u94FE\u8DEF\u5C42"
 1. 传输单元：帧
 2. 帧结构
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/KVyFboBBTojBCRxczO6cyJU9nme.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/KVyFboBBTojBCRxczO6cyJU9nme.png)
 
 1. 帧头：6+6+2=14 字节
 2. MTU：1500字节
@@ -32,7 +32,7 @@ title: "2 \u6570\u636E\u94FE\u8DEF\u5C42"
 8. 工作在数据链路层的设备：交换机/网卡
 9. 交换机工作原理
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/Z7bmb8JUWouBKWxZ2vXcw0ANndh.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/Z7bmb8JUWouBKWxZ2vXcw0ANndh.png)
 
 1. 收到一个数据帧后，首先学习帧中的源MAC地址来形成MAC地址表
 2. 然后检查帧中的目标MAC地址，并匹配MAC地址表
@@ -44,7 +44,7 @@ title: "2 \u6570\u636E\u94FE\u8DEF\u5C42"
 
 ### 交换机的内部结构
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/JBArb9c3MosMnZxCHTuclZMRndc.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/JBArb9c3MosMnZxCHTuclZMRndc.png)
 
 ### 交换机相关命令
 
@@ -257,5 +257,5 @@ no ip domain-lookup**
 1. 成功实现在PC上telnet或ssh远程连接到路由器上，其中只做login验证
 2. 成功实现在PC上telnet或ssh远程连接到路由器上，其中做login local验证
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/JcDPbD5UUoc5KnxIT8RcnjSFnZf.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/JcDPbD5UUoc5KnxIT8RcnjSFnZf.png)
 

@@ -43,23 +43,23 @@ title: "\u7B2C\u4E09\u7AE0 \u5BC6\u7801\u5B66\u6982\u8BBA"
 
 特点：<span style="color: #C0ECBC">明文分组和密文分组一一对应</span>
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/ARcZbWX2ToOPkGxZO3WcoG6NnDb.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/ARcZbWX2ToOPkGxZO3WcoG6NnDb.png)
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/Sm3jbDdJUo9Ym8xqd6GcoKy1nSg.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/Sm3jbDdJUo9Ym8xqd6GcoKy1nSg.png)
 
 #### CBC模式
 
 <span style="color: #E0E1E4">CBC模式中，</span><span style="color: #C0ECBC">首先将明文分组与</span><span style="color: #C0ECBC">**前一个密文分组**</span><u><span style="color: #C0ECBC">进行XOR运算</span></u><span style="color: #C0ECBC">，然后再进行加密。</span>
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/MHTFbgVljohw1Ix7LMDcwObrnGc.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/MHTFbgVljohw1Ix7LMDcwObrnGc.png)
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/BfVxbQoAUoeVnkx0b6uc70Tfnmd.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/BfVxbQoAUoeVnkx0b6uc70Tfnmd.png)
 
 #### CFB模式
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/A8kPblOJ7otp1gxrn8DcAAxYnKg.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/A8kPblOJ7otp1gxrn8DcAAxYnKg.png)
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/ANefbwLD9oLjptxioqMc9GJSnqg.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/ANefbwLD9oLjptxioqMc9GJSnqg.png)
 
 #### OFB模式
 
@@ -67,13 +67,13 @@ title: "\u7B2C\u4E09\u7AE0 \u5BC6\u7801\u5B66\u6982\u8BBA"
 
 OFB模式并不是通过密码算法对明文直接进行加密的，而是通过<u><span style="color: #C0ECBC">将“明文分组”和“密码算法的输出”进行XOR来产生“密文分组”的</span></u>，这点与CFB模式相似。
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/N5OYb5ljuozrNHxEnsXcNiW8nIg.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/N5OYb5ljuozrNHxEnsXcNiW8nIg.png)
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/KmkEbWKbOoR2VWxMLCEcbsgxnRh.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/KmkEbWKbOoR2VWxMLCEcbsgxnRh.png)
 
 
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/NTWTbfD0eocv0XxNRhHcpxylnDg.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/NTWTbfD0eocv0XxNRhHcpxylnDg.png)
 
 #### CTR模式
 
@@ -81,13 +81,13 @@ OFB模式并不是通过密码算法对明文直接进行加密的，而是通�
 
 
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/A7yxbxplsoXEV3xU6wEcindAn7e.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/A7yxbxplsoXEV3xU6wEcindAn7e.png)
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/Jry3bpU6OoCC1FxS3Xxc0T2Bnac.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/Jry3bpU6OoCC1FxS3Xxc0T2Bnac.png)
 
 计数器的生成方法，前8个字节为<u>nonce</u>，这个值在每次加密时必须时不同的。后8个字节为分组序号，这个部分逐次累加。
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/N3gcbUer4oPoRCxjJ8UcakSEnbe.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/N3gcbUer4oPoRCxjJ8UcakSEnbe.png)
 
 #### **OFB模式与CTR模式的对比**
 
@@ -95,7 +95,7 @@ OFB模式并不是通过密码算法对明文直接进行加密的，而是通�
 * OFB模式是将加密的输出反馈到输入，CTR模式是将计数器的值用作输入
 * **CTR模式的特点：**CTR模式的加密华为解密使用了完全相同的结构；可以以任意顺序对分组进行加密和解密；可以实现并行计算；在支持并行计算的系统中，CTR模式速度非常快。
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/FlTLbsBECovM6ux31r7cwwWdnlb.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/FlTLbsBECovM6ux31r7cwwWdnlb.png)
 
 #### 分组密码系统对比表
 
@@ -133,7 +133,7 @@ OFB模式并不是通过密码算法对明文直接进行加密的，而是通�
 
 * 原理：在加密和解密的过程中使用不同的密钥处理方式，其中，加密密钥可以公开，而只需要把解密密钥安全存放即可。
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/Ag6abaLx4oXzG5xX1j1cooTrn9N.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/Ag6abaLx4oXzG5xX1j1cooTrn9N.png)
 
 * 优点：
   * 钥分发方便，能以公开方式分配加密密钥
@@ -145,7 +145,7 @@ OFB模式并不是通过密码算法对明文直接进行加密的，而是通�
 
 * 制利用公钥密码体制分配私钥密码体制的密钥，消息的收发双方共用这个密钥，然后按照私钥密码体制的方式，进行加密和解密运算。
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/SEiLbiGXvoqByGxPhCNcJ8shngh.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/SEiLbiGXvoqByGxPhCNcJ8shngh.png)
 
 # 常见密码算法
 
@@ -170,7 +170,7 @@ OFB模式并不是通过密码算法对明文直接进行加密的，而是通�
 * 缺点：需要以安全方式进行密钥交换；密钥管理复杂
 ### 算法的入口参数
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/CWXCbkQ4wosdhFxjfSachJQ9nRd.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/CWXCbkQ4wosdhFxjfSachJQ9nRd.png)
 
 ### 加密流程
 
@@ -184,7 +184,7 @@ OFB模式并不是通过密码算法对明文直接进行加密的，而是通�
 
 <span style="color: #E0E1E4">（5）输出64位密文</span>
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/JuT7bPhygoMLBixxSmrcKJxsnib.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/JuT7bPhygoMLBixxSmrcKJxsnib.png)
 
 <span style="color: #E0E1E4">输入的64位明文的第1位置换到第40位，第2位置换到第8位，第3位置换到第48位。以此类推，最后一位是原来的第7位。置换规则是规定的。L0(Left)是置换后的数据的前32位，R0(Right)是置换后的数据的后32位</span>
 
@@ -228,9 +228,9 @@ DES算法由64位秘钥产生16轮的48位子秘钥。在每一轮的迭代过�
 1. <span style="color: #E0E1E4">**密钥置换选择1--PC-1(子密钥的生成)**</span>
     * 原来64位的密钥K中的奇偶校验位将被<u>删去</u>
     * 剩余的56位打乱重排（按PC-1置换的置换表，同理）
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/IsTzbYZ0Bok5awxwIdqcKxxonyb.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/IsTzbYZ0Bok5awxwIdqcKxxonyb.png)
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/VCiibANmCo75SoxPzc7cn2UxnVh.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/VCiibANmCo75SoxPzc7cn2UxnVh.png)
 
 * **扩展置换**
 * **S-盒代替**
@@ -251,11 +251,11 @@ DES算法由64位秘钥产生16轮的48位子秘钥。在每一轮的迭代过�
 
 密钥和私钥都可以用于加密消息，用于加密消息的密钥与用于解密消息的密钥相反。法。目前，SSH、OpenPGP、S/MIME和SSL/TLS都依赖于RSA进行加密和数字签名功能。
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/BlmQbibcCojGCtx76VKcLKwRnCe.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/BlmQbibcCojGCtx76VKcLKwRnCe.png)
 
 ## 国产密码算法
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/P6COb4Elloyn82xKXD4cfUXsnDf.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/P6COb4Elloyn82xKXD4cfUXsnDf.png)
 
 ### SM1分组密码算法
 
@@ -299,9 +299,9 @@ Hash函数（杂凑函数）能将任意长度的信息转换成固定长度的�
 * 真实性。接收者能验证签名，而其他任何人都不能伪造
 * 可鉴别性。当双方关于签名的真伪发生争执时，第三方能解决双方之间发生的争执
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/P5aRb2KKvoSp9tx1kWGcmx5hnpe.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/P5aRb2KKvoSp9tx1kWGcmx5hnpe.png)
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/F9lMb92dsosf8oxO9b0cq817nbd.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/F9lMb92dsosf8oxO9b0cq817nbd.png)
 
 # 密码管理与数字证书
 
@@ -339,7 +339,7 @@ Digital Certificate
 
 * 规范：《信息安全技术公钥基础设施数字证书格式》（征求意见稿）
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/W6hibjzLYo2IUGxtAbmcNbtinph.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/W6hibjzLYo2IUGxtAbmcNbtinph.png)
 
 # 安全协议
 
@@ -351,9 +351,9 @@ Digital Certificate
 
 * SSH1（已停用）、SSH2
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/AazlbaOGJoeXXSxEL6XcrtQ7nuh.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/AazlbaOGJoeXXSxEL6XcrtQ7nuh.png)
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/NZhEbOmC4oTtrnx3RMtc7QxInth.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/NZhEbOmC4oTtrnx3RMtc7QxInth.png)
 
 * SSH在端口转发技术（如图3-10所示）的基础上，能够支持远程登录（Telnet）、rsh、rlogin、文件传输（scp）等多种安全服务。Linux系统一般提供SSH服务，SSH的服务进程端口通常为22。
 * 也可能受到中间人攻击和拒绝服务攻击
@@ -406,7 +406,7 @@ Digital Certificate
 
 * PGP是一种加密软件，目前最广泛地用于电子邮件安全。它能够防止非授权者阅读邮件，并能对用户的邮件加上数字签名，从而使收信人可以确信发信人的身份。
 * 密钥管理算法选用RSA、数据加密算法IDEA、完整性检测和数字签名算法，采用了MD5和RSA以及随机数生成器
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/TUuHb6n9hocWAQxPDDxcNW6WnMg.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/TUuHb6n9hocWAQxPDDxcNW6WnMg.png)
 
 [01 密码学及应用专题.pdf](assets/Hnf2bjGxeovmjVxEmc6cVuZjn0d_01 密码学及应用专题.pdf)
 

@@ -32,17 +32,17 @@ RA系统是CA的证书发放、管理的延伸。它负责证书申请者的信�
 
 
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/ZHtWbhJ1Ko1IV9xO6SVcn46PnHg.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/ZHtWbhJ1Ko1IV9xO6SVcn46PnHg.png)
 
 分布式
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/L4efbdL45o4oIxx8AY3ceWcQnBb.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/L4efbdL45o4oIxx8AY3ceWcQnBb.png)
 
 <span style="color: #E0E1E4">移动终端之间通过</span><span style="color: #FBBFBC">[P2P](https://so.csdn.net/so/search?q=P2P&spm=1001.2101.3001.7020)</span><span style="color: #E0E1E4">协议,利用单跳和多跳通信形成一个匿名组,查询用户模糊化其位置为包含组内所有用户的空间区域,并将其转发给服务器,LBS服务器返回包含正确结果的候选集,用户之间通过彼此协作完成隐私保护。</span>
 
 混合式
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/FZ8Mbm2fgoOdLHxxUubcVobinqf.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/FZ8Mbm2fgoOdLHxxUubcVobinqf.png)
 
 移动终端通过可信匿名服务器请求服务,也可基于个性化的隐私、响应时间以及服务质量需求使用P2P协议完成隐私保护.匿名服务器拥有用户的身份、服务请求、位置等完全知识.混合式结构集成了集中式和分布式结构的优点,能够很好地平衡客户端和匿名服务器之间的负载减少了匿名服务器由大量移动终端位置更新导致的负荷。
 
@@ -85,9 +85,9 @@ SHA-1实现步骤
 
 经过上面两个步骤的处理，最终得到的处理后的数据如下图所示:
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/Ta3ybgCYxoQa79xaqWVcOhmCnud.jpeg)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/Ta3ybgCYxoQa79xaqWVcOhmCnud.jpeg)
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/Gv7HbLirQofDCXxGO8Ic7RKNngd.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/Gv7HbLirQofDCXxGO8Ic7RKNngd.png)
 
 
 
@@ -103,7 +103,7 @@ SHA-1实现步骤
 
 RSA 密文=（明文^e) mod n
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/K64DbE4ZqocVQ1x1iJbc8s9Ynzb.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/K64DbE4ZqocVQ1x1iJbc8s9Ynzb.png)
 
 数字签名由CA的公钥认证
 
@@ -149,15 +149,15 @@ LTE：一种基于OFDM（正交频分复用）调制方式的无线通信技术�
 
 与漏洞相关的重大安全事件
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/YXPpbygpyoEUR4xK7lSc6bAZn9f.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/YXPpbygpyoEUR4xK7lSc6bAZn9f.png)
 
 网络蠕虫传播策略统计分析表
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/PVjObecMGoQcGDxz18YcF0yknWX.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/PVjObecMGoQcGDxz18YcF0yknWX.png)
 
 
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/UzMtbbbssozfDZxv1NjcxGkNnJh.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/UzMtbbbssozfDZxv1NjcxGkNnJh.png)
 
 
 
@@ -671,9 +671,9 @@ Sniffer主要是捕获到达本机端口的报文。如果要想完成监听，�
 
 
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/JP1YbI7BnoLrzWx5nLqcUsdbnue.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/JP1YbI7BnoLrzWx5nLqcUsdbnue.png)
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/IvGkbTgETolnO9x85Dxc8f8DnVg.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/IvGkbTgETolnO9x85Dxc8f8DnVg.png)
 
 Macro.前缀是宏病毒；Trojian.前缀是木马；Worm.前缀是蠕虫病毒；Backdoor.前缀是后门。
 

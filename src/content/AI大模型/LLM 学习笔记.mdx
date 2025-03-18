@@ -64,7 +64,7 @@ NER通常可以分为以下几种类型：​
 
 Dependency Parsing是指对句子进行语法分析并画出句子成分的依赖关系，比如对于句子"She saw the video lecture"，首先可以分析出主语、谓语、宾语等句子成分；其次可以分析出依赖关系，比如saw依赖于She等。这就是句法分析。
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/AI_Feishu/Uijrb4QkgohdftxYmS4cKp3Fnbc.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/AI_Feishu/Uijrb4QkgohdftxYmS4cKp3Fnbc.png)
 
 ### 语言生成 Language Generation
 
@@ -93,7 +93,7 @@ Dependency Parsing是指对句子进行语法分析并画出句子成分的依�
 
 首先，对于任意的词序列，语言模型能够用计算出这个词序列是一句话的概率。
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/AI_Feishu/ZyEDbBloSop5qKxgQOccsIf1n5b.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/AI_Feishu/ZyEDbBloSop5qKxgQOccsIf1n5b.png)
 
 这其实是语言模型最早的功能，它的起源其实是 Speech Recognition，即语音转文字！从音频转到文字的时候，会有很多个句子作为候选。那么哪个句子更合理？这种时候我们就可以用语言模型，对这些句子 Make Sense 的概率做一个排序。这时候，对于语言模型的定义为：语言模型（Language Model）是一种用于生成自然语言文本的概率模型。它可以估计一个给定文本序列（通常是一个句子或者一个短语）在语言上的合理性或者说概率：​
 
@@ -117,7 +117,7 @@ $P(S)=P(\omega_1,\omega_2,\omega_3,……，\omega_n)$
 
 那么，语言模型的目标函数（损失函数）就变成了一个我们非常熟悉的东西<WarningText><mark style={{"backgroundColor": "#FBBFBC"}}>（2.2.2.1）</mark></WarningText>：​
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/AI_Feishu/YA1NbgsZZomKkjxnQNNcd2eWnzf.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/AI_Feishu/YA1NbgsZZomKkjxnQNNcd2eWnzf.png)
 
 <InfoText><mark style={{"backgroundColor": "#F2F3F5"}}>还记得交叉熵损失函数吗？它就是模型理应输出 1 的那一维向量的元素的负对数。</mark></InfoText>
 
@@ -173,7 +173,7 @@ s_2:{紫 | 猫}
 
 还记得这张图吗？颜色用RGB来表示很天经地义，让这个例子很好理解。其实对于词语来说，也一样的！​
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/AI_Feishu/Tj8lb1LtuofoilxfcX1c4dSxn9c.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/AI_Feishu/Tj8lb1LtuofoilxfcX1c4dSxn9c.png)
 
 6.4.1One-hot向量
 
@@ -292,7 +292,7 @@ n-gram语言模型存在许多局限性：​
 2. Projection Layer：我们把上一层输入每个one-hot向量通过乘一个权重矩阵$W_e$，映射到词嵌入$\overrightarrow{e}$，并且把这四个词嵌入给拼起来变成一个2048维的向量。
 3. Hidden Layer：输入上一层拼出来的2048维向量，以一个权重矩阵$W$做一个全连接。
 4. Output Layer: 是一个Softmax层，也是与上一个隐层的输出以矩阵$U$做全连接，输出一个3000维的、每个元素都为正值的、元素之和为1的向量，即下一个词的概率分布函数了。
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/AI_Feishu/TtsRbgxImob5oyx0tnWcpl1snpe.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/AI_Feishu/TtsRbgxImob5oyx0tnWcpl1snpe.png)
 
 参数集 $\theta = (E,W,b_1,U,b_2)$
 

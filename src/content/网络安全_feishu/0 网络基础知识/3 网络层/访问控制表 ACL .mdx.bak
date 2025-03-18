@@ -103,7 +103,7 @@ acc 100 permit ip any any**
 2. 一般情况下，标准或扩展ACL一旦编写好，无法修改某一条，也无法删除某一条，也无法修改顺序，无法往中间插入新的条目，只能一直在最后添加新的条目。如想修改或删除，只能删除整张表，重新写
 3. 若设置不通VLAN的PC不能互通，则应用的接口应为VLAN对应的本地Llan接口
 
-![](https://raw.githubusercontent.com/yy0691/img-bed/main/Net_Safe_FeiShu/Dw26bqdoUood7cxKH7Qcmw9NnGe.png)
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_FeiShu/Dw26bqdoUood7cxKH7Qcmw9NnGe.png)
 
 # 命名ACL
 
