@@ -7,8 +7,11 @@
     "dev": "vite",
     "build": "rimraf dist && vite build",
     "build:dev": "vite build --mode development",
-    "lint": "eslint .",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
+    "update-search-index": "node scripts/build-search-index.js",
+    "test:pat": "node verify-pat.js",
+    "test:api": "node test-coze-api.js",
     "postinstall": "npm uninstall @babel/preset-es2015 && npm install --save-dev @babel/core@latest @babel/preset-env@latest"
   },
   "dependencies": {
@@ -111,6 +114,8 @@
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react-swc": "^3.5.0",
     "autoprefixer": "^10.4.21",
+    "chalk": "^5.4.1",
+    "dotenv": "^16.4.7",
     "eslint": "^9.9.0",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.9",

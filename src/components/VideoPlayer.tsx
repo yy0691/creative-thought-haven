@@ -22,6 +22,11 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, title, poster }) => {
     return url.includes('bilibili.com');
   };
 
+  // 判断是否为七牛云视频链接
+  const isQiniuVideo = (url: string) => {
+    return url.includes('hb-bkt.clouddn.com');
+  };
+
   // 从B站链接中提取视频ID
   const getBilibiliVideoId = (url: string) => {
     const match = url.match(/BV[\w]+/);
@@ -64,6 +69,38 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, title, poster }) => {
     );
   }
 
+  // 如果是七牛云视频，使用原生video标签
+  if (isQiniuVideo(src)) {
+    return (
+      <div className="relative w-full aspect-video">
+        {(!isReady || isLoading) && (
+          <div className="absolute inset-0 flex items-center justify-center bg-black/90 z-[100]">
+            <Loader />
+          </div>
+        )}
+        <div className="relative w-full h-full bg-black/10 rounded-lg overflow-hidden">
+          <video
+            className={`w-full h-full object-contain transition-opacity duration-300 ${isReady ? 'opacity-100' : 'opacity-0'}`}
+            controls
+            poster={poster}
+            onLoadedData={handleLoadedData}
+            onLoadStart={() => setIsLoading(true)}
+            onError={() => {
+              setIsLoading(false);
+              setIsReady(true);
+            }}
+            onWaiting={() => setIsLoading(true)}
+            onPlaying={() => setIsLoading(false)}
+          >
+            <source src={src} type="video/mp4" />
+            {title && <track kind="captions" label={title} />}
+            您的浏览器不支持视频播放。
+          </video>
+        </div>
+      </div>
+    );
+  }
+
   // 本地视频播放
   return (
     <div className="relative w-full aspect-video">
@@ -88,7 +125,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ src, title, poster }) => {
         >
           <source src={src} type="video/mp4" />
           {title && <track kind="captions" label={title} />}
-          Your browser does not support the video tag.
+          您的浏览器不支持视频播放。
         </video>
       </div>
     </div>

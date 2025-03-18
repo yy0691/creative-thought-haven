@@ -25,7 +25,7 @@ export const projects: Project[] = [
     thumbnail: 'http://st75yeaid.hb-bkt.clouddn.com/%E5%87%BA%E5%BA%93%E5%B7%A5%E5%85%B7.png',
     technologies: ['C#', 'WPF应用', 'AI编程', 'Vite'],
     githubUrl: 'https://github.com/yy0691/FileManagementApp',
-    videoUrl: '/videos/出库工具-作品介绍.mp4',
+    videoUrl: 'http://st75yeaid.hb-bkt.clouddn.com/%E5%88%9B%E6%96%B0%E6%88%90%E6%9E%9C%E4%BB%8B%E7%BB%8D%E8%A7%86%E9%A2%91%E2%80%94%E2%80%94%E5%B8%88%E5%AE%87%E4%BD%B3.mp4',
     publishDate: '2024-01-15',
     category: 'automation',
     slug: 'creative-thought-haven',  // 添加 slug
@@ -43,14 +43,14 @@ export const projects: Project[] = [
     publishDate: '2025-01-15',
     category: 'automation',
     slug: 'creative-thought-haven',  // 添加 slug
-    coverImage: 'http://st75yeaid.hb-bkt.clouddn.com/%E6%9C%BA%E5%99%A8%E4%BA%BA.png',
+    coverImage: 'http://st75yeaid.hb-bkt.clouddn.com/Generated%20Image%20March%2018%2C%202025%20-%207_15PM.png.jpeg',
     details: 'xxx'
   },
   {
     id: 'ai-image-generator',
     title: '联通性测试工具',
     description: '针对于ilab-x中虚拟仿真实验项目进行批量测试。',
-    thumbnail: 'http://st75yeaid.hb-bkt.clouddn.com/ilab-x%20%282%29.png',
+    thumbnail: 'http://st75yeaid.hb-bkt.clouddn.com/Generated%20Image%20March%2018%2C%202025%20-%207_13PM.png.jpeg',
     technologies: ['Python', 'Selenium'],
     githubUrl: 'https://github.com/yy0691/LinkTest-ilab-x',
     category: 'llm',
