@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { IconName } from 'react-icons/fa'; // 假设使用 FontAwesome 图标库
+import { IconType } from 'react-icons/lib'; // 修正导入,使用IconType类型
 
 // 定义时间轴节点类型
 export interface TimelineNode {
@@ -99,11 +99,10 @@ const Timeline: React.FC<TimelineProps> = ({ nodes, className = '' }) => {
                 >
                   {node.icon && (
                     <span className="absolute inset-0 flex items-center justify-center text-[20px] md:text-[24px]">
-                      <IconName />
+                      {node.icon}
                     </span>
                   )}
                 </motion.div>
-                
                 <span className="timeline-title">{node.title}</span>
                 
                 {/* 悬浮卡片 */}
