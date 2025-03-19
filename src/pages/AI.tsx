@@ -81,6 +81,19 @@ const localTabCategories = [
     ]
   },
   {
+    id: 'tools',
+    title: '工具汇总',
+    tabs: [
+      { id: 'general', label: '通用类AI', icon: 'Bot' },
+      { id: 'painting', label: 'AI绘画', icon: 'Palette' },
+      { id: 'writing', label: 'AI写作', icon: 'PenTool' },
+      { id: 'voice', label: 'AI语音', icon: 'Mic' },
+      { id: 'video', label: 'AI视频', icon: 'Video' },
+      { id: 'security', label: 'AI安全', icon: 'Shield' },
+      { id: 'other', label: '其他', icon: 'MoreHorizontal' },
+    ]
+  },
+  {
     id: 'resource',
     title: '资源',
     tabs: [
@@ -164,6 +177,13 @@ const AI = () => {
       case 'courses': return coursesItems;
       case 'deeplearning': return deeplearningItems;
       case 'links': return linksItems;
+      case 'general': return toolsItems.filter(item => item.category === '通用类AI');
+      case 'painting': return toolsItems.filter(item => item.category === 'AI绘画');
+      case 'writing': return toolsItems.filter(item => item.category === 'AI写作');
+      case 'voice': return toolsItems.filter(item => item.category === 'AI语音');
+      case 'video': return toolsItems.filter(item => item.category === 'AI视频');
+      case 'security': return toolsItems.filter(item => item.category === 'AI安全');
+      case 'other': return toolsItems.filter(item => item.category === '其他');
       default: return [];
     }
   };
@@ -178,6 +198,13 @@ const AI = () => {
       case 'prompts': return '提示词工程最佳实践和模板库';
       case 'tools': return '精选实用的AI工具和应用';
       case 'links': return 'AI领域重要网站和资源链接';
+      case 'general': return '通用型AI工具和应用，包括聊天机器人、智能助手等';
+      case 'painting': return 'AI绘画和图像生成工具，支持各种艺术风格和创作需求';
+      case 'writing': return 'AI写作和文本生成工具，提供创意写作和内容创作支持';
+      case 'voice': return 'AI语音合成和识别工具，支持多语言和多场景应用';
+      case 'video': return 'AI视频处理和生成工具，包括视频编辑、特效制作等';
+      case 'security': return 'AI安全工具，保护数据和模型安全';
+      case 'other': return '其他创新AI工具和应用';
       default: return '';
     }
   };

@@ -22,8 +22,21 @@ export const tabCategories = [
     id: 'resource',
     title: '资源',
     tabs: [
-      { id: 'tools', label: 'AI工具箱', icon: 'Briefcase' },
+      { id: 'tools', label: '开源项目', icon: 'Briefcase' },
       { id: 'links', label: '常用链接', icon: 'Link' },
+    ]
+  },
+  {
+    id: 'tools',
+    title: '工具汇总',
+    tabs: [
+      { id: 'tools', label: '通用类AI', icon: 'Briefcase' },
+      { id: 'tools', label: 'AI绘画', icon: 'Briefcase' },
+      { id: 'tools', label: 'AI写作', icon: 'Briefcase' },
+      { id: 'tools', label: 'AI语音', icon: 'Briefcase' },
+      { id: 'tools', label: 'AI视频', icon: 'Briefcase' },
+      { id: 'tools', label: 'AI安全', icon: 'Briefcase' },
+      
     ]
   }
 ]; 
