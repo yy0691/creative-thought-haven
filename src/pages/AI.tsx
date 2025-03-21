@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import SEO from '../components/SEO';
 import * as LucideIcons from 'lucide-react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+import { aiMenuEventBus } from '../components/Navigation';
 
 // 导入类型和数据
 import { CardItem } from '../data/ai';
@@ -16,9 +18,35 @@ import { linksItems } from '../data/ai/links';
 // 图片组件
 const CardImage = ({ src, alt }: { src: string, alt: string }) => {
   const [imgError, setImgError] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isInView, setIsInView] = useState(false);
+  const imageRef = useRef<HTMLImageElement>(null);
   
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (imageRef.current) {
+      observer.observe(imageRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   const handleError = () => {
     setImgError(true);
+    setIsLoading(false);
+  };
+
+  const handleLoad = () => {
+    setIsLoading(false);
   };
   
   const getImageUrl = (url: string) => {
@@ -42,12 +70,24 @@ const CardImage = ({ src, alt }: { src: string, alt: string }) => {
   }
   
   return (
-    <img 
-      src={getImageUrl(src)} 
-      alt={alt} 
-      className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-      onError={handleError}
-    />
+    <div className="relative w-full h-full">
+      {isLoading && (
+        <div className="absolute inset-0 bg-gray-100 dark:bg-gray-700 animate-pulse flex items-center justify-center">
+          <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+        </div>
+      )}
+      <img 
+        ref={imageRef}
+        src={isInView ? getImageUrl(src) : ''}
+        alt={alt} 
+        className={`w-full h-full object-cover transition-transform duration-500 hover:scale-105 ${
+          isLoading ? 'opacity-0' : 'opacity-100'
+        }`}
+        loading="lazy"
+        onError={handleError}
+        onLoad={handleLoad}
+      />
+    </div>
   );
 };
 
@@ -211,8 +251,8 @@ const AI = () => {
 
   // 渲染卡片
   const renderCard = (item: CardItem) => {
-    return (
-      <div key={item.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+    const cardContent = (
+      <>
         {item.image && (
           <div className="w-full h-40 overflow-hidden">
             <CardImage key={`${activeTab}-${item.id}`} src={item.image} alt={item.title} />
@@ -246,22 +286,42 @@ const AI = () => {
               className="mt-3 inline-flex items-center text-primary hover:text-primary-dark"
               target="_blank" 
               rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
             >
               了解更多 <LucideIcons.ChevronRight size={16} className="ml-1" />
             </a>
           )}
         </div>
+      </>
+    );
+
+    return (
+      <div key={item.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+        {activeTab === 'tools' || activeTab.match(/^(general|painting|writing|voice|video|security|other)$/) ? (
+          <Link 
+            to={`/ai/tools/${item.id}`}
+            className="block h-full no-underline"
+          >
+            {cardContent}
+          </Link>
+        ) : (
+          cardContent
+        )}
       </div>
     );
   };
 
-  // 处理菜单开关
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-  
+  // 订阅导航栏的AI菜单事件
+  useEffect(() => {
+    const unsubscribe = aiMenuEventBus.subscribe(() => {
+      setIsMenuOpen(!isMenuOpen);
+    });
+    return () => unsubscribe();
+  }, [isMenuOpen]);
+
   // 处理标签页切换
   const handleTabChange = (tabId: string) => {
     setActiveTab(tabId);
-    setIsMenuOpen(false);
     if (tabId === 'news') {
       handleRefreshNews();
     }
@@ -312,7 +372,7 @@ const AI = () => {
       <div className={`fixed inset-y-0 left-0 transform ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'} lg:hidden w-[280px] z-50 bg-white dark:bg-gray-800 shadow-xl transition-transform duration-300 ease-in-out`}>
         <div className="p-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
           <h2 className="text-xl font-bold text-gray-900 dark:text-white">AI资源中心</h2>
-          <button onClick={toggleMenu} className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700">
+          <button onClick={() => setIsMenuOpen(false)} className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700">
             <LucideIcons.X size={20} />
           </button>
         </div>
@@ -352,7 +412,7 @@ const AI = () => {
       {isMenuOpen && (
         <div 
           className="fixed inset-0 bg-black/50 z-40 lg:hidden transition-opacity duration-300 ease-in-out" 
-          onClick={toggleMenu}
+          onClick={() => setIsMenuOpen(false)}
         />
       )}
       
@@ -426,14 +486,6 @@ const AI = () => {
             <LucideIcons.RefreshCw className={isLoadingNews ? 'animate-spin' : ''} size={20} />
           </button>
         )}
-        
-        {/* 移动菜单按钮 */}
-        <button
-          onClick={toggleMenu}
-          className="lg:hidden p-3 bg-white dark:bg-gray-800 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 ease-in-out hover:scale-110"
-        >
-          <LucideIcons.Menu size={20} />
-        </button>
       </div>
     </div>
   );

@@ -114,6 +114,11 @@ const App = () => {
                               <AIComponent />
                             </Suspense>
                           } />
+                          <Route path="ai/tools/:id" element={
+                            <Suspense fallback={<Loading />}>
+                              <ProjectDetails />
+                            </Suspense>
+                          } />
                           <Route path="blog" element={
                             <Suspense fallback={<Loading />}>
                               <BlogComponent />

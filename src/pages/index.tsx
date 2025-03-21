@@ -6,8 +6,9 @@ import SplashCursor from '../components/cursor';
 import Timeline from '../components/Timeline';
 import timelineData from '../data/timelineData';
 import { motion } from 'framer-motion';
-import { ArrowRight, BookOpen, Code, Star, ExternalLink, ArrowLeft } from 'lucide-react';
+import { ArrowRight, BookOpen, Code, Star, ExternalLink, ArrowLeft, Newspaper } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { defaultNewsItems } from '../data/ai/news';
 
 const Index = () => {
   const [recommendedPosts, setRecommendedPosts] = useState([]);
@@ -16,8 +17,10 @@ const Index = () => {
   const [showTimeline, setShowTimeline] = useState(false);
   const [isPostsHovering, setIsPostsHovering] = useState(false);
   const [isProjectsHovering, setIsProjectsHovering] = useState(false);
+  const [isNewsHovering, setIsNewsHovering] = useState(false);
   const postsRef = useRef<HTMLDivElement>(null);
   const projectsRef = useRef<HTMLDivElement>(null);
+  const newsRef = useRef<HTMLDivElement>(null);
   
   // 添加标签颜色生成函数
   const getTagColors = (tag: string) => {
@@ -176,6 +179,32 @@ const Index = () => {
       }
     };
   }, [isProjectsHovering]);
+
+  // AI新闻部分
+  useEffect(() => {
+    const newsElement = newsRef.current;
+    if (!newsElement) return;
+
+    if (isNewsHovering) {
+      newsElement.addEventListener('wheel', handleNewsWheel, { passive: false });
+    }
+    
+    return () => {
+      if (newsElement) {
+        newsElement.removeEventListener('wheel', handleNewsWheel);
+      }
+    };
+  }, [isNewsHovering]);
+
+  // 处理新闻滚动
+  const handleNewsWheel = (e: WheelEvent) => {
+    if (!newsRef.current || !isNewsHovering) return;
+    e.preventDefault();
+    newsRef.current.scrollBy({
+      left: e.deltaY,
+      behavior: 'smooth'
+    });
+  };
   
   return (
     <div className="min-h-screen relative overflow-hidden">
@@ -206,6 +235,72 @@ const Index = () => {
         <div className={`max-w-7xl mx-auto px-4 pb-32 mt-20 transition-all duration-1000 transform ${
           showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'
         }`}>
+          {/* AI新闻部分 */}
+          <div className="mb-20">
+            <div className="flex items-center mb-10">
+              <div className="flex items-center gap-3">
+                <Newspaper className="w-8 h-8 text-primary" />
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-white">AI前沿动态</h2>
+              </div>
+            </div>
+            
+            <div 
+              ref={newsRef}
+              className="flex overflow-x-auto gap-6 pb-4 snap-x snap-mandatory scrollbar-hide"
+              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+              onMouseEnter={() => setIsNewsHovering(true)}
+              onMouseLeave={() => setIsNewsHovering(false)}
+            >
+              {defaultNewsItems.slice(0, 6).map((news) => (
+                <Link
+                  key={news.id}
+                  to={`/ai`}
+                  className="group relative overflow-hidden rounded-xl bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 hover:shadow-lg hover:border-primary/20 transition-all duration-500 min-w-[300px] md:min-w-[400px] snap-start"
+                >
+                  <div className="relative w-full h-[180px] overflow-hidden bg-gray-50 dark:bg-gray-900/50">
+                    <img 
+                      src={news.image} 
+                      alt={news.title}
+                      className="w-full h-full object-cover transform group-hover:scale-105 transition-all duration-500"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-gray-900/10 via-gray-900/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </div>
+                  
+                  <div className="p-4 relative">
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary-foreground">
+                        {news.category}
+                      </span>
+                      <span className="text-xs text-gray-500 dark:text-gray-400">
+                        {news.date}
+                      </span>
+                    </div>
+                    
+                    <h3 className="text-lg font-bold mb-2 text-gray-900 dark:text-white group-hover:text-primary transition-colors duration-300 line-clamp-1">
+                      {news.title}
+                    </h3>
+                    
+                    <p className="text-sm text-gray-600 dark:text-gray-300 mb-3 line-clamp-2 group-hover:text-gray-800 dark:group-hover:text-gray-200 transition-colors duration-300">
+                      {news.description}
+                    </p>
+                    
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-gray-500 dark:text-gray-400">
+                        {news.author}
+                      </span>
+                      <div className="flex items-center text-primary group-hover:text-primary/80 transition-colors duration-300">
+                        <span className="text-xs font-medium">了解更多</span>
+                        <ArrowRight className="w-3 h-3 ml-1 transform group-hover:translate-x-1 transition-transform" />
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+
           {/* 推荐阅读 */}
           <div className="mb-20">
             <div className="flex items-center mb-10">
@@ -293,44 +388,54 @@ const Index = () => {
                 <Link
                   key={project.id}
                   to={project.link}
-                  className="group relative overflow-hidden rounded-xl bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 hover:shadow-xl transition-all duration-500 min-w-[300px] md:min-w-[500px] snap-start"
+                  className="group relative overflow-hidden rounded-xl bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 hover:shadow-lg hover:border-primary/20 transition-all duration-500 min-w-[250px] md:min-w-[300px] snap-start"
                 >
                   {/* 项目预览图 */}
-                  <div className="aspect-video w-full overflow-hidden">
+                  <div className="relative w-full h-[160px] overflow-hidden bg-gray-50 dark:bg-gray-900/50">
                     <img 
                       src={project.preview} 
                       alt={project.title}
-                      className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                      className="w-full h-full object-cover transform group-hover:scale-105 transition-all duration-500"
+                      loading="lazy"
                     />
+                    {/* 优化渐变遮罩 */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-gray-900/10 via-gray-900/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    {/* 添加顶部微光效果 */}
+                    <div className="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </div>
                   
-                  <div className="p-6 relative">
+                  <div className="p-4 relative">
                     {/* 背景渐变效果 */}
-                    <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300`} />
+                    <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-0 group-hover:opacity-5 transition-opacity duration-300`} />
                     
                     <div className="relative z-10">
-                      <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-white group-hover:text-primary transition-colors duration-300">
+                      <h3 className="text-lg font-bold mb-2 text-gray-900 dark:text-white group-hover:text-primary transition-colors duration-300 line-clamp-1">
                         {project.title}
                       </h3>
                       
-                      <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                      <p className="text-sm text-gray-600 dark:text-gray-300 mb-3 line-clamp-2 group-hover:text-gray-800 dark:group-hover:text-gray-200 transition-colors duration-300">
                         {project.description}
                       </p>
                       
-                      <div className="flex flex-wrap gap-2 mb-4">
-                        {project.tech.map((tech, index) => (
+                      <div className="flex flex-wrap gap-1.5 mb-3">
+                        {project.tech.slice(0, 3).map((tech, index) => (
                           <span 
                             key={index}
-                            className="px-2 py-1 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
+                            className="px-2 py-0.5 text-xs font-medium rounded-full bg-gray-50 dark:bg-gray-700/50 text-gray-600 dark:text-gray-300 group-hover:bg-gray-100 dark:group-hover:bg-gray-700 transition-colors duration-300"
                           >
                             {tech}
                           </span>
                         ))}
+                        {project.tech.length > 3 && (
+                          <span className="px-2 py-0.5 text-xs font-medium rounded-full bg-gray-50 dark:bg-gray-700/50 text-gray-600 dark:text-gray-300 group-hover:bg-gray-100 dark:group-hover:bg-gray-700 transition-colors duration-300">
+                            +{project.tech.length - 3}
+                          </span>
+                        )}
                       </div>
                       
-                      <div className="flex items-center text-primary">
-                        <span className="text-sm font-medium">查看项目</span>
-                        <ExternalLink className="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" />
+                      <div className="flex items-center text-primary group-hover:text-primary/80 transition-colors duration-300">
+                        <span className="text-xs font-medium">查看项目</span>
+                        <ExternalLink className="w-3 h-3 ml-1 transform group-hover:translate-x-1 transition-transform" />
                       </div>
                     </div>
                   </div>

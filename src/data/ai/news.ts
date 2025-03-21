@@ -3,6 +3,7 @@ import { CardItem } from './types';
 
 // 默认新闻数据
 export const defaultNewsItems: CardItem[] = [
+  // 自动更新的新闻将插入到这里
   {
     id: '1',
     title: 'Claude 4.0 正式发布',
