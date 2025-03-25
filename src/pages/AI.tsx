@@ -43,6 +43,7 @@ const CardImage = ({ src, alt }: { src: string, alt: string }) => {
   const handleError = () => {
     setImgError(true);
     setIsLoading(false);
+    console.error('Image failed to load:', src);
   };
 
   const handleLoad = () => {
@@ -50,12 +51,12 @@ const CardImage = ({ src, alt }: { src: string, alt: string }) => {
   };
   
   const getImageUrl = (url: string) => {
-    if (url.startsWith('http')) {
+    // 如果是完整的URL（以http://或https://开头），直接返回
+    if (url.startsWith('http://') || url.startsWith('https://')) {
       return url;
     }
-    const cdnBase = 'https://static.xiaohucdn.com';
-    const fileName = url.split('/').pop();
-    return `${cdnBase}/blog/ai/${fileName}`;
+    // 如果是本地图片路径
+    return `/images/ai/${url}`;
   };
   
   if (imgError) {
@@ -80,12 +81,13 @@ const CardImage = ({ src, alt }: { src: string, alt: string }) => {
         ref={imageRef}
         src={isInView ? getImageUrl(src) : ''}
         alt={alt} 
-        className={`w-full h-full object-cover transition-transform duration-500 hover:scale-105 ${
+        className={`w-full h-full object-cover transition-opacity duration-300 ${
           isLoading ? 'opacity-0' : 'opacity-100'
         }`}
         loading="lazy"
         onError={handleError}
         onLoad={handleLoad}
+        crossOrigin="anonymous"
       />
     </div>
   );
