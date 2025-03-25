@@ -8,6 +8,7 @@ export interface CardItem {
   image?: string;
   link?: string;
   category?: string;
+  content?: string; // 添加详细内容字段，用于Markdown格式的新闻内容
 }
 
 // 定义标签页类型
