@@ -43,16 +43,15 @@ export default defineConfig(({ mode }) => ({
     cssMinify: true,
     cssCodeSplit: true,
     outDir: 'dist',
-    chunkSizeWarningLimit: 200,
+    chunkSizeWarningLimit: 1000,
     sourcemap: false,
     commonjsOptions: {
       ignoreTryCatch: id => id !== 'stream'
     },
     terserOptions: {
       compress: {
-        drop_console: true,
-        drop_debugger: true,
-        pure_funcs: ['console.log']
+        drop_console: false,
+        drop_debugger: true
       }
     },
     rollupOptions: {
@@ -114,8 +113,7 @@ export default defineConfig(({ mode }) => ({
             return 'lib';
           }
         }
-      },
-      external: ['zwitch']
+      }
     }
   },
   plugins: [
@@ -129,6 +127,19 @@ export default defineConfig(({ mode }) => ({
       load(id: string) {
         if (/\.(png|jpe?g|gif|svg)$/.test(id)) {
           return `export default ${JSON.stringify(id)}`;
+        }
+      }
+    },
+    {
+      name: 'vercel-env',
+      transform(code: string, id: string) {
+        if (id.endsWith('.ts') || id.endsWith('.tsx') || id.endsWith('.js')) {
+          return {
+            code: code.replace(/process\.env\.(\w+)/g, (_: string, prop: string) => {
+              return `import.meta.env.${prop}`;
+            }),
+            map: null
+          };
         }
       }
     }

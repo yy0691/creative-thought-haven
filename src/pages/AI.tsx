@@ -45,7 +45,7 @@ const CardImage = ({ src, alt }: { src: string, alt: string }) => {
     const isProduction = import.meta.env.PROD;
     if (isProduction) {
       const encodedUrl = encodeURIComponent(src);
-      imageUrl = `/image-proxy?url=${encodedUrl}`;
+      imageUrl = `/api/image-proxy?url=${encodedUrl}`;
     } else {
       // 开发环境直接使用原始URL
       imageUrl = src;
@@ -82,6 +82,8 @@ const CardImage = ({ src, alt }: { src: string, alt: string }) => {
       className="w-full h-full object-cover"
       onError={handleError}
       loading="lazy"
+      crossOrigin="anonymous"
+      referrerPolicy="no-referrer"
     />
   );
 };
