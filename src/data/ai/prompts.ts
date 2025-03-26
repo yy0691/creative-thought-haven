@@ -40,5 +40,14 @@ export const promptsItems: CardItem[] = [
     link: '/blog/prompt-patterns',
     image: '/images/ai/prompt-patterns.jpg',
     category: '通用技巧'
+  },
+  {
+    id: '6',
+    title: '如何写好提示词',
+    description: '如何写好提示词，以及如何使用提示词来生成高质量的AI艺术作品。',
+    link: '/blog/how-to-write-prompts',
+    image: '/images/ai/prompt-patterns.jpg',
+    category: '通用技巧',
+    content: 'https://www.deepseek.com/blog/how-to-write-prompts'
   }
 ]; 

@@ -3,6 +3,18 @@ import { CardItem } from './types';
 
 // 默认新闻数据
 export const defaultNewsItems: CardItem[] = [
+  {
+    id: '0',
+    title: 'DeepSeek-V3 正式发布',
+    description: 'Anthropic发布Claude 4.0，在多模态理解、代码生成和长文本处理方面都有重大突破。新版本支持实时语音对话，并能处理超过100万token的上下文。',
+    author: 'Anthropic',
+    date: '2025-03-19',
+    image: 'https://images.crunchbase.com/image/upload/c_lpad,h_256,w_256,f_auto,q_auto:eco,dpr_1/smozbwxkmn5ksr1q9vl1',
+    category: 'LLM',
+    content: `
+    
+    `
+  },
   // 自动更新的新闻将插入到这里
   {
     id: '1',

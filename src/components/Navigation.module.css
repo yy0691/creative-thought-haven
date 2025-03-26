@@ -3,7 +3,7 @@
   top: 0;
   left: 0;
   right: 0;
-  z-index: 50;
+  z-index: 40;
   transition: all 0.3s;
   box-shadow: none;
 }
@@ -38,6 +38,7 @@
   background-color: rgba(255, 255, 255, 0.8);
   border-bottom: none;
   box-shadow: none;
+  z-index: 40;
 }
 
 /* Dark mode mobile dropdown menu */

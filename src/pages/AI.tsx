@@ -20,7 +20,7 @@ import { promptsItems } from '../data/ai/prompts';
 import { linksItems } from '../data/ai/links';
 
 // 图片组件
-const CardImage = ({ src, alt }: { src: string, alt: string }) => {
+export const CardImage = ({ src, alt, style }: { src: string, alt: string, style?: React.CSSProperties }) => {
   const [imgError, setImgError] = useState(false);
   
   // 确保src有值
@@ -281,15 +281,21 @@ ${selectedItem.content || selectedItem.description}
 ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
 `;
 
+    // 对于tools类型的卡片，如果有链接到详情页，可以加上查看详情页链接
+    const isToolItem = activeTab === 'tools' || activeTab.match(/^(general|painting|writing|voice|video|security|other)$/);
+    const toolDetailLink = isToolItem ? `/ai/tools/${selectedItem.id}` : null;
+
     return (
       <div className="flex-1 overflow-y-auto">
-        {/* 文章顶部信息 */}
-        <div className="sticky top-0 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm shadow-sm z-10">
-          {selectedItem.image && (
-            <div className="w-full h-48 md:h-64 overflow-hidden">
-              <CardImage src={selectedItem.image} alt={selectedItem.title} />
-            </div>
-          )}
+        {/* 图片 */}
+        {selectedItem.image && (
+          <div className="w-full h-32 md:h-40 overflow-hidden">
+            <CardImage src={selectedItem.image} alt={selectedItem.title} />
+          </div>
+        )}
+        
+        {/* 文章标题信息 */}
+        <div className="bg-white/95 dark:bg-gray-800/95 shadow-sm">
           <div className="p-6 pb-4 border-b border-gray-200 dark:border-gray-700">
             <div className="flex flex-wrap items-center gap-2 mb-3">
               {selectedItem.category && (
@@ -327,18 +333,28 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
             ) : (
               <>
                 <p className="text-gray-700 dark:text-gray-300 text-lg">{selectedItem.description}</p>
-                {selectedItem.link && (
-                  <div className="mt-10 flex justify-center">
+                <div className="mt-10 flex flex-wrap gap-4 justify-center">
+                  {selectedItem.link && (
                     <a 
                       href={selectedItem.link} 
                       className="px-6 py-3 bg-primary text-white rounded-full hover:bg-primary-dark transition-colors shadow-md hover:shadow-lg transform hover:-translate-y-1 duration-300 flex items-center"
                       target="_blank" 
                       rel="noopener noreferrer"
                     >
-                      查看完整文章 <LucideIcons.ArrowRight size={16} className="ml-2" />
+                      访问官网 <LucideIcons.ExternalLink size={16} className="ml-2" />
                     </a>
-                  </div>
-                )}
+                  )}
+                  
+                  {toolDetailLink && (
+                    <Link 
+                      to={toolDetailLink}
+                      className="px-6 py-3 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors shadow-md hover:shadow-lg transform hover:-translate-y-1 duration-300 flex items-center"
+                      onClick={handleCloseDetail}
+                    >
+                      查看详情 <LucideIcons.ArrowRight size={16} className="ml-2" />
+                    </Link>
+                  )}
+                </div>
               </>
             )}
           </div>
@@ -358,21 +374,17 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
             </div>
           </div>
         )}
-        <div className="p-5">
+        <div className="p-5 flex flex-col h-[250px]">
+          
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2 line-clamp-8">{item.title}</h3>
+          <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-3 flex-grow">{item.description}</p>
+          
+          <div className="flex items-center justify-between mt-auto">
           {item.category && (
             <span className="inline-block px-3 py-1 text-xs font-medium bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary-foreground rounded-full mb-2">
               {item.category}
             </span>
           )}
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">{item.title}</h3>
-          <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">{item.description}</p>
-          
-          <div className="flex items-center justify-between">
-            {item.author && (
-              <span className="text-sm text-gray-500 dark:text-gray-400">
-                {item.author}
-              </span>
-            )}
             {item.date && (
               <span className="text-xs text-gray-500 dark:text-gray-400">
                 {item.date}
@@ -398,17 +410,20 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
     return (
       <div 
         key={item.id} 
-        className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer"
-        onClick={() => activeTab === 'news' ? handleCardClick(item) : null}
+        className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer h-[400px]"
+        onClick={() => handleCardClick(item)}
       >
         {activeTab === 'tools' || activeTab.match(/^(general|painting|writing|voice|video|security|other)$/) ? (
-          <Link 
-            to={`/ai/tools/${item.id}`}
-            className="block h-full no-underline"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {cardContent}
-          </Link>
+          <>
+            <div onClick={(e) => e.stopPropagation()}>
+              <Link 
+                to={`/ai/tools/${item.id}`}
+                className="block h-full no-underline"
+              >
+                {cardContent}
+              </Link>
+            </div>
+          </>
         ) : (
           cardContent
         )}
@@ -631,7 +646,7 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
       </div>
       
       {/* 移动菜单 */}
-      <div className={`fixed inset-y-0 left-0 transform ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'} lg:hidden w-[280px] z-50 bg-white dark:bg-gray-800 shadow-xl transition-transform duration-300 ease-in-out`}>
+      <div className={`fixed inset-y-0 left-0 transform ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'} lg:hidden w-[280px] z-[45] bg-white dark:bg-gray-800 shadow-xl transition-transform duration-300 ease-in-out`}>
         <div className="p-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
           <h2 className="text-xl font-bold text-gray-900 dark:text-white">AI资源中心</h2>
           <button onClick={() => setIsMenuOpen(false)} className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700">
@@ -673,7 +688,7 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
       {/* 移动菜单遮罩 */}
       {isMenuOpen && (
         <div 
-          className="fixed inset-0 bg-black/50 z-40 lg:hidden transition-opacity duration-300 ease-in-out" 
+          className="fixed inset-0 bg-black/50 z-[42] lg:hidden transition-opacity duration-300 ease-in-out" 
           onClick={() => setIsMenuOpen(false)}
         />
       )}
@@ -688,7 +703,7 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="fixed inset-0 bg-black/40 backdrop-blur-md z-30 flex items-center justify-center"
+              className="fixed inset-0 bg-black/40 backdrop-blur-md z-[100] flex items-center justify-center"
               onClick={handleCloseDetail}
             >
               {/* 详情卡片 */}
@@ -702,10 +717,10 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
                   damping: 25
                 }}
                 onClick={(e) => e.stopPropagation()}
-                className="w-[95%] sm:w-4/5 md:w-3/4 lg:w-2/3 xl:w-1/2 max-w-[800px] max-h-[90vh] bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm rounded-2xl border border-gray-100 dark:border-gray-700 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] z-40 flex flex-col overflow-hidden"
+                className="w-[95%] sm:w-4/5 md:w-3/4 lg:w-2/3 xl:w-1/2 max-w-[800px] max-h-[85vh] my-4 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm rounded-2xl border border-gray-100 dark:border-gray-700 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] z-[110] flex flex-col overflow-hidden relative"
               >
                 {/* 顶部工具栏按钮 */}
-                <div className="absolute top-3 right-3 z-10 flex items-center gap-2">
+                <div className="absolute top-3 right-3 z-[10] flex items-center gap-2">
                   {selectedItem?.link && (
                     <motion.a
                       initial={{ opacity: 0 }}

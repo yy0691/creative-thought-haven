@@ -43,6 +43,7 @@ const BlogPostComponent = lazy(() => import('./pages/BlogPost'));
 const NotFoundComponent = lazy(() => import('./pages/NotFound'));
 const VideoDetailsComponent = lazy(() => import('./pages/VideoDetails'));
 const DesignDetailsComponent = lazy(() => import('./pages/DesignDetails'));
+const ToolPageComponent = lazy(() => import('./pages/Tool'));
 
 const App = () => {
   // 初始化标题管理器
@@ -116,7 +117,7 @@ const App = () => {
                           } />
                           <Route path="ai/tools/:id" element={
                             <Suspense fallback={<Loading />}>
-                              <ProjectDetails />
+                              <ToolPageComponent />
                             </Suspense>
                           } />
                           <Route path="blog" element={
