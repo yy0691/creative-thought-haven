@@ -7,7 +7,7 @@
       "config": {
         "distDir": "dist",
         "zeroConfig": true,
-        "installCommand": "npm install --legacy-peer-deps"
+        "installCommand": "npm install --legacy-peer-deps --production=false"
       }
     },
     {
