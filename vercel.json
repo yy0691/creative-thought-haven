@@ -2,10 +2,6 @@
   "version": 2,
   "builds": [
     {
-      "src": "api/**/*.js",
-      "use": "@vercel/node"
-    },
-    {
       "src": "package.json",
       "use": "@vercel/static-build",
       "config": {
@@ -15,47 +11,12 @@
   ],
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
+      "src": "/assets/(.*)",
+      "dest": "/assets/$1"
     },
     {
-      "src": "/image-proxy",
-      "dest": "/api/image-proxy.js"
-    },
-    {
-      "src": "/(.*).js",
-      "headers": {
-        "content-type": "application/javascript"
-      },
-      "dest": "/$1.js"
-    },
-    {
-      "src": "/(.*).css",
-      "headers": {
-        "content-type": "text/css"
-      },
-      "dest": "/$1.css"
-    },
-    {
-      "src": "/(.*).svg",
-      "headers": {
-        "content-type": "image/svg+xml"
-      },
-      "dest": "/$1.svg"
-    },
-    {
-      "src": "/(.*).png",
-      "headers": {
-        "content-type": "image/png"
-      },
-      "dest": "/$1.png"
-    },
-    {
-      "src": "/(.*).jpg",
-      "headers": {
-        "content-type": "image/jpeg"
-      },
-      "dest": "/$1.jpg"
+      "src": "/(.*)\\.(.+)",
+      "dest": "/$1.$2"
     },
     {
       "src": "/(.*)",
