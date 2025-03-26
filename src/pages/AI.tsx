@@ -18,6 +18,7 @@ import { coursesItems } from '../data/ai/courses';
 import { deeplearningItems } from '../data/ai/deeplearning';
 import { promptsItems } from '../data/ai/prompts';
 import { linksItems } from '../data/ai/links';
+import { tutorialsItems } from '../data/ai/tutorials';
 
 // 图片组件
 export const CardImage = ({ src, alt, style }: { src: string, alt: string, style?: React.CSSProperties }) => {
@@ -115,6 +116,7 @@ const localTabCategories = [
       { id: 'courses', label: '李宏毅老师课程', icon: 'GraduationCap' },
       { id: 'deeplearning', label: '深度学习', icon: 'Code' },
       { id: 'prompts', label: '提示词工程', icon: 'Lightbulb' },
+      { id: 'tutorials', label: '教程', icon: 'BookOpen' },
     ]
   },
   {
@@ -219,6 +221,7 @@ const AI = () => {
         case 'courses': return coursesItems || [];
         case 'deeplearning': return deeplearningItems || [];
         case 'links': return linksItems || [];
+        case 'tutorials': return tutorialsItems || [];
         case 'general': return (toolsItems || []).filter(item => item.category === '通用类AI');
         case 'painting': return (toolsItems || []).filter(item => item.category === 'AI绘画');
         case 'writing': return (toolsItems || []).filter(item => item.category === 'AI写作');
@@ -345,13 +348,13 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
                     </a>
                   )}
                   
-                  {toolDetailLink && (
+                  {isToolItem && (
                     <Link 
-                      to={toolDetailLink}
+                      to={`/ai/tools/${selectedItem.id}`}
                       className="px-6 py-3 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors shadow-md hover:shadow-lg transform hover:-translate-y-1 duration-300 flex items-center"
                       onClick={handleCloseDetail}
                     >
-                      查看详情 <LucideIcons.ArrowRight size={16} className="ml-2" />
+                      查看详情页 <LucideIcons.ArrowRight size={16} className="ml-2" />
                     </Link>
                   )}
                 </div>
@@ -365,44 +368,63 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
 
   // 渲染卡片
   const renderCard = (item: CardItem) => {
+    // 根据标签页类型决定卡片样式
+    const isNewsTab = activeTab === 'news';
+    const cardHeight = isNewsTab ? "h-[420px]" : "h-[300px]";
+    const contentHeight = isNewsTab ? "h-[270px]" : "h-[200px]";
+    
     const cardContent = (
       <>
         {item.image && (
-          <div className="w-full relative pb-[56.25%] overflow-hidden">
+          <div className={`w-full relative ${isNewsTab ? 'pb-[56.25%]' : 'pb-[50%]'} overflow-hidden`}>
             <div className="absolute inset-0">
               <CardImage key={`${activeTab}-${item.id}`} src={item.image} alt={item.title} />
             </div>
           </div>
         )}
-        <div className="p-5 flex flex-col h-[250px]">
-          
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2 line-clamp-8">{item.title}</h3>
-          <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-3 flex-grow">{item.description}</p>
-          
-          <div className="flex items-center justify-between mt-auto">
-          {item.category && (
-            <span className="inline-block px-3 py-1 text-xs font-medium bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary-foreground rounded-full mb-2">
-              {item.category}
-            </span>
-          )}
+        <div className={`${isNewsTab ? 'p-6' : 'p-4'} flex flex-col ${contentHeight}`}>
+          <div className="flex items-center gap-2 mb-2">
+            {item.category && (
+              <span className={`inline-block ${isNewsTab ? 'px-3 py-1' : 'px-2 py-0.5'} text-xs font-medium bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary-foreground rounded-full`}>
+                {item.category}
+              </span>
+            )}
             {item.date && (
-              <span className="text-xs text-gray-500 dark:text-gray-400">
+              <span className={`text-xs text-gray-500 dark:text-gray-400 flex items-center ${isNewsTab ? '' : 'ml-auto'}`}>
+                <LucideIcons.Calendar size={12} className="mr-1" />
                 {item.date}
               </span>
             )}
           </div>
           
-          {item.link && (
-            <a 
-              href={item.link} 
-              className="mt-3 inline-flex items-center text-primary hover:text-primary-dark"
-              target="_blank" 
-              rel="noopener noreferrer"
-              onClick={(e) => e.stopPropagation()}
-            >
-              了解更多 <LucideIcons.ChevronRight size={16} className="ml-1" />
-            </a>
-          )}
+          <h3 className={`${isNewsTab ? 'text-xl' : 'text-base'} font-semibold text-gray-900 dark:text-white mb-3 ${isNewsTab ? 'line-clamp-3' : 'line-clamp-2'}`}>
+            {item.title}
+          </h3>
+          
+          <p className={`text-gray-600 dark:text-gray-300 ${isNewsTab ? 'text-sm' : 'text-xs'} mb-4 ${isNewsTab ? 'line-clamp-3' : 'line-clamp-2'} flex-grow`}>
+            {item.description}
+          </p>
+          
+          <div className="flex items-center justify-between mt-auto pt-2 border-t border-gray-100 dark:border-gray-700">
+            {item.author && (
+              <div className="flex items-center gap-1.5 text-gray-500 dark:text-gray-400">
+                <LucideIcons.User size={14} />
+                <span className="text-xs">{item.author}</span>
+              </div>
+            )}
+            
+            {item.link && (
+              <a 
+                href={item.link} 
+                className={`inline-flex items-center text-primary hover:text-primary-dark ${isNewsTab ? 'text-sm' : 'text-xs'}`}
+                target="_blank" 
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+              >
+                了解更多 <LucideIcons.ChevronRight size={isNewsTab ? 16 : 12} className="ml-1" />
+              </a>
+            )}
+          </div>
         </div>
       </>
     );
@@ -410,23 +432,10 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
     return (
       <div 
         key={item.id} 
-        className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer h-[400px]"
+        className={`bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer ${cardHeight} border border-gray-100 dark:border-gray-700/50`}
         onClick={() => handleCardClick(item)}
       >
-        {activeTab === 'tools' || activeTab.match(/^(general|painting|writing|voice|video|security|other)$/) ? (
-          <>
-            <div onClick={(e) => e.stopPropagation()}>
-              <Link 
-                to={`/ai/tools/${item.id}`}
-                className="block h-full no-underline"
-              >
-                {cardContent}
-              </Link>
-            </div>
-          </>
-        ) : (
-          cardContent
-        )}
+        {cardContent}
       </div>
     );
   };
@@ -562,25 +571,73 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
 
       // 其他标签页使用卡片网格布局
       return (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className={`grid grid-cols-1 sm:grid-cols-2 ${
+          activeTab === 'news' 
+            ? 'lg:grid-cols-3 xl:grid-cols-4 gap-6' 
+            : 'lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-5'
+        }`}>
           {isLoadingNews && activeTab === 'news' ? (
-            // 骨架屏
-            Array(6).fill(0).map((_, index) => (
-              <div key={index} className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden animate-pulse">
-                <div className="w-full h-40 bg-gray-200 dark:bg-gray-700"></div>
-                <div className="p-5">
-                  <div className="h-6 w-24 bg-gray-200 dark:bg-gray-700 rounded mb-2"></div>
-                  <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded mb-2"></div>
-                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded mb-1"></div>
-                  <div className="h-4 w-3/4 bg-gray-200 dark:bg-gray-700 rounded mb-4"></div>
-                  <div className="h-5 w-1/3 bg-gray-200 dark:bg-gray-700 rounded"></div>
+            // 新闻骨架屏
+            Array(8).fill(0).map((_, index) => (
+              <div key={index} className="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden animate-pulse border border-gray-100 dark:border-gray-700/50">
+                <div className="w-full pb-[56.25%] bg-gray-200 dark:bg-gray-700"></div>
+                <div className="p-6">
+                  <div className="flex gap-2 mb-2">
+                    <div className="h-5 w-20 bg-gray-200 dark:bg-gray-700 rounded-full"></div>
+                    <div className="h-5 w-24 bg-gray-200 dark:bg-gray-700 rounded-full"></div>
+                  </div>
+                  <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded mb-3"></div>
+                  <div className="space-y-2">
+                    <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                    <div className="h-4 w-5/6 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                    <div className="h-4 w-4/6 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                  </div>
+                  <div className="mt-4 pt-2 border-t border-gray-100 dark:border-gray-700">
+                    <div className="flex justify-between items-center">
+                      <div className="h-4 w-20 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                      <div className="h-4 w-24 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))
+          ) : activeTab !== 'news' && getTabContent().length === 0 ? (
+            // 非新闻空状态骨架屏
+            Array(12).fill(0).map((_, index) => (
+              <div key={index} className="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden animate-pulse border border-gray-100 dark:border-gray-700/50">
+                <div className="w-full pb-[50%] bg-gray-200 dark:bg-gray-700"></div>
+                <div className="p-4">
+                  <div className="flex justify-between items-center mb-2">
+                    <div className="h-5 w-16 bg-gray-200 dark:bg-gray-700 rounded-full"></div>
+                    <div className="h-5 w-20 bg-gray-200 dark:bg-gray-700 rounded-full"></div>
+                  </div>
+                  <div className="h-5 bg-gray-200 dark:bg-gray-700 rounded mb-2"></div>
+                  <div className="space-y-1.5">
+                    <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                    <div className="h-4 w-2/3 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                  </div>
+                  <div className="mt-3 pt-2 border-t border-gray-100 dark:border-gray-700">
+                    <div className="flex justify-between items-center">
+                      <div className="h-4 w-16 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                      <div className="h-4 w-20 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                    </div>
+                  </div>
                 </div>
               </div>
             ))
           ) : (
+            // 实际卡片内容
             getTabContent().map((item, index) => (
               item && item.id ? (
-                <div key={item.id} className="animate-fade-in-up" style={{ animationDelay: `${index * 50}ms` }}>
+                <div 
+                  key={item.id} 
+                  className="animate-fade-in-up" 
+                  style={{ 
+                    animationDelay: `${index * (activeTab === 'news' ? 50 : 30)}ms`,
+                    animationDuration: '0.5s',
+                    animationFillMode: 'both'
+                  }}
+                >
                   {renderCard(item)}
                 </div>
               ) : null
@@ -588,7 +645,7 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
           )}
         </div>
       );
-    } catch (error) {
+    } catch (error: any) {
       console.error('渲染标签页内容失败:', error);
       return (
         <div className="p-8 text-center">
@@ -661,19 +718,20 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
                 <div className="px-4 py-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                   {category.title}
                 </div>
-              )}
+              )}+
+
               <div>
                 {category.tabs.map((tab) => (
                   <button
                     key={tab.id}
                     onClick={() => handleTabChange(tab.id)}
-                    className={`flex items-center w-full px-4 py-2 text-sm ${
+                    className={`flex items-center w-full px-4 py-2 text-sm transition-all duration-200 ease-in-out ${
                       activeTab === tab.id 
-                        ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-200 font-medium' 
-                        : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700/50'
+                        ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-200 font-medium transform translate-x-1' 
+                        : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700/50 hover:translate-x-1'
                     }`}
                   >
-                    <span className="mr-3">
+                    <span className="mr-3 transition-transform duration-200">
                       <TabIcon iconName={tab.icon} />
                     </span>
                     {tab.label}
@@ -685,128 +743,64 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
         </div>
       </div>
       
-      {/* 移动菜单遮罩 */}
-      {isMenuOpen && (
-        <div 
-          className="fixed inset-0 bg-black/50 z-[42] lg:hidden transition-opacity duration-300 ease-in-out" 
-          onClick={() => setIsMenuOpen(false)}
-        />
-      )}
-      
-      {/* 中央浮动详情卡片 */}
+      {/* 主内容区域 */}
+      <div className="flex-1 p-8">
+        {renderTabContent()}
+      </div>
+
+      {/* 悬浮卡片 */}
       <AnimatePresence>
-        {isDetailOpen && (
+        {isDetailOpen && selectedItem && (
           <>
-            {/* 遮罩层 */}
-            <motion.div 
+            {/* 背景遮罩 */}
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="fixed inset-0 bg-black/40 backdrop-blur-md z-[100] flex items-center justify-center"
+              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50"
               onClick={handleCloseDetail}
-            >
-              {/* 详情卡片 */}
-              <motion.div 
-                initial={{ opacity: 0, scale: 0.9, y: 10 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.9, y: 10 }}
-                transition={{ 
-                  type: "spring", 
-                  stiffness: 300, 
-                  damping: 25
-                }}
+            />
+            
+            {/* 卡片内容容器 - 添加外层容器确保居中 */}
+            <div className="fixed inset-0 flex items-center justify-center z-50 px-4 py-6" onClick={handleCloseDetail}>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.2 }}
+                className="w-full max-w-3xl max-h-[85vh] bg-white dark:bg-gray-800 rounded-2xl shadow-2xl overflow-hidden flex flex-col relative"
                 onClick={(e) => e.stopPropagation()}
-                className="w-[95%] sm:w-4/5 md:w-3/4 lg:w-2/3 xl:w-1/2 max-w-[800px] max-h-[85vh] my-4 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm rounded-2xl border border-gray-100 dark:border-gray-700 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] z-[110] flex flex-col overflow-hidden relative"
               >
-                {/* 顶部工具栏按钮 */}
-                <div className="absolute top-3 right-3 z-[10] flex items-center gap-2">
+                {/* 操作按钮组 */}
+                <div className="absolute top-4 right-4 flex items-center gap-2 z-10">
                   {selectedItem?.link && (
-                    <motion.a
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: 0.2 }}
-                      href={selectedItem.link}
+                    <a 
+                      href={selectedItem.link} 
+                      className="p-2 rounded-full bg-white/80 dark:bg-gray-800/80 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-2 rounded-full bg-white/70 hover:bg-white dark:bg-gray-700/70 dark:hover:bg-gray-700 transition-colors text-gray-700 dark:text-gray-200 shadow-sm backdrop-blur-sm"
-                      title="在新标签页中打开"
-                      whileHover={{ scale: 1.1 }}
+                      onClick={(e) => e.stopPropagation()}
                     >
-                      <LucideIcons.ExternalLink size={18} />
-                    </motion.a>
+                      <LucideIcons.ExternalLink size={20} className="text-primary dark:text-primary-foreground" />
+                    </a>
                   )}
-                  <motion.button 
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.3 }}
+                  <button
                     onClick={handleCloseDetail}
-                    className="p-2 rounded-full bg-white/70 hover:bg-white dark:bg-gray-700/70 dark:hover:bg-gray-700 transition-colors text-gray-700 dark:text-gray-200 shadow-sm backdrop-blur-sm"
-                    title="关闭"
-                    whileHover={{ scale: 1.1 }}
+                    className="p-2 rounded-full bg-white/80 dark:bg-gray-800/80 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                   >
-                    <LucideIcons.X size={18} />
-                  </motion.button>
+                    <LucideIcons.X size={20} />
+                  </button>
                 </div>
                 
+                {/* 卡片内容 */}
                 {renderDetailContent()}
               </motion.div>
-            </motion.div>
+            </div>
           </>
         )}
       </AnimatePresence>
-      
-      {/* 主内容区域 */}
-      <div className="flex-1 p-4 pb-24 lg:p-8 lg:pb-24 overflow-y-auto">
-        {/* 标题和描述 */}
-        <div className="mb-8">
-          <div className="flex items-center">
-            {localTabCategories.map(category => 
-              category.tabs.find(tab => tab.id === activeTab)
-            ).filter(Boolean).map(tab => (
-              <div key={tab?.id} className="flex items-center animate-fade-in">
-                <span className="mr-2 p-2 bg-primary/10 dark:bg-primary/20 rounded-lg transition-colors duration-200">
-                  <TabIcon iconName={tab?.icon || ''} />
-                </span>
-                <div>
-                  <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white transition-colors duration-200">
-                    {tab?.label}
-                  </h1>
-                  <p className="mt-2 text-gray-600 dark:text-gray-400 transition-colors duration-200">
-                    {getTabDescription(tab?.id)}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-        
-        {/* 错误信息 */}
-        {activeTab === 'news' && newsError && (
-          <div className="mb-4 p-3 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded animate-fade-in">
-            {newsError}
-          </div>
-        )}
-        
-        {/* 卡片网格 */}
-        {renderTabContent()}
-      </div>
-      
-      {/* 浮动按钮 */}
-      <div className="fixed bottom-20 right-4 flex flex-col gap-3 z-20">
-        {/* 刷新按钮 */}
-        {/* {activeTab === 'news' && (
-          <button
-            onClick={handleRefreshNews}
-            disabled={isLoadingNews}
-            className="p-3 bg-white dark:bg-gray-800 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 ease-in-out hover:scale-110"
-          >
-            <LucideIcons.RefreshCw className={isLoadingNews ? 'animate-spin' : ''} size={20} />
-          </button>
-        )} */}
-      </div>
     </div>
   );
 };
 
-export default AI; 
+export default AI;

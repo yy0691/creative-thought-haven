@@ -37,6 +37,12 @@ export default defineConfig(({ mode }) => ({
     host: "::",
     port: 8080,
   },
+  optimizeDeps: {
+    include: ['@emotion/react', '@emotion/styled', '@mui/material', '@mui/icons-material'],
+    esbuildOptions: {
+      jsx: 'automatic',
+    }
+  },
   build: {
     target: 'es2015',
     minify: 'terser',
@@ -147,6 +153,8 @@ export default defineConfig(({ mode }) => ({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+      "@emotion/react": path.resolve(__dirname, "./node_modules/@emotion/react"),
+      "@emotion/styled": path.resolve(__dirname, "./node_modules/@emotion/styled"),
     },
   },
 }));

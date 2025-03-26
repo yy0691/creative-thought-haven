@@ -1,59 +1,45 @@
 import axios from 'axios';
 import { CardItem } from './types';
-
+import { vercelAiSdkContent } from './news-content/vercel-ai-sdk';
+import { deepSeekV3Content } from './news-content/deepseek-v3';
+import { gpt5Content } from './news-content/gpt5';
+import { deepmindContent } from './news-content/deepmind';
+import { claudeThinkContent } from './news-content/claude-think';
 // 默认新闻数据
 export const defaultNewsItems: CardItem[] = [
   {
-    id: '0',
-    title: 'DeepSeek-V3 正式发布',
-    description: 'Anthropic发布Claude 4.0，在多模态理解、代码生成和长文本处理方面都有重大突破。新版本支持实时语音对话，并能处理超过100万token的上下文。',
+    id: 'new-1',
+    title: 'Vercel发布AISDK4.2版本引入一系列重大更新支持推理模型、MCP、图像生成等',
+    description: ' 加入了多模态（图像+文本）、支持开放模型上下文协议（MCP）、推理能力、搜索来源展示、Svelte 5 支持等众多新特性。',
     author: 'Anthropic',
     date: '2025-03-19',
-    image: 'https://images.crunchbase.com/image/upload/c_lpad,h_256,w_256,f_auto,q_auto:eco,dpr_1/smozbwxkmn5ksr1q9vl1',
+    image: 'https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/AiNews/img_v3_02km_9f052d63-3541-488c-a56b-bed376ee7d5g.jpg',
+    link: 'https://vercel.com/blog/ai-sdk-4-2',
     category: 'LLM',
-    content: `
-    
-    `
+    content: vercelAiSdkContent
+  },
+  {
+    id: 'new-2',
+    title: 'Claude发布新功能“think”工具',
+    description: 'think工具可以让AI在复杂任务解决过程中拥有专门的思考空间。',
+    author: 'Anthropic',
+    date: '2025-03-19',
+    image: 'https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/AiNews/image-20250326230344704.png',
+    link: 'https://www.anthropic.com/engineering/claude-think-tool',
+    category: 'LLM',
+    content: claudeThinkContent
   },
   // 自动更新的新闻将插入到这里
   {
     id: '1',
     title: 'DeepSeek-V3 正式发布',
-    description: 'Anthropic发布Claude 4.0，在多模态理解、代码生成和长文本处理方面都有重大突破。新版本支持实时语音对话，并能处理超过100万token的上下文。',
+    description: 'DeepSeek 的新 V3 在 aider 的多语言基准测试中得分为 55%，比上一版本有显著提升。它是排名第二的非思考/推理模型，仅次于 Sonnet 3.7。V3 与 R1 和 o3-mini 等思考模型相比具有竞争力。',
     author: 'Anthropic',
     date: '2025-03-19',
-    image: 'https://images.crunchbase.com/image/upload/c_lpad,h_256,w_256,f_auto,q_auto:eco,dpr_1/smozbwxkmn5ksr1q9vl1',
+    image: 'https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/AiNews/img_v3_02kn_f68891a8-627b-49fd-a86f-21ee8ecc0dbg.jpg',
     category: 'LLM',
     link: 'https://api-docs.deepseek.com/zh-cn/news/news1226',
-    content: `## Claude 4.0 重大技术突破
-
-Anthropic发布的Claude 4.0在多个方面取得了显著进步，相比之前的版本有以下明显改进：
-
-### 多模态理解能力
-
-- 支持实时图像分析，能够快速理解复杂的图表和图像
-- 可以从医学影像中提取关键信息
-- 支持视觉推理任务，包括视觉问答和图像描述
-
-### 代码生成
-
-- 支持更多编程语言，包括最新的框架和库
-- 代码质量提升50%，错误率降低30%
-- 能够理解和优化大型代码库
-
-### 长文本处理
-
-- 支持超过100万token的上下文窗口
-- 可以分析完整的书籍和长篇文档
-- 长文本记忆和引用能力大幅提升
-
-### 实时语音对话
-
-- 支持自然流畅的语音交互
-- 多种语言和口音的识别准确率超过95%
-- 极低的延迟，提供近乎实时的响应
-
-Claude 4.0的推出标志着AI助手领域的新标杆，为企业和个人用户提供了更强大的AI支持工具。`
+    content: deepSeekV3Content
   },
   {
     id: '2',
@@ -64,33 +50,7 @@ Claude 4.0的推出标志着AI助手领域的新标杆，为企业和个人用�
     image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/OpenAI_Logo.svg/1024px-OpenAI_Logo.svg.png',
     category: 'LLM',
     link: 'https://openai.com/',
-    content: `## GPT-5多模态版本：AI的新视界
-
-OpenAI最新发布的GPT-5多模态版本代表了AI领域的重大突破，首次实现了真正的视频理解和生成能力。
-
-### 核心技术突破
-
-GPT-5多模态版本基于全新的神经网络架构，集成了以下关键技术：
-
-- **时空注意力机制**：能够同时理解视频中的空间和时间信息
-- **跨模态对齐**：将文本、音频和视频信息无缝整合
-- **实时处理引擎**：支持低延迟的视频分析和生成
-
-### 主要功能
-
-1. **视频分析**：可以理解和描述视频内容，识别场景、物体和活动
-2. **视频对话**：支持与用户进行实时视频交流，包括表情和手势识别
-3. **视频生成**：根据文本描述生成高质量、连贯的视频内容
-4. **视频编辑**：提供智能视频编辑建议和自动化编辑功能
-
-### 应用场景
-
-- 教育领域：创建个性化视频教学内容
-- 医疗行业：分析医疗影像并提供初步诊断
-- 创意产业：辅助视频创作和编辑
-- 客户服务：提供视频客服和支持
-
-这一突破性技术将显著改变人们与AI交互的方式，开创了多模态AI的新时代。`
+    content: gpt5Content
   },
   {
     id: '3',
@@ -101,36 +61,7 @@ GPT-5多模态版本基于全新的神经网络架构，集成了以下关键技
     image: 'https://storage.googleapis.com/deepmind-live-cms/images/social_share_image.width-1100.png',
     category: '科研突破',
     link: 'https://deepmind.google/',
-    content: `## 量子计算的革命性突破
-
-Google DeepMind最新发布的研究成果代表了量子计算领域的重大突破，有望加速实用量子计算机的实现。
-
-### 技术细节
-
-研究团队开发了一种全新的量子算法和材料组合，实现了以下关键突破：
-
-- **室温量子稳定性**：在常温环境下保持量子相干性超过1小时
-- **错误校正**：将量子计算的错误率降低到前所未有的0.01%以下
-- **可扩展架构**：支持超过1000个量子比特的集成
-
-### 工作原理
-
-新型量子系统使用了基于拓扑绝缘体的特殊量子比特，结合先进的错误校正算法：
-
-1. 拓扑保护机制保护量子信息免受环境干扰
-2. 多级错误检测系统实时监控和校正量子态
-3. 自适应控制系统动态调整量子操作参数
-
-### 潜在影响
-
-这一突破将对多个领域产生深远影响：
-
-- **药物研发**：能够模拟复杂分子结构，加速新药发现
-- **材料科学**：设计具有特定性能的新型材料
-- **密码学**：开发后量子密码系统，应对量子计算带来的安全挑战
-- **人工智能**：量子机器学习算法可能带来指数级性能提升
-
-DeepMind的这一成果被认为是量子计算领域的里程碑，可能将量子计算的实用化时间表提前10年以上。`
+    content: deepmindContent
   },
   {
     id: '4',

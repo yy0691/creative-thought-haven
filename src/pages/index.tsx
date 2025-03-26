@@ -224,13 +224,13 @@ const Index = () => {
         </div>
         
         {/* 交互式时间轴 */}
-        <div 
+        {/* <div 
           className={`transition-all duration-1000 transform px-4 max-w-7xl mx-auto ${
             showTimeline ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'
           }`}
         >
           <Timeline nodes={timelineData} />
-        </div>
+        </div> */}
   
         {/* 推荐内容区域 */}
         <div className={`max-w-7xl mx-auto px-4 pb-32 mt-20 transition-all duration-1000 transform ${

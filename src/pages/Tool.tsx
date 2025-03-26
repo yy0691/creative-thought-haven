@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { loadMarkdownById } from '../utils/markdownLoader';
 import { CardItem } from '../data/ai/types';
 import ReactMarkdown from 'react-markdown';
-import { CircularProgress, Container, Typography, Box, Divider, Avatar, Chip } from '@mui/material';
+import { CircularProgress, Container, Typography, Box, Divider, Chip } from '@mui/material';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import PersonIcon from '@mui/icons-material/Person';
 import ImageDisplay from '../components/ImageDisplay';
