@@ -54,24 +54,6 @@ const CardImage = ({ src, alt }: { src: string, alt: string }) => {
     setIsLoading(false);
   };
   
-  const getImageUrl = (url: string) => {
-    // 如果是完整的URL（以http://或https://开头），使用图片代理服务
-    if (url.startsWith('http://') || url.startsWith('https://')) {
-      try {
-        // 使用免费的图片代理服务 - 这解决了CORS问题
-        return `https://images.weserv.nl/?url=${encodeURIComponent(url)}&fit=cover&ar=16:9`;
-      } catch (error) {
-        console.error('Error encoding URL:', url, error);
-        return url;
-      }
-    }
-    // 如果是相对路径（以/开头）
-    if (url.startsWith('/')) {
-      return url;
-    }
-    // 如果是本地图片路径
-    return `/images/ai/${url}`;
-  };
   
   if (imgError) {
     // 显示备用图像或占位符
@@ -94,7 +76,7 @@ const CardImage = ({ src, alt }: { src: string, alt: string }) => {
       )}
       <img 
         ref={imageRef}
-        src={getImageUrl(src)}
+        src={src}
         alt={alt} 
         className={`w-full h-full object-cover transition-opacity duration-300 ${
           isLoading ? 'opacity-0' : 'opacity-100'
