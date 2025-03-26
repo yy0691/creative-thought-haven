@@ -13,9 +13,9 @@ const __dirname = dirname(__filename);
 dotenv.config({ path: resolve(__dirname, '.env.local') });
 
 // 提取环境变量
-const pat = process.env.VITE_COZE_PAT;
-const botId = process.env.VITE_COZE_BOT_ID || '7433632883987939380';
-const baseUrl = 'https://api.coze.cn/v1';
+// const pat = process.env.VITE_COZE_PAT;
+// const botId = process.env.VITE_COZE_BOT_ID || '7433632883987939380';
+const baseUrl = 'https://api.coze.cn';
 
 // 打印状态信息函数
 const log = {
@@ -252,3 +252,42 @@ testCozeAPI().catch(error => {
   log.error(`发生未捕获的错误: ${error.message}`);
   process.exit(1);
 });
+
+// 初始化
+async function init() {
+  log.info('Coze API测试工具启动');
+  
+  // API测试已禁用
+  log.info('Coze API测试功能已禁用。');
+  process.exit(0);
+  
+  /*
+  if (!pat) {
+    log.error('环境变量 VITE_COZE_PAT 未设置。请在 .env.local 文件中设置。');
+    log.info('请确保 .env.local 文件存在并包含 VITE_COZE_PAT=your_token_here');
+    process.exit(1);
+  }
+  */
+  
+  // ... 继续注释掉其他相关代码 ...
+}
+
+// 主函数
+async function main() {
+  await init();
+  // 以下代码不会执行，因为init函数会终止程序
+  /*
+  // 环境检查
+  await checkEnvironment();
+  
+  // 获取访问令牌
+  const accessToken = await getAccessToken();
+  if (!accessToken) {
+    log.error('无法获取访问令牌，终止测试。');
+    process.exit(1);
+  }
+  
+  // 测试聊天API
+  await testChatAPI(accessToken);
+  */
+}

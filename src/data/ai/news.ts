@@ -333,6 +333,7 @@ DeepMind的这一成果被认为是量子计算领域的里程碑，可能将量
 ];
 
 // 获取Coze访问令牌
+/*
 export const getCozeAccessToken = async () => {
   try {
     // Coze API服务地址
@@ -370,9 +371,14 @@ export const getCozeAccessToken = async () => {
     return null;
   }
 };
+*/
 
 // 从Coze智能体API获取最新新闻
 export const fetchLatestNews = async (): Promise<CardItem[]> => {
+  // 返回默认新闻数据，不再调用Coze API
+  return defaultNewsItems;
+  
+  /*
   try {
     // Coze API地址
     const baseUrl = 'https://api.coze.cn';
@@ -429,4 +435,5 @@ export const fetchLatestNews = async (): Promise<CardItem[]> => {
     console.error('获取新闻数据失败:', error);
     return [];
   }
+  */
 }; 

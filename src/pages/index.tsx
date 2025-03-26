@@ -9,6 +9,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, BookOpen, Code, Star, ExternalLink, ArrowLeft, Newspaper } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { defaultNewsItems } from '../data/ai/news';
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const Index = () => {
   const [recommendedPosts, setRecommendedPosts] = useState([]);

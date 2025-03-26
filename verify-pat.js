@@ -12,8 +12,10 @@ const __dirname = dirname(__filename);
 // 加载环境变量
 dotenv.config({ path: resolve(__dirname, '.env.local') });
 
+// 从环境变量中获取PAT
+// const pat = process.env.VITE_COZE_PAT;
+
 // 提取环境变量
-const pat = process.env.VITE_COZE_PAT;
 const baseUrl = 'https://api.coze.cn';
 
 // 打印状态信息函数
@@ -32,22 +34,28 @@ function maskPAT(token) {
   return token.substring(0, 4) + '...' + token.substring(token.length - 4);
 }
 
-// 验证PAT
-async function verifyPAT() {
+// 测试PAT是否有效并获取过期时间
+async function testPAT() {
   log.info('开始验证PAT...');
   
-  if (!pat) {
-    log.error('环境变量 VITE_COZE_PAT 未设置。请在 .env.local 文件中设置。');
-    log.info('请确保 .env.local 文件存在并包含 VITE_COZE_PAT=your_token_here');
-    return false;
-  }
+  // if (!pat) {
+  //   log.error('环境变量 VITE_COZE_PAT 未设置。请在 .env.local 文件中设置。');
+  //   log.info('请确保 .env.local 文件存在并包含 VITE_COZE_PAT=your_token_here');
+  //   return false;
+  // }
   
   try {
-    log.info(`使用PAT: ${maskPAT(pat)}`);
+    // PAT验证已禁用，直接返回
+    log.info('PAT验证功能已禁用。');
+    return false;
     
+    /*
+    // 请求访问令牌
     const response = await axios.post(
       `${baseUrl}/api/auth/v1/access_token`,
-      { grant_type: 'client_credentials' },
+      {
+        grant_type: 'client_credentials'
+      },
       {
         headers: {
           'Authorization': `Bearer ${pat}`,
@@ -56,34 +64,54 @@ async function verifyPAT() {
       }
     );
     
+    // 检查响应
     if (response.data && response.data.access_token) {
-      log.success('PAT验证成功！可以正常获取访问令牌。');
-      log.info(`令牌有效期: ${response.data.expires_in}秒`);
-      return true;
-    } else {
-      log.error('响应异常，但未返回错误。');
-      log.data(response.data);
-      return false;
-    }
-  } catch (error) {
-    log.error(`PAT验证失败: ${error.message}`);
-    
-    if (error.response) {
-      log.error(`状态码: ${error.response.status}`);
+      log.success('PAT验证成功! 可以使用该PAT访问Coze API。');
       
-      if (error.response.data) {
-        log.data(error.response.data);
-        
-        // 针对常见错误提供具体建议
-        if (error.response.status === 401 || 
-            (error.response.data.code && error.response.data.code === 700012006)) {
-          log.info('提示: "Login verification is invalid" 通常表示PAT已过期或格式不正确。');
-          log.info('请访问 https://www.coze.cn 并在账户设置中重新生成PAT。');
-          log.info('步骤: 登录Coze -> 点击右上角头像 -> 设置 -> API访问 -> 生成新Token');
+      // 尝试解析JWT令牌获取过期时间
+      const tokenParts = response.data.access_token.split('.');
+      if (tokenParts.length === 3) {
+        try {
+          const payload = JSON.parse(Buffer.from(tokenParts[1], 'base64').toString());
+          if (payload.exp) {
+            const expDate = new Date(payload.exp * 1000);
+            log.info(`访问令牌有效期至: ${expDate.toLocaleString()}`);
+            
+            // 计算剩余有效天数
+            const now = new Date();
+            const daysRemaining = Math.ceil((expDate - now) / (1000 * 60 * 60 * 24));
+            
+            if (daysRemaining <= 5) {
+              log.warn(`⚠️ 访问令牌将在 ${daysRemaining} 天后过期，建议尽快更新PAT。`);
+            } else {
+              log.info(`访问令牌剩余有效期: ${daysRemaining} 天`);
+            }
+          }
+        } catch (e) {
+          log.warn('无法解析令牌过期时间');
         }
       }
-    } else if (error.code === 'ENOTFOUND') {
-      log.info('提示: 无法连接到服务器。请检查您的网络连接。');
+      
+      return true;
+    } else {
+      log.error('PAT验证失败: 未能获取有效的访问令牌');
+      return false;
+    }
+    */
+  } catch (error) {
+    log.error('PAT验证失败:', error.message);
+    
+    if (error.response) {
+      const status = error.response.status;
+      const data = error.response.data;
+      
+      if (status === 401) {
+        log.error('认证失败: PAT无效或已过期');
+      } else {
+        log.error(`服务器返回错误 (${status}):`, data);
+      }
+    } else if (error.request) {
+      log.error('无法连接到Coze API服务器，请检查网络连接');
     }
     
     return false;
@@ -93,7 +121,7 @@ async function verifyPAT() {
 // 主函数
 async function main() {
   log.info('PAT验证工具启动');
-  const isValid = await verifyPAT();
+  const isValid = await testPAT();
   
   if (isValid) {
     log.success('验证完成: PAT有效');

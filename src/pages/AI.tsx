@@ -12,7 +12,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 // 导入类型和数据
 import { CardItem } from '../data/ai';
 import { toolsItems } from '../data/ai/tools';
-import { defaultNewsItems, fetchLatestNews, getCozeAccessToken } from '../data/ai';
+import { defaultNewsItems, fetchLatestNews } from '../data/ai';
 import { learningItems } from '../data/ai/learning';
 import { coursesItems } from '../data/ai/courses';
 import { deeplearningItems } from '../data/ai/deeplearning';
@@ -22,45 +22,53 @@ import { linksItems } from '../data/ai/links';
 // 图片组件
 const CardImage = ({ src, alt }: { src: string, alt: string }) => {
   const [imgError, setImgError] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isInView, setIsInView] = useState(false);
-  const imageRef = useRef<HTMLImageElement>(null);
   
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsInView(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1 }
+  // 确保src有值
+  if (!src) {
+    console.warn('图片源地址为空');
+    return (
+      <div className="w-full h-40 flex items-center justify-center bg-gray-100 dark:bg-gray-700">
+        <div className="flex flex-col items-center text-gray-400">
+          <LucideIcons.ImageOff size={24} />
+          <span className="text-xs mt-2">无图片</span>
+        </div>
+      </div>
     );
-
-    if (imageRef.current) {
-      observer.observe(imageRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  const handleError = () => {
-    setImgError(true);
-    setIsLoading(false);
-    console.error('Image failed to load:', src);
-  };
-
-  const handleLoad = () => {
-    setIsLoading(false);
-  };
+  }
   
+  // 处理图片URL
+  let imageUrl = src;
+  
+  // 对于远程URL，使用代理
+  if (src.startsWith('http')) {
+    // 在生产环境使用代理
+    const isProduction = import.meta.env.PROD;
+    if (isProduction) {
+      const encodedUrl = encodeURIComponent(src);
+      imageUrl = `/image-proxy?url=${encodedUrl}`;
+    } else {
+      // 开发环境直接使用原始URL
+      imageUrl = src;
+    }
+  } else if (src.startsWith('/')) {
+    // 如果是相对路径，不做修改
+    imageUrl = src;
+  } else {
+    // 如果不是相对路径，假设是本地图片
+    imageUrl = `/images/ai/${src}`;
+  }
+  
+  const handleError = () => {
+    console.error('图片加载失败:', imageUrl);
+    setImgError(true);
+  };
   
   if (imgError) {
     // 显示备用图像或占位符
     return (
       <div className="w-full h-40 flex items-center justify-center bg-gray-100 dark:bg-gray-700">
         <div className="flex flex-col items-center text-gray-400">
-          <LucideIcons.Image size={24} />
+          <LucideIcons.ImageOff size={24} />
           <span className="text-xs mt-2">{alt}</span>
         </div>
       </div>
@@ -68,24 +76,13 @@ const CardImage = ({ src, alt }: { src: string, alt: string }) => {
   }
   
   return (
-    <div className="relative w-full h-full">
-      {isLoading && (
-        <div className="absolute inset-0 bg-gray-100 dark:bg-gray-700 animate-pulse flex items-center justify-center">
-          <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
-        </div>
-      )}
-      <img 
-        ref={imageRef}
-        src={src}
-        alt={alt} 
-        className={`w-full h-full object-cover transition-opacity duration-300 ${
-          isLoading ? 'opacity-0' : 'opacity-100'
-        }`}
-        loading="lazy"
-        onError={handleError}
-        onLoad={handleLoad}
-      />
-    </div>
+    <img 
+      src={imageUrl}
+      alt={alt} 
+      className="w-full h-full object-cover"
+      onError={handleError}
+      loading="lazy"
+    />
   );
 };
 
@@ -211,22 +208,27 @@ const AI = () => {
 
   // 获取当前标签页内容
   const getTabContent = () => {
-    switch(activeTab) {
-      case 'news': return newsData;
-      case 'tools': return toolsItems;
-      case 'prompts': return promptsItems;
-      case 'learning': return []; // 临时返回空数组，因为learningItems不可用
-      case 'courses': return coursesItems;
-      case 'deeplearning': return deeplearningItems;
-      case 'links': return linksItems;
-      case 'general': return toolsItems.filter(item => item.category === '通用类AI');
-      case 'painting': return toolsItems.filter(item => item.category === 'AI绘画');
-      case 'writing': return toolsItems.filter(item => item.category === 'AI写作');
-      case 'voice': return toolsItems.filter(item => item.category === 'AI语音');
-      case 'video': return toolsItems.filter(item => item.category === 'AI视频');
-      case 'security': return toolsItems.filter(item => item.category === 'AI安全');
-      case 'other': return toolsItems.filter(item => item.category === '其他');
-      default: return [];
+    try {
+      switch(activeTab) {
+        case 'news': return newsData || [];
+        case 'tools': return toolsItems || [];
+        case 'prompts': return promptsItems || [];
+        case 'learning': return learningItems || [];
+        case 'courses': return coursesItems || [];
+        case 'deeplearning': return deeplearningItems || [];
+        case 'links': return linksItems || [];
+        case 'general': return (toolsItems || []).filter(item => item.category === '通用类AI');
+        case 'painting': return (toolsItems || []).filter(item => item.category === 'AI绘画');
+        case 'writing': return (toolsItems || []).filter(item => item.category === 'AI写作');
+        case 'voice': return (toolsItems || []).filter(item => item.category === 'AI语音');
+        case 'video': return (toolsItems || []).filter(item => item.category === 'AI视频');
+        case 'security': return (toolsItems || []).filter(item => item.category === 'AI安全');
+        case 'other': return (toolsItems || []).filter(item => item.category === '其他');
+        default: return [];
+      }
+    } catch (error) {
+      console.error('获取标签页内容失败:', error);
+      return [];
     }
   };
 
@@ -430,137 +432,159 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
 
   // 渲染特定标签页内容
   const renderTabContent = () => {
-    if (activeTab === 'links') {
-      // 为链接汇总标签页提供特殊渲染逻辑
-      // 将链接按类别分组
-      const categoryGroups: { [key: string]: CardItem[] } = {};
-      linksItems.forEach(item => {
-        if (item.category) {
-          if (!categoryGroups[item.category]) {
-            categoryGroups[item.category] = [];
-          }
-          categoryGroups[item.category].push(item);
-        }
-      });
-
-      // 根据类别获取相应的颜色
-      const getCategoryColors = (category: string) => {
-        const colorMap: {[key: string]: {bg: string, text: string, hoverBg: string, darkBg: string, darkText: string, darkHoverBg: string}} = {
-          '学术资源': {
-            bg: 'bg-blue-100', 
-            text: 'text-blue-700', 
-            hoverBg: 'hover:bg-blue-200',
-            darkBg: 'dark:bg-blue-900/30',
-            darkText: 'dark:text-blue-200',
-            darkHoverBg: 'dark:hover:bg-blue-800/50'
-          },
-          '开源平台': {
-            bg: 'bg-green-100', 
-            text: 'text-green-700', 
-            hoverBg: 'hover:bg-green-200',
-            darkBg: 'dark:bg-green-900/30',
-            darkText: 'dark:text-green-200',
-            darkHoverBg: 'dark:hover:bg-green-800/50'
-          },
-          '实践平台': {
-            bg: 'bg-purple-100', 
-            text: 'text-purple-700', 
-            hoverBg: 'hover:bg-purple-200',
-            darkBg: 'dark:bg-purple-900/30',
-            darkText: 'dark:text-purple-200',
-            darkHoverBg: 'dark:hover:bg-purple-800/50'
-          },
-          '趋势分析': {
-            bg: 'bg-orange-100', 
-            text: 'text-orange-700', 
-            hoverBg: 'hover:bg-orange-200',
-            darkBg: 'dark:bg-orange-900/30',
-            darkText: 'dark:text-orange-200',
-            darkHoverBg: 'dark:hover:bg-orange-800/50'
-          },
-          '研究机构': {
-            bg: 'bg-red-100', 
-            text: 'text-red-700', 
-            hoverBg: 'hover:bg-red-200',
-            darkBg: 'dark:bg-red-900/30',
-            darkText: 'dark:text-red-200',
-            darkHoverBg: 'dark:hover:bg-red-800/50'
-          }
-        };
+    try {
+      if (activeTab === 'links') {
+        // 为链接汇总标签页提供特殊渲染逻辑
+        // 将链接按类别分组
+        const categoryGroups: { [key: string]: CardItem[] } = {};
+        const itemsToRender = linksItems || [];
         
-        return colorMap[category] || {
-          bg: 'bg-gray-100', 
-          text: 'text-gray-700', 
-          hoverBg: 'hover:bg-gray-200',
-          darkBg: 'dark:bg-gray-800/50',
-          darkText: 'dark:text-gray-200',
-          darkHoverBg: 'dark:hover:bg-gray-700/70'
-        };
-      };
+        itemsToRender.forEach(item => {
+          if (item.category) {
+            if (!categoryGroups[item.category]) {
+              categoryGroups[item.category] = [];
+            }
+            categoryGroups[item.category].push(item);
+          }
+        });
 
+        // 根据类别获取相应的颜色
+        const getCategoryColors = (category: string) => {
+          const colorMap: {[key: string]: {bg: string, text: string, hoverBg: string, darkBg: string, darkText: string, darkHoverBg: string}} = {
+            '学术资源': {
+              bg: 'bg-blue-100', 
+              text: 'text-blue-700', 
+              hoverBg: 'hover:bg-blue-200',
+              darkBg: 'dark:bg-blue-900/30',
+              darkText: 'dark:text-blue-200',
+              darkHoverBg: 'dark:hover:bg-blue-800/50'
+            },
+            '开源平台': {
+              bg: 'bg-green-100', 
+              text: 'text-green-700', 
+              hoverBg: 'hover:bg-green-200',
+              darkBg: 'dark:bg-green-900/30',
+              darkText: 'dark:text-green-200',
+              darkHoverBg: 'dark:hover:bg-green-800/50'
+            },
+            '实践平台': {
+              bg: 'bg-purple-100', 
+              text: 'text-purple-700', 
+              hoverBg: 'hover:bg-purple-200',
+              darkBg: 'dark:bg-purple-900/30',
+              darkText: 'dark:text-purple-200',
+              darkHoverBg: 'dark:hover:bg-purple-800/50'
+            },
+            '趋势分析': {
+              bg: 'bg-orange-100', 
+              text: 'text-orange-700', 
+              hoverBg: 'hover:bg-orange-200',
+              darkBg: 'dark:bg-orange-900/30',
+              darkText: 'dark:text-orange-200',
+              darkHoverBg: 'dark:hover:bg-orange-800/50'
+            },
+            '研究机构': {
+              bg: 'bg-red-100', 
+              text: 'text-red-700', 
+              hoverBg: 'hover:bg-red-200',
+              darkBg: 'dark:bg-red-900/30',
+              darkText: 'dark:text-red-200',
+              darkHoverBg: 'dark:hover:bg-red-800/50'
+            }
+          };
+          
+          return colorMap[category] || {
+            bg: 'bg-gray-100', 
+            text: 'text-gray-700', 
+            hoverBg: 'hover:bg-gray-200',
+            darkBg: 'dark:bg-gray-800/50',
+            darkText: 'dark:text-gray-200',
+            darkHoverBg: 'dark:hover:bg-gray-700/70'
+          };
+        };
+
+        return (
+          <div className="space-y-8 mt-2">
+            {Object.entries(categoryGroups).map(([category, items]) => (
+              <div key={category} className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+                  {category}
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {items.map(item => {
+                    if (!item.id || !item.title) return null;
+                    const colors = getCategoryColors(category);
+                    return (
+                      <a
+                        key={item.id}
+                        href={item.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`inline-flex items-center px-4 py-2 rounded-full ${colors.bg} ${colors.text} ${colors.hoverBg} ${colors.darkBg} ${colors.darkText} ${colors.darkHoverBg} transition-colors`}
+                      >
+                        {item.title}
+                        <LucideIcons.ExternalLink size={14} className="ml-1" />
+                      </a>
+                    );
+                  })}
+                </div>
+                <div className="mt-4 text-sm text-gray-500 dark:text-gray-400">
+                  {items.map(item => (
+                    item.id && item.title ? (
+                      <div key={`desc-${item.id}`} className="py-1">
+                        <span className="font-medium">{item.title}</span>: {item.description}
+                      </div>
+                    ) : null
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        );
+      }
+
+      // 其他标签页使用卡片网格布局
       return (
-        <div className="space-y-8 mt-2">
-          {Object.entries(categoryGroups).map(([category, items]) => (
-            <div key={category} className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
-                {category}
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {items.map(item => {
-                  const colors = getCategoryColors(category);
-                  return (
-                    <a
-                      key={item.id}
-                      href={item.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`inline-flex items-center px-4 py-2 rounded-full ${colors.bg} ${colors.text} ${colors.hoverBg} ${colors.darkBg} ${colors.darkText} ${colors.darkHoverBg} transition-colors`}
-                    >
-                      {item.title}
-                      <LucideIcons.ExternalLink size={14} className="ml-1" />
-                    </a>
-                  );
-                })}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {isLoadingNews && activeTab === 'news' ? (
+            // 骨架屏
+            Array(6).fill(0).map((_, index) => (
+              <div key={index} className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden animate-pulse">
+                <div className="w-full h-40 bg-gray-200 dark:bg-gray-700"></div>
+                <div className="p-5">
+                  <div className="h-6 w-24 bg-gray-200 dark:bg-gray-700 rounded mb-2"></div>
+                  <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded mb-2"></div>
+                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded mb-1"></div>
+                  <div className="h-4 w-3/4 bg-gray-200 dark:bg-gray-700 rounded mb-4"></div>
+                  <div className="h-5 w-1/3 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                </div>
               </div>
-              <div className="mt-4 text-sm text-gray-500 dark:text-gray-400">
-                {items.map(item => (
-                  <div key={`desc-${item.id}`} className="py-1">
-                    <span className="font-medium">{item.title}</span>: {item.description}
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
+            ))
+          ) : (
+            getTabContent().map((item, index) => (
+              item && item.id ? (
+                <div key={item.id} className="animate-fade-in-up" style={{ animationDelay: `${index * 50}ms` }}>
+                  {renderCard(item)}
+                </div>
+              ) : null
+            ))
+          )}
+        </div>
+      );
+    } catch (error) {
+      console.error('渲染标签页内容失败:', error);
+      return (
+        <div className="p-8 text-center">
+          <p className="text-gray-600 dark:text-gray-400">加载内容时出现错误，请刷新页面重试。</p>
+          <button 
+            onClick={() => window.location.reload()}
+            className="mt-4 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors"
+          >
+            刷新页面
+          </button>
         </div>
       );
     }
-
-    // 其他标签页使用卡片网格布局
-    return (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {isLoadingNews && activeTab === 'news' ? (
-          // 骨架屏
-          Array(6).fill(0).map((_, index) => (
-            <div key={index} className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden animate-pulse">
-              <div className="w-full h-40 bg-gray-200 dark:bg-gray-700"></div>
-              <div className="p-5">
-                <div className="h-6 w-24 bg-gray-200 dark:bg-gray-700 rounded mb-2"></div>
-                <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded mb-2"></div>
-                <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded mb-1"></div>
-                <div className="h-4 w-3/4 bg-gray-200 dark:bg-gray-700 rounded mb-4"></div>
-                <div className="h-5 w-1/3 bg-gray-200 dark:bg-gray-700 rounded"></div>
-              </div>
-            </div>
-          ))
-        ) : (
-          getTabContent().map((item, index) => (
-            <div key={item.id} className="animate-fade-in-up" style={{ animationDelay: `${index * 50}ms` }}>
-              {renderCard(item)}
-            </div>
-          ))
-        )}
-      </div>
-    );
   };
 
   return (
