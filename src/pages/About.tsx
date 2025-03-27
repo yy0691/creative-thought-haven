@@ -44,9 +44,9 @@ const About = () => {
         <section className="space-y-4">
           <h2 className="text-2xl font-semibold bg-gradient-to-r from-primary/80 to-primary bg-clip-text text-transparent">你好！</h2>
           <p className="text-muted-foreground leading-relaxed dark:text-gray-300">
-            一位喜欢把技术编程实用工具的产品经理。<br />
-            擅长利用Python实现自动化，并利用AI技术优化工作流程。<br />
-            持续探索AI赋能垂直场景的实践路径……
+            👨‍💻 热爱把技术转化为实用工具的产品经理<br />
+            🐍 擅长用Python打造自动化工具，提升工作效率<br />
+            🔍 关注技术如何解决实际业务问题
           </p>
         </section>
 
@@ -89,15 +89,15 @@ const About = () => {
         </section>
 
         <section className="space-y-4">
-          <h2 className="text-2xl font-semibold bg-gradient-to-r from-primary/80 to-primary bg-clip-text text-transparent">最近在做什么</h2>
+          <h2 className="text-2xl font-semibold bg-gradient-to-r from-primary/80 to-primary bg-clip-text text-transparent">最近在做什么？</h2>
           <div className="space-y-6">
             <div className="group hover:bg-primary/5 p-4 rounded-lg transition-all duration-300 transform-gpu cursor-default hover:translate-y-[-8px] hover:shadow-lg dark:hover:bg-primary/20" style={{ transformStyle: 'preserve-3d', backfaceVisibility: 'hidden', perspective: '1000px' }}>
               <h3 className="text-lg font-medium group-hover:text-primary transition-colors dark:text-gray-200">产品经理</h3>
-              <p className="text-muted-foreground group-hover:text-primary/80 transition-colors dark:text-gray-300">负责虚拟仿真产品交互设计。</p>
+              <p className="text-muted-foreground group-hover:text-primary/80 transition-colors dark:text-gray-300">🎮 设计虚拟仿真产品界面与交互体验，让复杂操作变得简单直观，提升用户体验。</p>
             </div>
             <div className="group hover:bg-primary/5 p-4 rounded-lg transition-all duration-300 transform-gpu cursor-default hover:translate-y-[-8px] hover:shadow-lg dark:hover:bg-primary/20" style={{ transformStyle: 'preserve-3d', backfaceVisibility: 'hidden', perspective: '1000px' }}>
-              <h3 className="text-lg font-medium group-hover:text-primary transition-colors dark:text-gray-200">UI/UX 设计师</h3>
-              <p className="text-muted-foreground group-hover:text-primary/80 transition-colors dark:text-gray-300">设计并实现富有创意的用户界面，确保最佳的用户体验。</p>
+              <h3 className="text-lg font-medium group-hover:text-primary transition-colors dark:text-gray-200">技术学习</h3>
+              <p className="text-muted-foreground group-hover:text-primary/80 transition-colors dark:text-gray-300">📚 研究自动化工具开发，探索如何将新技术应用到实际工作中，提高团队协作效率。</p>
             </div>
           </div>
         </section>
@@ -105,10 +105,10 @@ const About = () => {
         <section className="space-y-4">
           <h2 className="text-2xl font-semibold bg-gradient-to-r from-primary/80 to-primary bg-clip-text text-transparent">联系方式</h2>
           <p className="text-muted-foreground dark:text-gray-300">
-          我始终相信技术存在的意义是解决真实世界的难题，如果你正在:<br />
-            🔧 琢磨利用AI技术优化工作流程  <br />
-            💡 探索AI+垂直行业的创新可能  <br />
-            🚀 构建高效可靠的技术产品团队  
+          💡 我相信技术的价值在于解决现实问题，如果你正在:<br />
+            🛠️ 寻找提升工作效率的实用方法<br />
+            🌱 探索技术在行业中的创新应用<br />
+            🤝 构建高效团队，打造出色产品
           欢迎与我交流！
           </p>
           <div className="flex flex-col sm:flex-row gap-3">
