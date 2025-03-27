@@ -7,8 +7,9 @@
       "config": {
         "distDir": "dist",
         "zeroConfig": true,
-        "installCommand": "npm install --legacy-peer-deps --production=false",
-        "buildCommand": "npm install vite --global && npm run build"
+        "installCommand": "npm install --legacy-peer-deps",
+        "buildCommand": "npm run build",
+        "nodeVersion": "18.x"
       }
     },
     {
@@ -36,5 +37,8 @@
       "src": "/(.*)",
       "dest": "/index.html"
     }
-  ]
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  }
 }
