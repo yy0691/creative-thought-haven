@@ -21,6 +21,14 @@ export const toolsItems: CardItem[] = [
 
   // AI绘画
   {
+    id: 'painting-0',
+    title: 'Ideogram 3.0',
+    description: '应对GPT4oldeogram发布全新升级的图像生成模型Ideogram3.0将图像真实感、创意设计和风格一致性统一',
+    link: 'https://about.ideogram.ai/3.0 ',
+    image: 'https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/AiNews/img_v3_02kp_b7a5650a-60f6-4bb1-9b29-8b096a6ba59g.jpg',
+    category: 'AI绘画'
+  },
+  {
     id: 'painting-1',
     title: 'illustration.app',
     description: '在几秒钟内创建自定义矢量插图',

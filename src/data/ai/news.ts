@@ -5,8 +5,20 @@ import { deepSeekV3Content } from './news-content/deepseek-v3';
 import { gpt5Content } from './news-content/gpt5';
 import { deepmindContent } from './news-content/deepmind';
 import { claudeThinkContent } from './news-content/claude-think';
+import { qwen25omin } from './news-content/qwen-2.5omni'
 // 默认新闻数据
 export const defaultNewsItems: CardItem[] = [
+  {
+    id:'new-3',
+    title:'阿里云发布Qwen2.5Omni',
+    description:'Qwen2.5-Omni是通义千问（Qwen）团队发布的最新旗舰多模态大模型，是一款端到端全模态感知与响应模型，是一个可以看、听、说、写、理解一切的 AI 模型。',
+    author:'通义千问',
+    date:'2025-03-27',
+    image:'https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/AiNews/img_v3_02kp_ef7f8a2c-b785-4043-8cdb-25e4c52a443g.png',
+    link:'https://chat.qwenlm.ai/',
+    category:'LLM',
+    content: qwen25omin
+  },
   {
     id: 'new-1',
     title: 'Vercel发布AISDK4.2版本引入一系列重大更新支持推理模型、MCP、图像生成等',
@@ -41,17 +53,7 @@ export const defaultNewsItems: CardItem[] = [
     link: 'https://api-docs.deepseek.com/zh-cn/news/news1226',
     content: deepSeekV3Content
   },
-  {
-    id: '2',
-    title: 'OpenAI推出GPT-5多模态版本',
-    description: 'GPT-5多模态版本支持实时视频理解和生成，可以直接与用户进行视频对话，理解视频内容并提供实时反馈。',
-    author: 'OpenAI',
-    date: '2025-03-18',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/OpenAI_Logo.svg/1024px-OpenAI_Logo.svg.png',
-    category: 'LLM',
-    link: 'https://openai.com/',
-    content: gpt5Content
-  },
+  
   {
     id: '3',
     title: 'Google DeepMind发布量子计算突破性研究',
@@ -152,16 +154,6 @@ export const defaultNewsItems: CardItem[] = [
     image: 'https://huggingface.co/front/assets/huggingface_logo.svg',
     category: '开发平台',
     link: 'https://huggingface.co/'
-  },
-  {
-    id: '13',
-    title: '百度文心大模型4.0发布',
-    description: '百度发布文心大模型4.0，在多模态理解、知识推理和创意创作等方面实现重大突破，支持更强的中文理解和生成能力。',
-    author: '百度',
-    date: '2025-03-19',
-    image: 'https://img0.baidu.com/it/u=2137813120,1780872000&fm=253&fmt=auto&app=138&f=PNG',
-    category: '大模型',
-    link: 'https://wenxin.baidu.com'
   },
   {
     id: '14',

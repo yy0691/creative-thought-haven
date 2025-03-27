@@ -9,6 +9,9 @@ import remarkGfm from 'remark-gfm';
 import MDXComponents from '../components/MDXComponents';
 import { motion, AnimatePresence } from 'framer-motion';
 
+// 导入博客相关函数
+import { getBlogPosts } from '../lib/blog';
+
 // 导入类型和数据
 import { CardItem } from '../data/ai';
 import { toolsItems } from '../data/ai/tools';
@@ -159,10 +162,15 @@ const AI = () => {
   const [selectedItem, setSelectedItem] = useState<CardItem | null>(null);
   const [isDetailOpen, setIsDetailOpen] = useState(false);
 
+  // 添加博客文章状态
+  const [blogPosts, setBlogPosts] = useState<CardItem[]>([]);
+  const [isLoadingBlogPosts, setIsLoadingBlogPosts] = useState(false);
+
   // 初始化数据
   useEffect(() => {
     setNewsData(defaultNewsItems);
     handleRefreshNews();
+    loadBlogPosts(); // 加载博客文章
     console.log('本地标签页:', localTabCategories);
     
     const refreshInterval = setInterval(() => {
@@ -173,6 +181,68 @@ const AI = () => {
     
     return () => clearInterval(refreshInterval);
   }, []);
+
+  // 加载博客中的AI相关文章
+  const loadBlogPosts = async () => {
+    try {
+      setIsLoadingBlogPosts(true);
+      const allPosts = await getBlogPosts();
+      
+      console.log('加载博客文章数量:', allPosts.length);
+      
+      // 筛选AI相关文章
+      const aiRelatedPosts = allPosts.filter(post => {
+        // 检查类别
+        const categoryMatch = post.category && 
+          ['AI', '人工智能', '机器学习', 'ML', '深度学习', 'LLM'].some(term => 
+            post.category.toLowerCase().includes(term.toLowerCase())
+          );
+        
+        // 检查标签
+        const tagMatch = post.tags && post.tags.some(tag => 
+          ['AI', '人工智能', '机器学习', 'ML', '深度学习', 'LLM', 'GPT', 'ChatGPT', 'Stable Diffusion', 'Midjourney'].some(term => 
+            tag.toLowerCase().includes(term.toLowerCase())
+          )
+        );
+        
+        return categoryMatch || tagMatch;
+      });
+      
+      console.log('筛选出AI相关博客文章数量:', aiRelatedPosts.length);
+      
+      // 将博客文章转换为CardItem格式
+      const blogPostCards = aiRelatedPosts.map(post => {
+        // 确保slug正确编码处理
+        const rawSlug = post.slug.replace(/^\//, ''); // 移除开头的斜杠
+        const encodedSlug = encodeURIComponent(rawSlug);
+        
+        console.log(`处理博客文章: ${post.title}, 原始slug: ${post.slug}, 编码后: ${encodedSlug}`);
+        
+        return {
+          id: post.slug,
+          title: post.title,
+          description: post.description || post.excerpt || '',
+          category: post.category || '人工智能',
+          date: post.date,
+          image: post.coverImage || '/images/ai/blog-post.jpg',
+          link: `/blog/${encodedSlug}`,
+          author: post.author?.name || '创意思维小筑',
+          isFromBlog: true, // 标记为来自博客
+        };
+      });
+      
+      console.log('最终博客卡片数量:', blogPostCards.length);
+      if (blogPostCards.length > 0) {
+        console.log('示例卡片链接:', blogPostCards[0].link);
+      }
+      
+      setBlogPosts(blogPostCards);
+    } catch (error) {
+      console.error('加载博客文章失败:', error);
+    } finally {
+      setIsLoadingBlogPosts(false);
+    }
+  };
 
   // 刷新新闻
   const handleRefreshNews = async () => {
@@ -221,7 +291,11 @@ const AI = () => {
         case 'courses': return coursesItems || [];
         case 'deeplearning': return deeplearningItems || [];
         case 'links': return linksItems || [];
-        case 'tutorials': return tutorialsItems || [];
+        case 'tutorials': {
+          // 合并教程和博客文章
+          const combinedTutorials = [...tutorialsItems, ...blogPosts];
+          return combinedTutorials;
+        }
         case 'general': return (toolsItems || []).filter(item => item.category === '通用类AI');
         case 'painting': return (toolsItems || []).filter(item => item.category === 'AI绘画');
         case 'writing': return (toolsItems || []).filter(item => item.category === 'AI写作');
@@ -276,6 +350,67 @@ const AI = () => {
   // 渲染详情面板内容
   const renderDetailContent = () => {
     if (!selectedItem) return null;
+
+    // 检查是否为博客文章
+    if (selectedItem.isFromBlog) {
+      console.log('渲染博客文章详情:', selectedItem.title, '链接:', selectedItem.link);
+      
+      return (
+        <div className="flex-1 overflow-y-auto">
+          {/* 图片 */}
+          {selectedItem.image && (
+            <div className="w-full h-32 md:h-40 overflow-hidden">
+              <CardImage src={selectedItem.image} alt={selectedItem.title} />
+            </div>
+          )}
+          
+          {/* 文章标题信息 */}
+          <div className="bg-white/95 dark:bg-gray-800/95 shadow-sm">
+            <div className="p-6 pb-4 border-b border-gray-200 dark:border-gray-700">
+              <div className="flex flex-wrap items-center gap-2 mb-3">
+                {selectedItem.category && (
+                  <span className="inline-block px-3 py-1 text-xs font-medium bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary-foreground rounded-full">
+                    {selectedItem.category}
+                  </span>
+                )}
+                {selectedItem.date && (
+                  <span className="text-sm text-gray-500 dark:text-gray-400 flex items-center">
+                    <LucideIcons.Calendar size={14} className="mr-1" />
+                    {selectedItem.date}
+                  </span>
+                )}
+              </div>
+              <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-3 leading-tight">{selectedItem.title}</h1>
+              {selectedItem.author && (
+                <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
+                  <LucideIcons.User size={16} className="text-gray-500 dark:text-gray-400" />
+                  <span className="text-sm">{selectedItem.author}</span>
+                </div>
+              )}
+            </div>
+          </div>
+          
+          {/* 文章内容 - 博客文章显示摘要和链接 */}
+          <div className="p-6 pt-8 md:p-8">
+            <div className="prose prose-blue dark:prose-invert max-w-none">
+              <p className="text-gray-700 dark:text-gray-300 text-lg">{selectedItem.description}</p>
+              <div className="mt-10 flex flex-wrap gap-4 justify-center">
+                <Link 
+                  to={selectedItem.link}
+                  className="px-6 py-3 bg-primary text-white rounded-full hover:bg-primary-dark transition-colors shadow-md hover:shadow-lg transform hover:-translate-y-1 duration-300 flex items-center"
+                  onClick={() => {
+                    console.log('点击博客文章链接:', selectedItem.link);
+                    handleCloseDetail();
+                  }}
+                >
+                  阅读全文 <LucideIcons.ArrowRight size={16} className="ml-2" />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
 
     // 生成详细的Markdown内容
     const markdownContent = `
@@ -370,8 +505,25 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
   const renderCard = (item: CardItem) => {
     // 根据标签页类型决定卡片样式
     const isNewsTab = activeTab === 'news';
-    const cardHeight = isNewsTab ? "h-[420px]" : "h-[300px]";
-    const contentHeight = isNewsTab ? "h-[270px]" : "h-[200px]";
+    const cardHeight = isNewsTab ? "h-[420px]" : "h-[320px]";
+    const contentHeight = isNewsTab ? "h-[270px]" : "h-[220px]";
+    
+    // 处理链接点击
+    const handleLinkClick = (e: React.MouseEvent, url: string) => {
+      e.stopPropagation(); // 阻止事件冒泡
+      
+      // 检查是否为博客文章
+      if (item.isFromBlog) {
+        console.log('点击博客文章链接:', url);
+        
+        // 对于博客文章，使用React Router的navigate
+        window.location.href = url;
+        return;
+      }
+      
+      // 其他链接直接打开
+      window.open(url, '_blank');
+    };
     
     const cardContent = (
       <>
@@ -401,15 +553,16 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
             {item.title}
           </h3>
           
-          <p className={`text-gray-600 dark:text-gray-300 ${isNewsTab ? 'text-sm' : 'text-xs'} mb-4 ${isNewsTab ? 'line-clamp-3' : 'line-clamp-2'} flex-grow`}>
+          <p className={`text-gray-600 dark:text-gray-300 ${isNewsTab ? 'text-sm' : 'text-xs'} ${isNewsTab ? 'line-clamp-3' : 'line-clamp-2'} flex-grow relative pb-1 mb-3`}>
             {item.description}
+            <span className="absolute bottom-0 left-0 right-0 h-4 bg-gradient-to-t from-white dark:from-gray-800 to-transparent"></span>
           </p>
           
-          <div className="flex items-center justify-between mt-auto pt-2 border-t border-gray-100 dark:border-gray-700">
+          <div className="flex items-center justify-between pt-3 mt-auto mb-1 border-t border-gray-100 dark:border-gray-700">
             {item.author && (
               <div className="flex items-center gap-1.5 text-gray-500 dark:text-gray-400">
                 <LucideIcons.User size={14} />
-                <span className="text-xs">{item.author}</span>
+                <span className="text-xs truncate max-w-[120px]">{item.author}</span>
               </div>
             )}
             
@@ -417,11 +570,9 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
               <a 
                 href={item.link} 
                 className={`inline-flex items-center text-primary hover:text-primary-dark ${isNewsTab ? 'text-sm' : 'text-xs'}`}
-                target="_blank" 
-                rel="noopener noreferrer"
-                onClick={(e) => e.stopPropagation()}
+                onClick={(e) => handleLinkClick(e, item.link)}
               >
-                了解更多 <LucideIcons.ChevronRight size={isNewsTab ? 16 : 12} className="ml-1" />
+                {item.isFromBlog ? '阅读博客' : '了解更多'} <LucideIcons.ChevronRight size={isNewsTab ? 16 : 12} className="ml-1" />
               </a>
             )}
           </div>
@@ -429,10 +580,12 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
       </>
     );
 
+    // 不要在这里使用transform-gpu或其他可能导致渲染层冲突的样式
+    // 移除卡片容器上的hover:-translate-y-1效果，改为更简单的hover效果
     return (
       <div 
         key={item.id} 
-        className={`bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer ${cardHeight} border border-gray-100 dark:border-gray-700/50`}
+        className={`bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer ${cardHeight} border border-gray-100 dark:border-gray-700/50 ${item.isFromBlog ? 'border-l-4 border-l-primary/70' : ''}`}
         onClick={() => handleCardClick(item)}
       >
         {cardContent}
@@ -569,6 +722,71 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
         );
       }
 
+      // 如果是教程标签页，显示博客文章加载状态
+      if (activeTab === 'tutorials') {
+        const tabContent = getTabContent();
+        const hasBlogPosts = blogPosts.length > 0;
+        
+        return (
+          <>
+            {/* 显示博客文章来源提示 */}
+            {hasBlogPosts && (
+              <div className="mb-6 bg-green-50 dark:bg-green-900/20 p-4 rounded-lg border border-green-200 dark:border-green-800/30">
+                <div className="flex items-center">
+                  <LucideIcons.Info className="mr-2 text-green-600 dark:text-green-400" size={20} />
+                  <p className="text-green-700 dark:text-green-400">
+                    本页显示了来自博客的AI相关文章和官方教程，点击卡片查看详情。
+                  </p>
+                </div>
+              </div>
+            )}
+            
+            {/* 显示卡片网格 */}
+            <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-5`}>
+              {isLoadingBlogPosts ? (
+                // 博客文章加载中的骨架屏
+                Array(4).fill(0).map((_, index) => (
+                  <div key={`skeleton-${index}`} className="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden animate-pulse border border-gray-100 dark:border-gray-700/50">
+                    <div className="w-full pb-[50%] bg-gray-200 dark:bg-gray-700"></div>
+                    <div className="p-4">
+                      <div className="flex justify-between items-center mb-2">
+                        <div className="h-5 w-16 bg-gray-200 dark:bg-gray-700 rounded-full"></div>
+                        <div className="h-5 w-20 bg-gray-200 dark:bg-gray-700 rounded-full"></div>
+                      </div>
+                      <div className="h-5 bg-gray-200 dark:bg-gray-700 rounded mb-2"></div>
+                      <div className="space-y-1.5">
+                        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                        <div className="h-4 w-2/3 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                      </div>
+                      <div className="mt-3 pt-2 border-t border-gray-100 dark:border-gray-700">
+                        <div className="flex justify-between items-center">
+                          <div className="h-4 w-16 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                          <div className="h-4 w-20 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                tabContent.map((item, index) => (
+                  item && item.id ? (
+                    <div 
+                      key={item.id} 
+                      className="animate-enter-delayed"
+                      style={{ 
+                        animationDelay: `${index * 30}ms`
+                      }}
+                    >
+                      {renderCard(item)}
+                    </div>
+                  ) : null
+                ))
+              )}
+            </div>
+          </>
+        );
+      }
+
       // 其他标签页使用卡片网格布局
       return (
         <div className={`grid grid-cols-1 sm:grid-cols-2 ${
@@ -631,11 +849,9 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
               item && item.id ? (
                 <div 
                   key={item.id} 
-                  className="animate-fade-in-up" 
+                  className="animate-enter-delayed"
                   style={{ 
-                    animationDelay: `${index * (activeTab === 'news' ? 50 : 30)}ms`,
-                    animationDuration: '0.5s',
-                    animationFillMode: 'both'
+                    animationDelay: `${index * (activeTab === 'news' ? 40 : 25)}ms`
                   }}
                 >
                   {renderCard(item)}
@@ -660,6 +876,33 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
       );
     }
   };
+
+  // 在文件顶部添加CSS变量定义
+  useEffect(() => {
+    // 添加卡片动画CSS
+    const style = document.createElement('style');
+    style.innerHTML = `
+      @keyframes enterDelayed {
+        0% {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .animate-enter-delayed {
+        animation: enterDelayed 0.25s ease-out forwards;
+        will-change: opacity, transform;
+      }
+    `;
+    document.head.appendChild(style);
+    
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, []);
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex relative">
@@ -718,8 +961,7 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
                 <div className="px-4 py-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                   {category.title}
                 </div>
-              )}+
-
+              )}
               <div>
                 {category.tabs.map((tab) => (
                   <button

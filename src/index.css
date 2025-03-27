@@ -70,6 +70,79 @@
   [data-theme='dark'] .glassmorphism {
     @apply bg-black/70 backdrop-blur-md ;
   }
+
+  /* 修复prose类中引用块和高亮块的样式问题 */
+  .prose blockquote,
+  .prose > blockquote {
+    font-style: normal !important;
+    font-weight: normal !important;
+    margin: 16px 0 !important;
+    padding: 0 !important;
+    quotes: none !important;
+    border-left-width: 4px !important;
+    border-left-style: solid !important;
+    border-left-color: hsl(var(--primary)) !important;
+    overflow: visible !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  .prose blockquote p,
+  .prose > blockquote p {
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block !important;
+    width: 100% !important;
+    line-height: 1.7 !important;
+  }
+
+  .prose blockquote p:first-of-type::before,
+  .prose blockquote p:last-of-type::after,
+  .prose > blockquote p:first-of-type::before,
+  .prose > blockquote p:last-of-type::after {
+    content: none !important;
+  }
+
+  /* 移除blockquote下方的空白 */
+  .prose blockquote + *,
+  .prose > blockquote + * {
+    margin-top: 0 !important;
+  }
+
+  /* 修复引用嵌套问题 */
+  .prose blockquote blockquote,
+  .prose > blockquote > blockquote {
+    margin-bottom: 0 !important;
+    margin-top: 0 !important;
+  }
+
+  /* 显式清除blockquote内部间距 */
+  .prose blockquote::before,
+  .prose blockquote::after,
+  .prose > blockquote::before,
+  .prose > blockquote::after {
+    content: none !important;
+  }
+
+  /* 高亮块样式覆盖 */
+  .prose div[class*="highlight-"] {
+    margin: 16px 0;
+  }
+
+  .prose div[class*="highlight-"] p {
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* 解决Highlight组件中段落的空行问题 */
+  .highlight-content p {
+    margin: 0 0 0.75rem 0 !important;
+    padding: 0 !important;
+  }
+  
+  .highlight-content p:last-child {
+    margin-bottom: 0 !important;
+  }
 }
 
 @layer utilities {

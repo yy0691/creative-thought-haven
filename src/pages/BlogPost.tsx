@@ -11,6 +11,8 @@ import { FileConverter } from '../lib/file-converter';
 import Highlight from '../components/Highlight';
 import MDXComponents from '@/components/MDXComponents';
 import ErrorBoundary from '../components/ErrorBoundary';
+import { useMediaQuery } from '../hooks/useMediaQuery';
+import React from 'react';
 
 const components = {
   h1: props => <h1 className="text-3xl font-bold mt-8 mb-4" {...props} />,
@@ -77,13 +79,6 @@ const components = {
       {children}
     </a>
   ),
-  blockquote: ({ children }) => {
-    const text = children?.props?.children;
-    if (text && typeof text === 'string' && text.includes('Part')) {
-      return <Highlight type="info">{children}</Highlight>;
-    }
-    return <blockquote>{children}</blockquote>;
-  },
   Alert,
   RandomEmoji,
   img: props => (
@@ -104,6 +99,16 @@ const BlogPost = () => {
   const [relatedPosts, setRelatedPosts] = useState<BlogPostMeta[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isTocPinned, setIsTocPinned] = useState(false);
+  const isMobile = useMediaQuery('(max-width: 768px)');
+
+  // 读取目录是否固定的状态
+  useEffect(() => {
+    const pinnedPreference = localStorage.getItem('toc-pinned');
+    if (pinnedPreference !== null) {
+      setIsTocPinned(pinnedPreference === 'true');
+    }
+  }, []);
 
   useEffect(() => {
     const loadPost = async () => {
@@ -174,6 +179,23 @@ const BlogPost = () => {
     loadPost();
   }, [slug]);
 
+  // 监听TOC固定状态变化
+  useEffect(() => {
+    const handleTocPinnedChange = () => {
+      const pinnedPreference = localStorage.getItem('toc-pinned');
+      if (pinnedPreference !== null) {
+        setIsTocPinned(pinnedPreference === 'true');
+      }
+    };
+
+    window.addEventListener('tocPinnedChanged', handleTocPinnedChange);
+    window.addEventListener('storage', handleTocPinnedChange);
+    return () => {
+      window.removeEventListener('tocPinnedChanged', handleTocPinnedChange);
+      window.removeEventListener('storage', handleTocPinnedChange);
+    };
+  }, []);
+
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -193,7 +215,11 @@ const BlogPost = () => {
 
   return (
     <div className="page-transition min-h-screen">
-      <article className={`prose prose-primary dark:prose-invert mx-auto py-12 px-4 transition-all duration-500 ease-in-out ${!isCollapsed ? 'md:ml-64 max-w-3xl' : 'max-w-4xl'} dark:text-white`}>
+      <article className={`prose prose-primary dark:prose-invert mx-auto py-12 px-4 transition-all duration-500 ease-in-out ${
+        isTocPinned && !isMobile ? 'md:ml-64 max-w-3xl' : 'max-w-4xl'
+      } ${
+        isTocPinned && isMobile ? 'mb-64' : ''
+      } dark:text-white`}>
         <header className="text-center mb-8">
           <h1 className="text-4xl font-bold mb-4 hover:scale-105 transition-transform duration-300 transform-gpu backface-visibility-hidden will-change-transform dark:text-white">{post.title}</h1>
           <div className="text-muted-foreground mb-4 dark:text-gray-300">{formatDate(post.date)}</div>
@@ -217,10 +243,7 @@ const BlogPost = () => {
             <MDXProvider
               components={{
                 ...components,
-                ...MDXComponents,
-                blockquote: (props) => (
-                  <Highlight type="info">{props.children}</Highlight>
-                )
+                ...MDXComponents
               }}
             >
               <post.content />

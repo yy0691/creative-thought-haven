@@ -130,13 +130,56 @@ const components = {
     );
   },
   blockquote: (props: any) => {
-    // 如果是Highlight组件的用法
-    if (props.children && typeof props.children === 'object') {
+    // 判断是否为Highlight用法
+    if (props.children && typeof props.children === 'object' && !React.isValidElement(props.children)) {
       return <Highlight type="info">{props.children}</Highlight>;
     }
-    // 否则使用普通的blockquote样式
+    
+    // 处理嵌套的p标签
+    const content = props.children;
+    if (React.isValidElement(content) && content.type === 'p') {
+      return (
+        <blockquote 
+          className="!border-l-4 !border-primary !pl-4 !rounded-tr-sm !rounded-br-sm !bg-gray-50 dark:!bg-gray-800/30 !m-4 !mt-4 !mb-4"
+          style={{ 
+            display: 'flex', 
+            flexDirection: 'column' 
+          }}
+        >
+          {React.cloneElement(content as React.ReactElement<any>, {
+            className: '!m-0 !p-0 !py-3 leading-7',
+            style: { 
+              margin: 0, 
+              padding: '0.75rem 0', 
+              lineHeight: 1.7,
+              display: 'block' // 替换inline-block为block
+            }
+          })}
+        </blockquote>
+      );
+    }
+    
+    // 直接内容的情况
     return (
-      <blockquote className="border-l-4 border-primary pl-4 italic my-2 dark:border-primary-foreground dark:text-gray-300" {...props} />
+      <blockquote
+        className="!border-l-4 !border-primary !pl-4 !rounded-tr-sm !rounded-br-sm !bg-gray-50 dark:!bg-gray-800/30 !m-4 !mt-4 !mb-4"
+        style={{ 
+          display: 'flex', 
+          flexDirection: 'column' 
+        }}
+      >
+        <p 
+          className="!m-0 !p-0 !py-3 leading-7" 
+          style={{ 
+            margin: 0, 
+            padding: '0.75rem 0',
+            lineHeight: 1.7,
+            display: 'block' // 替换inline-block为block
+          }}
+        >
+          {content}
+        </p>
+      </blockquote>
     );
   },
   pre: (props: any) => (
@@ -175,6 +218,7 @@ const components = {
   },
   div: ({ className, children, style, ...props }: { className?: string; children: React.ReactNode; style?: React.CSSProperties }) => {
     const safeStyle = typeof style === 'string' ? processStyleString(style) : style;
+    
     if (className?.includes('columns-')) {
       const columnCount = className.match(/columns-(\d+)/)?.[1] || '2';
       return (
@@ -183,21 +227,57 @@ const components = {
         </div>
       );
     }
+    
     if (className?.includes('highlight-')) {
       const colorClass = className.match(/highlight-(yellow|red|green|blue|purple)/)?.[1] || 'yellow';
       const colors = {
-        yellow: 'bg-yellow-100 border-yellow-200',
-        red: 'bg-red-100 border-red-200',
-        green: 'bg-green-100 border-green-200',
-        blue: 'bg-blue-100 border-blue-200',
-        purple: 'bg-purple-100 border-purple-200'
+        yellow: {
+          bg: 'bg-yellow-50 dark:bg-yellow-900/20',
+          border: 'border-yellow-200 dark:border-yellow-800/50'
+        },
+        red: {
+          bg: 'bg-red-50 dark:bg-red-900/20',
+          border: 'border-red-200 dark:border-red-800/50'
+        },
+        green: {
+          bg: 'bg-green-50 dark:bg-green-900/20',
+          border: 'border-green-200 dark:border-green-800/50'
+        },
+        blue: {
+          bg: 'bg-blue-50 dark:bg-blue-900/20',
+          border: 'border-blue-200 dark:border-blue-800/50'
+        },
+        purple: {
+          bg: 'bg-purple-50 dark:bg-purple-900/20',
+          border: 'border-purple-200 dark:border-purple-800/50'
+        }
       };
+      
+      // 提取内容，处理额外的嵌套
+      let content = children;
+      if (React.isValidElement(content) && content.type === 'p') {
+        content = (content as React.ReactElement<{children: React.ReactNode}>).props.children;
+      }
+      
       return (
-        <div className={`p-4 rounded-lg border ${colors[colorClass]} my-4`}>
-          <p className="mb-5 last:mb-0 leading-7">{children}</p>
+        <div 
+          className={`border rounded-lg ${colors[colorClass].bg} ${colors[colorClass].border}`}
+          style={{ 
+            margin: '16px 0', // 固定上下外边距
+            display: 'flex',
+            flexDirection: 'column'
+          }}
+        >
+          <div 
+            className="px-4 py-3"
+            style={{ lineHeight: '1.7' }}
+          >
+            {content}
+          </div>
         </div>
       );
     }
+    
     return <div style={safeStyle} {...props}>{children}</div>;
   },
   span: withSafeProps((props) => <span {...props} />),
@@ -223,7 +303,7 @@ const components = {
         const parts = content.split(/(\$[^$]+\$)/g);
         
         return (
-          <p className="mb-5 leading-7" {...rest}>
+          <p className={className || "mb-5 leading-7"} {...rest}>
             {parts.map((part, i) => {
               if (part.startsWith('$') && part.endsWith('$') && part.length > 2) {
                 const formula = part.slice(1, -1);
@@ -239,11 +319,12 @@ const components = {
         );
       } catch (error) {
         console.error('LaTeX渲染错误:', error);
-        return <p className="mb-5 leading-7" {...rest}>{children}</p>;
+        return <p className={className || "mb-5 leading-7"} {...rest}>{children}</p>;
       }
     }
     
-    return <p className="mb-5 leading-7" {...rest}>{children}</p>;
+    // 使用默认类名，通过全局CSS控制在不同环境下的外观
+    return <p className={className || "mb-5 leading-7"} {...rest}>{children}</p>;
   },
   ul: withSafeProps(props => (
     <ul className="list-disc pl-6 my-4 space-y-2 dark:text-gray-200" {...props} />

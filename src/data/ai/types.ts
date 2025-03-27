@@ -9,6 +9,7 @@ export interface CardItem {
   link?: string;
   category?: string;
   content?: string; // 添加详细内容字段，用于Markdown格式的新闻内容
+  isFromBlog?: boolean; // 标记是否来自博客的文章
 }
 
 // 定义标签页类型

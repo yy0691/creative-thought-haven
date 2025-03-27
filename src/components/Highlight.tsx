@@ -2,7 +2,7 @@ import React from 'react';
 
 interface HighlightProps {
   children: React.ReactNode;
-  type?: 'default' | 'info' | 'warning' | 'success' | 'error';
+  type?: 'info' | 'warning' | 'success' | 'error' | 'default';
 }
 
 const Highlight: React.FC<HighlightProps> = ({ children, type = 'default' }) => {
@@ -21,9 +21,26 @@ const Highlight: React.FC<HighlightProps> = ({ children, type = 'default' }) => 
     }
   };
 
+  // 判断子元素是否为简单文本或复杂React元素
+  const hasComplexChildren = React.Children.count(children) > 1 || 
+    (React.isValidElement(children) && children.type !== 'p');
+  
+  // 如果只有一个段落，直接使用其内容
+  const content = !hasComplexChildren && React.isValidElement(children) && children.type === 'p'
+    ? children.props.children
+    : children;
+
   return (
-    <div className={`p-4 my-4 rounded-r-lg ${getHighlightStyle()}`}>
-      {children}
+    <div 
+      className={`flex flex-col rounded-tr-lg rounded-br-lg ${getHighlightStyle()}`}
+      style={{ margin: '16px 0' }} // 使用固定的外边距，避免继承
+    >
+      <div 
+        className="px-4 py-3 highlight-content" // 使用highlight-content类应用全局CSS
+        style={{ lineHeight: '1.7' }}
+      >
+        {content}
+      </div>
     </div>
   );
 };

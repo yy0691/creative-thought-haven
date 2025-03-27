@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Pin, PinOff } from 'lucide-react';
 import { useMediaQuery } from '../hooks/useMediaQuery';
 
 interface TocItem {
@@ -15,9 +15,18 @@ interface TableOfContentsProps {
 export const TableOfContents = ({ content }: TableOfContentsProps) => {
   const [items, setItems] = useState<TocItem[]>([]);
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isPinned, setIsPinned] = useState(false);
   const [activeId, setActiveId] = useState<string>('');
   const isMobile = useMediaQuery('(max-width: 768px)');
   const articleRef = useRef<HTMLElement | null>(null);
+
+  // 从localStorage读取用户的固定偏好设置
+  useEffect(() => {
+    const pinnedPreference = localStorage.getItem('toc-pinned');
+    if (pinnedPreference !== null) {
+      setIsPinned(pinnedPreference === 'true');
+    }
+  }, []);
 
   useEffect(() => {
     // 获取文章内容区域，排除相关文章部分
@@ -69,32 +78,36 @@ export const TableOfContents = ({ content }: TableOfContentsProps) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [content]);
 
-  // 在移动端默认收起目录
+  // 设置初始折叠状态：移动设备上默认收起目录，除非用户固定了目录
   useEffect(() => {
-    setIsCollapsed(isMobile);
-  }, [isMobile]);
+    if (!isPinned) {
+      setIsCollapsed(isMobile);
+    } else {
+      setIsCollapsed(false);
+    }
+  }, [isMobile, isPinned]);
 
   const handleClick = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
-      // 在移动端点击目录项后自动收起目录
-      if (isMobile) {
+      // 在移动端点击目录项后自动收起目录，除非目录已固定
+      if (isMobile && !isPinned) {
         setIsCollapsed(true);
       }
     }
   };
 
   const handleMouseEnter = () => {
-    // 只在非移动端时通过鼠标悬浮展开
-    if (!isMobile) {
+    // 只在非移动端和非固定状态时通过鼠标悬浮展开
+    if (!isMobile && !isPinned) {
       setIsCollapsed(false);
     }
   };
 
   const handleMouseLeave = () => {
-    // 只在非移动端时通过鼠标离开收起
-    if (!isMobile) {
+    // 只在非移动端和非固定状态时通过鼠标离开收起
+    if (!isMobile && !isPinned) {
       setIsCollapsed(true);
     }
   };
@@ -103,44 +116,132 @@ export const TableOfContents = ({ content }: TableOfContentsProps) => {
     setIsCollapsed(!isCollapsed);
   };
 
+  const togglePinned = () => {
+    const newPinnedState = !isPinned;
+    setIsPinned(newPinnedState);
+    
+    // 保存用户偏好到localStorage
+    localStorage.setItem('toc-pinned', String(newPinnedState));
+    
+    // 触发一个自定义事件，以便其他组件可以监听这个变化
+    const event = new Event('tocPinnedChanged');
+    window.dispatchEvent(event);
+    
+    // 如果取消固定，并且是在移动设备上，则自动折叠目录
+    if (!newPinnedState && isMobile) {
+      setIsCollapsed(true);
+    } else if (newPinnedState) {
+      // 如果固定，则展开目录
+      setIsCollapsed(false);
+    }
+  };
+
+  // 计算目录导航的样式
+  const navStyleClass = isMobile 
+    ? `fixed bottom-0 left-0 w-full transition-all duration-300 ease-in-out ${isCollapsed ? 'h-10' : 'h-64'} bg-background/90 dark:bg-gray-900/90 backdrop-blur-sm shadow-lg z-50`
+    : `fixed left-0 top-24 h-[calc(100vh-6rem)] transition-all duration-500 ease-in-out ${isCollapsed ? 'w-8' : 'w-64'} bg-background/70 dark:bg-black/30 backdrop-blur-sm z-30`;
+
   return (
     <nav
-      className={`fixed left-0 top-24 h-[calc(100vh-6rem)] transition-all duration-500 ease-in-out ${isCollapsed ? 'w-8' : 'w-64'} bg-background/70 dark:bg-black/30 backdrop-blur-sm`}
+      className={navStyleClass}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <button
-        onClick={toggleCollapse}
-        className="absolute -right-4 top-4 p-1 bg-background border rounded-full hover:bg-primary/10 transition-colors"
-        title={isCollapsed ? '展开目录' : '收起目录'}
-      >
-        {isCollapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
-      </button>
-      
-      {!isCollapsed && (
-        <div className="p-4 overflow-y-auto h-full">
-          <h3 className="font-bold mb-4 text-sm text-muted-foreground">目录</h3>
-          {items.length > 0 ? (
-            <ul className="space-y-1.5">
-              {items.map((item) => (
-                <li
-                  key={item.id}
-                  style={{ paddingLeft: `${(item.level - 1) * 1}rem` }}
-                >
-                  <button
-                    onClick={() => handleClick(item.id)}
-                    className={`text-left text-xs hover:text-primary transition-all duration-300 hover:scale-110 ${activeId === item.id ? 'text-primary font-medium' : 'text-muted-foreground/70'}`}
-                    title={item.text}
-                  >
-                    {item.text}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p className="text-xs text-muted-foreground">没有找到目录项</p>
+      {isMobile ? (
+        // 移动设备视图
+        <>
+          <div className="flex justify-between items-center h-10 px-4 border-t dark:border-gray-700">
+            <button
+              onClick={toggleCollapse}
+              className="text-base text-muted-foreground flex items-center gap-1"
+            >
+              目录
+              {isCollapsed ? (
+                <ChevronRight size={16} />
+              ) : (
+                <ChevronLeft size={16} />
+              )}
+            </button>
+            <button
+              onClick={togglePinned}
+              className={`p-1 rounded-full hover:bg-primary/10 transition-colors ${isPinned ? 'text-primary' : 'text-muted-foreground'}`}
+              title={isPinned ? '取消固定目录' : '固定目录'}
+            >
+              {isPinned ? <Pin size={16} /> : <PinOff size={16} />}
+            </button>
+          </div>
+          
+          {!isCollapsed && (
+            <div className="overflow-y-auto h-[calc(100%-2.5rem)] p-4">
+              {items.length > 0 ? (
+                <ul className="space-y-2">
+                  {items.map((item) => (
+                    <li
+                      key={item.id}
+                      style={{ paddingLeft: `${(item.level - 1) * 0.75}rem` }}
+                    >
+                      <button
+                        onClick={() => handleClick(item.id)}
+                        className={`text-left text-base hover:text-primary transition-colors ${activeId === item.id ? 'text-primary font-medium' : 'text-muted-foreground'}`}
+                        title={item.text}
+                      >
+                        {item.text}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="text-base text-muted-foreground">没有找到目录项</p>
+              )}
+            </div>
           )}
-        </div>
+        </>
+      ) : (
+        // 桌面设备视图
+        <>
+          <button
+            onClick={toggleCollapse}
+            className="absolute -right-4 top-4 p-1 bg-background border rounded-full hover:bg-primary/10 transition-colors"
+            title={isCollapsed ? '展开目录' : '收起目录'}
+          >
+            {isCollapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
+          </button>
+          
+          {!isCollapsed && (
+            <div className="p-4 overflow-y-auto h-full">
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="font-bold text-base text-muted-foreground">目录</h3>
+                <button
+                  onClick={togglePinned}
+                  className={`p-1 rounded-full hover:bg-primary/10 transition-colors ${isPinned ? 'text-primary' : 'text-muted-foreground'}`}
+                  title={isPinned ? '取消固定目录' : '固定目录'}
+                >
+                  {isPinned ? <Pin size={16} /> : <PinOff size={16} />}
+                </button>
+              </div>
+              {items.length > 0 ? (
+                <ul className="space-y-1.5">
+                  {items.map((item) => (
+                    <li
+                      key={item.id}
+                      style={{ paddingLeft: `${(item.level - 1) * 1}rem` }}
+                    >
+                      <button
+                        onClick={() => handleClick(item.id)}
+                        className={`text-left text-sm hover:text-primary transition-all duration-300 hover:scale-110 ${activeId === item.id ? 'text-primary font-medium' : 'text-muted-foreground/70'}`}
+                        title={item.text}
+                      >
+                        {item.text}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="text-sm text-muted-foreground">没有找到目录项</p>
+              )}
+            </div>
+          )}
+        </>
       )}
     </nav>
   );
