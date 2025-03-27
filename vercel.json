@@ -8,7 +8,7 @@
         "distDir": "dist",
         "zeroConfig": true,
         "installCommand": "npm install --legacy-peer-deps",
-        "buildCommand": "npm run build"
+        "buildCommand": "npx --no-install vite build"
       }
     },
     {
