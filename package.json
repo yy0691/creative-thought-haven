@@ -5,15 +5,13 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "./node_modules/.bin/vite build",
+    "build": "node ./node_modules/vite/bin/vite.js build",
     "build:dev": "vite build --mode development",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "update-search-index": "node scripts/build-search-index.js",
     "test:pat": "node verify-pat.js",
-    "test:api": "node test-coze-api.js",
-    "postinstall": "npm uninstall @babel/preset-es2015 && npm install --save-dev @babel/core@latest @babel/preset-env@latest",
-    "prebuild": "npm install --production=false"
+    "test:api": "node test-coze-api.js"
   },
   "dependencies": {
     "@emotion/cache": "^11.11.0",

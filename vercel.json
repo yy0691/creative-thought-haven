@@ -6,9 +6,9 @@
       "use": "@vercel/static-build",
       "config": {
         "distDir": "dist",
-        "zeroConfig": true,
-        "installCommand": "npm install --legacy-peer-deps",
-        "buildCommand": "npx --no-install vite build"
+        "zeroConfig": false,
+        "installCommand": "npm install",
+        "buildCommand": "node ./node_modules/vite/bin/vite.js build"
       }
     },
     {
