@@ -9,6 +9,17 @@ import { qwen25omin } from './news-content/qwen-2.5omni'
 // 默认新闻数据
 export const defaultNewsItems: CardItem[] = [
   {
+    id:'new-4',
+    title:'新的语音模型支持实时视觉对话',
+    description:'Kyutai 发布了 MoshiVis，这是一种开放式视觉语音模型，允许用户对图像进行自然的语音对话，同时保持低延迟。',
+    author:'Kyutai',
+    date:'2025-03-25',
+    image:'https://kyutai.org/assets/MoshiVis/images/MoshiVis-Overview.png',
+    link:'https://kyutai.org/moshivis?utm_campaign=Data%20Points&utm_source=hs_email&utm_medium=email&_hsenc=p2ANqtz-9weulYOrnu9NfgJ1R8FKZ6MAs5xiMXndvS0p_8QhITLZKCjj6TB0rAcODgCVxM2y7CGqCD',
+    category:'MCP',
+    content:`该模型在现有的 Moshi 语音模型的基础上添加了 2.06 亿个可训练参数，并使用了一种数据高效的训练方法，该方法通过对基于文本的图像描述进行训练来需要最少的音频数据。MoshiVis 可能代表着朝着更自然的多模态 AI 交互迈出的重要一步，因为该模型可以在一般对话和讨论视觉内容之间无缝切换，同时在消费类硬件上保持低延迟。`
+  },
+  {
     id:'new-3',
     title:'阿里云发布Qwen2.5Omni',
     description:'Qwen2.5-Omni是通义千问（Qwen）团队发布的最新旗舰多模态大模型，是一款端到端全模态感知与响应模型，是一个可以看、听、说、写、理解一切的 AI 模型。',

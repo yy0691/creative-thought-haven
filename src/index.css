@@ -29,6 +29,30 @@
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
     --radius: 0.5rem;
+    /* SVG占位图变量 */
+    --placeholder-bg: #f9fafb;
+    --placeholder-text: #6b7280;
+    --placeholder-stroke: #9ca3af;
+    
+    /* 新增SVG主题渐变色 - 升级版 */
+    --gradient-tutorial: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    --gradient-deeplearning: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);
+    --gradient-painting: linear-gradient(135deg, #fdf2f8 0%, #fbcfe8 100%);
+    --gradient-prompt: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+    --gradient-tool: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+    --gradient-voice: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
+    --gradient-video: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+    --gradient-default: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    
+    /* 主题元素颜色 - 升级版 */
+    --color-tutorial: #3b82f6;
+    --color-deeplearning: #8b5cf6;
+    --color-painting: #ec4899;
+    --color-prompt: #10b981;
+    --color-tool: #f59e0b;
+    --color-voice: #6366f1;
+    --color-video: #ef4444;
+    --color-default: #64748b;
   }
 
   [data-theme='dark'] {
@@ -49,6 +73,31 @@
     --border: 217.2 20% 20%;
     --input: 217.2 20% 24%;
     --ring: 38 25% 70%;
+    
+    /* 暗色模式SVG占位图变量 */
+    --placeholder-bg: #1e293b;
+    --placeholder-text: #e2e8f0;
+    --placeholder-stroke: #94a3b8;
+    
+    /* 暗色模式SVG主题渐变色 - 升级版 */
+    --gradient-tutorial: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+    --gradient-deeplearning: linear-gradient(135deg, #4c1d95 0%, #5b21b6 100%);
+    --gradient-painting: linear-gradient(135deg, #831843 0%, #9d174d 100%);
+    --gradient-prompt: linear-gradient(135deg, #064e3b 0%, #065f46 100%);
+    --gradient-tool: linear-gradient(135deg, #78350f 0%, #92400e 100%);
+    --gradient-voice: linear-gradient(135deg, #312e81 0%, #3730a3 100%);
+    --gradient-video: linear-gradient(135deg, #7f1d1d 0%, #991b1b 100%);
+    --gradient-default: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    
+    /* 暗色主题元素颜色 - 升级版 */
+    --color-tutorial: #60a5fa;
+    --color-deeplearning: #a78bfa;
+    --color-painting: #f472b6;
+    --color-prompt: #34d399;
+    --color-tool: #fbbf24;
+    --color-voice: #818cf8;
+    --color-video: #f87171;
+    --color-default: #94a3b8;
   }
 
   * {
@@ -161,6 +210,26 @@
   /* 添加夜间模式卡片样式 */
   .dark-card {
     @apply bg-gradient-to-br from-gray-900/80 to-gray-800/70 backdrop-blur-lg border border-white/10;
+  }
+
+  /* 确保卡片阴影在暗色模式下显示正确 */
+  .card-shadow {
+    @apply shadow-sm hover:shadow-md dark:shadow-none dark:hover:shadow-none transition-shadow;
+  }
+
+  /* 教程卡片专用样式 */
+  .tutorial-card {
+    @apply bg-white dark:bg-gray-800 border-0;
+    border: none !important; /* 强制移除边框 */
+    outline: none !important; /* 移除轮廓 */
+  }
+  
+  /* 仅对明确标记为博客文章的卡片应用左边框 */
+  div.tutorial-card.tutorial-card-blog {
+    @apply border-l-4 border-l-primary/40 dark:border-l-primary/30;
+    border-top: none !important;
+    border-right: none !important;
+    border-bottom: none !important;
   }
 
   .animate-fadeIn {

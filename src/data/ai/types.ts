@@ -7,7 +7,11 @@ export interface CardItem {
   date?: string;
   image?: string;
   link?: string;
+  url?: string; // 兼容使用url字段而非link
   category?: string;
+  categories?: string[]; // 支持多分类
+  summary?: string; // 简短摘要
+  tags?: string[]; // 标签数组
   content?: string; // 添加详细内容字段，用于Markdown格式的新闻内容
   isFromBlog?: boolean; // 标记是否来自博客的文章
 }

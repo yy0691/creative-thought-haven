@@ -1,5 +1,5 @@
 import { CardItem } from './types';
-
+import { tripoMcp } from './tools-models-content/tripo-mcp';
 export const toolsItems: CardItem[] = [
   // 通用类AI
   {
@@ -163,6 +163,17 @@ FLORA 提供社区工作流库，用户可以：
     link: 'https://www.heyeddie.ai/',
     image: 'https://ph-files.imgix.net/be1da0ad-1582-4ec9-b7d0-310fc41df8ac.png?auto=format',
     category: 'AI视频'
+  },
+
+  // AI建模
+  {
+    id: 'modeling-1',
+    title: 'Tripo+MCP',
+    description: '使用Tripo MCP插件 + Cursor 实现 Al 驱动的 3D 设计生成',
+    link: 'https://github.com/VAST-AI-Research/tripo-mcp',
+    image: 'https://raw.githubusercontent.com/yy0691/img-bed/main/Blog/Ai_Newsimg_v3_02km_346b7c0c-6631-4bb4-82c8-d799b3570bag.jpg',
+    category: 'AI建模',
+    content: tripoMcp
   },
 
   // AI安全

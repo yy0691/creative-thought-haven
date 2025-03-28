@@ -10,13 +10,13 @@ interface SEOProps {
 }
 
 const SEO: React.FC<SEOProps> = ({
-  title = '创意思维空间',
+  title = '博客',
   description = '个人博客与作品展示平台',
   keywords = ['博客', '作品集', '设计', '开发'],
   image = '/og-image.jpg',
   url = 'https://your-domain.com',
 }) => {
-  const siteTitle = `${title} | 创意思维空间`;
+  const siteTitle = `${title} | 博客`;
 
   return (
     <Helmet>

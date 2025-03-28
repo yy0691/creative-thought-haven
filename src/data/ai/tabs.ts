@@ -35,6 +35,7 @@ export const tabCategories = [
       { id: 'writing', label: 'AI写作', icon: 'Briefcase' },
       { id: 'voice', label: 'AI语音', icon: 'Briefcase' },
       { id: 'video', label: 'AI视频', icon: 'Briefcase' },
+      { id: 'modeling', label: 'AI建模', icon: 'Cube' },
       { id: 'security', label: 'AI安全', icon: 'Briefcase' },
       { id: 'other', label: '其他', icon: 'Briefcase' },
     ]

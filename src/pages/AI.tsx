@@ -8,6 +8,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import MDXComponents from '../components/MDXComponents';
 import { motion, AnimatePresence } from 'framer-motion';
+import { FaCube } from "react-icons/fa";
 
 // 导入博客相关函数
 import { getBlogPosts } from '../lib/blog';
@@ -22,20 +23,50 @@ import { deeplearningItems } from '../data/ai/deeplearning';
 import { promptsItems } from '../data/ai/prompts';
 import { linksItems } from '../data/ai/links';
 import { tutorialsItems } from '../data/ai/tutorials';
-
+// 导入SVG组件
+import { TutorialSvg, DeepLearningSvg, PaintingSvg, PromptSvg, ToolSvg, VoiceSvg, VideoSvg, DefaultSvg } from '../components/AISvgIcons';
 // 图片组件
 export const CardImage = ({ src, alt, style }: { src: string, alt: string, style?: React.CSSProperties }) => {
   const [imgError, setImgError] = useState(false);
   
+  // 为不同类别的卡片生成主题SVG图案
+  const renderPlaceholderSvg = () => {
+    // 从alt或标题中提取可能的主题关键词
+    const topic = alt.toLowerCase();
+    
+    // 根据主题选择不同的SVG图案
+    if (topic.includes('教程') || topic.includes('学习') || topic.includes('指南') || topic.includes('课程')) {
+      // 教程/学习主题
+      return TutorialSvg();
+    } else if (topic.includes('深度学习') || topic.includes('神经网络') || topic.includes('模型') || topic.includes('机器学习')) {
+      // 深度学习/神经网络主题
+      return DeepLearningSvg();
+    } else if (topic.includes('绘画') || topic.includes('图像') || topic.includes('设计') || topic.includes('midjourney') || topic.includes('stable diffusion')) {
+      // 绘画/图像生成主题
+      return PaintingSvg();
+    } else if (topic.includes('提示词') || topic.includes('prompt') || topic.includes('工程') || topic.includes('对话') || topic.includes('大模型')) {
+      // 提示词工程主题
+      return PromptSvg();
+    } else if (topic.includes('工具') || topic.includes('应用') || topic.includes('软件') || topic.includes('chatgpt') || topic.includes('工具箱')) {
+      // AI工具主题
+      return ToolSvg();
+    } else if (topic.includes('语音') || topic.includes('声音') || topic.includes('音频') || topic.includes('朗读')) {
+      // 语音/音频主题
+      return VoiceSvg();
+    } else if (topic.includes('视频') || topic.includes('影片') || topic.includes('电影') || topic.includes('动画')) {
+      // 视频主题
+      return VideoSvg();
+    } else {
+      // 默认AI主题
+      return DefaultSvg();
+    }
+  };
   // 确保src有值
   if (!src) {
     console.warn('图片源地址为空');
     return (
-      <div className="w-full h-40 flex items-center justify-center bg-gray-100 dark:bg-gray-700">
-        <div className="flex flex-col items-center text-gray-400">
-          <LucideIcons.ImageOff size={24} />
-          <span className="text-xs mt-2">无图片</span>
-        </div>
+      <div className="w-full h-full flex items-center justify-center bg-gray-50 dark:bg-gray-800 overflow-hidden">
+        {renderPlaceholderSvg()}
       </div>
     );
   }
@@ -68,13 +99,10 @@ export const CardImage = ({ src, alt, style }: { src: string, alt: string, style
   };
   
   if (imgError) {
-    // 显示备用图像或占位符
+    // 显示主题SVG占位图
     return (
-      <div className="w-full h-40 flex items-center justify-center bg-gray-100 dark:bg-gray-700">
-        <div className="flex flex-col items-center text-gray-400">
-          <LucideIcons.ImageOff size={24} />
-          <span className="text-xs mt-2">{alt}</span>
-        </div>
+      <div className="w-full h-full flex items-center justify-center bg-gray-50 dark:bg-gray-800 overflow-hidden">
+        {renderPlaceholderSvg()}
       </div>
     );
   }
@@ -91,6 +119,10 @@ export const CardImage = ({ src, alt, style }: { src: string, alt: string, style
     />
   );
 };
+
+            
+  
+  
 
 // 图标组件
 const TabIcon = ({ iconName }: { iconName: string }) => {
@@ -131,6 +163,7 @@ const localTabCategories = [
       { id: 'writing', label: 'AI写作', icon: 'PenTool' },
       { id: 'voice', label: 'AI语音', icon: 'Mic' },
       { id: 'video', label: 'AI视频', icon: 'Video' },
+      { id: 'modeling', label: 'AI建模', icon: 'Box' },
       { id: 'security', label: 'AI安全', icon: 'Shield' },
       { id: 'other', label: '其他', icon: 'MoreHorizontal' },
     ]
@@ -226,7 +259,7 @@ const AI = () => {
           date: post.date,
           image: post.coverImage || '/images/ai/blog-post.jpg',
           link: `/blog/${encodedSlug}`,
-          author: post.author?.name || '创意思维小筑',
+          author: post.author?.name || '泺源',
           isFromBlog: true, // 标记为来自博客
         };
       });
@@ -301,6 +334,7 @@ const AI = () => {
         case 'writing': return (toolsItems || []).filter(item => item.category === 'AI写作');
         case 'voice': return (toolsItems || []).filter(item => item.category === 'AI语音');
         case 'video': return (toolsItems || []).filter(item => item.category === 'AI视频');
+        case 'modeling': return (toolsItems || []).filter(item => item.category === 'AI建模');
         case 'security': return (toolsItems || []).filter(item => item.category === 'AI安全');
         case 'other': return (toolsItems || []).filter(item => item.category === '其他');
         default: return [];
@@ -326,6 +360,7 @@ const AI = () => {
       case 'writing': return 'AI写作和文本生成工具，提供创意写作和内容创作支持';
       case 'voice': return 'AI语音合成和识别工具，支持多语言和多场景应用';
       case 'video': return 'AI视频处理和生成工具，包括视频编辑、特效制作等';
+      case 'modeling': return 'AI建模工具，包括3D建模、3D渲染等';
       case 'security': return 'AI安全工具，保护数据和模型安全';
       case 'other': return '其他创新AI工具和应用';
       default: return '';
@@ -420,7 +455,7 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
 `;
 
     // 对于tools类型的卡片，如果有链接到详情页，可以加上查看详情页链接
-    const isToolItem = activeTab === 'tools' || activeTab.match(/^(general|painting|writing|voice|video|security|other)$/);
+    const isToolItem = activeTab === 'tools' || activeTab.match(/^(general|painting|writing|voice|video|modeling|security|other)$/);
     const toolDetailLink = isToolItem ? `/ai/tools/${selectedItem.id}` : null;
 
     return (
@@ -549,16 +584,16 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
             )}
           </div>
           
-          <h3 className={`${isNewsTab ? 'text-xl' : 'text-base'} font-semibold text-gray-900 dark:text-white mb-3 ${isNewsTab ? 'line-clamp-3' : 'line-clamp-2'}`}>
+          <h3 className={`${isNewsTab ? 'text-xl' : 'text-base'} font-semibold text-gray-900 dark:text-white mb-3 ${isNewsTab ? 'line-clamp-3' : 'line-clamp-2'} overflow-hidden text-ellipsis`}>
             {item.title}
           </h3>
           
-          <p className={`text-gray-600 dark:text-gray-300 ${isNewsTab ? 'text-sm' : 'text-xs'} ${isNewsTab ? 'line-clamp-3' : 'line-clamp-2'} flex-grow relative pb-1 mb-3`}>
+          <p className={`text-gray-600 dark:text-gray-300 ${isNewsTab ? 'text-sm' : 'text-xs'} ${isNewsTab ? 'line-clamp-3' : 'line-clamp-2'} flex-grow relative pb-1 mb-3 overflow-hidden`}>
             {item.description}
             <span className="absolute bottom-0 left-0 right-0 h-4 bg-gradient-to-t from-white dark:from-gray-800 to-transparent"></span>
           </p>
           
-          <div className="flex items-center justify-between pt-3 mt-auto mb-1 border-t border-gray-100 dark:border-gray-700">
+          <div className="flex items-center justify-between pt-3 mt-auto mb-1">
             {item.author && (
               <div className="flex items-center gap-1.5 text-gray-500 dark:text-gray-400">
                 <LucideIcons.User size={14} />
@@ -580,12 +615,11 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
       </>
     );
 
-    // 不要在这里使用transform-gpu或其他可能导致渲染层冲突的样式
-    // 移除卡片容器上的hover:-translate-y-1效果，改为更简单的hover效果
+    // 修复可能导致卡片黑色阴影的问题
     return (
       <div 
         key={item.id} 
-        className={`bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer ${cardHeight} border border-gray-100 dark:border-gray-700/50 ${item.isFromBlog ? 'border-l-4 border-l-primary/70' : ''}`}
+        className={`tutorial-card rounded-xl card-shadow cursor-pointer ${cardHeight} border-0 ${item.isFromBlog ? 'tutorial-card-blog' : ''}`}
         onClick={() => handleCardClick(item)}
       >
         {cardContent}
@@ -742,11 +776,11 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
             )}
             
             {/* 显示卡片网格 */}
-            <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-5`}>
+            <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-5 border-0`}>
               {isLoadingBlogPosts ? (
                 // 博客文章加载中的骨架屏
                 Array(4).fill(0).map((_, index) => (
-                  <div key={`skeleton-${index}`} className="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden animate-pulse border border-gray-100 dark:border-gray-700/50">
+                  <div key={`skeleton-${index}`} className="bg-white dark:bg-gray-800 rounded-xl card-shadow overflow-hidden animate-pulse border-0">
                     <div className="w-full pb-[50%] bg-gray-200 dark:bg-gray-700"></div>
                     <div className="p-4">
                       <div className="flex justify-between items-center mb-2">
@@ -758,7 +792,7 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
                         <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded"></div>
                         <div className="h-4 w-2/3 bg-gray-200 dark:bg-gray-700 rounded"></div>
                       </div>
-                      <div className="mt-3 pt-2 border-t border-gray-100 dark:border-gray-700">
+                      <div className="mt-3 pt-2">
                         <div className="flex justify-between items-center">
                           <div className="h-4 w-16 bg-gray-200 dark:bg-gray-700 rounded"></div>
                           <div className="h-4 w-20 bg-gray-200 dark:bg-gray-700 rounded"></div>
@@ -791,13 +825,13 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
       return (
         <div className={`grid grid-cols-1 sm:grid-cols-2 ${
           activeTab === 'news' 
-            ? 'lg:grid-cols-3 xl:grid-cols-4 gap-6' 
+            ? 'lg:grid-cols-3 xl:grid-cols-3 gap-6' 
             : 'lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-5'
-        }`}>
+        } border-0`}>
           {isLoadingNews && activeTab === 'news' ? (
             // 新闻骨架屏
             Array(8).fill(0).map((_, index) => (
-              <div key={index} className="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden animate-pulse border border-gray-100 dark:border-gray-700/50">
+              <div key={index} className="bg-white dark:bg-gray-800 rounded-xl card-shadow overflow-hidden animate-pulse border-0">
                 <div className="w-full pb-[56.25%] bg-gray-200 dark:bg-gray-700"></div>
                 <div className="p-6">
                   <div className="flex gap-2 mb-2">
@@ -810,7 +844,7 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
                     <div className="h-4 w-5/6 bg-gray-200 dark:bg-gray-700 rounded"></div>
                     <div className="h-4 w-4/6 bg-gray-200 dark:bg-gray-700 rounded"></div>
                   </div>
-                  <div className="mt-4 pt-2 border-t border-gray-100 dark:border-gray-700">
+                  <div className="mt-4 pt-2">
                     <div className="flex justify-between items-center">
                       <div className="h-4 w-20 bg-gray-200 dark:bg-gray-700 rounded"></div>
                       <div className="h-4 w-24 bg-gray-200 dark:bg-gray-700 rounded"></div>
@@ -822,7 +856,7 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
           ) : activeTab !== 'news' && getTabContent().length === 0 ? (
             // 非新闻空状态骨架屏
             Array(12).fill(0).map((_, index) => (
-              <div key={index} className="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden animate-pulse border border-gray-100 dark:border-gray-700/50">
+              <div key={index} className="bg-white dark:bg-gray-800 rounded-xl card-shadow overflow-hidden animate-pulse border-0">
                 <div className="w-full pb-[50%] bg-gray-200 dark:bg-gray-700"></div>
                 <div className="p-4">
                   <div className="flex justify-between items-center mb-2">
@@ -834,7 +868,7 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
                     <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded"></div>
                     <div className="h-4 w-2/3 bg-gray-200 dark:bg-gray-700 rounded"></div>
                   </div>
-                  <div className="mt-3 pt-2 border-t border-gray-100 dark:border-gray-700">
+                  <div className="mt-3 pt-2">
                     <div className="flex justify-between items-center">
                       <div className="h-4 w-16 bg-gray-200 dark:bg-gray-700 rounded"></div>
                       <div className="h-4 w-20 bg-gray-200 dark:bg-gray-700 rounded"></div>
@@ -1010,7 +1044,7 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.2 }}
-                className="w-full max-w-3xl max-h-[85vh] bg-white dark:bg-gray-800 rounded-2xl shadow-2xl overflow-hidden flex flex-col relative"
+                className="w-full max-w-3xl max-h-[85vh] bg-white dark:bg-gray-800 rounded-2xl overflow-hidden flex flex-col relative dark:shadow-none shadow-xl"
                 onClick={(e) => e.stopPropagation()}
               >
                 {/* 操作按钮组 */}
