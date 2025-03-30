@@ -540,8 +540,8 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
   const renderCard = (item: CardItem) => {
     // 根据标签页类型决定卡片样式
     const isNewsTab = activeTab === 'news';
-    const cardHeight = isNewsTab ? "h-[420px]" : "h-[320px]";
-    const contentHeight = isNewsTab ? "h-[270px]" : "h-[220px]";
+    const cardHeight = isNewsTab ? "h-[440px]" : "h-[340px]";
+    const contentHeight = isNewsTab ? "h-[240px]" : "h-[180px]";
     
     // 处理链接点击
     const handleLinkClick = (e: React.MouseEvent, url: string) => {
@@ -561,7 +561,10 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
     };
     
     const cardContent = (
-      <>
+      <div className={`flex flex-col ${contentHeight}  h-full`}>
+        
+        {/* 图片 */}
+        <div className="flex-grow">
         {item.image && (
           <div className={`w-full relative ${isNewsTab ? 'pb-[56.25%]' : 'pb-[50%]'} overflow-hidden`}>
             <div className="absolute inset-0">
@@ -569,7 +572,11 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
             </div>
           </div>
         )}
-        <div className={`${isNewsTab ? 'p-6' : 'p-4'} flex flex-col ${contentHeight}`}>
+        </div>
+
+        {/* 文字内容 */}
+        <div className={`${isNewsTab ? 'p-6' : 'p-4'} flex flex-col flex-grow`}>
+        {/* 分类和日期 */}
           <div className="flex items-center gap-2 mb-2">
             {item.category && (
               <span className={`inline-block ${isNewsTab ? 'px-3 py-1' : 'px-2 py-0.5'} text-xs font-medium bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary-foreground rounded-full`}>
@@ -577,42 +584,44 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
               </span>
             )}
             {item.date && (
-              <span className={`text-xs text-gray-500 dark:text-gray-400 flex items-center ${isNewsTab ? '' : 'ml-auto'}`}>
+              <span className={`text-xs text-gray-500 dark:text-gray-400 flex items-center ml-auto`}>
                 <LucideIcons.Calendar size={12} className="mr-1" />
                 {item.date}
               </span>
             )}
           </div>
-          
-          <h3 className={`${isNewsTab ? 'text-xl' : 'text-base'} font-semibold text-gray-900 dark:text-white mb-3 ${isNewsTab ? 'line-clamp-3' : 'line-clamp-2'} overflow-hidden text-ellipsis`}>
+          {/* 标题 */}
+          <h3 className={`${isNewsTab ? 'text-lg' : 'text-l'} font-semibold text-gray-900 dark:text-white mb-3 ${isNewsTab ? 'line-clamp-3' : 'line-clamp-2'} overflow-hidden text-ellipsis`}>
             {item.title}
           </h3>
-          
-          <p className={`text-gray-600 dark:text-gray-300 ${isNewsTab ? 'text-sm' : 'text-xs'} ${isNewsTab ? 'line-clamp-3' : 'line-clamp-2'} flex-grow relative pb-1 mb-3 overflow-hidden`}>
+
+          {/* 描述 */}
+          <p className={`text-gray-600 dark:text-gray-300 ${isNewsTab ? 'text-sm' : 'text-sm'} ${isNewsTab ? 'line-clamp-4' : 'line-clamp-2'} flex-grow relative pb-1 mb-3 overflow-hidden`}>
             {item.description}
             <span className="absolute bottom-0 left-0 right-0 h-4 bg-gradient-to-t from-white dark:from-gray-800 to-transparent"></span>
           </p>
-          
-          <div className="flex items-center justify-between pt-3 mt-auto mb-1">
+
+          {/* 作者和链接 */}
+          <div className="flex items-center justify-between pt-3 mt-auto mb-1 w-full">
             {item.author && (
-              <div className="flex items-center gap-1.5 text-gray-500 dark:text-gray-400">
-                <LucideIcons.User size={14} />
-                <span className="text-xs truncate max-w-[120px]">{item.author}</span>
+              <div className="flex items-center gap-1.5 text-gray-500 dark:text-gray-400 min-w-0 max-w-[60%]">
+                <LucideIcons.User size={14} className="flex-shrink-0" />
+                <span className="text-xs truncate">{item.author}</span>
               </div>
             )}
             
             {item.link && (
               <a 
                 href={item.link} 
-                className={`inline-flex items-center text-primary hover:text-primary-dark ${isNewsTab ? 'text-sm' : 'text-xs'}`}
+                className={`inline-flex items-center text-primary hover:text-primary-dark ml-auto ${isNewsTab ? 'text-sm' : 'text-xs'} whitespace-nowrap`}
                 onClick={(e) => handleLinkClick(e, item.link)}
               >
-                {item.isFromBlog ? '阅读博客' : '了解更多'} <LucideIcons.ChevronRight size={isNewsTab ? 16 : 12} className="ml-1" />
+                {item.isFromBlog ? '阅读博客' : '了解更多'} <LucideIcons.ChevronRight size={isNewsTab ? 16 : 12} className="ml-1 flex-shrink-0" />
               </a>
             )}
           </div>
         </div>
-      </>
+      </div>
     );
 
     // 修复可能导致卡片黑色阴影的问题
