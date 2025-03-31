@@ -5,9 +5,21 @@ import { deepSeekV3Content } from './news-content/deepseek-v3';
 import { gpt5Content } from './news-content/gpt5';
 import { deepmindContent } from './news-content/deepmind';
 import { claudeThinkContent } from './news-content/claude-think';
-import { qwen25omin } from './news-content/qwen-2.5omni'
+import { qwen25omin } from './news-content/qwen-2.5omni';
+import { GPT4oImg } from './news-content/GPT-4o-img';
 // 默认新闻数据
 export const defaultNewsItems: CardItem[] = [
+  {
+    id:'new-5',
+    title:'GPT-4o 的新的图像模型生成原理',
+    description:'自回归模型究竟是什么？为什么它如此惊艳？',
+    author:'OpenAI',
+    date:'2025-03-28',
+    image:'https://images.ctfassets.net/kftzwdyauwt9/EXhP2glGdd9Lwt03rhkSO/6cbbcb02c9d60c14e631447d6f5ef994/ajabri_marx.png?w=1920&q=90&fm=webp',
+    link:'https://openai.com/index/introducing-4o-image-generation/',
+    category:'图像生成',
+    content:GPT4oImg
+  },
   {
     id:'new-4',
     title:'新的语音模型支持实时视觉对话',

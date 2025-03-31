@@ -34,41 +34,43 @@ export const CardImage = ({ src, alt, style }: { src: string, alt: string, style
     // 从alt或标题中提取可能的主题关键词
     const topic = alt.toLowerCase();
     
+    const svgWrapper = (svgContent: React.ReactNode) => (
+      <div className="w-full h-full text-blue-500 dark:text-blue-400">
+        {svgContent}
+      </div>
+    );
+    
     // 根据主题选择不同的SVG图案
     if (topic.includes('教程') || topic.includes('学习') || topic.includes('指南') || topic.includes('课程')) {
       // 教程/学习主题
-      return TutorialSvg();
+      return svgWrapper(TutorialSvg());
     } else if (topic.includes('深度学习') || topic.includes('神经网络') || topic.includes('模型') || topic.includes('机器学习')) {
       // 深度学习/神经网络主题
-      return DeepLearningSvg();
+      return svgWrapper(DeepLearningSvg());
     } else if (topic.includes('绘画') || topic.includes('图像') || topic.includes('设计') || topic.includes('midjourney') || topic.includes('stable diffusion')) {
       // 绘画/图像生成主题
-      return PaintingSvg();
+      return svgWrapper(PaintingSvg());
     } else if (topic.includes('提示词') || topic.includes('prompt') || topic.includes('工程') || topic.includes('对话') || topic.includes('大模型')) {
       // 提示词工程主题
-      return PromptSvg();
+      return svgWrapper(PromptSvg());
     } else if (topic.includes('工具') || topic.includes('应用') || topic.includes('软件') || topic.includes('chatgpt') || topic.includes('工具箱')) {
       // AI工具主题
-      return ToolSvg();
+      return svgWrapper(ToolSvg());
     } else if (topic.includes('语音') || topic.includes('声音') || topic.includes('音频') || topic.includes('朗读')) {
       // 语音/音频主题
-      return VoiceSvg();
+      return svgWrapper(VoiceSvg());
     } else if (topic.includes('视频') || topic.includes('影片') || topic.includes('电影') || topic.includes('动画')) {
       // 视频主题
-      return VideoSvg();
+      return svgWrapper(VideoSvg());
     } else {
       // 默认AI主题
-      return DefaultSvg();
+      return svgWrapper(DefaultSvg());
     }
   };
   // 确保src有值
   if (!src) {
     console.warn('图片源地址为空');
-    return (
-      <div className="w-full h-full flex items-center justify-center bg-gray-50 dark:bg-gray-800 overflow-hidden">
-        {renderPlaceholderSvg()}
-      </div>
-    );
+    return renderPlaceholderSvg();
   }
   
   // 处理图片URL
@@ -100,23 +102,21 @@ export const CardImage = ({ src, alt, style }: { src: string, alt: string, style
   
   if (imgError) {
     // 显示主题SVG占位图
-    return (
-      <div className="w-full h-full flex items-center justify-center bg-gray-50 dark:bg-gray-800 overflow-hidden">
-        {renderPlaceholderSvg()}
-      </div>
-    );
+    return renderPlaceholderSvg();
   }
   
   return (
-    <img 
-      src={imageUrl}
-      alt={alt} 
-      className="w-full h-full object-cover"
-      onError={handleError}
-      loading="lazy"
-      crossOrigin="anonymous"
-      referrerPolicy="no-referrer"
-    />
+    <div className="w-full h-full">
+      <img 
+        src={imageUrl}
+        alt={alt} 
+        className="w-full h-full object-cover"
+        onError={handleError}
+        loading="lazy"
+        crossOrigin="anonymous"
+        referrerPolicy="no-referrer"
+      />
+    </div>
   );
 };
 
@@ -394,7 +394,7 @@ const AI = () => {
         <div className="flex-1 overflow-y-auto">
           {/* 图片 */}
           {selectedItem.image && (
-            <div className="w-full h-32 md:h-40 overflow-hidden">
+            <div className="w-full h-32 md:h-40 overflow-hidden bg-white dark:bg-gray-800 text-blue-500 dark:text-blue-400">
               <CardImage src={selectedItem.image} alt={selectedItem.title} />
             </div>
           )}
@@ -462,8 +462,10 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
       <div className="flex-1 overflow-y-auto">
         {/* 图片 */}
         {selectedItem.image && (
-          <div className="w-full h-32 md:h-40 overflow-hidden">
-            <CardImage src={selectedItem.image} alt={selectedItem.title} />
+          <div className={`w-full relative aspect-video overflow-hidden rounded-t-xl bg-white dark:bg-gray-800 text-blue-500 dark:text-blue-400`}>
+            <div className="absolute inset-0">
+              <CardImage key={`detail-${selectedItem.id}`} src={selectedItem.image} alt={selectedItem.title} />
+            </div>
           </div>
         )}
         
@@ -540,7 +542,7 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
   const renderCard = (item: CardItem) => {
     // 根据标签页类型决定卡片样式
     const isNewsTab = activeTab === 'news';
-    const cardHeight = isNewsTab ? "h-[440px]" : "h-[340px]";
+    const cardHeight = isNewsTab ? "h-[440px] sm:h-[420px]" : "h-[340px] sm:h-[320px]";
     const contentHeight = isNewsTab ? "h-[240px]" : "h-[180px]";
     
     // 处理链接点击
@@ -561,48 +563,48 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
     };
     
     const cardContent = (
-      <div className={`flex flex-col ${contentHeight}  h-full`}>
+      <div className={`flex flex-col h-full`}>
         
         {/* 图片 */}
-        <div className="flex-grow">
-        {item.image && (
-          <div className={`w-full relative ${isNewsTab ? 'pb-[56.25%]' : 'pb-[50%]'} overflow-hidden`}>
-            <div className="absolute inset-0">
-              <CardImage key={`${activeTab}-${item.id}`} src={item.image} alt={item.title} />
+        <div className="flex-shrink-0">
+          {item.image && (
+            <div className={`w-full relative aspect-video overflow-hidden rounded-t-xl bg-white dark:bg-gray-800 text-blue-500 dark:text-blue-400`}>
+              <div className="absolute inset-0">
+                <CardImage key={`${activeTab}-${item.id}`} src={item.image} alt={item.title} />
+              </div>
             </div>
-          </div>
-        )}
+          )}
         </div>
 
         {/* 文字内容 */}
-        <div className={`${isNewsTab ? 'p-6' : 'p-4'} flex flex-col flex-grow`}>
-        {/* 分类和日期 */}
+        <div className={`${isNewsTab ? 'p-5' : 'p-4'} flex flex-col flex-grow overflow-hidden`}>
+          {/* 分类和日期 */}
           <div className="flex items-center gap-2 mb-2">
             {item.category && (
-              <span className={`inline-block ${isNewsTab ? 'px-3 py-1' : 'px-2 py-0.5'} text-xs font-medium bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary-foreground rounded-full`}>
+              <span className={`inline-block ${isNewsTab ? 'px-2.5 py-0.5' : 'px-2 py-0.5'} text-xs font-medium bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary-foreground rounded-full truncate max-w-[60%]`}>
                 {item.category}
               </span>
             )}
             {item.date && (
-              <span className={`text-xs text-gray-500 dark:text-gray-400 flex items-center ml-auto`}>
-                <LucideIcons.Calendar size={12} className="mr-1" />
+              <span className={`text-xs text-gray-500 dark:text-gray-400 flex items-center ml-auto truncate`}>
+                <LucideIcons.Calendar size={12} className="mr-1 flex-shrink-0" />
                 {item.date}
               </span>
             )}
           </div>
+          
           {/* 标题 */}
-          <h3 className={`${isNewsTab ? 'text-lg' : 'text-l'} font-semibold text-gray-900 dark:text-white mb-3 ${isNewsTab ? 'line-clamp-3' : 'line-clamp-2'} overflow-hidden text-ellipsis`}>
+          <h3 className={`${isNewsTab ? 'text-lg' : 'text-base'} font-semibold text-gray-900 dark:text-white mb-2 ${isNewsTab ? 'line-clamp-2' : 'line-clamp-2'} overflow-hidden text-ellipsis`}>
             {item.title}
           </h3>
 
           {/* 描述 */}
-          <p className={`text-gray-600 dark:text-gray-300 ${isNewsTab ? 'text-sm' : 'text-sm'} ${isNewsTab ? 'line-clamp-4' : 'line-clamp-2'} flex-grow relative pb-1 mb-3 overflow-hidden`}>
+          <p className={`text-gray-600 dark:text-gray-300 ${isNewsTab ? 'text-sm' : 'text-xs'} ${isNewsTab ? 'line-clamp-3' : 'line-clamp-2'} flex-grow relative`}>
             {item.description}
-            <span className="absolute bottom-0 left-0 right-0 h-4 bg-gradient-to-t from-white dark:from-gray-800 to-transparent"></span>
           </p>
 
           {/* 作者和链接 */}
-          <div className="flex items-center justify-between pt-3 mt-auto mb-1 w-full">
+          <div className="flex items-center justify-between pt-3 mt-auto border-t border-gray-100 dark:border-gray-700/50 w-full">
             {item.author && (
               <div className="flex items-center gap-1.5 text-gray-500 dark:text-gray-400 min-w-0 max-w-[60%]">
                 <LucideIcons.User size={14} className="flex-shrink-0" />
@@ -616,7 +618,7 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
                 className={`inline-flex items-center text-primary hover:text-primary-dark ml-auto ${isNewsTab ? 'text-sm' : 'text-xs'} whitespace-nowrap`}
                 onClick={(e) => handleLinkClick(e, item.link)}
               >
-                {item.isFromBlog ? '阅读博客' : '了解更多'} <LucideIcons.ChevronRight size={isNewsTab ? 16 : 12} className="ml-1 flex-shrink-0" />
+                {item.isFromBlog ? '阅读博客' : '了解更多'} <LucideIcons.ChevronRight size={isNewsTab ? 16 : 14} className="ml-1 flex-shrink-0" />
               </a>
             )}
           </div>
@@ -628,7 +630,7 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
     return (
       <div 
         key={item.id} 
-        className={`tutorial-card rounded-xl card-shadow cursor-pointer ${cardHeight} border-0 ${item.isFromBlog ? 'tutorial-card-blog' : ''}`}
+        className={`tutorial-card rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 cursor-pointer bg-white dark:bg-gray-800 overflow-hidden border border-gray-200 dark:border-gray-700 ${item.isFromBlog ? 'tutorial-card-blog' : ''}`}
         onClick={() => handleCardClick(item)}
       >
         {cardContent}

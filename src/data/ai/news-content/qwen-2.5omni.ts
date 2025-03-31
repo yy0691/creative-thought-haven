@@ -1,7 +1,6 @@
 export const qwen25omin = `
 **阿里云发布Qwen2.5Omni端到端全模态感知与响应模型支持看、听、说、写、做**
 
-![img_v3_02kp_ef7f8a2c-b785-4043-8cdb-25e4c52a443g](https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/AiNews/img_v3_02kp_ef7f8a2c-b785-4043-8cdb-25e4c52a443g.png)
 
 ## 简介
 
