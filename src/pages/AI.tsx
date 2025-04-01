@@ -540,11 +540,6 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
 
   // 渲染卡片
   const renderCard = (item: CardItem) => {
-    // 根据标签页类型决定卡片样式
-    const isNewsTab = activeTab === 'news';
-    const cardHeight = isNewsTab ? "h-[440px] sm:h-[420px]" : "h-[340px] sm:h-[320px]";
-    const contentHeight = isNewsTab ? "h-[240px]" : "h-[180px]";
-    
     // 处理链接点击
     const handleLinkClick = (e: React.MouseEvent, url: string) => {
       e.stopPropagation(); // 阻止事件冒泡
@@ -563,12 +558,12 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
     };
     
     const cardContent = (
-      <div className={`flex flex-col h-full`}>
+      <div className="flex flex-col h-full">
         
         {/* 图片 */}
         <div className="flex-shrink-0">
           {item.image && (
-            <div className={`w-full relative aspect-video overflow-hidden rounded-t-xl bg-white dark:bg-gray-800 text-blue-500 dark:text-blue-400`}>
+            <div className="w-full relative aspect-video overflow-hidden rounded-t-xl bg-white dark:bg-gray-800 text-blue-500 dark:text-blue-400">
               <div className="absolute inset-0">
                 <CardImage key={`${activeTab}-${item.id}`} src={item.image} alt={item.title} />
               </div>
@@ -577,16 +572,16 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
         </div>
 
         {/* 文字内容 */}
-        <div className={`${isNewsTab ? 'p-5' : 'p-4'} flex flex-col flex-grow overflow-hidden`}>
+        <div className="p-4 flex flex-col flex-grow overflow-hidden">
           {/* 分类和日期 */}
           <div className="flex items-center gap-2 mb-2">
             {item.category && (
-              <span className={`inline-block ${isNewsTab ? 'px-2.5 py-0.5' : 'px-2 py-0.5'} text-xs font-medium bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary-foreground rounded-full truncate max-w-[60%]`}>
+              <span className="inline-block px-2 py-0.5 text-xs font-medium bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary-foreground rounded-full truncate max-w-[60%]">
                 {item.category}
               </span>
             )}
             {item.date && (
-              <span className={`text-xs text-gray-500 dark:text-gray-400 flex items-center ml-auto truncate`}>
+              <span className="text-xs text-gray-500 dark:text-gray-400 flex items-center ml-auto truncate">
                 <LucideIcons.Calendar size={12} className="mr-1 flex-shrink-0" />
                 {item.date}
               </span>
@@ -594,12 +589,12 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
           </div>
           
           {/* 标题 */}
-          <h3 className={`${isNewsTab ? 'text-lg' : 'text-base'} font-semibold text-gray-900 dark:text-white mb-2 ${isNewsTab ? 'line-clamp-2' : 'line-clamp-2'} overflow-hidden text-ellipsis`}>
+          <h3 className="text-base font-semibold text-gray-900 dark:text-white mb-2 line-clamp-2 overflow-hidden text-ellipsis">
             {item.title}
           </h3>
 
           {/* 描述 */}
-          <p className={`text-gray-600 dark:text-gray-300 ${isNewsTab ? 'text-sm' : 'text-xs'} ${isNewsTab ? 'line-clamp-3' : 'line-clamp-2'} flex-grow relative`}>
+          <p className="text-sm text-gray-600 dark:text-gray-300 line-clamp-3 md:line-clamp-4 flex-grow relative">
             {item.description}
           </p>
 
@@ -615,10 +610,10 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
             {item.link && (
               <a 
                 href={item.link} 
-                className={`inline-flex items-center text-primary hover:text-primary-dark ml-auto ${isNewsTab ? 'text-sm' : 'text-xs'} whitespace-nowrap`}
+                className="inline-flex items-center text-primary hover:text-primary-dark ml-auto text-xs whitespace-nowrap"
                 onClick={(e) => handleLinkClick(e, item.link)}
               >
-                {item.isFromBlog ? '阅读博客' : '了解更多'} <LucideIcons.ChevronRight size={isNewsTab ? 16 : 14} className="ml-1 flex-shrink-0" />
+                {item.isFromBlog ? '阅读博客' : '了解更多'} <LucideIcons.ChevronRight size={14} className="ml-1 flex-shrink-0" />
               </a>
             )}
           </div>
@@ -630,7 +625,7 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
     return (
       <div 
         key={item.id} 
-        className={`tutorial-card rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 cursor-pointer bg-white dark:bg-gray-800 overflow-hidden border border-gray-200 dark:border-gray-700 ${item.isFromBlog ? 'tutorial-card-blog' : ''}`}
+        className="tutorial-card rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 cursor-pointer bg-white dark:bg-gray-800 overflow-hidden border border-gray-200 dark:border-gray-700 h-[360px] sm:h-[380px] md:h-[400px]"
         onClick={() => handleCardClick(item)}
       >
         {cardContent}
@@ -787,7 +782,7 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
             )}
             
             {/* 显示卡片网格 */}
-            <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-5 border-0`}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 border-0">
               {isLoadingBlogPosts ? (
                 // 博客文章加载中的骨架屏
                 Array(4).fill(0).map((_, index) => (
@@ -834,11 +829,7 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
 
       // 其他标签页使用卡片网格布局
       return (
-        <div className={`grid grid-cols-1 sm:grid-cols-2 ${
-          activeTab === 'news' 
-            ? 'lg:grid-cols-3 xl:grid-cols-3 gap-6' 
-            : 'lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-5'
-        } border-0`}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 border-0">
           {isLoadingNews && activeTab === 'news' ? (
             // 新闻骨架屏
             Array(8).fill(0).map((_, index) => (
@@ -896,7 +887,7 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
                   key={item.id} 
                   className="animate-enter-delayed"
                   style={{ 
-                    animationDelay: `${index * (activeTab === 'news' ? 40 : 25)}ms`
+                    animationDelay: `${index * 30}ms`
                   }}
                 >
                   {renderCard(item)}
@@ -941,6 +932,15 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
         animation: enterDelayed 0.25s ease-out forwards;
         will-change: opacity, transform;
       }
+      
+      /* 隐藏滚动条但保持滚动功能 */
+      .scrollbar-hide {
+        -ms-overflow-style: none;  /* IE 和 Edge */
+        scrollbar-width: none;  /* Firefox */
+      }
+      .scrollbar-hide::-webkit-scrollbar {
+        display: none; /* Chrome, Safari 和 Opera */
+      }
     `;
     document.head.appendChild(style);
     
@@ -959,7 +959,7 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
           <h2 className="text-xl font-bold text-gray-900 dark:text-white">AI资源中心</h2>
         </div>
         
-        <div className="py-4 overflow-y-auto max-h-[calc(100vh-4rem)]">
+        <div className="py-4 overflow-y-auto max-h-[calc(100vh-4rem)] scrollbar-hide">
           {localTabCategories.map((category) => (
             <div key={category.id} className="mb-4">
               {category.title && (
@@ -990,6 +990,14 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
         </div>
       </div>
       
+      {/* 移动菜单遮罩 - 添加点击关闭功能 */}
+      {isMenuOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 lg:hidden"
+          onClick={() => setIsMenuOpen(false)}
+        />
+      )}
+      
       {/* 移动菜单 */}
       <div className={`fixed inset-y-0 left-0 transform ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'} lg:hidden w-[280px] z-[45] bg-white dark:bg-gray-800 shadow-xl transition-transform duration-300 ease-in-out`}>
         <div className="p-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
@@ -999,7 +1007,7 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
           </button>
         </div>
         
-        <div className="py-4 overflow-y-auto max-h-[calc(100vh-4rem)]">
+        <div className="py-4 overflow-y-auto max-h-[calc(100vh-4rem)] scrollbar-hide">
           {localTabCategories.map((category) => (
             <div key={category.id} className="mb-4">
               {category.title && (
@@ -1011,7 +1019,10 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
                 {category.tabs.map((tab) => (
                   <button
                     key={tab.id}
-                    onClick={() => handleTabChange(tab.id)}
+                    onClick={() => {
+                      handleTabChange(tab.id);
+                      setIsMenuOpen(false); // 点击菜单项后关闭菜单
+                    }}
                     className={`flex items-center w-full px-4 py-2 text-sm transition-all duration-200 ease-in-out ${
                       activeTab === tab.id 
                         ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-200 font-medium transform translate-x-1' 

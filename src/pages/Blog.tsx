@@ -4,7 +4,7 @@ import { type BlogPostMeta, getBlogPosts, formatDate } from '../lib/blog';
 import { CategorySelector } from '../components/CategorySelector';
 import { categories } from '../content/categories';
 import SplashCursor from '../components/cursor';
-import { LayoutGrid, List, ArrowUpDown, Clock, Tag, AlignJustify } from 'lucide-react';
+import { LayoutGrid, List, ArrowUpDown, Clock, Tag, AlignJustify, PinIcon } from 'lucide-react';
 import { Virtuoso } from 'react-virtuoso';
 
 // 定义博客摘要类型，与BlogPostMeta兼容
@@ -321,16 +321,17 @@ const Blog = () => {
                           <td className="py-3 px-4">
                             <Link 
                               to={`/blog/${encodeURIComponent(post.slug.replace(/^\//, ''))}`}
-                              className="block hover:text-primary transition-colors"
+                              className="block hover:text-primary transition-colors relative"
                             >
+                              {/* 置顶图标 */}
+                              {post.isSticky && (
+                                <div className="absolute -right-1 top-1/2 -translate-y-1/2 z-10  p-1 rounded-full text-primary dark:bg-primary/30 dark:text-primary-foreground" title="置顶文章">
+                                  <PinIcon size={12} className="animate-pulse" />
+                                </div>
+                              )}
                               <div className="flex items-center">
-                                <h2 className="text-[16px] font-medium leading-[1.6] line-clamp-1 pr-2">
+                                <h2 className="text-[16px] font-medium leading-[1.6] line-clamp-1 pr-6 flex items-center">
                                   {post.title}
-                                  {post.isSticky && (
-                                    <span className="bg-primary/20 text-primary text-xs px-2 py-0.5 rounded-full dark:bg-primary/30 dark:text-primary-foreground ml-2">
-                                      置顶
-                                    </span>
-                                  )}
                                 </h2>
                               </div>
                             </Link>
@@ -388,6 +389,13 @@ const Blog = () => {
                 viewMode === 'list' ? 'flex gap-4 items-start p-6' : 'p-6'
               } group hover:shadow-xl hover:border-primary/30`}
             >
+              {/* 置顶图标 - 右上角 */}
+              {post.isSticky && (
+                <div className="absolute top-2 right-2 z-20 bg-primary/10 p-1.5 rounded-full text-primary dark:bg-primary/30 dark:text-primary-foreground shadow-sm" title="置顶文章">
+                  <PinIcon size={14} className="animate-pulse" />
+                </div>
+              )}
+              
               {/* 悬浮效果元素 - 渐变光效 */}
               <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out" />
               
@@ -399,13 +407,8 @@ const Blog = () => {
                 <div className={viewMode === 'list' ? 'flex items-start justify-between gap-4' : 'space-y-4'}>
                   <div className={viewMode === 'list' ? 'flex-1' : ''}>
                     <div className="flex items-center gap-2 mb-2">
-                      <h2 className="text-xl font-semibold group-hover:text-primary transition-colors duration-300 dark:text-white">
+                      <h2 className="text-xl font-semibold group-hover:text-primary transition-colors duration-300 dark:text-white flex items-center">
                         {post.title}
-                        {post.isSticky && (
-                          <span className="bg-primary/20 text-primary text-xs px-2 py-0.5 rounded-full dark:bg-primary/30 dark:text-primary-foreground ml-2">
-                            置顶
-                          </span>
-                        )}
                       </h2>
                     </div>
                     <p className="text-muted-foreground text-sm mb-3 transition-opacity duration-300 group-hover:text-foreground/90 dark:text-gray-300">{post.excerpt}</p>

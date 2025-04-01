@@ -9,53 +9,32 @@ import LazyImage from './LazyImage';
 import { lazy, Suspense } from 'react';
 import ErrorBoundary from './ErrorBoundary';
 import { ColoredSpan, HighlightedMark, WarningText, NoteText, InfoText } from './StyledElements';
+import { ZoomableImage } from './ImageViewer';
 
 interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
-  alt?: string;
-  width?: string | number;
-  height?: string | number;
-  scale?: number;
+  width?: number;
+  height?: number;
+  priority?: boolean;
+  style?: any;
 }
 
-const Image = ({ alt, src, width, height, scale = 1, ...props }: ImageProps) => {
-  const [error, setError] = React.useState(false);
-  const [loaded, setLoaded] = React.useState(false);
-
-  const imageStyle = {
-    width: width || '100%',
-    height: height || 'auto',
-    objectFit: 'contain' as const,
-    transform: `scale(${scale})`,
-    transformOrigin: 'center center'
-  };
-
-  // 使用 span 替代 div，因为 span 是行内元素，可以放在 p 标签内
-  return (
-    <span className="block my-6 relative">
-      {!loaded && !error && (
-        <span className="block w-full h-48 bg-gray-100 animate-pulse rounded-lg" />
-      )}
-      {error ? (
-        <span className="block w-full h-48 bg-gray-100 flex items-center justify-center rounded-lg">
-          <span className="text-gray-500">图片加载失败</span>
-        </span>
-      ) : (
-        <img
-          {...props}
-          src={src}
-          alt={alt || ''}
-          style={imageStyle}
-          className={`rounded-lg shadow-md transition-opacity duration-300 ${loaded ? 'opacity-100' : 'opacity-0'}`}
-          onError={() => setError(true)}
-          onLoad={() => setLoaded(true)}
-        />
-      )}
-      {alt && loaded && !error && (
-        <span className="block text-sm text-center text-muted-foreground mt-2">{alt}</span>
-      )}
-    </span>
-  );
-};
+function processStyleString(style: string) {
+  try {
+    // 从字符串转换成对象
+    return style.split(';').reduce((acc, current) => {
+      const [key, value] = current.split(':');
+      if (key && value) {
+        // 转换为驼峰式
+        const camelKey = key.trim().replace(/-([a-z])/g, g => g[1].toUpperCase());
+        acc[camelKey] = value.trim();
+      }
+      return acc;
+    }, {});
+  } catch (e) {
+    console.error("Error processing style string:", e);
+    return {};
+  }
+}
 
 // 懒加载代码块组件
 const CodeBlock = lazy(() => import('./CodeBlock'));
@@ -65,28 +44,6 @@ const LazyCodeBlock = (props) => (
     <CodeBlock {...props} />
   </Suspense>
 );
-
-// 安全处理样式属性的辅助函数
-const processStyleString = (styleString) => {
-  if (!styleString) return {};
-  
-  try {
-    // 尝试处理旧格式的样式字符串
-    const styleObj = {};
-    styleString.split(';').forEach(item => {
-      const [key, value] = item.split(':').map(s => s?.trim());
-      if (key && value) {
-        // 转换CSS属性为驼峰命名
-        const camelKey = key.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
-        styleObj[camelKey] = value;
-      }
-    });
-    return styleObj;
-  } catch (e) {
-    console.error('样式处理错误:', e);
-    return {};
-  }
-};
 
 // 安全包装HTML元素的函数
 const withSafeProps = (Component) => {
@@ -104,14 +61,20 @@ const withSafeProps = (Component) => {
 
 const components = {
   CenteredImage,
-  img: ({ src, alt, style, ...props }) => {
+  img: (props: ImageProps) => {
+    const { src, alt, width, height, style, ...rest } = props;
     if (!src) return null;
     const safeStyle = typeof style === 'string' ? processStyleString(style) : style;
-    return <LazyImage 
-      src={src} 
-      alt={alt || ""} 
-      {...props} 
-    />;
+    
+    return (
+      <ZoomableImage 
+        src={src} 
+        alt={alt || ""} 
+        style={safeStyle}
+        className="rounded-md max-w-full h-auto"
+        {...rest} 
+      />
+    );
   },
   a: ({ href, children }: { href?: string; children: React.ReactNode }) => {
     const isInternal = href?.startsWith('/');
@@ -340,12 +303,12 @@ const components = {
   ),
   th: (props: any) => <th className="border border-border px-4 py-2 text-left font-bold dark:border-gray-700 dark:text-white" {...props} />,
   td: (props: any) => <td className="border border-border px-4 py-2 dark:border-gray-700 dark:text-gray-200" {...props} />,
-  mark: withSafeProps((props) => <mark {...props} />),
-  ColoredSpan,
-  HighlightedMark,
-  WarningText,
-  NoteText,
-  InfoText,
+  mark: HighlightedMark,
+  'colored-span': ColoredSpan,
+  Warning: WarningText,
+  Note: NoteText,
+  Info: InfoText,
+  ErrorBoundary,
 };
 
 export default components;

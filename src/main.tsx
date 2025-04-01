@@ -1,10 +1,13 @@
-import { createRoot } from 'react-dom/client'
+import React from 'react'
+import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
-import { EmotionCacheProvider } from './emotion-setup'
+import { ImageViewerProvider } from './components/ImageViewer.tsx'
 
-createRoot(document.getElementById("root")!).render(
-  <EmotionCacheProvider>
-    <App />
-  </EmotionCacheProvider>
-);
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <ImageViewerProvider>
+      <App />
+    </ImageViewerProvider>
+  </React.StrictMode>,
+)
