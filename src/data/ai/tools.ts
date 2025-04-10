@@ -171,7 +171,7 @@ FLORA 提供社区工作流库，用户可以：
     title: 'Tripo+MCP',
     description: '使用Tripo MCP插件 + Cursor 实现 Al 驱动的 3D 设计生成',
     link: 'https://github.com/VAST-AI-Research/tripo-mcp',
-    image: 'https://raw.githubusercontent.com/yy0691/img-bed/main/Blog/Ai_Newsimg_v3_02km_346b7c0c-6631-4bb4-82c8-d799b3570bag.jpg',
+    image: 'https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02km_346b7c0c-6631-4bb4-82c8-d799b3570bag.jpg',
     category: 'AI建模',
     content: tripoMcp
   },

@@ -18,15 +18,15 @@ export const tripoMcp = `
 1. 下载插件 [ZIP 文件](https://drive.google.com/drive/u/0/folders/1uYL-LPaeThGSfvhcf0v2LS3EHIvba-wL)
 2. 打开 Blender > Edit > Preferences > Add-ons
 
-![img_v3_02km_3a40c2ae-d32a-4b01-a308-11789326c95g](https://raw.githubusercontent.com/yy0691/img-bed/main/Blog/Ai_Newsimg_v3_02km_3a40c2ae-d32a-4b01-a308-11789326c95g.jpg)
+![img_v3_02km_3a40c2ae-d32a-4b01-a308-11789326c95g](https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02km_3a40c2ae-d32a-4b01-a308-11789326c95g.jpg)
 
 3. 点击 Install 安装插件 ZIP
 
-![img_v3_02km_fd582c74-1294-44c7-99a8-65e91b6198dg](https://raw.githubusercontent.com/yy0691/img-bed/main/Blog/Ai_Newsimg_v3_02km_fd582c74-1294-44c7-99a8-65e91b6198dg.jpg)
+![img_v3_02km_fd582c74-1294-44c7-99a8-65e91b6198dg](https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02km_fd582c74-1294-44c7-99a8-65e91b6198dg.jpg)
 
 4. 勾选启用插件 ✅
 
-![img_v3_02km_aa29131b-54b6-4a7f-888a-8cf0b210a7bg](https://raw.githubusercontent.com/yy0691/img-bed/main/Blog/Ai_Newsimg_v3_02km_aa29131b-54b6-4a7f-888a-8cf0b210a7bg.jpg)
+![img_v3_02km_aa29131b-54b6-4a7f-888a-8cf0b210a7bg](https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02km_aa29131b-54b6-4a7f-888a-8cf0b210a7bg.jpg)
 
 5. 插件成功后，Blender 右侧面板会出现 “Tripo” 标签
 
@@ -37,15 +37,15 @@ export const tripoMcp = `
 1. 前往 [Tripo Developer Portal](https://tripo3d.ai/)
 2. 注册 / 登录
 
-![img_v3_02km_1c14f563-0184-4766-b666-b80de82fdc0g](https://raw.githubusercontent.com/yy0691/img-bed/main/Blog/Ai_Newsimg_v3_02km_1c14f563-0184-4766-b666-b80de82fdc0g.jpg)
+![img_v3_02km_1c14f563-0184-4766-b666-b80de82fdc0g](https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02km_1c14f563-0184-4766-b666-b80de82fdc0g.jpg)
 
 3. 进入 API Keys 页面，创建新密钥
 
-![img_v3_02km_8c0453d6-0bf9-4e27-93f1-9efd03f7acbg](https://raw.githubusercontent.com/yy0691/img-bed/main/Blog/Ai_Newsimg_v3_02km_8c0453d6-0bf9-4e27-93f1-9efd03f7acbg.png)
+![img_v3_02km_8c0453d6-0bf9-4e27-93f1-9efd03f7acbg](https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02km_8c0453d6-0bf9-4e27-93f1-9efd03f7acbg.png)
 
 4. 命名并复制该 API Key（后续配置用）
 
-![img_v3_02km_0ac37328-a22d-489a-b16c-0052691e4cbg](https://raw.githubusercontent.com/yy0691/img-bed/main/Blog/Ai_Newsimg_v3_02km_0ac37328-a22d-489a-b16c-0052691e4cbg.png)
+![img_v3_02km_0ac37328-a22d-489a-b16c-0052691e4cbg](https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02km_0ac37328-a22d-489a-b16c-0052691e4cbg.png)
 
 
 
@@ -55,7 +55,7 @@ export const tripoMcp = `
 2. 粘贴 API Key
 3. 点击 “Start MCP Server” 按钮（此为本地服务）
 
-![img_v3_02km_671c651e-8461-42d0-b2ee-ab28ca0c3f7g](https://raw.githubusercontent.com/yy0691/img-bed/main/Blog/Ai_Newsimg_v3_02km_671c651e-8461-42d0-b2ee-ab28ca0c3f7g.jpg)
+![img_v3_02km_671c651e-8461-42d0-b2ee-ab28ca0c3f7g](https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02km_671c651e-8461-42d0-b2ee-ab28ca0c3f7g.jpg)
 
 ## **🔗 Step 4：手动运行 MCP Server（命令行方式）**
 
@@ -63,7 +63,7 @@ MCP 是一个“中间通信协议”，让 Blender 能和其他 AI 工具（如
 
 1. 打开命令行（Win+R 输入 cmd）
 
-![img_v3_02km_9a2709b6-f0d7-4fa2-b52c-523263d5be3g](https://raw.githubusercontent.com/yy0691/img-bed/main/Blog/Ai_Newsimg_v3_02km_9a2709b6-f0d7-4fa2-b52c-523263d5be3g.jpg)
+![img_v3_02km_9a2709b6-f0d7-4fa2-b52c-523263d5be3g](https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02km_9a2709b6-f0d7-4fa2-b52c-523263d5be3g.jpg)
 
 2. 进入 tripo-mcp 文件夹路径：
 
@@ -95,11 +95,11 @@ or  或者
 pip install mcp
 \`\`\`
 
-![img_v3_02km_d13afa19-2740-4854-acd1-3e38b2ce3bag](https://raw.githubusercontent.com/yy0691/img-bed/main/Blog/Ai_Newsimg_v3_02km_d13afa19-2740-4854-acd1-3e38b2ce3bag.jpg)
+![img_v3_02km_d13afa19-2740-4854-acd1-3e38b2ce3bag](https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02km_d13afa19-2740-4854-acd1-3e38b2ce3bag.jpg)
 
 执行成功后，将包含 [main.py](http://main.py/) 的文件夹拖到命令窗口中，以自动填充路径
 
-![img_v3_02km_f45ee6e1-0b1f-4365-b320-2a63ecba708g](https://raw.githubusercontent.com/yy0691/img-bed/main/Blog/Ai_Newsimg_v3_02km_f45ee6e1-0b1f-4365-b320-2a63ecba708g.jpg)
+![img_v3_02km_f45ee6e1-0b1f-4365-b320-2a63ecba708g](https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02km_f45ee6e1-0b1f-4365-b320-2a63ecba708g.jpg)
 
 ## **💡 Step 5：连接 Cursor（AI 编程工具）**
 
@@ -109,7 +109,7 @@ Cursor 是一个内置大模型能力的代码编辑器，支持通过 MCP 接�
 
 1. 打开 Cursor > Settings > MCP Configuration
 
-![img_v3_02km_42c89753-242b-4a8c-a125-16ffb157fe3g](https://raw.githubusercontent.com/yy0691/img-bed/main/Blog/Ai_Newsimg_v3_02km_42c89753-242b-4a8c-a125-16ffb157fe3g.png)
+![img_v3_02km_42c89753-242b-4a8c-a125-16ffb157fe3g](https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02km_42c89753-242b-4a8c-a125-16ffb157fe3g.png)
 
 2. 添加新 Endpoint：
 
@@ -118,13 +118,13 @@ Cursor 是一个内置大模型能力的代码编辑器，支持通过 MCP 接�
 
 3. 地址：http://127.0.0.1:8392/sse
 
-![img_v3_02km_023bacd6-6e4f-4cb9-b092-cda69964cd9g](https://raw.githubusercontent.com/yy0691/img-bed/main/Blog/Ai_Newsimg_v3_02km_023bacd6-6e4f-4cb9-b092-cda69964cd9g.png)
+![img_v3_02km_023bacd6-6e4f-4cb9-b092-cda69964cd9g](https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02km_023bacd6-6e4f-4cb9-b092-cda69964cd9g.png)
 
 
 
 4. 启用此 Endpoint（绿色状态代表连接成功）
 
-![img_v3_02km_8dc9ff57-ba55-4e98-857f-761dd10cf3ag](https://raw.githubusercontent.com/yy0691/img-bed/main/Blog/Ai_Newsimg_v3_02km_8dc9ff57-ba55-4e98-857f-761dd10cf3ag.jpg)
+![img_v3_02km_8dc9ff57-ba55-4e98-857f-761dd10cf3ag](https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02km_8dc9ff57-ba55-4e98-857f-761dd10cf3ag.jpg)
 
 连接成功后，你可以在 Cursor 中使用 MCP 的工具列表（如生成 3D 模型、分析场景等）。
 
@@ -134,12 +134,12 @@ Cursor 是一个内置大模型能力的代码编辑器，支持通过 MCP 接�
 
 设置完 MCP 服务器和 Cursor 后，您就可以开始在 Cursor 中使用 Tripo 了。 **为获得最佳效果，请将 Agent 切换为 claude-3.7-sonnet**
 
-![img_v3_02km_f71370aa-b286-4fc5-8395-b2dc535ad5fg](https://raw.githubusercontent.com/yy0691/img-bed/main/Blog/Ai_Newsimg_v3_02km_f71370aa-b286-4fc5-8395-b2dc535ad5fg.jpg)
+![img_v3_02km_f71370aa-b286-4fc5-8395-b2dc535ad5fg](https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02km_f71370aa-b286-4fc5-8395-b2dc535ad5fg.jpg)
 
 1. 新建一个对话（Chat）
 2. 输入设计需求（Prompt）
 
-![img_v3_02km_7384ac24-3fb7-4703-9195-76059418ceeg](https://raw.githubusercontent.com/yy0691/img-bed/main/Blog/Ai_Newsimg_v3_02km_7384ac24-3fb7-4703-9195-76059418ceeg.png)
+![img_v3_02km_7384ac24-3fb7-4703-9195-76059418ceeg](https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02km_7384ac24-3fb7-4703-9195-76059418ceeg.png)
 
 ## 提示类型
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode, CSSProperties } from 'react';
 import { Link } from 'react-router-dom';
 import Highlight from './Highlight';
 import CenteredImage from './mdx/CenteredImage';
@@ -11,17 +11,36 @@ import ErrorBoundary from './ErrorBoundary';
 import { ColoredSpan, HighlightedMark, WarningText, NoteText, InfoText } from './StyledElements';
 import { ZoomableImage } from './ImageViewer';
 
-interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
+// 为了处理字符串形式的style
+type StyleProps = {
+  style?: CSSProperties | string;
+  [key: string]: unknown;
+};
+
+interface ImageProps extends Omit<React.ImgHTMLAttributes<HTMLImageElement>, 'style'> {
   width?: number;
   height?: number;
   priority?: boolean;
-  style?: any;
+  style?: CSSProperties | string;
 }
 
-function processStyleString(style: string) {
+interface HTMLComponentProps {
+  children?: ReactNode;
+  className?: string;
+  style?: CSSProperties;
+  [key: string]: unknown;
+}
+
+interface BlockquoteProps {
+  children: ReactNode;
+  [key: string]: unknown;
+}
+
+// 将字符串样式转换为对象
+function processStyleString(style: string): CSSProperties {
   try {
     // 从字符串转换成对象
-    return style.split(';').reduce((acc, current) => {
+    return style.split(';').reduce<Record<string, string>>((acc, current) => {
       const [key, value] = current.split(':');
       if (key && value) {
         // 转换为驼峰式
@@ -29,42 +48,49 @@ function processStyleString(style: string) {
         acc[camelKey] = value.trim();
       }
       return acc;
-    }, {});
+    }, {}) as unknown as CSSProperties;
   } catch (e) {
     console.error("Error processing style string:", e);
     return {};
   }
 }
 
+// 处理可能是字符串的样式
+function getSafeStyle(style?: string | CSSProperties): CSSProperties | undefined {
+  if (!style) return undefined;
+  return typeof style === 'string' ? processStyleString(style) : style;
+}
+
+// 处理组件props中的样式
+function getSafeProps<T extends { style?: string | CSSProperties, [key: string]: unknown }>(props: T): Omit<T, 'style'> & { style?: CSSProperties } {
+  const { style, ...rest } = props;
+  return {
+    ...rest,
+    style: getSafeStyle(style)
+  };
+}
+
 // 懒加载代码块组件
 const CodeBlock = lazy(() => import('./CodeBlock'));
 
-const LazyCodeBlock = (props) => (
+interface CodeBlockProps {
+  language: string;
+  value: string;
+  [key: string]: unknown;
+}
+
+const LazyCodeBlock = (props: CodeBlockProps) => (
   <Suspense fallback={<div className="bg-muted p-4 rounded-lg">加载代码块...</div>}>
     <CodeBlock {...props} />
   </Suspense>
 );
-
-// 安全包装HTML元素的函数
-const withSafeProps = (Component) => {
-  return (props) => {
-    const safeProps = {...props};
-    
-    // 处理样式属性
-    if (typeof props.style === 'string') {
-      safeProps.style = processStyleString(props.style);
-    }
-    
-    return <Component {...safeProps} />;
-  };
-};
 
 const components = {
   CenteredImage,
   img: (props: ImageProps) => {
     const { src, alt, width, height, style, ...rest } = props;
     if (!src) return null;
-    const safeStyle = typeof style === 'string' ? processStyleString(style) : style;
+    const safeStyle = getSafeStyle(style);
     
     return (
       <ZoomableImage 
@@ -92,7 +118,7 @@ const components = {
       </a>
     );
   },
-  blockquote: (props: any) => {
+  blockquote: (props: BlockquoteProps) => {
     // 判断是否为Highlight用法
     if (props.children && typeof props.children === 'object' && !React.isValidElement(props.children)) {
       return <Highlight type="info">{props.children}</Highlight>;
@@ -109,7 +135,7 @@ const components = {
             flexDirection: 'column' 
           }}
         >
-          {React.cloneElement(content as React.ReactElement<any>, {
+          {React.cloneElement(content as React.ReactElement<HTMLComponentProps>, {
             className: '!m-0 !p-0 !py-3 leading-7',
             style: { 
               margin: 0, 
@@ -145,12 +171,15 @@ const components = {
       </blockquote>
     );
   },
-  pre: (props: any) => (
-    <div className="my-6">
-      <pre {...props} className="rounded-lg p-4 bg-muted overflow-x-auto" />
-    </div>
-  ),
-  code: ({ className, children, ...props }) => {
+  pre: (props: HTMLComponentProps) => {
+    const { style, ...otherProps } = props;
+    return (
+      <div className="my-6">
+        <pre {...otherProps} className="rounded-lg p-4 bg-muted overflow-x-auto" style={style} />
+      </div>
+    );
+  },
+  code: ({ className, children, ...props }: { className?: string; children: ReactNode; [key: string]: unknown }) => {
     const match = /language-(\w+)/.exec(className || '');
     
     if (match && match[1] === 'math') {
@@ -171,7 +200,7 @@ const components = {
     
     return match ? (
       <ErrorBoundary>
-        <LazyCodeBlock language={match[1]} value={children} />
+        <LazyCodeBlock language={match[1]} value={children as string} />
       </ErrorBoundary>
     ) : (
       <code className="text-sm bg-muted px-1 py-0.5 rounded dark:bg-gray-800" {...props}>
@@ -179,8 +208,8 @@ const components = {
       </code>
     );
   },
-  div: ({ className, children, style, ...props }: { className?: string; children: React.ReactNode; style?: React.CSSProperties }) => {
-    const safeStyle = typeof style === 'string' ? processStyleString(style) : style;
+  div: ({ className, children, style, ...props }: { className?: string; children: React.ReactNode; style?: CSSProperties | string; [key: string]: unknown }) => {
+    const safeStyle = getSafeStyle(style);
     
     if (className?.includes('columns-')) {
       const columnCount = className.match(/columns-(\d+)/)?.[1] || '2';
@@ -243,19 +272,40 @@ const components = {
     
     return <div style={safeStyle} {...props}>{children}</div>;
   },
-  span: withSafeProps((props) => <span {...props} />),
+  span: (props: { style?: string | CSSProperties; [key: string]: unknown }) => {
+    const safeProps = getSafeProps(props);
+    return <span {...safeProps} />;
+  },
   Link: ({ to, children, className }: { to: string; children: React.ReactNode; className?: string }) => (
     <Link to={to} className={className}>
       {children}
     </Link>
   ),
-  h1: withSafeProps(props => <h1 className="text-3xl font-bold mt-10 mb-6" {...props} />),
-  h2: withSafeProps(props => <h2 className="text-2xl font-semibold mt-8 mb-4" {...props} />),
-  h3: withSafeProps(props => <h3 className="text-xl font-semibold mt-6 mb-3" {...props} />),
-  h4: withSafeProps(props => <h4 {...props} />),
-  h5: withSafeProps(props => <h5 {...props} />),
-  h6: withSafeProps(props => <h6 {...props} />),
-  p: props => {
+  h1: (props: { style?: string | CSSProperties; [key: string]: unknown }) => {
+    const safeProps = getSafeProps(props);
+    return <h1 className="text-3xl font-bold mt-10 mb-6" {...safeProps} />;
+  },
+  h2: (props: { style?: string | CSSProperties; [key: string]: unknown }) => {
+    const safeProps = getSafeProps(props);
+    return <h2 className="text-2xl font-semibold mt-8 mb-4" {...safeProps} />;
+  },
+  h3: (props: { style?: string | CSSProperties; [key: string]: unknown }) => {
+    const safeProps = getSafeProps(props);
+    return <h3 className="text-xl font-semibold mt-6 mb-3" {...safeProps} />;
+  },
+  h4: (props: { style?: string | CSSProperties; [key: string]: unknown }) => {
+    const safeProps = getSafeProps(props);
+    return <h4 {...safeProps} />;
+  },
+  h5: (props: { style?: string | CSSProperties; [key: string]: unknown }) => {
+    const safeProps = getSafeProps(props);
+    return <h5 {...safeProps} />;
+  },
+  h6: (props: { style?: string | CSSProperties; [key: string]: unknown }) => {
+    const safeProps = getSafeProps(props);
+    return <h6 {...safeProps} />;
+  },
+  p: (props: { children?: ReactNode; className?: string; [key: string]: unknown }) => {
     const { children, className, ...rest } = props;
     
     const content = children?.toString() || '';
@@ -289,20 +339,34 @@ const components = {
     // 使用默认类名，通过全局CSS控制在不同环境下的外观
     return <p className={className || "mb-5 leading-7"} {...rest}>{children}</p>;
   },
-  ul: withSafeProps(props => (
-    <ul className="list-disc pl-6 my-4 space-y-2 dark:text-gray-200" {...props} />
-  )),
-  li: withSafeProps(props => (
-    <li className="mb-2" {...props} />
-  )),
-  ol: (props: any) => <ol className="list-decimal pl-6 my-4 space-y-2 dark:text-gray-200" {...props} />,
-  table: (props: any) => (
-    <div className="overflow-x-auto my-6">
-      <table className="w-full border-collapse dark:text-gray-200" {...props} />
-    </div>
-  ),
-  th: (props: any) => <th className="border border-border px-4 py-2 text-left font-bold dark:border-gray-700 dark:text-white" {...props} />,
-  td: (props: any) => <td className="border border-border px-4 py-2 dark:border-gray-700 dark:text-gray-200" {...props} />,
+  ul: (props: { style?: string | CSSProperties; [key: string]: unknown }) => {
+    const safeProps = getSafeProps(props);
+    return <ul className="list-disc pl-6 my-4 space-y-2 dark:text-gray-200" {...safeProps} />;
+  },
+  li: (props: { style?: string | CSSProperties; [key: string]: unknown }) => {
+    const safeProps = getSafeProps(props);
+    return <li className="mb-2" {...safeProps} />;
+  },
+  ol: (props: { style?: string | CSSProperties; [key: string]: unknown }) => {
+    const safeProps = getSafeProps(props);
+    return <ol className="list-decimal pl-6 my-4 space-y-2 dark:text-gray-200" {...safeProps} />;
+  },
+  table: (props: { style?: string | CSSProperties; [key: string]: unknown }) => {
+    const safeProps = getSafeProps(props);
+    return (
+      <div className="overflow-x-auto my-6">
+        <table className="w-full border-collapse dark:text-gray-200" {...safeProps} />
+      </div>
+    );
+  },
+  th: (props: { style?: string | CSSProperties; [key: string]: unknown }) => {
+    const safeProps = getSafeProps(props);
+    return <th className="border border-border px-4 py-2 text-left font-bold dark:border-gray-700 dark:text-white" {...safeProps} />;
+  },
+  td: (props: { style?: string | CSSProperties; [key: string]: unknown }) => {
+    const safeProps = getSafeProps(props);
+    return <td className="border border-border px-4 py-2 dark:border-gray-700 dark:text-gray-200" {...safeProps} />;
+  },
   mark: HighlightedMark,
   'colored-span': ColoredSpan,
   Warning: WarningText,

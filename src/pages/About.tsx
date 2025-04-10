@@ -158,7 +158,7 @@ const About = () => {
                   <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">扫码添加微信</h3>
                   <div className="mb-4 flex justify-center">
                     <img 
-                      src="https://raw.githubusercontent.com/yy0691/img-bed/main/Blog/Ai_News微信二维码.png" 
+                      src="https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_News微信二维码.png" 
                       alt="微信二维码" 
                       className="rounded-xl w-64 h-64 object-cover bg-white shadow-md"
                       onError={(e) => {

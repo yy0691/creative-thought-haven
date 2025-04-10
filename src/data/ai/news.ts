@@ -7,29 +7,79 @@ import { deepmindContent } from './news-content/deepmind';
 import { claudeThinkContent } from './news-content/claude-think';
 import { qwen25omin } from './news-content/qwen-2.5omni';
 import { GPT4oImg } from './news-content/GPT-4o-img';
+import { CloudflareAutoRAGContent } from './update0410/Cloudflare-AutoRAG';
+import { ElevenLabsContent } from './update0410/ElevenLabs';
+import { FirebaseContent } from './update0410/Firebase';
+import { GeospatialFoundationModelsContent } from './update0410/Geospatial Foundation Models';
+import { GoogleAgentContent } from './update0410/Google-Agent';
+import { OmiTalkerContent } from './update0410/OmiTalker';
 // 默认新闻数据
 export const defaultNewsItems: CardItem[] = [
   {
-    id:'new-5',
-    title:'GPT-4o 的新的图像模型生成原理',
-    description:'自回归模型究竟是什么？为什么它如此惊艳？',
-    author:'OpenAI',
-    date:'2025-03-28',
-    image:'https://images.ctfassets.net/kftzwdyauwt9/EXhP2glGdd9Lwt03rhkSO/6cbbcb02c9d60c14e631447d6f5ef994/ajabri_marx.png?w=1920&q=90&fm=webp',
-    link:'https://openai.com/index/introducing-4o-image-generation/',
-    category:'图像生成',
-    content:GPT4oImg
+    id:'0410-new-1',
+    title:'Cloudflare推出全托管的RAG系统AutoRAG',
+    description:'Cloudflare推出了一个全托管的RAG系统:AutoRAG自动连接你的各种数据源',
+    author:'Cloudflare',
+    date:'2025-04-09',
+    image:'https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02l5_2b2de908-cd53-4e09-8944-963b1573f0bg.jpg',
+    link:'https://blog.cloudflare.com/introducing-autorag-on-cloudflare/',
+    category:'RAG',
+    content:CloudflareAutoRAGContent
   },
   {
-    id:'new-4',
+    id:'0410-new-2',
+    title:'ElevenLabs推出MCP服务器可以让Al轻松使用ElevenLabs的语音技术如TTS、克隆声音、甚至打电话',
+    description:'ElevenLabs推出了一个MCP服务器，可以让AI轻松使用ElevenLabs的语音技术如TTS、克隆声音、甚至打电话。',
+    author:'ElevenLabs',
+    date:'2025-04-08',  
+    image:'https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02l5_06e9dc3d-843c-41c2-ad0b-7e29adbaa01g.jpg',
+    link:'https://github.com/lharries/whatsapp-mcp',
+    category:'MCP',
+    content:ElevenLabsContent
+  },
+  {
+    id:'0410-new-3',
+    title:'Google发布基于浏览器的全栈Al应用开发环境Firebase',
+    description:'Google发布了基于浏览器的全栈Al应用开发环境Firebase，可以让开发者轻松使用Firebase的AI技术如TTS、克隆声音、甚至打电话。',
+    author:'TTS',
+    date:'2025-04-10',
+    image:'https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02l7_1635c59b-2462-449c-9eba-77cb53a2d56g.jpg',
+    link:'https://firebase.blog/posts/2025/04/cloud-next-announcements',
+    category:'Firebase',
+    content:FirebaseContent
+  },
+  {
+    id:'0410-new-4',
+    title:'Google发布基于多模态大模型和AI Agent的"地球Al大脑"系统',
+    description:'Google发布了基于多模态大模型和AI Agent的"地球Al大脑"系统，可以让AI轻松使用Firebase的AI技术如TTS、克隆声音、甚至打电话。',
+    author:'Agent',
+    date:'2025-04-10',
+    image:'https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02l7_3adcde7c-4ede-4db9-b0bb-4cee7ddcb92g.jpg',
+    link:'https://research.google/blog/geospatial-reasoning-unlocking-insights-with-generative-ai-and-multiple-foundation-models/',
+    category:'Geospatial Foundation Models',
+    content:GeospatialFoundationModelsContent
+  },
+  {
+    id:'0410-new-5',
+    title:'Google推出Agent2Agent协议(A2A)可让多个Agent跨平台互通并协作完成任务组成一个智能协同体',
+    description:'Google推出了Agent2Agent协议(A2A)可让多个Agent跨平台互通并协作完成任务组成一个智能协同体。',
+    author:'Google',
+    date:'2025-04-10',
+    image:'https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02l7_5c80e6ec-4e0f-4ae1-a967-dcdf66acd69g.jpg',
+    link:'https://developers.googleblog.com/en/a2a-a-new-era-of-agent-interoperability/',
+    category:'Agent',
+    content:GoogleAgentContent
+  },
+  {
+    id:'0410-new-6',
     title:'新的语音模型支持实时视觉对话',
     description:'Kyutai 发布了 MoshiVis，这是一种开放式视觉语音模型，允许用户对图像进行自然的语音对话，同时保持低延迟。',
     author:'Kyutai',
-    date:'2025-03-25',
-    image:'https://kyutai.org/assets/MoshiVis/images/MoshiVis-Overview.png',
-    link:'https://kyutai.org/moshivis?utm_campaign=Data%20Points&utm_source=hs_email&utm_medium=email&_hsenc=p2ANqtz-9weulYOrnu9NfgJ1R8FKZ6MAs5xiMXndvS0p_8QhITLZKCjj6TB0rAcODgCVxM2y7CGqCD',
+    date:'2025-04-10',
+    image:'https://humanaigc.github.io/omnitalker/content/images/motivation-two-columns-V4.png',
+    link:'https://humanaigc.github.io/omnitalker/',
     category:'MCP',
-    content:`该模型在现有的 Moshi 语音模型的基础上添加了 2.06 亿个可训练参数，并使用了一种数据高效的训练方法，该方法通过对基于文本的图像描述进行训练来需要最少的音频数据。MoshiVis 可能代表着朝着更自然的多模态 AI 交互迈出的重要一步，因为该模型可以在一般对话和讨论视觉内容之间无缝切换，同时在消费类硬件上保持低延迟。`
+    content:OmiTalkerContent
   },
   {
     id:'new-3',
@@ -55,8 +105,8 @@ export const defaultNewsItems: CardItem[] = [
   },
   {
     id: 'new-2',
-    title: 'Claude发布新功能“think”工具',
-    description: 'think工具可以让AI在复杂任务解决过程中拥有专门的思考空间。',
+    title: 'Claude发布新功能"think"工具',
+    description: '"think"工具可以让AI在复杂任务解决过程中拥有专门的思考空间。',
     author: 'Anthropic',
     date: '2025-03-19',
     image: 'https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/AiNews/image-20250326230344704.png',
@@ -334,7 +384,15 @@ export const getCozeAccessToken = async () => {
 // 从Coze智能体API获取最新新闻
 export const fetchLatestNews = async (): Promise<CardItem[]> => {
   // 返回默认新闻数据，不再调用Coze API
-  return defaultNewsItems;
+  const sortedNews = [...defaultNewsItems].sort((a, b) => {
+    // 将日期字符串转换为Date对象进行比较
+    const dateA = new Date(a.date.replace(/-/g, '/'));
+    const dateB = new Date(b.date.replace(/-/g, '/'));
+    // 降序排序（从新到旧）
+    return dateB.getTime() - dateA.getTime();
+  });
+  
+  return sortedNews;
   
   /*
   try {

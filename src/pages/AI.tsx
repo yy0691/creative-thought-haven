@@ -9,6 +9,7 @@ import remarkGfm from 'remark-gfm';
 import MDXComponents from '../components/MDXComponents';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaCube } from "react-icons/fa";
+import { CardImage } from '../components/CardImage';
 
 // 导入博客相关函数
 import { getBlogPosts } from '../lib/blog';
@@ -23,110 +24,13 @@ import { deeplearningItems } from '../data/ai/deeplearning';
 import { promptsItems } from '../data/ai/prompts';
 import { linksItems } from '../data/ai/links';
 import { tutorialsItems } from '../data/ai/tutorials';
-// 导入SVG组件
-import { TutorialSvg, DeepLearningSvg, PaintingSvg, PromptSvg, ToolSvg, VoiceSvg, VideoSvg, DefaultSvg } from '../components/AISvgIcons';
-// 图片组件
-export const CardImage = ({ src, alt, style }: { src: string, alt: string, style?: React.CSSProperties }) => {
-  const [imgError, setImgError] = useState(false);
-  
-  // 为不同类别的卡片生成主题SVG图案
-  const renderPlaceholderSvg = () => {
-    // 从alt或标题中提取可能的主题关键词
-    const topic = alt.toLowerCase();
-    
-    const svgWrapper = (svgContent: React.ReactNode) => (
-      <div className="w-full h-full text-blue-500 dark:text-blue-400">
-        {svgContent}
-      </div>
-    );
-    
-    // 根据主题选择不同的SVG图案
-    if (topic.includes('教程') || topic.includes('学习') || topic.includes('指南') || topic.includes('课程')) {
-      // 教程/学习主题
-      return svgWrapper(TutorialSvg());
-    } else if (topic.includes('深度学习') || topic.includes('神经网络') || topic.includes('模型') || topic.includes('机器学习')) {
-      // 深度学习/神经网络主题
-      return svgWrapper(DeepLearningSvg());
-    } else if (topic.includes('绘画') || topic.includes('图像') || topic.includes('设计') || topic.includes('midjourney') || topic.includes('stable diffusion')) {
-      // 绘画/图像生成主题
-      return svgWrapper(PaintingSvg());
-    } else if (topic.includes('提示词') || topic.includes('prompt') || topic.includes('工程') || topic.includes('对话') || topic.includes('大模型')) {
-      // 提示词工程主题
-      return svgWrapper(PromptSvg());
-    } else if (topic.includes('工具') || topic.includes('应用') || topic.includes('软件') || topic.includes('chatgpt') || topic.includes('工具箱')) {
-      // AI工具主题
-      return svgWrapper(ToolSvg());
-    } else if (topic.includes('语音') || topic.includes('声音') || topic.includes('音频') || topic.includes('朗读')) {
-      // 语音/音频主题
-      return svgWrapper(VoiceSvg());
-    } else if (topic.includes('视频') || topic.includes('影片') || topic.includes('电影') || topic.includes('动画')) {
-      // 视频主题
-      return svgWrapper(VideoSvg());
-    } else {
-      // 默认AI主题
-      return svgWrapper(DefaultSvg());
-    }
-  };
-  // 确保src有值
-  if (!src) {
-    console.warn('图片源地址为空');
-    return renderPlaceholderSvg();
-  }
-  
-  // 处理图片URL
-  let imageUrl = src;
-  
-  // 对于远程URL，使用代理
-  if (src.startsWith('http')) {
-    // 在生产环境使用代理
-    const isProduction = import.meta.env.PROD;
-    if (isProduction) {
-      const encodedUrl = encodeURIComponent(src);
-      imageUrl = `/api/image-proxy?url=${encodedUrl}`;
-    } else {
-      // 开发环境直接使用原始URL
-      imageUrl = src;
-    }
-  } else if (src.startsWith('/')) {
-    // 如果是相对路径，不做修改
-    imageUrl = src;
-  } else {
-    // 如果不是相对路径，假设是本地图片
-    imageUrl = `/images/ai/${src}`;
-  }
-  
-  const handleError = () => {
-    console.error('图片加载失败:', imageUrl);
-    setImgError(true);
-  };
-  
-  if (imgError) {
-    // 显示主题SVG占位图
-    return renderPlaceholderSvg();
-  }
-  
-  return (
-    <div className="w-full h-full">
-      <img 
-        src={imageUrl}
-        alt={alt} 
-        className="w-full h-full object-cover"
-        onError={handleError}
-        loading="lazy"
-        crossOrigin="anonymous"
-        referrerPolicy="no-referrer"
-      />
-    </div>
-  );
-};
-
-            
-  
-  
 
 // 图标组件
 const TabIcon = ({ iconName }: { iconName: string }) => {
-  const IconComponent = (LucideIcons as any)[iconName];
+  // 为LucideIcons定义正确的类型
+  type LucideIconsType = Record<string, React.ComponentType<{ size?: number }>>;
+  
+  const IconComponent = (LucideIcons as unknown as LucideIconsType)[iconName];
   if (!IconComponent) {
     console.warn(`Icon ${iconName} not found`);
     return null;
@@ -199,6 +103,42 @@ const AI = () => {
   const [blogPosts, setBlogPosts] = useState<CardItem[]>([]);
   const [isLoadingBlogPosts, setIsLoadingBlogPosts] = useState(false);
 
+  // 刷新新闻 - 使用useCallback避免依赖问题
+  const handleRefreshNews = React.useCallback(async () => {
+    if (activeTab === 'news') {
+      setIsLoadingNews(true);
+      setNewsError(null);
+      
+      try {
+        const newsFromApi = await fetchLatestNews();
+        
+        if (newsFromApi.length > 0) {
+          const combinedNews = [...newsFromApi, ...defaultNewsItems];
+          const sortedNews = combinedNews.sort((a, b) => {
+            const dateA = a.date ? new Date(a.date).getTime() : 0;
+            const dateB = b.date ? new Date(b.date).getTime() : 0;
+            return dateB - dateA;
+          });
+          
+          const uniqueNews = sortedNews.filter((item, index, self) => 
+            index === self.findIndex(t => t.title === item.title)
+          );
+          
+          setNewsData(uniqueNews);
+        } else {
+          setNewsData(defaultNewsItems);
+          //setNewsError('获取新闻失败，显示默认新闻');
+        }
+      } catch (error) {
+        //console.error('获取新闻数据失败:', error);
+        setNewsData(defaultNewsItems);
+        //setNewsError('获取最新新闻失败，显示默认新闻');
+      } finally {
+        setIsLoadingNews(false);
+      }
+    }
+  }, [activeTab]); // 添加activeTab作为依赖项
+
   // 初始化数据
   useEffect(() => {
     setNewsData(defaultNewsItems);
@@ -213,7 +153,7 @@ const AI = () => {
     }, 3600000);
     
     return () => clearInterval(refreshInterval);
-  }, []);
+  }, [handleRefreshNews, activeTab]); // 添加activeTab作为依赖项
 
   // 加载博客中的AI相关文章
   const loadBlogPosts = async () => {
@@ -274,42 +214,6 @@ const AI = () => {
       console.error('加载博客文章失败:', error);
     } finally {
       setIsLoadingBlogPosts(false);
-    }
-  };
-
-  // 刷新新闻
-  const handleRefreshNews = async () => {
-    if (activeTab === 'news') {
-      setIsLoadingNews(true);
-      setNewsError(null);
-      
-      try {
-        const newsFromApi = await fetchLatestNews();
-        
-        if (newsFromApi.length > 0) {
-          const combinedNews = [...newsFromApi, ...defaultNewsItems];
-          const sortedNews = combinedNews.sort((a, b) => {
-            const dateA = a.date ? new Date(a.date).getTime() : 0;
-            const dateB = b.date ? new Date(b.date).getTime() : 0;
-            return dateB - dateA;
-          });
-          
-          const uniqueNews = sortedNews.filter((item, index, self) => 
-            index === self.findIndex(t => t.title === item.title)
-          );
-          
-          setNewsData(uniqueNews);
-        } else {
-          setNewsData(defaultNewsItems);
-          //setNewsError('获取新闻失败，显示默认新闻');
-        }
-      } catch (error) {
-        //console.error('获取新闻数据失败:', error);
-        setNewsData(defaultNewsItems);
-        //setNewsError('获取最新新闻失败，显示默认新闻');
-      } finally {
-        setIsLoadingNews(false);
-      }
     }
   };
 
@@ -501,7 +405,7 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
             {selectedItem.content ? (
               <ReactMarkdown 
                 remarkPlugins={[remarkGfm]}
-                components={MDXComponents}
+                components={MDXComponents as React.ComponentProps<typeof ReactMarkdown>['components']}
               >
                 {markdownContent}
               </ReactMarkdown>
@@ -897,8 +801,9 @@ ${selectedItem.link ? `\n\n[查看原文](${selectedItem.link})` : ''}
           )}
         </div>
       );
-    } catch (error: any) {
-      console.error('渲染标签页内容失败:', error);
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      console.error('渲染标签页内容失败:', errorMessage);
       return (
         <div className="p-8 text-center">
           <p className="text-gray-600 dark:text-gray-400">加载内容时出现错误，请刷新页面重试。</p>
