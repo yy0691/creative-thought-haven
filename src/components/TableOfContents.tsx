@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight, Pin, PinOff } from 'lucide-react';
-import { useMediaQuery } from '../hooks/useMediaQuery';
+import { useMediaQuery } from '@/app/hooks/useMediaQuery';
 
 interface TocItem {
   id: string;

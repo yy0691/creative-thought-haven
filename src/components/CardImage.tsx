@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { TutorialSvg, DeepLearningSvg, PaintingSvg, PromptSvg, ToolSvg, VoiceSvg, VideoSvg, DefaultSvg } from './AISvgIcons';
+import Loader from './Loader'; // 导入 Loader 组件
 
 // 图片组件
 export const CardImage = ({ src, alt, style }: { src: string, alt: string, style?: React.CSSProperties }) => {
@@ -111,8 +112,8 @@ export const CardImage = ({ src, alt, style }: { src: string, alt: string, style
   return (
     <div className="w-full h-full bg-white dark:bg-gray-800">
       {!imgLoaded && !imgError && (
-        <div className="w-full h-full flex items-center justify-center bg-gray-100 dark:bg-gray-800 animate-pulse">
-          <span className="text-gray-400">Loading...</span>
+        <div className="w-full h-full flex items-center justify-center bg-gray-800 dark:bg-gray-100">
+          <Loader /> {/* 使用 Loader 组件替代原来的加载提示 */}
         </div>
       )}
       <img 

@@ -1,0 +1,8 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+
+# Your rule content
+- 命令行运行环境为windows下的powershell，所以请注意命令格式

@@ -54,7 +54,7 @@ const Portfolio = () => {
           <Link 
             key={project.id} 
             to={`/portfolio/${project.id}`}
-            className="glass dark:bg-black/80 dark:border-white/10 rounded-lg overflow-hidden border border-white/20 shadow-lg transition-all duration-300 transform-gpu hover:-translate-y-2 hover:shadow-xl hover:border-primary/30 group dark:text-white no-underline"
+            className="glass dark:bg-gray-900/80 rounded-lg overflow-hidden border border-white/20 dark:border-gray-700/70 shadow-lg transition-all duration-300 transform-gpu hover:-translate-y-2 hover:shadow-xl hover:border-primary/30 dark:hover:border-primary/40 group no-underline"
             style={{
               background: `linear-gradient(to bottom right, rgba(255,255,255,0.9), rgba(255,255,255,0.6))`,
               transformStyle: 'preserve-3d',
@@ -62,7 +62,7 @@ const Portfolio = () => {
               perspective: '1000px'
             }}
           >
-            <div className="aspect-video bg-gradient-to-br from-primary/5 to-primary/10">
+            <div className="aspect-video bg-gradient-to-br from-primary/5 to-primary/10 dark:from-primary/10 dark:to-primary/20">
               <img 
                 src={project.thumbnail} 
                 alt={project.title}
@@ -70,7 +70,7 @@ const Portfolio = () => {
               />
             </div>
             <div className="p-6 space-y-4">
-              <h3 className="text-xl font-semibold text-primary dark:text-primary-foreground">{project.title}</h3>
+              <h3 className="text-xl font-semibold text-primary dark:text-primary">{project.title}</h3>
               <p className="text-muted-foreground dark:text-gray-300 group-hover:text-primary/80 transition-colors">
                 {project.description}
               </p>
@@ -78,7 +78,7 @@ const Portfolio = () => {
                 {project.technologies.map((tech) => (
                   <span 
                     key={tech}
-                    className="text-xs bg-primary/5 text-primary px-3 py-1 rounded-full border border-primary/10 hover:bg-primary/10 transition-colors dark:bg-primary/20 dark:text-gray-200"
+                    className="text-xs bg-primary/5 dark:bg-primary/10 text-primary dark:text-primary-foreground px-3 py-1 rounded-full border border-primary/10 dark:border-primary/20 hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors"
                   >
                     {tech}
                   </span>
@@ -90,7 +90,7 @@ const Portfolio = () => {
                     href={project.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm text-primary hover:underline dark:text-primary-foreground"
+                    className="text-sm text-primary hover:underline dark:text-primary"
                     onClick={(e) => e.stopPropagation()}
                   >
                     GitHub
@@ -101,7 +101,7 @@ const Portfolio = () => {
                     href={project.demoUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm text-primary hover:underline dark:text-primary-foreground"
+                    className="text-sm text-primary hover:underline dark:text-primary"
                     onClick={(e) => e.stopPropagation()}
                   >
                     Live Demo
@@ -110,7 +110,7 @@ const Portfolio = () => {
                 {project.videoUrl && (
                   <Link 
                     to={`/videos/${project.id}`}
-                    className="text-sm text-primary hover:underline dark:text-primary-foreground"
+                    className="text-sm text-primary hover:underline dark:text-primary"
                     onClick={(e) => e.stopPropagation()}
                   >
                     演示视频

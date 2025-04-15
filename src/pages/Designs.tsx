@@ -37,7 +37,7 @@ const Designs = () => {
           <Link 
             key={design.id} 
             to={`/designs/${design.id}`}
-            className="glass rounded-lg overflow-hidden border border-white/20 dark:border-white/10 shadow-lg transition-all duration-300 transform-gpu hover:translate-y-[-8px] hover:shadow-xl hover:border-primary/30 dark:hover:border-primary/40 group dark:shadow-lg dark:shadow-black/20 dark:bg-black/80" 
+            className="glass rounded-lg overflow-hidden border border-white/20 dark:border-gray-700/70 shadow-lg transition-all duration-300 transform-gpu hover:translate-y-[-8px] hover:shadow-xl hover:border-primary/30 dark:hover:border-primary/40 group dark:shadow-lg dark:shadow-black/20 dark:bg-gray-900/80" 
             style={{
               background: `linear-gradient(to bottom right, rgba(255,255,255,0.9), rgba(255,255,255,0.6))`,
               transformStyle: 'preserve-3d',
@@ -45,7 +45,7 @@ const Designs = () => {
               perspective: '1000px'
             }}
           >
-            <div className="aspect-video bg-gradient-to-br from-primary/5 to-primary/10 relative overflow-hidden">
+            <div className="aspect-video bg-gradient-to-br from-primary/5 to-primary/10 dark:from-primary/10 dark:to-primary/20 relative overflow-hidden">
               <img 
                 src={design.thumbnail} 
                 alt={design.title}
@@ -53,13 +53,13 @@ const Designs = () => {
               />
             </div>
             <div className="p-6 space-y-4">
-              <h3 className="text-xl font-semibold text-primary dark:text-primary-foreground">{design.title}</h3>
+              <h3 className="text-xl font-semibold text-primary dark:text-primary">{design.title}</h3>
               <p className="text-muted-foreground dark:text-gray-300">{design.description}</p>
               <div className="flex flex-wrap gap-2">
                 {design.tools.map((tool) => (
                   <span 
                     key={tool} 
-                    className="text-xs bg-primary/5 text-primary px-3 py-1 rounded-full border border-primary/10 hover:bg-primary/10 transition-colors dark:bg-primary/20 dark:text-gray-200"
+                    className="text-xs bg-primary/5 dark:bg-primary/10 text-primary dark:text-primary-foreground px-3 py-1 rounded-full border border-primary/10 dark:border-primary/20 hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors"
                   >
                     {tool}
                   </span>
@@ -69,7 +69,7 @@ const Designs = () => {
                 {design.figmaUrl && (
                   <button
                     onClick={() => window.open(design.figmaUrl, '_blank', 'noopener,noreferrer')}
-                    className="text-sm text-primary hover:underline dark:text-primary-foreground"
+                    className="text-sm text-primary hover:underline dark:text-primary"
                   >
                     在 Figma 中查看
                   </button>
@@ -77,7 +77,7 @@ const Designs = () => {
                 {design.downloadUrl && (
                   <button
                     onClick={() => window.open(design.downloadUrl, '_blank')}
-                    className="text-sm text-primary hover:underline dark:text-primary-foreground"
+                    className="text-sm text-primary hover:underline dark:text-primary"
                   >
                     下载设计文件
                   </button>

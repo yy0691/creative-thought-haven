@@ -51,6 +51,7 @@ const Navigation = () => {
     { path: "/portfolio", label: "软件" },
     { path: "/designs", label: "设计" },
     { path: "/about", label: "关于我" },
+    { path: "/content", label: "内容管理" },
   ];
 
   return (

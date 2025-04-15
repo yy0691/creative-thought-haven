@@ -57,7 +57,7 @@ export const projects: Project[] = [
     category: 'custom',
     slug: 'promptmate',  // 添加 slug
     isRecommended: true,  // 设置为推荐项目
-    coverImage: 'https://raw.githubusercontent.com/yy0691/img-bed/main/Blog/Ai_News首页.png',
+    coverImage: 'https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_News首页.png',
     details: 'PromptMate是一款轻量级桌面应用程序，用于存放和管理用户常用的Prompts，同时预置一组常用Prompts。应用界面追求苹果风格，支持多主题和多字体设置，确保在Windows系统下具有优异的显示效果，并具备全局快捷键唤出及窗口置顶功能。'
   },
   {

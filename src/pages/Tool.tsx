@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { loadMarkdownById } from '../utils/markdownLoader';
+import { loadMarkdownById } from '../app/utils/markdownLoader';
 import { CardItem } from '../data/ai/types';
 import ReactMarkdown from 'react-markdown';
 import { CircularProgress, Container, Typography, Box, Divider, Chip } from '@mui/material';

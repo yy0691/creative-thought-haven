@@ -30,9 +30,9 @@ export const tabCategories = [
     id: 'tools',
     title: '工具汇总',
     tabs: [
-      { id: 'general', label: '通用类AI', icon: 'Briefcase' },
+      { id: 'general', label: '通用大模型', icon: 'Briefcase' },
       { id: 'painting', label: 'AI绘画', icon: 'Briefcase' },
-      { id: 'writing', label: 'AI写作', icon: 'Briefcase' },
+      { id: 'writing', label: 'AI编程', icon: 'Briefcase' },
       { id: 'voice', label: 'AI语音', icon: 'Briefcase' },
       { id: 'video', label: 'AI视频', icon: 'Briefcase' },
       { id: 'modeling', label: 'AI建模', icon: 'Cube' },

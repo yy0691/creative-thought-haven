@@ -24,7 +24,7 @@ import Loading from './components/Loading';
 import SplashCursor from "./components/SplashCursor";
 import { CursorProvider } from './contexts/CursorContext';
 import ErrorBoundary from './components/ErrorBoundary';
-import titleManager from './utils/titleManager';
+import titleManager from './app/utils/titleManager';
 
 const queryClient = new QueryClient();
 
@@ -44,6 +44,10 @@ const NotFoundComponent = lazy(() => import('./pages/NotFound'));
 const VideoDetailsComponent = lazy(() => import('./pages/VideoDetails'));
 const DesignDetailsComponent = lazy(() => import('./pages/DesignDetails'));
 const ToolPageComponent = lazy(() => import('./pages/Tool'));
+const ContentManagerComponent = lazy(() => import('./pages/ContentManager'));
+const BlogManagerComponent = lazy(() => import('./pages/content/BlogManager'));
+const ProjectManagerComponent = lazy(() => import('./pages/content/ProjectManager'));
+const AIToolsManagerComponent = lazy(() => import('./pages/content/AIToolsManager'));
 
 const App = () => {
   // 初始化标题管理器
@@ -133,6 +137,26 @@ const App = () => {
                           <Route path="videos/:id" element={
                             <Suspense fallback={<Loading />}>
                               <VideoDetailsComponent />
+                            </Suspense>
+                          } />
+                          <Route path="content" element={
+                            <Suspense fallback={<Loading />}>
+                              <ContentManagerComponent />
+                            </Suspense>
+                          } />
+                          <Route path="content/blog" element={
+                            <Suspense fallback={<Loading />}>
+                              <BlogManagerComponent />
+                            </Suspense>
+                          } />
+                          <Route path="content/projects" element={
+                            <Suspense fallback={<Loading />}>
+                              <ProjectManagerComponent />
+                            </Suspense>
+                          } />
+                          <Route path="content/ai-tools" element={
+                            <Suspense fallback={<Loading />}>
+                              <AIToolsManagerComponent />
                             </Suspense>
                           } />
                           <Route path="*" element={

@@ -35,6 +35,12 @@ const ContentManager = () => {
       title: '设计作品管理',
       description: '管理设计作品和原型展示',
       path: '/content/designs'
+    },
+    {
+      id: 'ai-tools',
+      title: 'AI工具管理',
+      description: '管理AI工具分类和条目信息',
+      path: '/content/ai-tools'
     }
   ];
 

@@ -13,8 +13,241 @@ import { FirebaseContent } from './update0410/Firebase';
 import { GeospatialFoundationModelsContent } from './update0410/Geospatial Foundation Models';
 import { GoogleAgentContent } from './update0410/Google-Agent';
 import { OmiTalkerContent } from './update0410/OmiTalker';
+import { list46 } from './update0411-1/46-AI-lists';
+import { bytedanceResearch } from './update0411-1/bytedance-research';
+import { runwayGen4 } from './update0411-1/RunwayGen-4';
+import { chapterLlama } from './update0411-1/Chapter-Llama';
+import { claudeForEducation } from './update0411-1/ClaudeforEducation';
+import { superAgent } from './update0411-1/SuperAgent';
+import { claudeThinking } from './update0411-1/CLAUDE-THINKING';
+import { discoverSources } from './update0411-1/Discover Sources';
+import { gpt45 } from './update0411-1/GPT-4.5';
+import { lumaRay2 } from './update0411-1/Ray2';
+import { PromptEngineering } from './updat0411-2/PromptEngineering';
+import { BabelDOC,ChatgptMemoryUpdate, GoogleAgentBuilder, GoogleModelsUpdate, OrpheusTTS, WordPressAIWebsiteBuilder, xAIGrok3API } from './updat0411-2/News0412';
+import { geminiLive,glmUpdate,gpt41Update } from './update0415';
 // 默认新闻数据
 export const defaultNewsItems: CardItem[] = [
+  {
+    id:'0415-new-1',
+    title:'Google Gemini的"摄像头+屏幕共享"新体验',
+    description:'Google Gemini Live 把你的手机变成了一个能“看你看到的”、“听你说的”的 AI 助手，支持摄像头、屏幕共享、实时互动，开启 AI 日常应用的全新体验。',
+    author:'Google',
+    date:'2025-04-15',
+    image:'https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/AiNews/img_v3_02lb_9f8142f5-abd8-4a44-8e75-c9cc27852d4g.jpg',
+    link:'https://support.google.com/gemini/answer/14579026?sjid=15917116769005255122-NA',
+    category:'Gemini',
+    content:geminiLive
+  },  
+  {
+    id:'0415-new-2',
+    title:'智谱发布新一代开源模型GLM系列',
+    description:'GLM系列32B性能媲美671B的Deepseek R1 并宣布启动IPO',
+    author:'GLM',
+    date:'2025-04-15',
+    image:'https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/AiNews/img_v3_02lc_f36c76d5-3388-4a63-9635-abff8b395f4g.jpg',   
+    link:'https://www.glm.xyz/blog/glm-4-128k-release',
+    category:'GLM',
+    content:glmUpdate
+  },
+  {
+    id:'0415-new-3',
+    title:'OpenAI发布GPT-4.1',
+    description:'OpenAI以API的形式发布了三个新模型:GPT-4.1、GPT-4.1 mini和GPT-4.1 nano',
+    author:'OpenAI',
+    date:'2025-04-15',
+    image:'https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/AiNews/img_v3_02lc_4f24f94e-264f-4f01-b1f6-b285c7f667dg.jpg)',
+    link:'https://openai.com/api/2024-08-06/changelog',
+    category:'GPT',
+    content:gpt41Update
+  },
+  {
+    id:'0412-new-2',
+    title:'Chatgpt Memory Update',
+    description:'Chatgpt 记忆功能重大升级:可以跨聊天对话记住与你相关的所有信息',
+    author:'Chatgpt',
+    date:'2025-04-12',
+    image:'https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/AiNews/img_v3_02l8_46bba650-dd37-43d4-a2a7-c29cbf08388g.jpg',
+    link:'https://x.com/gregisenberg/status/1906697683089101113',
+    category:'Chatgpt',
+    content:ChatgptMemoryUpdate
+  },
+  {
+    id:'0412-new-3',
+    title:'Google 公布了Vertex AI平台的多项新功能',
+    description:'Google帮你搭建一个完整的"Agent工厂"平台可统一开发、部署、运行和监控你的Agent',
+    author:'Google',
+    date:'2025-04-12',
+    image:'https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/AiNews/img_v3_02l8_f209ffcb-a4b9-4176-8148-05e87be1fdag.jpg',
+    link:'https://cloud.google.com/blog/products/ai-machine-learning/build-and-manage-multi-system-agents-with-vertex-ai',
+    category:'Agent',
+    content:GoogleAgentBuilder
+  },
+  {
+    id:'0412-new-4',
+    title:'Google 的图像、视频、音乐、语音生成Al模型进行了全面升级',
+    description:'Google 的图像、视频、音乐、语音生成Al模型进行了全面升级',
+    author:'Google',
+    date:'2025-04-12',
+    image:'https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/AiNews/img_v3_02l8_c75524e7-7ce8-469c-95f1-c5586b8dd49g.jpg',
+    link:'https://cloud.google.com/blog/products/ai-machine-learning/expanding-generative-media-for-enterprise-on-vertex-ai',
+    category:'Agent',
+    content:GoogleModelsUpdate
+  },
+  {
+    id:'0412-new-5',
+    title:'Orpheus-TTS:一个开源高质量语音TTS模型 在音调、节奏、情绪等方面超越现有商业模型',
+    description:'Orpheus-TTS:一个开源高质量语音TTS模型 在音调、节奏、情绪等方面超越现有商业模型',
+    author:'Orpheus-TTS',
+    date:'2025-04-12',
+    image:'https://canopylabs.ai/assets/images/architecture.png',
+    link:' https://canopylabs.ai/model-releases',
+    category:'TTS',
+    content:OrpheusTTS
+  },
+  {
+    id:'0412-new-6',
+    title:'WordPress推出AI网站构建器',
+    description:'WordPress推出了一个全新的AI网站构建器任何人都能快速创建并发布自己的网站',
+    author:'WordPress',
+    date:'2025-04-12',
+    image:'https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/AiNews/img_v3_02l8_e5bf1097-d696-4bdd-a124-0cf67e4a24cg.jpg',
+    link:'http://wordpress.com/',
+    category:'Website',
+    content:WordPressAIWebsiteBuilder
+  },
+  {
+    id:'0412-new-7',
+    title:'xAI发布Grok 3API提供多个版本的Grok模型,适配不同应用场景',
+    description:'xAI发布Grok 3API提供多个版本的Grok模型,适配不同应用场景',
+    author:'xAI',
+    date:'2025-04-12',
+    image:'https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/AiNews/img_v3_02l8_21e845cf-f9ad-43e4-be75-a15b415195eg.jpg',
+    link:'https://docs.x.ai/docs/models#models-and-pricing',
+    category:'Grok',
+    content:xAIGrok3API
+  },
+  {
+    id:'0411-new-1',
+    title:'AI趋势和创业洞察',
+    description:'46条正在"让人夜不能寐"的AI趋势和创业洞察',
+    author:'Greg Isenberg',
+    date:'2025-04-11',
+    image:'https://www.smartbusinessdaily.com/wp-content/uploads/2023/11/AI-In-Your-SEO-Strategy.webp',
+    link:'https://x.com/gregisenberg/status/1906697683089101113',
+    category:'Trends',
+    content:list46
+  },
+  {
+    id:'0411-new-2',
+    title:'字节跳动最新研究',
+    description:'大模型在大部分情况下只是"复读机"并非真正拥有推理能力只是在复述学习过的答案',
+    author:'字节跳动',
+    date:'2025-04-11',
+    image:'https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02l1_5e708637-aba6-42b7-9e59-a786bacb08bg.jpg',
+    link:'https://arxiv.org/pdf/2504.00509',
+    category:'LLM',
+    content:bytedanceResearch
+  },
+  {
+    id:'0411-new-3',
+    title:'RunwayGen-4发布',
+    description:'Runway发布RunwayGen-4可持续生成风格一致、角色连续、物体与场景稳定的视频内容',
+    author:'Runway',
+    date:'2025-04-11',
+    image:'https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02ku_09042062-4eff-4bbf-af96-55d3ec56651g.jpg',
+    link:'https://runwayml.com/research/introducing-runway-gen-4',
+    category:'Video',
+    content:runwayGen4
+  },
+  {
+    id:'0411-new-4',
+    title:'Chapter-Llama',
+    description:'将小时级别的长视频自动划分为语义清晰的章节并生成简洁准确的标题',
+    author:'Runway',
+    date:'2025-04-11',
+    image:'https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02l1_e7ae5232-1708-461a-abdb-3f8845fb14cg.jpg',
+    link:'https://imagine.enpc.fr/~lucas.ventura/chapter-llama/',
+    category:'Video',
+    content:chapterLlama
+  },
+  {
+    id:'0411-new-5',
+    title:'Anthropic推出ClaudeforEducation',
+    description:'Anthropic 正式推出 **Claude for Education**，旨在帮助高校系统性地将 AI 技术融入：这是一个专门给大学用的 Claude 聊天 AI 版本，支持师生进行学术写作、批改作业、解决问题，还能帮助行政管理更高效。',
+    author:'Anthropic',
+    date:'2025-04-11',
+    image:'https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02l1_4b5e061a-d29b-492f-b442-edeed27e382g.jpg',
+    link:'https://www.anthropic.com/news/claude-for-education',
+    category:'Education',
+    content:claudeForEducation
+  },
+  {
+    id:'0411-new-6',
+    title:'Genspark推出自动化Al代理:SuperAgent具备自主思考、规划、执行、调用工具的能力',
+    description:'Genspark推出了一个自动化Al代理:SuperAgent具备自主思考、规划、执行、调用工具的能力',
+    author:'Genspark',
+    date:'2025-04-11',
+    image:'https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02l1_1debc3d7-f544-42cb-a668-396a0aff14eg.jpg',
+    link:'https://www.genspark.ai/agents?id=055af920-62b7-4c50-b8f7-cc9b6d3d89fb',
+    category:'Agent',
+    content:superAgent
+  },
+  {
+    id:'0411-new-7',
+    title:'Anthropic探索AI模型的内部工作原理，他们看到Claude的思考过程',
+    description:'Anthropic探索AI模型的内部工作原理，他们看到Claude的思考过程',
+    author:'Anthropic',
+    date:'2025-04-10',
+    image:'https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02l1_ce6dd3bb-f1f4-44a7-90d0-c429108b67eg.jpg',
+    link:'https://www.anthropic.com/research/tracing-thoughts-language-model',
+    category:'Claude',
+    content:claudeThinking  
+  },
+  {
+    id:'0411-new-8',
+    title:'Google NotebookLM推出Discover Sources',
+    description:'通过该功能，能够输入主题自动帮你查找相关文章和资料',
+    author:'Google',
+    date:'2025-04-11',
+    image:'https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02l1_9adc60e0-dc5e-49b1-8447-4db68f539a9g.jpg',
+    link:'https://notebooklm.google.com/',
+    category:'NotebookLM',
+    content:discoverSources
+  },
+  {
+    id:'0411-new-9',
+    title:'GPT-4.5首次以"人格扮演"方式通过了标准图灵测试',
+    description:'GPT-4.5首次以"人格扮演"方式通过了标准图灵测试,成为目前最具类人对话能力的AI(含完整提示词及方法)',
+    author:'OpenAI',
+    date:'2025-04-09',
+    image:'https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02l1_05c120f2-7ba8-4fa2-a3a8-8c098aa1186g.jpg',
+    link:'https://turingtest.live/',
+    category:'LLM',
+    content:gpt45
+  },
+  {
+    id:'0411-new-10',
+    title:'Luma推出Ray2中的相机运动概念功能',
+    description:'Luma推出Ray2中的相机运动概念功能20多种相机运动可以自由组合可实现电影级镜头运动',
+    author:'Luma',
+    date:'2025-04-11',
+    image:'https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/img_v3_02ku_ee2c3e45-0abb-4a74-b43a-f9a61f0c0aeg.jpg',
+    link:'https://www.luma.ai/blog/introducing-camera-motion-concepts-in-ray-2',
+    category:'Video',
+    content:lumaRay2
+  },
+  {
+    id:'0411-new-11',
+    title:'Prompt Engineering',
+    description:'由Google团队成员联合编写的《Prompt Engineering》提示词工程白皮书',
+    author:'Google',
+    date:'2025-04-11',
+    image:'https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02l8_bf3b8157-5b8a-4e92-88f4-f5ddf901b49g.jpg',
+    link:'https://www.promptingguide.ai/prompt-engineering',
+    category:'Prompt Engineering',
+    content:PromptEngineering
+  },
   {
     id:'0410-new-1',
     title:'Cloudflare推出全托管的RAG系统AutoRAG',
@@ -207,136 +440,6 @@ export const defaultNewsItems: CardItem[] = [
     image: 'https://assets-global.website-files.com/614a9edd8139f5def3897a73/61960dbb839ce5fefe853138_Cohere%20Logo%201.png',
     category: '自然语言处理',
     link: 'https://cohere.ai/'
-  },
-  {
-    id: '11',
-    title: '谷歌推出新一代量子模拟器',
-    description: '可在普通计算机上模拟100量子比特的运算，为量子算法开发和测试提供强大工具。',
-    author: 'Google',
-    date: '2025-03-09',
-    image: 'https://blog.google/static/images/share.png',
-    category: '量子计算',
-    link: 'https://quantum.google/'
-  },
-  {
-    id: '12',
-    title: 'Hugging Face推出企业级模型训练平台',
-    description: '新平台支持大规模分布式训练，内置模型评估和部署工具，简化企业AI落地流程。',
-    author: 'Hugging Face',
-    date: '2025-03-08',
-    image: 'https://huggingface.co/front/assets/huggingface_logo.svg',
-    category: '开发平台',
-    link: 'https://huggingface.co/'
-  },
-  {
-    id: '14',
-    title: '阿里云发布通义千问新版本',
-    description: '阿里云通义千问推出企业级定制化大模型服务，支持私有化部署，在金融、医疗等垂直领域表现优异。',
-    author: '阿里云',
-    date: '2025-03-18',
-    image: 'https://img.alicdn.com/tfs/TB1Ly5oS3HqK1RjSZFPXXcwapXa-238-54.png',
-    category: '大模型',
-    link: 'https://tongyi.aliyun.com'
-  },
-  {
-    id: '15',
-    title: '商汤科技推出新一代计算机视觉平台',
-    description: '商汤科技发布SenseCore 3.0平台，支持更精确的目标检测和场景理解，在智慧城市和工业制造领域大放异彩。',
-    author: '商汤科技',
-    date: '2025-03-17',
-    image: 'https://www.sensetime.com/images/cn/logo.png',
-    category: '计算机视觉',
-    link: 'https://www.sensetime.com'
-  },
-  {
-    id: '16',
-    title: '腾讯混元大模型升级',
-    description: '腾讯混元大模型在游戏、社交和内容创作等领域实现重要突破，支持更自然的多轮对话和创意内容生成。',
-    author: '腾讯',
-    date: '2025-03-16',
-    image: 'https://www.tencent.com/img/index/tencent_logo.png',
-    category: '大模型',
-    link: 'https://hunyuan.tencent.com'
-  },
-  {
-    id: '17',
-    title: '智谱AI发布GLM-4超大规模模型',
-    description: 'GLM-4在科学计算、代码生成等专业领域展现出色表现，支持更复杂的多模态任务处理。',
-    author: '智谱AI',
-    date: '2025-03-15',
-    image: 'https://zhipuai.cn/images/logo.png',
-    category: '大模型',
-    link: 'https://zhipuai.cn'
-  },
-  {
-    id: '18',
-    title: '科大讯飞发布星火认知大模型3.0',
-    description: '新版本在教育、医疗等垂直领域实现突破，支持更精准的行业知识理解和专业问题解答。',
-    author: '科大讯飞',
-    date: '2025-03-14',
-    image: 'https://www.iflytek.com/images/logo.png',
-    category: '大模型',
-    link: 'https://xinghuo.xfyun.cn'
-  },
-  {
-    id: '19',
-    title: '华为发布昇腾AI计算集群',
-    description: '新一代昇腾AI计算集群性能提升300%，支持更大规模的AI模型训练，能耗比领先业界。',
-    author: '华为',
-    date: '2025-03-13',
-    image: 'https://www.huawei.com/-/media/corporate/images/home/logo/huawei_logo.png',
-    category: '硬件',
-    link: 'https://www.huawei.com/cn/mindspore'
-  },
-  {
-    id: '20',
-    title: '旷视科技推出先进视觉算法',
-    description: '新一代计算机视觉算法在工业检测精度上提升50%，已在多个制造业龙头企业成功落地。',
-    author: '旷视科技',
-    date: '2025-03-12',
-    image: 'https://www.megvii.com/images/logo.png',
-    category: '计算机视觉',
-    link: 'https://www.megvii.com'
-  },
-  {
-    id: '21',
-    title: '字节跳动火山引擎升级AI平台',
-    description: '火山引擎推出一站式AI开发平台，提供从模型训练到部署的全流程支持，大幅降低企业AI应用门槛。',
-    author: '字节跳动',
-    date: '2025-03-11',
-    image: 'https://www.volcengine.com/static/img/logo.svg',
-    category: '开发平台',
-    link: 'https://www.volcengine.com'
-  },
-  {
-    id: '22',
-    title: '奇安信发布AI安全防护平台',
-    description: '针对AI模型安全推出全方位防护方案，有效防范数据污染、模型攻击等安全威胁。',
-    author: '奇安信',
-    date: '2025-03-10',
-    image: 'https://www.qianxin.com/images/logo.png',
-    category: 'AI安全',
-    link: 'https://www.qianxin.com'
-  },
-  {
-    id: '23',
-    title: '浪潮发布新一代AI服务器',
-    description: '新一代AI服务器采用自研芯片，计算性能提升200%，已获得多家大模型公司订单。',
-    author: '浪潮',
-    date: '2025-03-09',
-    image: 'https://www.inspur.com/lcjtww/images/logo.png',
-    category: '硬件',
-    link: 'https://www.inspur.com'
-  },
-  {
-    id: '24',
-    title: '百度智能云推出AI开发平台',
-    description: '提供一站式AI开发环境，支持模型训练、优化和部署，简化企业AI应用开发流程。',
-    author: '百度智能云',
-    date: '2025-03-08',
-    image: 'https://img0.baidu.com/it/u=2137813120,1780872000&fm=253&fmt=auto&app=138&f=PNG',
-    category: '开发平台',
-    link: 'https://cloud.baidu.com'
   }
 ];
 

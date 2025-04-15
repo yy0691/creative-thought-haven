@@ -11,7 +11,7 @@ import { FileConverter } from '../lib/file-converter';
 import Highlight from '../components/Highlight';
 import MDXComponents from '@/components/MDXComponents';
 import ErrorBoundary from '../components/ErrorBoundary';
-import { useMediaQuery } from '../hooks/useMediaQuery';
+import { useMediaQuery } from '../app/hooks/useMediaQuery';
 import React from 'react';
 
 const components = {

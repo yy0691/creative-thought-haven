@@ -15,7 +15,7 @@ export const deeplearningItems: CardItem[] = [
         title: 'PyTorch官方教程',
         description: 'PyTorch官方提供的教程，从基础到高级应用的全面指南，包含实例代码和练习。',
         author: 'PyTorch Team',
-        image: 'https://picx.zhimg.com/v2-fd5b52305e21760618efe206b814973d_1440w.jpg?source=172ae18b',
+        image: 'https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/AiNews/pytorch.png',
         category: '框架教程',
         link: 'https://pytorch.org/tutorials/'
       },
@@ -33,7 +33,7 @@ export const deeplearningItems: CardItem[] = [
         title: 'Fast.ai课程',
         description: '强调实践优先的深度学习课程，适合快速掌握深度学习应用技能。',
         author: 'Jeremy Howard & Rachel Thomas',
-        image: 'https://repository-images.githubusercontent.com/616548600/ae21fe11-2ab9-4556-bd6a-0566fc4474a2',
+        image: 'https://course.fast.ai/Lessons/diffusion.png',
         category: '在线课程',
         link: 'https://www.fast.ai/'
       },
@@ -42,7 +42,7 @@ export const deeplearningItems: CardItem[] = [
         title: 'TensorFlow官方教程',
         description: 'Google提供的TensorFlow学习资源，包括基础教程、高级模型构建和部署指南。',
         author: 'Google Brain Team',
-        image: 'https://pic4.zhimg.com/v2-214a2fcf5485ab2adfa882d2209f43e0_1440w.jpg?source=172ae18b',
+        image: 'https://pic1.zhimg.com/v2-26a6ce3b05d4f6e5d9cc22d286bc87e8_1440w.jpg?source=172ae18b',
         category: '框架教程',
         link: 'https://www.tensorflow.org/tutorials'
       },

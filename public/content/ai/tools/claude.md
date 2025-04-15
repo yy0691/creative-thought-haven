@@ -5,7 +5,7 @@ description: Anthropic公司开发的先进大语言模型，以高度可靠性�
 author: Anthropic
 date: 2023-10-20
 image: https://cdn.sanity.io/images/u0v1th4q/production/1a3dcfe56e94c98416dd0178859e5b71868ebe57-1800x1080.png
-category: 通用类AI
+category: 通用大模型
 link: https://claude.ai/
 ---
 
