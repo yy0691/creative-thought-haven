@@ -8,7 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Textarea } from '@/components/ui/textarea';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { CardItem } from '../../data/ai/types';
-import { supabase } from '../../lib/supabese';
+// import { supabase } from '../../lib/supabese';
 
 // 工具分类定义
 const toolCategories = [
@@ -59,20 +59,44 @@ const AIToolsManager: React.FC = () => {
     try {
       setIsLoading(true);
       
-      // 从Supabase加载数据
-      const { data, error } = await supabase
-        .from('ai_tools')
-        .select('*');
-        
-      if (error) {
-        throw error;
-      }
+      // 模拟数据加载，替代原来的Supabase加载
+      // 从静态数据源加载或使用本地存储
+      // const { data, error } = await supabase
+      //   .from('ai_tools')
+      //   .select('*');
       
-      if (data) {
-        setToolsList(data);
-      }
+      // 使用本地静态数据代替
+      const mockData = [
+        {
+          id: 'general-cn-0',
+          title: '模拟工具1',
+          description: '这是一个模拟的AI工具描述',
+          link: 'https://example.com',
+          image: 'https://placehold.co/600x400',
+          category: 'general-cn',
+          author: '示例作者',
+          date: new Date().toISOString().split('T')[0],
+          tags: ['AI', '示例']
+        },
+        {
+          id: 'painting-0',
+          title: '模拟绘画工具',
+          description: '这是一个模拟的AI绘画工具描述',
+          link: 'https://example.com/painting',
+          image: 'https://placehold.co/600x400',
+          category: 'painting',
+          author: '绘画作者',
+          date: new Date().toISOString().split('T')[0],
+          tags: ['AI绘画', '示例']
+        }
+      ];
       
-      setIsLoading(false);
+      // 模拟延迟
+      setTimeout(() => {
+        setToolsList(mockData);
+        setIsLoading(false);
+      }, 500);
+      
     } catch (error) {
       console.error('加载工具数据失败:', error);
       setIsLoading(false);
@@ -133,34 +157,52 @@ const AIToolsManager: React.FC = () => {
       // 准备要保存的数据
       const toolData = {
         ...formData,
-        id: formData.id || undefined // 如果是新记录，让Supabase生成ID
+        id: formData.id || `${formData.category}-${Date.now()}`  // 生成本地ID
       };
       
+      // 模拟保存数据
       // 如果是编辑现有记录
       if (selectedTool) {
-        const { error } = await supabase
-          .from('ai_tools')
-          .update(toolData)
-          .eq('id', toolData.id);
-          
-        if (error) throw error;
+        // 更新本地数据
+        const updatedTools = toolsList.map(tool => 
+          tool.id === toolData.id ? toolData : tool
+        );
+        setToolsList(updatedTools);
+        
+        // 模拟网络延迟
+        setTimeout(() => {
+          toast({
+            title: '成功',
+            description: '工具数据已更新',
+          });
+        }, 300);
+        
+        // 如果是实际使用Supabase
+        // const { error } = await supabase
+        //   .from('ai_tools')
+        //   .update(toolData)
+        //   .eq('id', toolData.id);
       } 
       // 如果是新建记录
       else {
-        const { error } = await supabase
-          .from('ai_tools')
-          .insert(toolData);
-          
-        if (error) throw error;
+        // 添加到本地数据
+        setToolsList(prev => [...prev, toolData]);
+        
+        // 模拟网络延迟
+        setTimeout(() => {
+          toast({
+            title: '成功',
+            description: '工具数据已添加',
+          });
+        }, 300);
+        
+        // 如果是实际使用Supabase
+        // const { error } = await supabase
+        //   .from('ai_tools')
+        //   .insert(toolData);
       }
       
-      toast({
-        title: '成功',
-        description: '工具数据已保存',
-      });
-      
-      // 重新加载数据
-      loadToolsData();
+      // 重置表单
       resetForm();
     } catch (error) {
       console.error('保存工具数据失败:', error);
@@ -177,20 +219,24 @@ const AIToolsManager: React.FC = () => {
     if (!window.confirm('确定要删除这个工具吗？此操作不可恢复。')) return;
 
     try {
-      const { error } = await supabase
-        .from('ai_tools')
-        .delete()
-        .eq('id', id);
-        
-      if (error) throw error;
+      // 从本地数据中删除
+      setToolsList(prev => prev.filter(tool => tool.id !== id));
       
-      toast({
-        title: '成功',
-        description: '工具已删除',
-      });
+      // 模拟网络延迟
+      setTimeout(() => {
+        toast({
+          title: '成功',
+          description: '工具已删除',
+        });
+      }, 300);
       
-      // 重新加载数据
-      loadToolsData();
+      // 如果是实际使用Supabase
+      // const { error } = await supabase
+      //   .from('ai_tools')
+      //   .delete()
+      //   .eq('id', id);
+      
+      // 重置表单
       resetForm();
     } catch (error) {
       console.error('删除工具失败:', error);
