@@ -23,10 +23,15 @@ class ContentFetcher {
       
       // 清理临时目录
       if (fs.existsSync(this.tempDir)) {
-        await execAsync(`rm -rf ${this.tempDir}`);
+        if (process.platform === 'win32') {
+          await execAsync(`rmdir /s /q "${this.tempDir}"`);
+        } else {
+          await execAsync(`rm -rf ${this.tempDir}`);
+        }
       }
       
       // 克隆内容仓库
+      console.log('克隆内容仓库...');
       await execAsync(`git clone ${this.contentRepo} ${this.tempDir}`);
       
       // 同步文章内容
@@ -44,13 +49,37 @@ class ContentFetcher {
       console.log('内容同步完成！');
     } catch (error) {
       console.error('内容同步失败:', error);
-      throw error;
+      // 如果同步失败，尝试使用本地内容
+      console.log('尝试使用本地内容...');
+      await this.useLocalContent();
     } finally {
       // 清理临时文件
       if (fs.existsSync(this.tempDir)) {
-        await execAsync(`rm -rf ${this.tempDir}`);
+        try {
+          if (process.platform === 'win32') {
+            await execAsync(`rmdir /s /q "${this.tempDir}"`);
+          } else {
+            await execAsync(`rm -rf ${this.tempDir}`);
+          }
+        } catch (cleanupError) {
+          console.warn('清理临时文件失败:', cleanupError);
+        }
       }
     }
+  }
+
+  async useLocalContent() {
+    console.log('使用本地内容...');
+    
+    // 检查本地content目录是否存在
+    if (!fs.existsSync(this.targetDir)) {
+      console.log('本地content目录不存在，创建空目录');
+      fs.mkdirSync(this.targetDir, { recursive: true });
+      return;
+    }
+    
+    // 生成元数据
+    await this.generateMetadata();
   }
 
   async syncArticles() {
@@ -102,6 +131,16 @@ class ContentFetcher {
     // 保存文章索引
     fs.writeFileSync(
       path.join(__dirname, '../src/data/articles.json'),
+      JSON.stringify(articles, null, 2)
+    );
+    
+    // 同时保存到public目录，供构建后访问
+    const publicDataDir = path.join(__dirname, '../public/data');
+    if (!fs.existsSync(publicDataDir)) {
+      fs.mkdirSync(publicDataDir, { recursive: true });
+    }
+    fs.writeFileSync(
+      path.join(publicDataDir, 'articles.json'),
       JSON.stringify(articles, null, 2)
     );
     
@@ -185,6 +224,12 @@ class ContentFetcher {
       path.join(__dirname, '../src/data/categories.json'),
       JSON.stringify(categoryData, null, 2)
     );
+    
+    // 同时保存到public目录
+    fs.writeFileSync(
+      path.join(publicDataDir, 'categories.json'),
+      JSON.stringify(categoryData, null, 2)
+    );
   }
 
   async generateTagData(articles) {
@@ -213,6 +258,12 @@ class ContentFetcher {
     
     fs.writeFileSync(
       path.join(__dirname, '../src/data/tags.json'),
+      JSON.stringify(tagData, null, 2)
+    );
+    
+    // 同时保存到public目录
+    fs.writeFileSync(
+      path.join(publicDataDir, 'tags.json'),
       JSON.stringify(tagData, null, 2)
     );
   }

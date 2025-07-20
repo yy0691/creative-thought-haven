@@ -8,8 +8,9 @@ const __dirname = path.dirname(__filename);
 
 class ContentBuilder {
   constructor() {
-    this.contentDir = path.join(__dirname, '../content-repo');
+    this.contentDir = path.join(__dirname, '../content');
     this.dataDir = path.join(__dirname, '../src/data');
+    this.publicDataDir = path.join(__dirname, '../public/data');
   }
 
   async buildContent() {
@@ -19,6 +20,11 @@ class ContentBuilder {
       // 确保数据目录存在
       if (!fs.existsSync(this.dataDir)) {
         fs.mkdirSync(this.dataDir, { recursive: true });
+      }
+      
+      // 确保public数据目录存在
+      if (!fs.existsSync(this.publicDataDir)) {
+        fs.mkdirSync(this.publicDataDir, { recursive: true });
       }
       
       // 读取文章数据
@@ -76,6 +82,12 @@ class ContentBuilder {
       path.join(this.dataDir, 'categories.json'),
       JSON.stringify(categoryData, null, 2)
     );
+    
+    // 同时保存到public目录
+    fs.writeFileSync(
+      path.join(this.publicDataDir, 'categories.json'),
+      JSON.stringify(categoryData, null, 2)
+    );
   }
 
   async generateTagPages(articles) {
@@ -107,6 +119,12 @@ class ContentBuilder {
       path.join(this.dataDir, 'tags.json'),
       JSON.stringify(tagData, null, 2)
     );
+    
+    // 同时保存到public目录
+    fs.writeFileSync(
+      path.join(this.publicDataDir, 'tags.json'),
+      JSON.stringify(tagData, null, 2)
+    );
   }
 
   async generateSearchIndex(articles) {
@@ -122,6 +140,12 @@ class ContentBuilder {
     
     fs.writeFileSync(
       path.join(this.dataDir, 'search-index.json'),
+      JSON.stringify(searchIndex, null, 2)
+    );
+    
+    // 同时保存到public目录
+    fs.writeFileSync(
+      path.join(this.publicDataDir, 'search-index.json'),
       JSON.stringify(searchIndex, null, 2)
     );
   }

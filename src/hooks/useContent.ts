@@ -37,7 +37,7 @@ export const useArticles = () => {
   useEffect(() => {
     const loadArticles = async () => {
       try {
-        const response = await fetch('/src/data/articles.json');
+        const response = await fetch('/data/articles.json');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -64,7 +64,7 @@ export const useCategories = () => {
   useEffect(() => {
     const loadCategories = async () => {
       try {
-        const response = await fetch('/src/data/categories.json');
+        const response = await fetch('/data/categories.json');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -91,7 +91,7 @@ export const useTags = () => {
   useEffect(() => {
     const loadTags = async () => {
       try {
-        const response = await fetch('/src/data/tags.json');
+        const response = await fetch('/data/tags.json');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -118,7 +118,7 @@ export const useSearchIndex = () => {
   useEffect(() => {
     const loadSearchIndex = async () => {
       try {
-        const response = await fetch('/src/data/search-index.json');
+        const response = await fetch('/data/search-index.json');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
