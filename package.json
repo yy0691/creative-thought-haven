@@ -4,14 +4,18 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "node ./node_modules/vite/bin/vite.js build",
+    "dev": "npm run fetch-content && vite",
+    "build": "npm run fetch-content && npm run build-content && vite build",
     "build:dev": "vite build --mode development",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "update-search-index": "node scripts/build-search-index.js",
     "test:pat": "node verify-pat.js",
-    "test:api": "node test-coze-api.js"
+    "test:api": "node test-coze-api.js",
+    "fetch-content": "node scripts/fetch-content.js",
+    "build-content": "node scripts/build-content.js",
+    "migrate-content": "node scripts/migrate-content.js",
+    "generate-articles": "node scripts/generate-articles.js"
   },
   "dependencies": {
     "@emotion/cache": "^11.11.0",
