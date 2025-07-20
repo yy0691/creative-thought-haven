@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { projects } from '../content/projects';
-import { marked } from 'marked';
+// import { marked } from 'marked'; // 注释掉marked，使用react-markdown
 import VideoPlayer from '../components/VideoPlayer';
 import FigmaEmbed from '../components/FigmaEmbed';
 import { useEffect, useState } from 'react';
@@ -16,13 +16,13 @@ const ProjectDetails = () => {
   const [isLoadingReadme, setIsLoadingReadme] = useState(false);
   const [readmeError, setReadmeError] = useState<string | null>(null);
 
-  // 配置marked选项，确保正确处理换行和其他Markdown特性
-  useEffect(() => {
-    marked.setOptions({
-      breaks: true,        // 将换行符转换为<br>
-      gfm: true,           // 使用GitHub风格的Markdown
-    });
-  }, []);
+  // 注释掉marked配置，直接使用react-markdown
+  // useEffect(() => {
+  //   marked.setOptions({
+  //     breaks: true,        // 将换行符转换为<br>
+  //     gfm: true,           // 使用GitHub风格的Markdown
+  //   });
+  // }, []);
 
   // 尝试从GitHub仓库获取README.md内容
   useEffect(() => {
@@ -80,7 +80,7 @@ const ProjectDetails = () => {
     return details.replace(/\n(?!\n)/g, '  \n');
   };
 
-  // 渲染 Markdown 内容
+  // 简化Markdown渲染逻辑，直接使用react-markdown
   const renderMarkdown = (content: string) => {
     try {
       return (

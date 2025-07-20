@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { loadMarkdownById } from '../app/utils/markdownLoader';
 import { CardItem } from '../data/ai/types';
-import ReactMarkdown from 'react-markdown';
+// import ReactMarkdown from 'react-markdown'; // 注释掉直接使用ReactMarkdown
+import { MDXContent } from '../components/MDXContent'; // 使用统一的MDXContent组件
 import { CircularProgress, Container, Typography, Box, Divider, Chip } from '@mui/material';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import PersonIcon from '@mui/icons-material/Person';
@@ -135,9 +136,7 @@ const ToolPage: React.FC = () => {
       <Divider sx={{ mb: 4 }} />
       
       <Box className="markdown-content" sx={{ '& img': { maxWidth: '100%', borderRadius: 1 } }}>
-        <ReactMarkdown>
-          {tool.content}
-        </ReactMarkdown>
+        <MDXContent content={tool.content} />
       </Box>
     </Container>
   );

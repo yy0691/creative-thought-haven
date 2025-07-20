@@ -2,8 +2,8 @@ import { useState, useEffect, Suspense } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { type BlogPost, type BlogPostMeta, formatDate, getBlogPosts } from '../lib/blog';
 import { MDXProvider } from '@mdx-js/react';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { tomorrow } from 'react-syntax-highlighter/dist/esm/styles/prism';
+// import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+// import { tomorrow } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { Alert } from '../components/ui/alert';
 import { RandomEmoji } from '../components/RandomEmoji';
 import { TableOfContents } from '@/components/TableOfContents';
@@ -14,81 +14,82 @@ import ErrorBoundary from '../components/ErrorBoundary';
 import { useMediaQuery } from '../app/hooks/useMediaQuery';
 import React from 'react';
 
-const components = {
-  h1: props => <h1 className="text-3xl font-bold mt-8 mb-4" {...props} />,
-  h2: props => <h2 className="text-2xl font-bold mt-6 mb-3" {...props} />,
-  h3: props => <h3 className="text-xl font-bold mt-4 mb-2" {...props} />,
-  p: props => <p className="my-4" {...props} />,
-  ul: props => <ul className="list-disc pl-6 my-4 space-y-2" {...props} />,
-  ol: props => <ol className="list-decimal pl-6 my-4 space-y-2" {...props} />,
-  li: props => <li className="pl-2" {...props} />,
-  code: ({ children, className, ...props }) => {
-    if (className) {
-      const language = className.replace(/language-/, '');
-      return (
-        <SyntaxHighlighter language={language} style={tomorrow}>
-          {children}
-        </SyntaxHighlighter>
-      );
-    }
-    return <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">{children}</code>;
-  },
-  div: ({ className, children, ...props }) => {
-    if (className?.includes('columns')) {
-      const columnCount = className.match(/columns-(\d+)/)?.[1] || '2';
-      return (
-        <div className={`grid grid-cols-${columnCount} gap-4 my-4`} {...props}>
-          {children}
-        </div>
-      );
-    }
-    if (className?.includes('highlight')) {
-      const colorClass = className.match(/highlight-(yellow|red|green|blue|purple)/)?.[1] || 'yellow';
-      const colors = {
-        yellow: 'bg-yellow-100 border-yellow-200',
-        red: 'bg-red-100 border-red-200',
-        green: 'bg-green-100 border-green-200',
-        blue: 'bg-blue-100 border-blue-200',
-        purple: 'bg-purple-100 border-purple-200'
-      };
-      return (
-        <div className={`p-4 rounded-lg border ${colors[colorClass]} my-4`} {...props}>
-          {children}
-        </div>
-      );
-    }
-    return <div {...props}>{children}</div>;
-  },
-  span: ({ className, children, ...props }) => {
-    if (className?.includes('highlight')) {
-      return <span className="bg-yellow-100 px-1 rounded-sm" {...props}>{children}</span>;
-    }
-    if (className?.startsWith('text-')) {
-      return <span className={className} {...props}>{children}</span>;
-    }
-    return <span {...props}>{children}</span>;
-  },
-  a: ({ href, children, ...props }) => (
-    <a
-      href={href}
-      className="text-primary hover:text-primary/80 underline-offset-4 hover:underline transition-colors"
-      target="_blank"
-      rel="noopener noreferrer"
-      {...props}
-    >
-      {children}
-    </a>
-  ),
-  Alert,
-  RandomEmoji,
-  img: props => (
-    <img
-      {...props}
-      className="max-w-full h-auto rounded-lg my-4"
-      loading="lazy"
-    />
-  )
-};
+// 注释掉复杂的自定义组件配置，使用统一的MDXComponents
+// const components = {
+//   h1: props => <h1 className="text-3xl font-bold mt-8 mb-4" {...props} />,
+//   h2: props => <h2 className="text-2xl font-bold mt-6 mb-3" {...props} />,
+//   h3: props => <h3 className="text-xl font-bold mt-4 mb-2" {...props} />,
+//   p: props => <p className="my-4" {...props} />,
+//   ul: props => <ul className="list-disc pl-6 my-4 space-y-2" {...props} />,
+//   ol: props => <ol className="list-decimal pl-6 my-4 space-y-2" {...props} />,
+//   li: props => <li className="pl-2" {...props} />,
+//   code: ({ children, className, ...props }) => {
+//     if (className) {
+//       const language = className.replace(/language-/, '');
+//       return (
+//         <SyntaxHighlighter language={language} style={tomorrow}>
+//           {children}
+//         </SyntaxHighlighter>
+//       );
+//     }
+//     return <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">{children}</code>;
+//   },
+//   div: ({ className, children, ...props }) => {
+//     if (className?.includes('columns')) {
+//       const columnCount = className.match(/columns-(\d+)/)?.[1] || '2';
+//       return (
+//         <div className={`grid grid-cols-${columnCount} gap-4 my-4`} {...props}>
+//           {children}
+//         </div>
+//       );
+//     }
+//     if (className?.includes('highlight')) {
+//       const colorClass = className.match(/highlight-(yellow|red|green|blue|purple)/)?.[1] || 'yellow';
+//       const colors = {
+//         yellow: 'bg-yellow-100 border-yellow-200',
+//         red: 'bg-red-100 border-red-200',
+//         green: 'bg-green-100 border-green-200',
+//         blue: 'bg-blue-100 border-blue-200',
+//         purple: 'bg-purple-100 border-purple-200'
+//       };
+//       return (
+//         <div className={`p-4 rounded-lg border ${colors[colorClass]} my-4`} {...props}>
+//           {children}
+//         </div>
+//       );
+//     }
+//     return <div {...props}>{children}</div>;
+//   },
+//   span: ({ className, children, ...props }) => {
+//     if (className?.includes('highlight')) {
+//       return <span className="bg-yellow-100 px-1 rounded-sm" {...props}>{children}</span>;
+//     }
+//     if (className?.startsWith('text-')) {
+//       return <span className={className} {...props}>{children}</span>;
+//     }
+//     return <span {...props}>{children}</span>;
+//   },
+//   a: ({ href, children, ...props }) => (
+//     <a
+//       href={href}
+//       className="text-primary hover:text-primary/80 underline-offset-4 hover:underline transition-colors"
+//       target="_blank"
+//       rel="noopener noreferrer"
+//       {...props}
+//     >
+//       {children}
+//     </a>
+//   ),
+//   Alert,
+//   RandomEmoji,
+//   img: props => (
+//     <img
+//       {...props}
+//       className="max-w-full h-auto rounded-lg my-4"
+//       loading="lazy"
+//     />
+//   )
+// };
 
 const BlogPost = () => {
   const { slug } = useParams();
@@ -148,18 +149,18 @@ const BlogPost = () => {
           throw new Error(`找不到文章: ${slug}`);
         }
     
-        const module = mdxModules[modulePath] as any;
+        const module = mdxModules[modulePath] as { default: React.ComponentType; metadata?: Record<string, unknown> };
         const content = module.default;
         const metadata = module.metadata || {};
         
         const post: BlogPost = {
           slug,
-          title: metadata.title || '无标题',
-          date: metadata.date || new Date().toISOString(),
-          excerpt: metadata.excerpt || '暂无描述',
-          tags: metadata.tags || [],
+          title: (metadata.title as string) || '无标题',
+          date: (metadata.date as string) || new Date().toISOString(),
+          excerpt: (metadata.excerpt as string) || '暂无描述',
+          tags: (metadata.tags as string[]) || [],
           content,
-          category: metadata.category || ''
+          category: (metadata.category as string) || ''
         };
         
         setPost(post);
@@ -241,10 +242,7 @@ const BlogPost = () => {
         }>
           <Suspense fallback={<div>加载内容中...</div>}>
             <MDXProvider
-              components={{
-                ...components,
-                ...MDXComponents
-              }}
+              components={MDXComponents}
             >
               <post.content />
             </MDXProvider>

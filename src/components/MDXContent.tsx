@@ -5,15 +5,18 @@ import MDXComponents from './MDXComponents';
 
 interface MDXContentProps {
   content: string;
+  className?: string;
 }
 
-export const MDXContent: React.FC<MDXContentProps> = ({ content }) => {
+export const MDXContent: React.FC<MDXContentProps> = ({ content, className }) => {
   return (
-    <ReactMarkdown 
-      remarkPlugins={[remarkGfm]}
-      components={MDXComponents}
-    >
-      {content}
-    </ReactMarkdown>
+    <div className={className}>
+      <ReactMarkdown 
+        remarkPlugins={[remarkGfm]}
+        components={MDXComponents}
+      >
+        {content}
+      </ReactMarkdown>
+    </div>
   );
 }; 
