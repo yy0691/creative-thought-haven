@@ -9,7 +9,7 @@ interface TocItem {
 }
 
 interface TableOfContentsProps {
-  content: React.ComponentType<{}> | string;
+  content: React.ComponentType<object> | string;
 }
 
 export const TableOfContents = ({ content }: TableOfContentsProps) => {
@@ -26,6 +26,7 @@ export const TableOfContents = ({ content }: TableOfContentsProps) => {
     if (pinnedPreference !== null) {
       setIsPinned(pinnedPreference === 'true');
     }
+    // 如果没有保存过偏好设置，说明是首次访问，保持默认的展开但非锁定状态
   }, []);
 
   useEffect(() => {
@@ -78,12 +79,14 @@ export const TableOfContents = ({ content }: TableOfContentsProps) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [content]);
 
-  // 设置初始折叠状态：移动设备上默认收起目录，除非用户固定了目录
+  // 设置初始折叠状态：默认展开，移动设备上根据是否固定决定
   useEffect(() => {
-    if (!isPinned) {
-      setIsCollapsed(isMobile);
-    } else {
+    if (isPinned) {
+      // 如果固定了，则展开
       setIsCollapsed(false);
+    } else {
+      // 如果未固定，桌面端展开，移动端收起
+      setIsCollapsed(isMobile);
     }
   }, [isMobile, isPinned]);
 
@@ -219,6 +222,7 @@ export const TableOfContents = ({ content }: TableOfContentsProps) => {
                   {isPinned ? <Pin size={16} /> : <PinOff size={16} />}
                 </button>
               </div>
+              
               {items.length > 0 ? (
                 <ul className="space-y-1.5">
                   {items.map((item) => (
