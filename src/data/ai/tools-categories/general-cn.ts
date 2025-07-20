@@ -1,4 +1,5 @@
 import { CardItem } from '../types';
+import { Fiveire } from '../update0415/5ire';
 
 export const generalCnTools: CardItem[] = [
   // 通用大模型 - 国内
@@ -51,5 +52,16 @@ export const generalCnTools: CardItem[] = [
     category: '通用大模型',
     author: 'Moonshot AI',
     date: '2023-09-25'
+  },
+  {
+    id: 'general-tools-5ire',
+    title: '5ire',
+    description: '5ire是一款跨平台桌面AI助手，支持多种模型服务、工具集成与本地知识库',
+    link: 'https://5ire.app/',
+    image: 'https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/AiNews/img_v3_02lb_6d0eba7f-ef1a-4eaa-b534-132bf273139g.jpg',
+    category: '通用大模型',
+    author: '5ire',
+    date: '2025-04-26',
+    content: Fiveire
   }
 ]; 

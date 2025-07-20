@@ -26,8 +26,21 @@ import { lumaRay2 } from './update0411-1/Ray2';
 import { PromptEngineering } from './updat0411-2/PromptEngineering';
 import { BabelDOC,ChatgptMemoryUpdate, GoogleAgentBuilder, GoogleModelsUpdate, OrpheusTTS, WordPressAIWebsiteBuilder, xAIGrok3API } from './updat0411-2/News0412';
 import { geminiLive,glmUpdate,gpt41Update } from './update0415';
+import { openaiapi } from './update0415';
+
 // 默认新闻数据
 export const defaultNewsItems: CardItem[] = [
+  {
+    id:'0417-new-1',
+    title:'OpenAI发布GPT-4.1',
+    description:'OpenAI以API的形式发布了三个新模型:GPT-4.1、GPT-4.1 mini和GPT-4.1 nano',
+    author:'OpenAI',
+    date:'2025-04-16',
+    image:'https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/AiNews/img_v3_02lc_4f24f94e-264f-4f01-b1f6-b285c7f667dg.jpg',
+    link:'https://openai.com/index/gpt-4-1/',
+    category:'GPT',
+    content:openaiapi
+  },
   {
     id:'0415-new-1',
     title:'Google Gemini的"摄像头+屏幕共享"新体验',
@@ -306,7 +319,7 @@ export const defaultNewsItems: CardItem[] = [
   {
     id:'0410-new-6',
     title:'新的语音模型支持实时视觉对话',
-    description:'Kyutai 发布了 MoshiVis，这是一种开放式视觉语音模型，允许用户对图像进行自然的语音对话，同时保持低延迟。',
+    description:'Kyutai 发布了 MoshiVis ，这是一种开放式视觉语音模型，允许用户对图像进行自然的语音对话，同时保持低延迟。',
     author:'Kyutai',
     date:'2025-04-10',
     image:'https://humanaigc.github.io/omnitalker/content/images/motivation-two-columns-V4.png',
@@ -354,7 +367,7 @@ export const defaultNewsItems: CardItem[] = [
     description: 'DeepSeek 的新 V3 在 aider 的多语言基准测试中得分为 55%，比上一版本有显著提升。它是排名第二的非思考/推理模型，仅次于 Sonnet 3.7。V3 与 R1 和 o3-mini 等思考模型相比具有竞争力。',
     author: 'Anthropic',
     date: '2025-03-19',
-    image: 'https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/AiNews/img_v3_02kn_f68891a8-627b-49fd-a86f-21ee8ecc0dbg.jpg',
+    image: 'https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Blog/AiNews/img_v3_02kn_f68891a8-627b-49fd-a86f-21ee8ecc0dbg.jpg',
     category: 'LLM',
     link: 'https://api-docs.deepseek.com/zh-cn/news/news1226',
     content: deepSeekV3Content

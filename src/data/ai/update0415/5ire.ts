@@ -1,11 +1,4 @@
-\# AI工具箱
-
-
-
-**5ire:跨平台桌面Al助手,也是一个MCP支持多种模型服务、工具集成与本地知识库**
-
-![img_v3_02lb_6d0eba7f-ef1a-4eaa-b534-132bf273139g](https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/AiNews/img_v3_02lb_6d0eba7f-ef1a-4eaa-b534-132bf273139g.jpg)
-
+export const Fiveire = `
 
 
 > **5ire 是一个跨平台桌面 AI 助手，也是一个 MCP（Model Context Protocol）客户端，支持多种模型服务、工具集成与本地知识库。**
@@ -113,3 +106,4 @@
 GitHub：https://github.com/nanbingxyz/5ire 
 
 下载：https://5ire.app/
+`

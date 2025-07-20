@@ -62,20 +62,4 @@ export const generalOverseasTools: CardItem[] = [
     author: 'Microsoft',
     date: '2023-09-21'
   }
-  // {
-  //   id: 'general-overseas-7',
-  //   title: 'Jotform Boards',
-  //   description: '从人工智能代理对话中生成看板任务等',
-  //   link: 'https://www.jotform.com/products/boards/',
-  //   image: 'https://logos-marcas.com/wp-content/uploads/2021/11/Jotform-Emblema.jpg',
-  //   category: '通用大模型'
-  // },
-  // {
-  //   id: 'general-overseas-8',
-  //   title: 'Inferless',
-  //   description: '在几分钟内部署任何机器学习模型',
-  //   link: 'https://www.inferless.com/',
-  //   image: 'https://ph-files.imgix.net/7b2f6d44-2e50-4266-9b71-5a1f4f99f3fd.png?auto=format',
-  //   category: '通用大模型'
-  // }
 ]; 
