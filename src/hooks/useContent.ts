@@ -29,6 +29,48 @@ interface Tag {
   articles: Article[];
 }
 
+interface Project {
+  title: string;
+  description: string;
+  technologies: string[];
+  githubUrl?: string;
+  demoUrl?: string;
+  publishDate: string;
+  category: string;
+  isRecommended: boolean;
+  isHighlight: boolean;
+  coverImage?: string;
+}
+
+interface Design {
+  title: string;
+  description: string;
+  category: string;
+  publishDate: string;
+  coverImage?: string;
+}
+
+interface Video {
+  title: string;
+  description: string;
+  category: string;
+  publishDate: string;
+  videoUrl: string;
+  coverImage?: string;
+}
+
+interface News {
+  title: string;
+  slug: string;
+  date: string;
+  excerpt: string;
+  category: string;
+  content: string;
+  author?: string;
+  image?: string;
+  link?: string;
+}
+
 export const useArticles = () => {
   const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(true);
@@ -108,6 +150,114 @@ export const useTags = () => {
   }, []);
 
   return { tags, loading, error };
+};
+
+export const useProjects = () => {
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const loadProjects = async () => {
+      try {
+        const response = await fetch('/data/projects.json');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        setProjects(data);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : '加载项目失败');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadProjects();
+  }, []);
+
+  return { projects, loading, error };
+};
+
+export const useDesigns = () => {
+  const [designs, setDesigns] = useState<Design[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const loadDesigns = async () => {
+      try {
+        const response = await fetch('/data/designs.json');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        setDesigns(data);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : '加载设计失败');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadDesigns();
+  }, []);
+
+  return { designs, loading, error };
+};
+
+export const useVideos = () => {
+  const [videos, setVideos] = useState<Video[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const loadVideos = async () => {
+      try {
+        const response = await fetch('/data/videos.json');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        setVideos(data);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : '加载视频失败');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadVideos();
+  }, []);
+
+  return { videos, loading, error };
+};
+
+export const useNews = () => {
+  const [news, setNews] = useState<News[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const loadNews = async () => {
+      try {
+        const response = await fetch('/data/news.json');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        setNews(data);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : '加载新闻失败');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadNews();
+  }, []);
+
+  return { news, loading, error };
 };
 
 export const useSearchIndex = () => {

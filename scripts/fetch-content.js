@@ -37,6 +37,18 @@ class ContentFetcher {
       // 同步文章内容
       await this.syncArticles();
       
+      // 同步新闻内容
+      await this.syncNews();
+      
+      // 同步项目数据
+      await this.syncProjects();
+      
+      // 同步设计数据
+      await this.syncDesigns();
+      
+      // 同步视频数据
+      await this.syncVideos();
+      
       // 同步配置文件
       await this.syncConfigs();
       
@@ -106,6 +118,54 @@ class ContentFetcher {
     console.log('配置文件同步完成');
   }
 
+  async syncNews() {
+    const newsDir = path.join(this.tempDir, 'news');
+    const targetDir = path.join(this.targetDir, 'news');
+    
+    if (!fs.existsSync(targetDir)) {
+      fs.mkdirSync(targetDir, { recursive: true });
+    }
+    
+    await this.copyDirectory(newsDir, targetDir);
+    console.log('新闻内容同步完成');
+  }
+
+  async syncProjects() {
+    const projectsDir = path.join(this.tempDir, 'projects');
+    const targetDir = path.join(this.targetDir, 'projects');
+    
+    if (!fs.existsSync(targetDir)) {
+      fs.mkdirSync(targetDir, { recursive: true });
+    }
+    
+    await this.copyDirectory(projectsDir, targetDir);
+    console.log('项目数据同步完成');
+  }
+
+  async syncDesigns() {
+    const designsDir = path.join(this.tempDir, 'designs');
+    const targetDir = path.join(this.targetDir, 'designs');
+    
+    if (!fs.existsSync(targetDir)) {
+      fs.mkdirSync(targetDir, { recursive: true });
+    }
+    
+    await this.copyDirectory(designsDir, targetDir);
+    console.log('设计数据同步完成');
+  }
+
+  async syncVideos() {
+    const videosDir = path.join(this.tempDir, 'videos');
+    const targetDir = path.join(this.targetDir, 'videos');
+    
+    if (!fs.existsSync(targetDir)) {
+      fs.mkdirSync(targetDir, { recursive: true });
+    }
+    
+    await this.copyDirectory(videosDir, targetDir);
+    console.log('视频数据同步完成');
+  }
+
   async syncAssets() {
     const assetsDir = path.join(this.tempDir, 'assets');
     const targetDir = path.join(this.targetDir, 'assets');
@@ -149,6 +209,18 @@ class ContentFetcher {
     
     // 生成标签数据
     await this.generateTagData(articles);
+    
+    // 生成项目数据
+    await this.generateProjectData();
+    
+    // 生成设计数据
+    await this.generateDesignData();
+    
+    // 生成视频数据
+    await this.generateVideoData();
+    
+    // 生成新闻数据
+    await this.generateNewsData();
     
     console.log('元数据生成完成');
   }
@@ -266,6 +338,151 @@ class ContentFetcher {
       path.join(publicDataDir, 'tags.json'),
       JSON.stringify(tagData, null, 2)
     );
+  }
+
+  async generateProjectData() {
+    const projectsFile = path.join(this.targetDir, 'projects/projects.yaml');
+    if (!fs.existsSync(projectsFile)) {
+      console.warn('项目配置文件不存在');
+      return;
+    }
+    
+    try {
+      const projectsData = yaml.load(fs.readFileSync(projectsFile, 'utf8'));
+      const projects = projectsData.projects || [];
+      
+      // 保存到src/data目录
+      fs.writeFileSync(
+        path.join(__dirname, '../src/data/projects.json'),
+        JSON.stringify(projects, null, 2)
+      );
+      
+      // 保存到public目录
+      fs.writeFileSync(
+        path.join(publicDataDir, 'projects.json'),
+        JSON.stringify(projects, null, 2)
+      );
+      
+      console.log(`生成了 ${projects.length} 个项目数据`);
+    } catch (error) {
+      console.error('生成项目数据失败:', error);
+    }
+  }
+
+  async generateDesignData() {
+    const designsFile = path.join(this.targetDir, 'designs/designs.yaml');
+    if (!fs.existsSync(designsFile)) {
+      console.warn('设计配置文件不存在');
+      return;
+    }
+    
+    try {
+      const designsData = yaml.load(fs.readFileSync(designsFile, 'utf8'));
+      const designs = designsData.designs || [];
+      
+      // 保存到src/data目录
+      fs.writeFileSync(
+        path.join(__dirname, '../src/data/designs.json'),
+        JSON.stringify(designs, null, 2)
+      );
+      
+      // 保存到public目录
+      fs.writeFileSync(
+        path.join(publicDataDir, 'designs.json'),
+        JSON.stringify(designs, null, 2)
+      );
+      
+      console.log(`生成了 ${designs.length} 个设计数据`);
+    } catch (error) {
+      console.error('生成设计数据失败:', error);
+    }
+  }
+
+  async generateVideoData() {
+    const videosFile = path.join(this.targetDir, 'videos/videos.yaml');
+    if (!fs.existsSync(videosFile)) {
+      console.warn('视频配置文件不存在');
+      return;
+    }
+    
+    try {
+      const videosData = yaml.load(fs.readFileSync(videosFile, 'utf8'));
+      const videos = videosData.videos || [];
+      
+      // 保存到src/data目录
+      fs.writeFileSync(
+        path.join(__dirname, '../src/data/videos.json'),
+        JSON.stringify(videos, null, 2)
+      );
+      
+      // 保存到public目录
+      fs.writeFileSync(
+        path.join(publicDataDir, 'videos.json'),
+        JSON.stringify(videos, null, 2)
+      );
+      
+      console.log(`生成了 ${videos.length} 个视频数据`);
+    } catch (error) {
+      console.error('生成视频数据失败:', error);
+    }
+  }
+
+  async generateNewsData() {
+    const newsDir = path.join(this.targetDir, 'news');
+    if (!fs.existsSync(newsDir)) {
+      console.warn('新闻目录不存在');
+      return;
+    }
+    
+    try {
+      const news = [];
+      this.walkNews(newsDir, news);
+      
+      // 保存到src/data目录
+      fs.writeFileSync(
+        path.join(__dirname, '../src/data/news.json'),
+        JSON.stringify(news, null, 2)
+      );
+      
+      // 保存到public目录
+      fs.writeFileSync(
+        path.join(publicDataDir, 'news.json'),
+        JSON.stringify(news, null, 2)
+      );
+      
+      console.log(`生成了 ${news.length} 条新闻数据`);
+    } catch (error) {
+      console.error('生成新闻数据失败:', error);
+    }
+  }
+
+  walkNews(dir, news) {
+    if (!fs.existsSync(dir)) return;
+    
+    const files = fs.readdirSync(dir);
+    files.forEach(file => {
+      const filePath = path.join(dir, file);
+      const stat = fs.statSync(filePath);
+      
+      if (stat.isDirectory()) {
+        this.walkNews(filePath, news);
+      } else if (file.endsWith('.md') || file.endsWith('.mdx')) {
+        try {
+          const content = fs.readFileSync(filePath, 'utf8');
+          const { data, content: markdown } = matter(content);
+          
+          news.push({
+            ...data,
+            content: markdown,
+            path: filePath.replace(/.*\/content\//, ''),
+            slug: this.generateSlug(data.title || file.replace(/\.(md|mdx)$/, '')),
+            category: this.extractCategory(filePath)
+          });
+        } catch (error) {
+          console.warn(`解析新闻文件失败: ${filePath}`, error);
+        }
+      }
+    });
   }
 
   async copyDirectory(src, dest) {
