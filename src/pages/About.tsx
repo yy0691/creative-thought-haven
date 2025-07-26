@@ -28,7 +28,7 @@ const About = () => {
         <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary/90 to-primary bg-clip-text text-transparent hover:scale-105 transition-transform cursor-default">
           关于我
         </h1>
-        <p className="text-lg md:text-xl text-muted-foreground hover:text-primary transition-colors dark:text-gray-300 max-w-2xl mx-auto">
+        <p className="text-base md:text-lg text-muted-foreground hover:text-primary transition-colors dark:text-gray-300 max-w-2xl mx-auto">
           分享计算机、AI 与阅读的所见所想，用软件作品与文字构筑更广阔的思维空间。
         </p>
       </header>
@@ -36,7 +36,7 @@ const About = () => {
       <div className="glass rounded-xl p-6 md:p-10 space-y-10 hover:shadow-xl transition-all duration-300 border border-transparent hover:border-primary/30 dark:bg-black/80 dark:border-white/10" style={{ transformStyle: 'preserve-3d', backfaceVisibility: 'hidden', perspective: '1000px' }}>
         <section className="space-y-4">
           <h2 className="text-2xl md:text-3xl font-semibold bg-gradient-to-r from-primary/80 to-primary bg-clip-text text-transparent">你好！</h2>
-          <p className="text-lg text-muted-foreground leading-relaxed dark:text-gray-300">
+          <p className="text-base text-muted-foreground leading-relaxed dark:text-gray-300">
             👨‍💻 热爱把技术转化为实用工具的产品经理<br />
             🐍 擅长用Python打造自动化工具，提升工作效率<br />
             🔍 关注技术如何解决实际业务问题
@@ -86,11 +86,11 @@ const About = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="group hover:bg-primary/5 p-6 rounded-xl transition-all duration-300 transform-gpu cursor-default hover:translate-y-[-8px] hover:shadow-lg dark:hover:bg-primary/20 border border-transparent hover:border-primary/20 dark:hover:border-primary/30" style={{ transformStyle: 'preserve-3d', backfaceVisibility: 'hidden', perspective: '1000px' }}>
               <h3 className="text-xl font-medium group-hover:text-primary transition-colors dark:text-gray-200 mb-3">产品经理</h3>
-              <p className="text-muted-foreground group-hover:text-primary/80 transition-colors dark:text-gray-300">🎮 ToB产品经理，负责产品规划、设计、开发、运营等全生命周期管理。</p>
+              <p className="text-sm text-muted-foreground group-hover:text-primary/80 transition-colors dark:text-gray-300">🎮 ToB产品经理，负责产品规划、设计、开发、运营等全生命周期管理。</p>
             </div>
             <div className="group hover:bg-primary/5 p-6 rounded-xl transition-all duration-300 transform-gpu cursor-default hover:translate-y-[-8px] hover:shadow-lg dark:hover:bg-primary/20 border border-transparent hover:border-primary/20 dark:hover:border-primary/30" style={{ transformStyle: 'preserve-3d', backfaceVisibility: 'hidden', perspective: '1000px' }}>
               <h3 className="text-xl font-medium group-hover:text-primary transition-colors dark:text-gray-200 mb-3">技术学习</h3>
-              <p className="text-muted-foreground group-hover:text-primary/80 transition-colors dark:text-gray-300">📚 研究自动化工具开发，探索如何将新技术应用到实际工作中，提高团队协作效率。</p>
+              <p className="text-sm text-muted-foreground group-hover:text-primary/80 transition-colors dark:text-gray-300">📚 研究自动化工具开发，探索如何将新技术应用到实际工作中，提高团队协作效率。</p>
             </div>
           </div>
         </section>
@@ -98,7 +98,7 @@ const About = () => {
         <section className="space-y-6">
           <h2 className="text-2xl md:text-3xl font-semibold bg-gradient-to-r from-primary/80 to-primary bg-clip-text text-transparent">联系方式</h2>
           <div className="bg-gradient-to-r from-primary/5 to-blue-500/5 p-6 rounded-xl dark:from-primary/10 dark:to-blue-500/10">
-            <p className="text-muted-foreground dark:text-gray-300 text-lg mb-6">
+            <p className="text-muted-foreground dark:text-gray-300 text-base mb-6">
               我相信技术的价值在于解决现实问题，如果你正在:<br />
                  🛠️ 寻找提升工作效率的实用方法<br />
                  🌱 探索技术在行业中的创新应用<br />
