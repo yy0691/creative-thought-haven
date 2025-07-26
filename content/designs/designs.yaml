@@ -1,0 +1,13 @@
+# 设计数据
+# 从 interface Design {
+  [x: string]: any;
+  id: string;
+  title: string;
+  description: string;
+  ... 转换而来
+designs:
+  - title: "示例设计"
+    description: "设计描述"
+    category: "设计分类"
+    publishDate: "2024-01-01"
+    coverImage: "封面图片路径"

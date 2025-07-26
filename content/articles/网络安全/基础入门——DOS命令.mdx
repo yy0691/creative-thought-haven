@@ -1,0 +1,202 @@
+---
+title: "基础入门——Dos命令"
+date: "Sat Apr 15 2023 08:00:00 GMT+0800 (中国标准时间)"
+author: "作者"
+category: "网络安全"
+tags: ["笔记","网络安全","Web安全"]
+excerpt: "基础入门——Dos命令"
+toc: true
+draft: false
+featured: false
+---
+
+# 基础入门——DOS命令
+
+# 1. 基本命令
+
+```cpp
+1. color f0    //命令
+	 color ?     //帮助
+   //改变背景及字体颜色 
+2. cls         //清屏
+3. ipconfig    //查看本机ip
+4. ctrl+c      //终止一直在运行的命令
+```
+
+# 2. 目录相关命令
+
+```cpp
+1. dir    //浏览当前文件夹的内容，带<dir>标识的为文件夹，否则为文件
+	 其他用法
+2. md 目录名（文件夹）    //创建目录
+3. rd 目录名（文件夹）    //删除目录
+	 rd  文件夹  /s /q      //无提示删除非空文件夹
+4. 相对路径：针对当前路径有效，如：..\456
+	 绝对路径：从根开始写路径，如：\123\456
+```
+
+# 3. 文件相关命令
+
+```python
+1. echo 字符串>>[路径\]文件名.扩展名
+   //>>和>都可以将命令的输出内容输入到某文件中，若文件不存在，则同时创建该文件
+
+2. type  文件名.扩展名             #浏览文件内容
+   type 文件名.扩展名  |more       #分页显示
+
+3. copy  路径\文件名  路径\文件名   #拷贝文件
+   move  路径\文件名  路径\文件名   #移动文件
+	 del   文件名                     #删除文件（不能删除文件夹）
+	 del  *.txt
+	 del  *.*                        #删除所有文件
+	 del  *.*  /s  /q                #无提示删除所有文件
+
+4. md                              #创建目录
+	 rd  /s /q 盘符名:\文件夹名      #删除目录
+	 cd ..\                          #跳转目录
+
+5. fsutil file createnew c:\windows\system.ini 4096000  #快速生成一个空文件夹
+
+6. assoc .txt=exefile              #修改关联
+
+7. echo 字符串  >[路径\]文件名.扩展名  #创建一句字符文件
+	 copy con 文件名.扩展名              #创建多句文件
+
+8. ren  旧名 新名                  #修改文件名称
+
+9. attrib 文件名 +s +h             #隐藏文件
+```
+
+# 4. cd命令
+
+```bash
+D:      #进入D盘
+
+cd /？  #获取使用帮助
+
+cd \    #跳转到硬盘的根目录
+
+cd c:\windows    #跳转到当前硬盘其他文件夹
+
+cd /d e:\software #跳转到其他硬盘的其他文件夹，必须加/d参数，否则无法跳转
+
+cd..     #跳转到上一层目录
+
+dir      #查看当前目录下的文件
+```
+
+# 5. 辅助符号或命令
+
+```bash
+1. 重定向符号
+	'1>'  正确输出
+	'2>'  错误输出
+	'>>'  追加
+	'>'   覆盖
+	例 echo hello >c:\1.txt  #1.txt的文件内容先被清空，然后写入hello
+		 echo hello >>c:\1.txt #在1.txt文件末尾加上hello
+	'<'   #
+	'<<'  
+	cmd << text     #从命令行读取输入，直到一个与text相同的行结束
+
+2. '|'   #代表前一个的输出代表后一个的输入
+	 netstat  -ano|find "192.168.0.1"
+
+```
+
+# 6. 定时
+
+```python
+shutdown -s -f -t  秒 -c ""
+shutdown -s -t 秒         #定时关机
+shutdown -s -f -t 秒      #定时强制关机
+shutdown -r -t 秒         #定时重启，同时加上
+shutdown -a               #取消定时
+shutdown -l               #注销，同logoff命令
+```
+
+# 快捷键
+
+```c
+win+E                 打开文件管器
+
+win+D                 显示桌面
+
+win+L                 锁计算机
+
+alt+F4                关闭当前程序
+
+ctrl+shift+Esc        打开任务管理器（或者ctrl+alt+delete）
+
+ctrl+F                在一个文本或者网页里面查找，相当实用（退出一般按ESC）
+
+ctrl+A                选中所有文本
+```
+
+# 7. 批处理编写
+
+批处理作用：自上而下成批地处理每一条命令，直到执行最后一条
+
+创建批处理：txt文件扩展名改为.bat
+
+基本语法
+
+```c
+1. @echo off      //关闭回显
+2. color 0a
+3. title          //标题
+4. pause          //暂停
+5. ：             //定义标签名
+6. goto           //实现跳转
+```
+
+```python
+#set设置变量，常用于在脚本中的互动赋值
+
+set /p time = 请输入时间：  #互动赋值
+ %time%                     #引用变量
+
+userprofile   #用户变量
+用%userprofile%取值
+```
+
+```python
+#案例
+@echo off
+color ff
+:menu
+cls
+echo ==================
+echo        MENU
+echo     1.TimedOver
+echo     2.Cancel
+echo     3.Esc
+echo ==================
+
+set /p num=your choose:
+if "%num%"=="1" goto 1
+if "%num%"=="2" goto 2
+if "%num%"=="3" goto 3
+echo only 1,2,3 can be put.
+pause
+goto menu
+
+:1
+set /p a=please put the time(s):
+shutdown -s -f -t %a%
+goto menu
+
+:2
+shutdown -a
+
+:3
+exit
+```
+
+1. **路径有特殊符号时，用双引号**
+
+```c
+1. ntsd  -c q -pn winlogon.exe       //强制杀死指定进程
+                                     //针对xp或windows server 2003
+2. taskkill /im explorer.exe /f 
+```

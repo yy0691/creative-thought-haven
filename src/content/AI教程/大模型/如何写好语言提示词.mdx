@@ -25,15 +25,17 @@ isSticky: true      # 设置为置顶文章，将显示在文章列表顶部
 
 ### 1. 角色设定（Personality）
 
-==提问时给AI提供角色背景：==
+<span className="highlight">提问时给AI提供角色背景：</span>
 
-**身份（Identity）**：明确其身份，给AI起一个名字（如“富有同理心的 AI 客服助手”）
 
-**核心特质（Core traits）：**只列出真正影响互动的特质，如同理心、礼貌、幽默或可靠性
+**身份（Identity）**：明确其身份，给AI起一个名字（如"富有同理心的 AI 客服助手"）
+
+**核心特质（Core traits）**：只列出真正影响互动的特质，如同理心、礼貌、幽默或可靠性
 
 **角色（Role）**：将特质与AI的功能关联起来（如银行、医疗、零售、教育等）。银行机器人强调可信，教育机器人强调解释清晰
 
-**背景故事（Backstory）：**如对AI行为有影响，可简要介绍背景（如“有多年压力管理经验的心理治疗师”)，但避免无关细节
+**背景故事（Backstory）**：如对AI行为有影响，可简要介绍背景（如"有多年压力管理经验的心理治疗师")，但避免无关细节
+
 
 示例1：以任务为中心的角色特征
 
@@ -57,11 +59,11 @@ isSticky: true      # 设置为置顶文章，将显示在文章列表顶部
 
 环境描述了AI与用户在哪、如何、在什么条件下交互。包括物理或虚拟设置、交流媒介（如电话、网页聊天）以及情境因素。
 
-**沟通媒介（State the medium）：**说明沟通渠道（如“电话沟通”、“通过智能音箱”、“嘈杂环境中”），帮助AI调整话语长度或重复频率
+**沟通媒介（State the medium）**：说明沟通渠道（如“电话沟通”、“通过智能音箱”、“嘈杂环境中”），帮助AI调整话语长度或重复频率
 
-**上下文信息（Include relevant context）：**告知AI用户的可能状态（如技术支持电话中用户可能情绪低落），引导其回应更具同理心
+**上下文信息（Include relevant context）**：告知AI用户的可能状态（如技术支持电话中用户可能情绪低落），引导其回应更具同理心
 
-**避免多余设定（Avoid unnecessary scene-setting）：**只聚焦于会影响交流风格的要素，如正式办公环境或家庭环境
+**避免多余设定（Avoid unnecessary scene-setting）**：只聚焦于会影响交流风格的要素，如正式办公环境或家庭环境
 
 示例1：呼叫中心的环境
 <div className="highlight-gray">
@@ -96,9 +98,9 @@ isSticky: true      # 设置为置顶文章，将显示在文章列表顶部
 
 语调决定了AI的语言风格和互动方式，包括正式程度、说话节奏、幽默感、话语长度，以及口语化元素如语气词和口头停顿。对语音AI尤为重要，因为它直接影响AI的“人格感”和用户信任。
 
-**自然对话元素（Conversational elements）：**指示AI使用自然语气，如简短确认（“懂了”）、语气词（“其实”、“你知道吗”）、偶尔的停顿或自我更正，增强真实感。
+**自然对话元素（Conversational elements）**：指示AI使用自然语气，如简短确认（“懂了”）、语气词（“其实”、“你知道吗”）、偶尔的停顿或自我更正，增强真实感。
 
-**TTS 兼容性（TTS compatibility）：**优化语音合成，包括以下内容：
+**TTS 兼容性（TTS compatibility）**：优化语音合成，包括以下内容：
     <div className="highlight-gray">
     - 合理使用标点（如省略号用于停顿）
     - 格式转换：拼读邮箱地址（“john dot smith at company dot com”）
@@ -110,9 +112,9 @@ isSticky: true      # 设置为置顶文章，将显示在文章列表顶部
     </div>
 
 
-**适应性（Adaptability）：** 指明AI如何根据用户技术水平、情绪状态、交流风格进行语言适配（技术细节 vs. 简单比喻）
+**适应性（Adaptability）**： 指明AI如何根据用户技术水平、情绪状态、交流风格进行语言适配（技术细节 vs. 简单比喻）
 
-**用户确认（User check-ins）：** 鼓励AI定期确认理解情况（如“听懂了吗？”），并根据反馈调整表达方式
+**用户确认（User check-ins）**： 鼓励AI定期确认理解情况（如“听懂了吗？”），并根据反馈调整表达方式
 
 示例1：文档助手音调
 <div className="highlight-gray">
@@ -151,15 +153,15 @@ isSticky: true      # 设置为置顶文章，将显示在文章列表顶部
 
 目标定义了AI每次会话的意图，为交互提供方向。明确的目标可帮助AI聚焦重点、引导用户完成关键任务，尤其在多步骤流程中至关重要。
 
-**主要目标（Primary objective）：**明确AI需完成的核心任务，如解决问题、收集信息、完成交易或引导多步骤流程
+**主要目标（Primary objective）**：明确AI需完成的核心任务，如解决问题、收集信息、完成交易或引导多步骤流程
 
-**决策流程（Logical decision pathways）：**复杂交互需设置明确的步骤与决策点，覆盖数据收集、验证、处理与完成
+**决策流程（Logical decision pathways）**：复杂交互需设置明确的步骤与决策点，覆盖数据收集、验证、处理与完成
 
-**用户导向（User-centered framing）：**目标应聚焦用户需求，如“引导用户完成产品选择、配置和结账”优于“提升销售转化率”
+**用户导向（User-centered framing）**：目标应聚焦用户需求，如“引导用户完成产品选择、配置和结账”优于“提升销售转化率”
 
-**条件逻辑（Decision logic）：**根据用户反馈设计分支路径，如“若用户提及预算限制，则优先推荐性价比高的方案”
+**条件逻辑（Decision logic）**：根据用户反馈设计分支路径，如“若用户提及预算限制，则优先推荐性价比高的方案”
 
-**评估标准与数据收集（Evaluation criteria & data collection）：**定义成功的交互表现，如“完成预订”为主指标，“采集偏好数据”作为次要指标
+**评估标准与数据收集（Evaluation criteria & data collection）**：定义成功的交互表现，如“完成预订”为主指标，“采集偏好数据”作为次要指标
 
 
 
@@ -288,13 +290,13 @@ isSticky: true      # 设置为置顶文章，将显示在文章列表顶部
 
 边界是行为限制，确保AI在敏感话题或异常场景下不会越界，保障用户安全与品牌声誉，使对话始终保持专业、得体。
 
-**内容边界（Content boundaries）：**明确哪些话题需避免或谨慎处理（如医疗、法律、财务），并设计优雅转移方式
+**内容边界（Content boundaries）**：明确哪些话题需避免或谨慎处理（如医疗、法律、财务），并设计优雅转移方式
 
-**错误处理（Error handling）：**当AI无相关知识时应透明表达，避免编造答案。说明何时应转接人工客服
+**错误处理（Error handling）**：当AI无相关知识时应透明表达，避免编造答案。说明何时应转接人工客服
 
-**角色保持（Persona maintenance）：**防止AI“跳出角色”，避免无必要地提及其 AI 本质或提示词内容
+**角色保持（Persona maintenance）**：防止AI“跳出角色”，避免无必要地提及其 AI 本质或提示词内容
 
-**回应限制（Response constraints）：**控制回答长度、避免主观意见或非必要信息干扰用户体验
+**回应限制（Response constraints）**：控制回答长度、避免主观意见或非必要信息干扰用户体验
 
 
 
@@ -336,15 +338,15 @@ isSticky: true      # 设置为置顶文章，将显示在文章列表顶部
 
 工具拓展了语音AI的能力，可连接外部资源、执行操作或集成系统。合理设定可用工具，确保AI知道何时、如何调用这些资源。
 
-**可用资源（Available resources）：**列明AI可访问的信息源、知识库、数据库、API 或功能模块
+**可用资源（Available resources）**：列明AI可访问的信息源、知识库、数据库、API 或功能模块
 
-**使用规范（Usage guidelines）：**说明在何种情境下调用工具，以及前提条件与触发逻辑
+**使用规范（Usage guidelines）**：说明在何种情境下调用工具，以及前提条件与触发逻辑
 
-**用户可见性（User visibility）：**定义AI是否应告知用户其正在查阅外部信息（如“我来查下数据库”）或直接融合信息
+**用户可见性（User visibility）**：定义AI是否应告知用户其正在查阅外部信息（如“我来查下数据库”）或直接融合信息
 
-**故障处理（Fallback strategies）：**提供工具调用失败或信息不完整时的应对策略
+**故障处理（Fallback strategies）**：提供工具调用失败或信息不完整时的应对策略
 
-**工具协调（Tool orchestration）：**若有多工具可用，说明调用顺序、优先级与备选路径
+**工具协调（Tool orchestration）**：若有多工具可用，说明调用顺序、优先级与备选路径
 
 
 
@@ -649,10 +651,10 @@ isSticky: true      # 设置为置顶文章，将显示在文章列表顶部
 - **格式标记（Consider format markers）**：可使用```或特殊标签确保结构稳定
 
 
-###个性特点
+### 个性特点
 你是一个乐于助人的助理...
 
-###环境设定
+### 环境设定
 你在顾客服务场景...
 
 
@@ -736,35 +738,35 @@ Targeted refinement：根据问题集中修改提示词的具体部分
 
 以下是官方推荐的语音风格及其适用场景，每种语音具备独特的风格特征：
 
-- P7x743VjyZEOihNNygQ9 - **Dakota H：** 语音温暖自然，带有轻微的语音停顿，真实感强
-- g6xIsTj2HwM6VR4iXFCw - **Jessica Anne Bogart：** 富有同理心和表现力，非常适合健康教练等角色
-- OYTbf65OHHFELVut7v2H - **Hope：** 明亮且令人振奋，适用于积极互动场景
-- dj3G1R1ilKoFKhBnWOzG - **Eryn：** 亲切易接近，非常适合轻松的交流场景
-- tpFVjZdYBvOaWaUIRHRz - **Victoria Lennon：** 专业且友好，非常适合技术支持场景
-- 1SM7GgM6IMuvQlz2BwM3 - **Mark：** 自信，适合专业语境
-- vBKc2FfBKJfcZNyEt1n6 - **Finn：** 清晰且可信，特别适用于文档解说或教育型语音AI
-- 56AoDkrOh6qfVPDXZ7Pt - **Cassidy：** 充满活力且具有感染力，适合娱乐类内容
-- NOpBlnGInO9m6vDvFkFC - **Grandpa Spuds Oxley：** 独特的角色语音，适合打造个性化AI
+- P7x743VjyZEOihNNygQ9 - **Dakota H**： 语音温暖自然，带有轻微的语音停顿，真实感强
+- g6xIsTj2HwM6VR4iXFCw - **Jessica Anne Bogart**： 富有同理心和表现力，非常适合健康教练等角色
+- OYTbf65OHHFELVut7v2H - **Hope**： 明亮且令人振奋，适用于积极互动场景
+- dj3G1R1ilKoFKhBnWOzG - **Eryn**： 亲切易接近，非常适合轻松的交流场景
+- tpFVjZdYBvOaWaUIRHRz - **Victoria Lennon**： 专业且友好，非常适合技术支持场景
+- 1SM7GgM6IMuvQlz2BwM3 - **Mark**： 自信，适合专业语境
+- vBKc2FfBKJfcZNyEt1n6 - **Finn**： 清晰且可信，特别适用于文档解说或教育型语音AI
+- 56AoDkrOh6qfVPDXZ7Pt - **Cassidy**： 充满活力且具有感染力，适合娱乐类内容
+- NOpBlnGInO9m6vDvFkFC - **Grandpa Spuds Oxley**： 独特的角色语音，适合打造个性化AI
 
 ### ⚙️ 语音参数设置（Voice Settings）
 
 语音设置会显著影响用户对AI“形象”的感知：
 
-**以下是三个核心参数及其调节建议：**
+**以下是三个核心参数及其调节建议**：
 
-- **稳定性（Stability）：**
+- **稳定性（Stability）**：
 
 低数值（0.30-0.50）会带来更富情感、表现更具动态的语音，但偶尔可能听起来不够稳定；
 
 高数值（0.60-0.85）则会产生更一致、连贯的语音，但可能显得平淡或单调。
 
-- **相似度（Similarity）：**
+- **相似度（Similarity）**：
 
 较高的数值可增强语音的整体清晰度和一致性；
 
 但数值过高可能导致声音失真。建议调节该值以找到最佳平衡点。
 
-- **语速（Speed）：**
+- **语速（Speed）**：
 
 自然的对话语速通常在 0.9 倍至 1.1 倍之间；
 

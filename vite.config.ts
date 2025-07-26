@@ -28,7 +28,11 @@ const mdxConfig = {
   providerImportSource: '@mdx-js/react'
 } as import('@mdx-js/rollup').Options;
 
-const mdxPlugin = () => mdx(mdxConfig);
+// 支持 .md 和 .mdx 文件
+const mdxPlugin = () => mdx({
+  ...mdxConfig,
+  mdExtensions: ['.md']  // 添加 .md 扩展名支持
+});
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({

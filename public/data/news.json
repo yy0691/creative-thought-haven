@@ -1,0 +1,57 @@
+[
+  {
+    "content": "��-\u0000-\u0000-\u0000\r\u0000\n\u0000",
+    "path": "C:\\Users\\win\\Documents\\GitHub\\creative-thought-haven\\content\\news\\ai-news\\2024-01-01-OpenAI发布GPT-4.1.md",
+    "slug": "2024-01-01-openaigpt-41",
+    "category": "uncategorized"
+  },
+  {
+    "title": "OpenAI发布GPT-4.1",
+    "description": "OpenAI以API的形式发布了三个新模型:GPT-4.1、GPT-4.1 mini和GPT-4.1 nano",
+    "author": "OpenAI",
+    "date": "2024-01-01",
+    "image": "https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/AiNews/img_v3_02lc_4f24f94e-264f-4f01-b1f6-b285c7f667dg.jpg",
+    "link": "https://openai.com/index/gpt-4.1/",
+    "category": "uncategorized",
+    "tags": [
+      "OpenAI",
+      "GPT",
+      "AI模型"
+    ],
+    "featured": true,
+    "content": "\r\n# OpenAI发布GPT-4.1\r\n\r\nOpenAI以API的形式发布了三个新模型：**GPT-4.1**、**GPT-4.1 mini** 和 **GPT-4.1 nano**。\r\n\r\n## 新模型特点\r\n\r\n### GPT-4.1\r\n- 更强的推理能力\r\n- 更好的代码生成\r\n- 支持更长的上下文\r\n\r\n### GPT-4.1 mini\r\n- 平衡性能和成本\r\n- 适合大多数应用场景\r\n- 响应速度更快\r\n\r\n### GPT-4.1 nano\r\n- 轻量级模型\r\n- 成本更低\r\n- 适合简单任务\r\n\r\n## 技术改进\r\n\r\n1. **推理能力提升**：在复杂推理任务上表现更佳\r\n2. **代码生成优化**：生成更准确、更高效的代码\r\n3. **上下文处理**：支持更长的对话历史\r\n4. **安全性增强**：更好的内容过滤和安全机制\r\n\r\n## 应用场景\r\n\r\n- 代码开发和调试\r\n- 复杂问题解决\r\n- 创意写作和内容生成\r\n- 数据分析和报告\r\n\r\n## 定价信息\r\n\r\n- GPT-4.1: $0.03/1K tokens (输入), $0.06/1K tokens (输出)\r\n- GPT-4.1 mini: $0.015/1K tokens (输入), $0.06/1K tokens (输出)\r\n- GPT-4.1 nano: $0.00015/1K tokens (输入), $0.0006/1K tokens (输出)\r\n\r\n## 开发者资源\r\n\r\n- [API文档](https://platform.openai.com/docs)\r\n- [示例代码](https://github.com/openai/openai-python)\r\n- [最佳实践指南](https://platform.openai.com/docs/guides)\r\n\r\n---\r\n\r\n*了解更多信息，请访问 [OpenAI官网](https://openai.com/index/gpt-4.1/)*",
+    "path": "C:\\Users\\win\\Documents\\GitHub\\creative-thought-haven\\content\\news\\ai-news\\20240101-OpenAIGPT-41.md",
+    "slug": "openaigpt-41"
+  },
+  {
+    "title": "智谱发布新一代开源模型GLM系列",
+    "description": "GLM系列32B性能媲美671B的Deepseek R1 并宣布启动IPO",
+    "author": "GLM",
+    "date": "2024-01-03",
+    "image": "https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/AiNews/img_v3_02lc_f36c76d5-3388-4a63-9635-abff8b395f4g.jpg",
+    "link": "https://www.glm.xyz/blog/glm-4-128k-release",
+    "category": "uncategorized",
+    "tags": [
+      "GLM",
+      "开源模型",
+      "IPO"
+    ],
+    "featured": true,
+    "content": "\r\n# 智谱发布新一代开源模型GLM系列\r\n\r\nGLM系列32B性能媲美671B的Deepseek R1，并宣布启动IPO，标志着中国AI企业在开源模型领域的重要突破。\r\n\r\n## 模型性能\r\n\r\n### GLM-4 128K\r\n- **参数量**：32B参数\r\n- **性能表现**：媲美671B的Deepseek R1\r\n- **上下文长度**：支持128K tokens\r\n- **推理能力**：在多个基准测试中表现优异\r\n\r\n### 技术突破\r\n- **高效架构**：优化的模型架构设计\r\n- **训练效率**：更高效的训练方法\r\n- **推理速度**：快速的推理响应\r\n- **内存优化**：优化的内存使用\r\n\r\n## 开源策略\r\n\r\n### 模型开源\r\n- **完全开源**：模型权重和代码完全开源\r\n- **商业友好**：支持商业使用\r\n- **社区驱动**：鼓励社区贡献和改进\r\n\r\n### 生态建设\r\n- **工具链**：提供完整的工具链支持\r\n- **文档完善**：详细的使用文档和教程\r\n- **社区支持**：活跃的开发者社区\r\n\r\n## IPO计划\r\n\r\n### 上市信息\r\n- **上市地点**：计划在科创板上市\r\n- **融资规模**：预计融资规模较大\r\n- **资金用途**：主要用于技术研发和生态建设\r\n\r\n### 发展前景\r\n- **市场地位**：在开源模型领域的重要地位\r\n- **技术优势**：领先的技术实力\r\n- **商业潜力**：巨大的商业应用潜力\r\n\r\n## 应用场景\r\n\r\n### 企业应用\r\n- **智能客服**：提供智能客服解决方案\r\n- **内容生成**：辅助内容创作和生成\r\n- **数据分析**：智能数据分析和洞察\r\n\r\n### 开发者工具\r\n- **代码生成**：辅助代码编写和调试\r\n- **文档生成**：自动生成技术文档\r\n- **测试辅助**：智能测试用例生成\r\n\r\n### 研究应用\r\n- **学术研究**：支持学术研究项目\r\n- **实验平台**：提供实验和验证平台\r\n- **创新应用**：探索新的AI应用场景\r\n\r\n## 技术特色\r\n\r\n- **多语言支持**：支持中英文等多种语言\r\n- **领域适应**：针对不同领域进行优化\r\n- **安全可控**：内置安全机制和可控性\r\n- **持续更新**：定期更新和改进\r\n\r\n---\r\n\r\n*了解更多信息，请访问 [GLM官网](https://www.glm.xyz/blog/glm-4-128k-release)*",
+    "path": "C:\\Users\\win\\Documents\\GitHub\\creative-thought-haven\\content\\news\\ai-news\\20240103-GLM.md",
+    "slug": "glm"
+  },
+  {
+    "category": "uncategorized",
+    "title": "使用软件&插件推荐 2023版",
+    "date": "2025-10-15",
+    "excerpt": "软件、教程",
+    "tags": [
+      "软件",
+      "教程"
+    ],
+    "content": "\r\n# 标题\r\n\r\n> 这里是正文内容\r\n\r\n正问呢111\r\nhkjhlh",
+    "path": "C:\\Users\\win\\Documents\\GitHub\\creative-thought-haven\\content\\news\\AI新闻\\cehsi.mdx",
+    "slug": "-2023"
+  }
+]

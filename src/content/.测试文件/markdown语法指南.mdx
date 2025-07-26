@@ -10,6 +10,13 @@ category: "study-general"
 
 本指南将介绍在博客博客系统中支持的所有 Markdown 语法特性和使用方法。
 
+# 项目Markdown渲染架构
+MDX文件 → ReactMarkdown → remarkGfm → MDXconpentents  → 渲染结果
+## 核心组件
+- MDXContent.tsx
+- MDXconpentents.tsx
+- vite.config.ts
+
 ## 基础语法
 
 ### 标题

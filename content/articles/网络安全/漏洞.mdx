@@ -1,0 +1,62 @@
+---
+title: "漏洞"
+date: "Mon May 01 2023 08:00:00 GMT+0800 (中国标准时间)"
+author: "作者"
+category: "网络安全"
+tags: ["笔记","网络安全","Web安全"]
+excerpt: "漏洞"
+toc: true
+draft: false
+featured: false
+---
+
+# 漏洞
+
+漏洞靶场之DVWA
+
+常见的网站漏洞
+
+OWASP TOP 10 
+
+| SQL 注入 |  |
+| --- | --- |
+| 文件包含 |  |
+|  |  |
+
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_Notion/Untitled%2032.png)
+
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_Notion/Untitled%2033.png)
+
+# 靶场攻击
+
+1. DVWA靶场搭建
+    
+    PHP环境
+    
+    DVWA源代码
+    
+    ![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_Notion/Untitled%2034.png)
+    
+    ![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_Notion/Untitled%2035.png)
+    
+    # 命令执行
+    
+    ![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_Notion/Untitled%2036.png)
+    
+    ![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_Notion/Untitled%2037.png)
+    
+    `<?phpif( isset( $_POST[ 'Submit' ]  ) ) {    // Get input    $target = $_REQUEST[ 'ip' ];    // Determine OS and execute the ping command.    if( stristr( php_uname( 's' ), 'Windows NT' ) ) {        // Windows        $cmd = shell_exec( 'ping  ' . $target );    }    else {        // *nix        $cmd = shell_exec( 'ping  -c 4 ' . $target );    }    // Feedback for the end user    echo "<pre>{$cmd}</pre>";}?>`
+    
+    ---
+    
+    ![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_Notion/Untitled%2038.png)
+    
+    **防御命令：过滤命令连接符**
+    
+    ![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_Notion/Untitled%2039.png)
+    
+    ![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_Notion/Untitled%2040.png)
+    
+    ![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_Notion/Untitled%2041.png)
+    
+    ![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_Notion/Untitled%2042.png)

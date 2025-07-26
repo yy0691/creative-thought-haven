@@ -48,6 +48,16 @@ const About = () => {
           <div className="space-y-6">
             {[
               {
+                title: "AI工具",
+                skills: [
+                  { name: "ChatGPT", type: "ai" },
+                  { name: "Claude", type: "ai" },
+                  { name: "Gemini", type: "ai" },
+                  { name: "MCP", type: "ai" },
+                ]
+              },
+
+              {
                 title: "后端开发",
                 skills: [
                   { name: "Python", type: "backend" },
@@ -84,18 +94,8 @@ const About = () => {
                   { name: "UE4", type: "tech" },
                   { name: "网络安全", type: "tech" }
                 ]
-              },
-              {
-                title: "AI工具",
-                skills: [
-                  { name: "ChatGPT", type: "ai" },
-                  { name: "Claude", type: "ai" },
-                  { name: "Midjourney", type: "ai" },
-                  { name: "Stable Diffusion", type: "ai" },
-                  { name: "AutoGPT", type: "ai" },
-                  { name: "LangChain", type: "ai" }
-                ]
               }
+              
             ].map((category, categoryIndex) => (
               <div key={category.title} className="space-y-3">
                 <h3 className="text-lg font-medium text-muted-foreground dark:text-gray-300">

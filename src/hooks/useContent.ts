@@ -63,12 +63,16 @@ interface News {
   title: string;
   slug: string;
   date: string;
-  excerpt: string;
+  description?: string;
+  excerpt?: string;
   category: string;
   content: string;
   author?: string;
   image?: string;
   link?: string;
+  tags?: string[];
+  featured?: boolean;
+  path?: string;
 }
 
 export const useArticles = () => {

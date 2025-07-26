@@ -20,7 +20,7 @@ import { getBlogPosts } from '../lib/blog';
 // 导入类型和数据
 import { CardItem } from '../data/ai';
 import { toolsItems } from '../data/ai/tools';
-import { defaultNewsItems, fetchLatestNews } from '../data/ai';
+import { useNews } from '../hooks/useContent';
 import { learningItems } from '../data/ai/learning';
 import { coursesItems } from '../data/ai/courses';
 import { deeplearningItems } from '../data/ai/deeplearning';
@@ -123,10 +123,8 @@ const AI = () => {
   // 当前选中的标签页
   const [activeTab, setActiveTab] = useState('news');
   
-  // 新闻数据状态
-  const [newsData, setNewsData] = useState<CardItem[]>([]);
-  const [isLoadingNews, setIsLoadingNews] = useState(false);
-  const [newsError, setNewsError] = useState<string | null>(null);
+  // 使用新的新闻 Hook
+  const { news: newsData, loading: isLoadingNews, error: newsError } = useNews();
   
   // 添加markdown新闻和教程数据状态
   const [markdownNews, setMarkdownNews] = useState<CardItem[]>([]);
@@ -169,63 +167,16 @@ const AI = () => {
     }
   }, []);
 
-  // 刷新新闻 - 使用useCallback避免依赖问题
-  const handleRefreshNews = React.useCallback(async () => {
-    if (activeTab === 'news') {
-      setIsLoadingNews(true);
-      setNewsError(null);
-      
-      try {
-        const newsFromApi = await fetchLatestNews();
-        
-        // 使用默认空数组替代已删除的函数
-        const newsFromMarkdown: CardItem[] = [];
-        
-        if (newsFromApi.length > 0 || newsFromMarkdown.length > 0) {
-          // 合并API新闻、Markdown新闻和默认新闻
-          const combinedNews = [...newsFromApi, ...newsFromMarkdown, ...defaultNewsItems];
-          const sortedNews = combinedNews.sort((a, b) => {
-            const dateA = a.date ? new Date(a.date).getTime() : 0;
-            const dateB = b.date ? new Date(b.date).getTime() : 0;
-            return dateB - dateA;
-          });
-          
-          const uniqueNews = sortedNews.filter((item, index, self) => 
-            index === self.findIndex(t => t.title === item.title)
-          );
-          
-          setNewsData(uniqueNews);
-          setMarkdownNews(newsFromMarkdown);
-        } else {
-          setNewsData(defaultNewsItems);
-          //setNewsError('获取新闻失败，显示默认新闻');
-        }
-      } catch (error) {
-        //console.error('获取新闻数据失败:', error);
-        setNewsData(defaultNewsItems);
-        //setNewsError('获取最新新闻失败，显示默认新闻');
-      } finally {
-        setIsLoadingNews(false);
-      }
-    }
-  }, [activeTab]); // 添加activeTab作为依赖项
+
 
   // 初始化数据
   useEffect(() => {
-    setNewsData(defaultNewsItems);
-    handleRefreshNews();
     loadBlogPosts(); // 加载博客文章
     loadMarkdownContent(); // 加载Markdown内容
     console.log('本地标签页:', localTabCategories);
     
-    const refreshInterval = setInterval(() => {
-      if (activeTab === 'news') {
-        handleRefreshNews();
-      }
-    }, 3600000);
-    
-    return () => clearInterval(refreshInterval);
-  }, [handleRefreshNews, loadMarkdownContent, activeTab]); // 添加activeTab作为依赖项
+    // 新闻数据现在通过 Hook 自动加载，无需手动刷新
+  }, [loadMarkdownContent, activeTab]); // 添加activeTab作为依赖项
 
   // 加载博客中的AI相关文章
   const loadBlogPosts = async () => {
@@ -665,9 +616,7 @@ const AI = () => {
   // 处理标签页切换
   const handleTabChange = (tabId: string) => {
     setActiveTab(tabId);
-    if (tabId === 'news') {
-      handleRefreshNews();
-    }
+    // 新闻数据现在通过 Hook 自动加载，无需手动刷新
   };
 
   // 渲染特定标签页内容

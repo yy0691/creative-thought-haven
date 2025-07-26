@@ -1,0 +1,14 @@
+# 视频数据
+# 从 interface Video {
+  id: string;
+  title: string;
+  description: string;
+  thumbnail: string;
+  ... 转换而来
+videos:
+  - title: "示例视频"
+    description: "视频描述"
+    category: "视频分类"
+    publishDate: "2024-01-01"
+    videoUrl: "视频链接"
+    coverImage: "封面图片路径"

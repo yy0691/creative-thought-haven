@@ -1,0 +1,67 @@
+---
+title: "系统密码破解"
+date: "Mon May 01 2023 08:00:00 GMT+0800 (中国标准时间)"
+author: "作者"
+category: "网络安全"
+tags: ["笔记","网络安全","Web安全"]
+excerpt: "Web安全、网络安全、笔记"
+toc: true
+draft: false
+featured: false
+---
+
+
+# 系统密码破解方法总结
+
+## 1. 连按五次shift
+
+案例∶破解win7系统密码实验步骤∶  
+1. 开启win7虚拟机，开机，并设置一个复杂密码;  
+2. 关机，并开机，在出现windows启动界面时强制关机;  
+3. 再开机，出现"启动修复（推荐）"及选择该项;（如未出现，多尝试几次第2步，如还不行，请换其他方法）   
+4. 出现系统还原提示，点击取消，等待几分钟后，会出现问题原因，点击查看详细信息;  
+5. 打开最后一个链接即一个记事本;  
+6. 记事本中点打开，并选择显示所有文件;  
+7. 找到sethc并改名sethc-bak，再找到cmd，复制一份cmd改名为sethc  
+8. 全部关闭，重启。  
+9. 系统启动完毕后，连续按5次shift键，将弹出cmd工具，使用命令net user用户名―新密码，将当前用户密码修改掉即可，或者另外建立1个用户，并提升为管理员，注销后，可再删除新建的用户，这样的好处为不修改当前用户的密码即可登录系统。
+
+
+## 2. 利用PE系统
+
+1. 下载微型维修操作系统,刻录成U盘启动盘
+    - [U深度](https://www.udu.com/)
+    - [大白菜](https://www.dabaicai.com/)
+    - [老毛桃](https://www.laomaotao.cn/)
+2. 进BIOS —— BOOT
+3. 按 F10 对BIOS保存（根据不同型号主板，可能有所不同，参阅[BIOS设置](https://www.jianshu.com/p/99999999999999999999)） 
+4. 运行winPE系统维修
+
+## 3. 远程爆破  
+
+  - [Nmap](https://nmap.org/)
+  - [NTscan](https://github.com/hktalent/ntscan)
+  - [Hydra](https://github.com/vanhauser-thc/thc-hydra)
+
+## 4. 本地破解  
+
+  - [Getpass](https://github.com/r00t-3xp10it/getpass)    //win7 winxp
+
+从内存中提取密码
+ 
+## 5. 本地暴力破解  
+
+  - [saminside](https://github.com/djhohnstein/saminside)
+  - [pwdump](https://github.com/Neo23x0/pwdump) :读取SAM中的哈希值
+
+    以管理员权限打开cmd，输入 `pwdump` ，回车
+
+    ![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_Notion/Untitled%2056.png)
+
+    目前使用最新的NT hash值，LM哈希值已被弃用
+
+    右键标记——复制hash值——新建hash.txt   （可以随便找个网站破解）
+
+    **SAM文件里用户的格式：**
+
+    用户名  用户RID  LM哈希  NT哈希

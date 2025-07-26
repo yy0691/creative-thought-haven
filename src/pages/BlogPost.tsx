@@ -116,14 +116,15 @@ const BlogPost = () => {
       if (!slug) return;
       
       try {
-        const mdxModules = import.meta.glob('../content/**/*.mdx', { eager: true });
+        // 同时支持 .mdx 和 .md 文件
+        const mdxModules = import.meta.glob('../content/**/*.{mdx,md}', { eager: true });
         const decodedSlug = decodeURIComponent(slug);
         
         console.log('尝试加载文章:', decodedSlug);
         
-        // 首先尝试精确匹配路径
+        // 首先尝试精确匹配路径（支持 .mdx 和 .md）
         let modulePath = Object.keys(mdxModules).find(path => {
-          const fullPath = path.replace('../content/', '').replace(/\.mdx$/, '');
+          const fullPath = path.replace('../content/', '').replace(/\.(mdx|md)$/, '');
           const normalizedPath = fullPath.replace(/\\/g, '/');
           return normalizedPath === decodedSlug;
         });
@@ -136,14 +137,14 @@ const BlogPost = () => {
           modulePath = Object.keys(mdxModules).find(path => {
             const pathParts = path.split('/');
             const fileNameWithExt = pathParts[pathParts.length - 1];
-            const fileName = fileNameWithExt.replace(/\.mdx$/, '');
+            const fileName = fileNameWithExt.replace(/\.(mdx|md)$/, '');
             return fileName === lastPart;
           });
         }
     
         if (!modulePath) {
           console.error('未找到匹配文件，可用路径:', Object.keys(mdxModules).map(path => {
-            const fullPath = path.replace('../content/', '').replace(/\.mdx$/, '');
+            const fullPath = path.replace('../content/', '').replace(/\.(mdx|md)$/, '');
             return fullPath.replace(/\\/g, '/');
           }));
           throw new Error(`找不到文章: ${slug}`);

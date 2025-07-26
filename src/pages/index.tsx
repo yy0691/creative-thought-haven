@@ -522,6 +522,8 @@ const Index = () => {
                       setIsDetailOpen(false);
                       document.body.style.overflow = '';
                     }}
+                    title="关闭"
+                    aria-label="关闭"
                     className="p-2 rounded-full bg-white/80 dark:bg-gray-800/80 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                   >
                     <X size={20} />

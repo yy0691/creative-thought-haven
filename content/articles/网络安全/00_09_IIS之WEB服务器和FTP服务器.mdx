@@ -1,0 +1,114 @@
+---
+title: "IIS之WEB服务器和FTP服务器"
+date: "Mon May 01 2023 08:00:00 GMT+0800 (中国标准时间)"
+author: "作者"
+category: "网络安全"
+tags: ["笔记","网络安全","Web安全"]
+excerpt: "Web安全、网络安全、笔记"
+toc: true
+draft: false
+featured: false
+---
+
+
+# IIS之WEB服务器和FTP服务器
+
+# 1. WEB服务器
+
+1. 网页服务器/HTTP服务器
+2. WEB服务器使用的协议为HTTP/HTTPS
+3. HTTP协议端口号：  **TCP 80**
+   
+    HTTPS协议端口号：**TCP 443**
+    
+4. WEB服务器发布软件：
+   
+    **微软：IIS（Internet information service）**（可以发布web网站和FTP站点）
+    
+    **Linux：Apache/LAMP/Tomcat/nginx**
+    
+    第三方：phpstudy、XAMPP （做实验、测试）
+    
+5. IIS默认网站路径：**C:\Inetpub**
+
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_Notion/Untitled%2061.png)
+
+# 2. 部署WEB服务器：
+
+1. 配置静态IP
+2. 安装IIS-WEB插件
+3. 停用默认站点
+4. 新建网站—地址端口绑定—指定站点路径—设置权限
+5. **设置默认文档（设置首页）**
+
+**一台服务器同时发布多个web站点：**
+1）IP不同，端口相同           再加一个网卡
+2）IP相同，端口不同           修改ip端口 8080/8000
+3）IP相同，端口相同，域名不同
+
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_Notion/Untitled%2062.png)
+
+# 3. 网站类型
+
+1. 静态网站：一般扩展名为**.html或.htm**
+   
+    无后台数据库
+    
+2. 动态网站：一般扩展名为**.asp或.php**
+   
+    有后台数据库，asp或php可以连接前台页面与后台数据库
+    
+    ![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_Notion/Untitled%2063.png)
+    
+
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_Notion/Untitled%2064.png)
+
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_Notion/Untitled%2065.png)
+
+# 4. FTP服务器
+
+1. **File Transfor Protocol  文件传输协议         C/S**
+2. 端口号：**TCP 20/21**（20号端口一般用于传输数据，21号端口用于传输控制信息） 但是是否使用20号端口作为传输数据端口和FTP的传输模式有关系
+3. FTP工作方式            选择权在客户机上；所谓主被是站在服务器的角度
+    1. 主动模式（port方式）    20号  （建议开防火墙使用）
+       
+        客户机通过此通道向服务器发送port命令，服务器从20号端口主动向客户端发起连接
+        
+    2. 被动模式（pasv passive方式）     需要服务器和客户机协商决定
+       
+        建立连接使用21号端口，客户机向服务器发送pasv命令，服务器收到会随机打开要给高端端口（大于1024），服务器在指定
+        
+    3. 传输文件时的传输模式
+       
+        文本模式：ASCII模式，以文本序列传输
+        
+        二进制模式：binary模式（视频、图片、应用程序等）
+    
+4. FTP默认站点路径：c:\inetpub\ftproot
+5. 通过FTP管理网页
+6. **FTP的客户端和服务端**
+   
+    **服务端：**serv-U、filezilla server、vsftpd、Windows server IIS（FTP发布服务）
+    
+    **客户端：**命令行、资源管理器、浏览器、第三方工具（flashFXP、filezilla client、cuteftp、）
+    
+
+# 5. 部署FTP服务器
+
+**部署FTP服务器步骤：**
+
+1. 配置静态IP
+2. 安装IIS-ftp软件
+3. 使用默认站点或创建新的站点
+   
+    注意：用户最终权限为FTP权限与NTFS权限取交集
+    
+    建议：FTP权限全部勾选，然后具体的在NTFS里做
+    
+4. 去掉匿名访问对勾 
+
+### 针对于FTP的用户
+
+1. 匿名用户
+
+![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/Net_Safe_Notion/Untitled%2066.png)

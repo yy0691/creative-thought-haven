@@ -279,9 +279,10 @@ class ContentFetcher {
       return;
     }
     
-    const categories = yaml.load(fs.readFileSync(categoriesFile, 'utf8'));
+    const categoriesData = yaml.load(fs.readFileSync(categoriesFile, 'utf8'));
     const categoryData = {};
     
+    const categories = categoriesData.categories || [];
     categories.forEach(category => {
       categoryData[category.id] = {
         ...category,
