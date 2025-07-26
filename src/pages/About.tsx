@@ -84,6 +84,17 @@ const About = () => {
                   { name: "UE4", type: "tech" },
                   { name: "网络安全", type: "tech" }
                 ]
+              },
+              {
+                title: "AI工具",
+                skills: [
+                  { name: "ChatGPT", type: "ai" },
+                  { name: "Claude", type: "ai" },
+                  { name: "Midjourney", type: "ai" },
+                  { name: "Stable Diffusion", type: "ai" },
+                  { name: "AutoGPT", type: "ai" },
+                  { name: "LangChain", type: "ai" }
+                ]
               }
             ].map((category, categoryIndex) => (
               <div key={category.title} className="space-y-3">
@@ -99,6 +110,7 @@ const About = () => {
                         skill.type === 'design' ? 'bg-gradient-to-r from-purple-500/10 to-pink-500/10 text-purple-600 hover:from-purple-500/20 hover:to-pink-500/20 dark:text-purple-400' :
                         skill.type === 'backend' ? 'bg-gradient-to-r from-green-500/10 to-emerald-500/10 text-green-600 hover:from-green-500/20 hover:to-emerald-500/20 dark:text-green-400' :
                         skill.type === 'tool' ? 'bg-gradient-to-r from-orange-500/10 to-amber-500/10 text-orange-600 hover:from-orange-500/20 hover:to-amber-500/20 dark:text-orange-400' :
+                        skill.type === 'ai' ? 'bg-gradient-to-r from-indigo-500/10 to-violet-500/10 text-indigo-600 hover:from-indigo-500/20 hover:to-violet-500/20 dark:text-indigo-400' :
                         'bg-gradient-to-r from-rose-500/10 to-red-500/10 text-rose-600 hover:from-rose-500/20 hover:to-red-500/20 dark:text-rose-400'
                       }`}
                       style={{
