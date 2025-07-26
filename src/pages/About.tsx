@@ -45,38 +45,72 @@ const About = () => {
 
         <section className="space-y-6">
           <h2 className="text-2xl md:text-3xl font-semibold bg-gradient-to-r from-primary/80 to-primary bg-clip-text text-transparent">专业技能</h2>
-          <div className="flex gap-3 flex-wrap">
+          <div className="space-y-6">
             {[
-              { name: "Python", type: "backend" },
-              { name: "C/C++", type: "backend" },
-              { name: "C#", type: "backend" },
-              { name: "HTML/CSS", type: "frontend" },
-              { name: "UI/UX 设计", type: "design" },
-              { name: "Figma", type: "design" },
-              { name: "Node.js", type: "backend" },
-              { name: "Git", type: "tool" },
-              { name: "响应式设计", type: "design" },
-              { name: "UE4", type: "tech" },
-              { name: "网络安全", type: "tech" },
-              { name: "Photoshop", type: "design" },
-              { name: "Premiere Pro", type: "design" }
-            ].map((skill, index) => (
-              <span
-                key={skill.name}
-                className={`px-4 py-2 rounded-full hover:scale-110 transition-all duration-300 cursor-default text-sm md:text-base ${
-                  skill.type === 'frontend' ? 'bg-gradient-to-r from-blue-500/10 to-cyan-500/10 text-blue-600 hover:from-blue-500/20 hover:to-cyan-500/20 dark:text-blue-400' :
-                  skill.type === 'design' ? 'bg-gradient-to-r from-purple-500/10 to-pink-500/10 text-purple-600 hover:from-purple-500/20 hover:to-pink-500/20 dark:text-purple-400' :
-                  skill.type === 'backend' ? 'bg-gradient-to-r from-green-500/10 to-emerald-500/10 text-green-600 hover:from-green-500/20 hover:to-emerald-500/20 dark:text-green-400' :
-                  skill.type === 'tool' ? 'bg-gradient-to-r from-orange-500/10 to-amber-500/10 text-orange-600 hover:from-orange-500/20 hover:to-amber-500/20 dark:text-orange-400' :
-                  'bg-gradient-to-r from-rose-500/10 to-red-500/10 text-rose-600 hover:from-rose-500/20 hover:to-red-500/20 dark:text-rose-400'
-                }`}
-                style={{
-                  animationDelay: `${index * 100}ms`,
-                  animation: 'fadeInUp 0.5s ease-out forwards'
-                }}
-              >
-                {skill.name}
-              </span>
+              {
+                title: "后端开发",
+                skills: [
+                  { name: "Python", type: "backend" },
+                  { name: "C/C++", type: "backend" },
+                  { name: "C#", type: "backend" },
+                  { name: "Node.js", type: "backend" }
+                ]
+              },
+              {
+                title: "前端开发",
+                skills: [
+                  { name: "HTML/CSS", type: "frontend" },
+                  { name: "响应式设计", type: "frontend" }
+                ]
+              },
+              {
+                title: "设计工具",
+                skills: [
+                  { name: "UI/UX 设计", type: "design" },
+                  { name: "Figma", type: "design" },
+                  { name: "Photoshop", type: "design" },
+                  { name: "Premiere Pro", type: "design" }
+                ]
+              },
+              {
+                title: "开发工具",
+                skills: [
+                  { name: "Git", type: "tool" }
+                ]
+              },
+              {
+                title: "其他技术",
+                skills: [
+                  { name: "UE4", type: "tech" },
+                  { name: "网络安全", type: "tech" }
+                ]
+              }
+            ].map((category, categoryIndex) => (
+              <div key={category.title} className="space-y-3">
+                <h3 className="text-lg font-medium text-muted-foreground dark:text-gray-300">
+                  {category.title}
+                </h3>
+                <div className="flex gap-2 flex-wrap">
+                  {category.skills.map((skill, index) => (
+                    <span
+                      key={skill.name}
+                      className={`px-3 py-1.5 rounded-full hover:scale-105 transition-all duration-300 cursor-default text-xs md:text-sm ${
+                        skill.type === 'frontend' ? 'bg-gradient-to-r from-blue-500/10 to-cyan-500/10 text-blue-600 hover:from-blue-500/20 hover:to-cyan-500/20 dark:text-blue-400' :
+                        skill.type === 'design' ? 'bg-gradient-to-r from-purple-500/10 to-pink-500/10 text-purple-600 hover:from-purple-500/20 hover:to-pink-500/20 dark:text-purple-400' :
+                        skill.type === 'backend' ? 'bg-gradient-to-r from-green-500/10 to-emerald-500/10 text-green-600 hover:from-green-500/20 hover:to-emerald-500/20 dark:text-green-400' :
+                        skill.type === 'tool' ? 'bg-gradient-to-r from-orange-500/10 to-amber-500/10 text-orange-600 hover:from-orange-500/20 hover:to-amber-500/20 dark:text-orange-400' :
+                        'bg-gradient-to-r from-rose-500/10 to-red-500/10 text-rose-600 hover:from-rose-500/20 hover:to-red-500/20 dark:text-rose-400'
+                      }`}
+                      style={{
+                        animationDelay: `${(categoryIndex * 100) + (index * 50)}ms`,
+                        animation: 'fadeInUp 0.5s ease-out forwards'
+                      }}
+                    >
+                      {skill.name}
+                    </span>
+                  ))}
+                </div>
+              </div>
             ))}
           </div>
         </section>
