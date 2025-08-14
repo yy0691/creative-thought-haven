@@ -14,7 +14,10 @@ const Footer = () => {
         </div>
         <nav className="flex gap-4 sm:gap-6">
           <Link to="/about" className="text-sm text-muted-foreground hover:text-foreground">
-            关于
+            关于&联系我
+          </Link>
+          <Link to="/ai" className="text-sm text-muted-foreground hover:text-foreground">
+            人工智能
           </Link>
           <Link to="/blog" className="text-sm text-muted-foreground hover:text-foreground">
             文章

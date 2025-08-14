@@ -1074,11 +1074,15 @@ ${fullscreenItem.link ? `\n\n[查看原文](${fullscreenItem.link})` : ''}
       <div className={`fixed inset-y-0 left-0 transform ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'} lg:hidden w-[280px] z-[45] bg-white dark:bg-gray-800 shadow-xl transition-transform duration-300 ease-in-out`}>
         <div className="p-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
           <h2 className="text-xl font-bold text-gray-900 dark:text-white">AI资源中心</h2>
-          <button onClick={() => setIsMenuOpen(false)} className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700">
+          <button
+            onClick={() => setIsMenuOpen(false)}
+            className="p-2 rounded-full bg-white/80 dark:bg-gray-800/80 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+            aria-label="关闭菜单"
+            title="关闭菜单"
+          >
             <LucideIcons.X size={20} />
           </button>
         </div>
-        
         <div className="py-4 overflow-y-auto max-h-[calc(100vh-4rem)] scrollbar-hide">
           {localTabCategories.map((category) => (
             <div key={category.id} className="mb-4">

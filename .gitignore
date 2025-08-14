@@ -12,6 +12,7 @@ dist
 dist-ssr
 *.local
 
+content-admin
 content-repo
 
 # Editor directories and files

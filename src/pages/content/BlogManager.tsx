@@ -460,6 +460,8 @@ ${formData.content}`;
                             }));
                           }
                         }}
+                        aria-label="选择主分类"
+                        title="选择主分类"
                       >
                         {categories.map((category) => (
                           <option key={category.id} value={category.id}>
@@ -472,6 +474,8 @@ ${formData.content}`;
                         className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50"
                         value={formData.category}
                         onChange={(e) => handleInputChange('category', e.target.value)}
+                        aria-label="选择子分类"
+                        title="选择子分类"
                       >
                         {categories
                           .find(cat => cat.id === formData.category.split('-')[0])
@@ -490,6 +494,8 @@ ${formData.content}`;
                       className={`w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 ${errors.date ? 'border-red-500' : ''}`}
                       value={formData.date}
                       onChange={(e) => handleInputChange('date', e.target.value)}
+                      aria-label="发布日期"
+                      title="发布日期"
                     />
                     {errors.date && <p className="text-red-500 text-sm mt-1">{errors.date}</p>}
                   </div>
@@ -501,6 +507,8 @@ ${formData.content}`;
                     value={formData.tags.join(', ')}
                     onChange={(e) => handleTagsChange(e.target.value)}
                     placeholder="输入标签，用逗号分隔"
+                    aria-label="文章标签"
+                    title="文章标签"
                   />
                 </div>
 
