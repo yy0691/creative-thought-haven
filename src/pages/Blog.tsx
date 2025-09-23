@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { type BlogPostMeta, formatDate } from '../lib/blog';
-import { useArticles } from '../hooks/useContent'; // 添加这行
+import { type BlogPostMeta, formatDate, getBlogPosts } from '../lib/blog';
+//import { useArticles } from '../hooks/useContent'; // 添加这行
 import { CategorySelector } from '../components/CategorySelector';
 import { categories } from '../content/categories';
 import SplashCursor from '../components/cursor';
 import { LayoutGrid, List, ArrowUpDown, Clock, Tag, AlignJustify, PinIcon } from 'lucide-react';
 import { Virtuoso } from 'react-virtuoso';
+
 
 
 // 定义博客摘要类型，与BlogPostMeta兼容
@@ -39,10 +40,28 @@ const BlogList = ({ posts }) => {
 
 const Blog = () => {
   // 使用新的数据源
-  const { articles, loading: articlesLoading, error: articlesError } = useArticles();
+  //const { articles, loading: articlesLoading, error: articlesError } = useArticles();
+  
+  const [posts, setPosts] = useState<PostSummary[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  // const [posts, setPosts] = useState<PostSummary[]>([]);
-  // const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const loadPosts = async () => {
+      try {
+        setLoading(true);
+        const blogPosts = await getBlogPosts();
+        setPosts(blogPosts);
+        setError(null);
+      } catch (err) {
+        console.error('加载博客文章失败:', err);
+        setError(err instanceof Error ? err.message : '加载文章失败');
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadPosts();
+  }, []);
 
   const [selectedCategory, setSelectedCategory] = useState<string>('');
   const [selectedSubcategory, setSelectedSubcategory] = useState<string>('');
@@ -52,19 +71,19 @@ const Blog = () => {
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc');
 
   // 将 articles 转换为 PostSummary 格式
-  const posts: PostSummary[] = useMemo(() => {
-    return articles.map(article => ({
-      slug: article.slug,
-      category: article.category,
-      title: article.title,
-      date: article.date,
-      excerpt: article.excerpt,
-      tags: article.tags || [],
-      isSticky: article.featured || false,
-      isRecommended: article.featured || false,
-      type: 'mdx'
-    }));
-  }, [articles]);
+  // const posts: PostSummary[] = useMemo(() => {
+  //   return articles.map(article => ({
+  //     slug: article.slug,
+  //     category: article.category,
+  //     title: article.title,
+  //     date: article.date,
+  //     excerpt: article.excerpt,
+  //     tags: article.tags || [],
+  //     isSticky: article.featured || false,
+  //     isRecommended: article.featured || false,
+  //     type: 'mdx'
+  //   }));
+  // }, [articles]);
 
   // useEffect(() => {
   //   // 只加载博客摘要列表，不加载全部内容
@@ -139,8 +158,8 @@ const Blog = () => {
     setSortDirection(prev => prev === 'desc' ? 'asc' : 'desc');
   };
 
-  if (articlesLoading) return <div>加载博客列表中...</div>;
-  if (articlesError) return <div>加载博客列表失败: {articlesError}</div>;
+  if (loading) return <div>加载博客列表中...</div>;
+  if (error) return <div>加载博客列表失败: {error}</div>;
 
   return (
     <div className="page-transition space-y-6 py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative">
