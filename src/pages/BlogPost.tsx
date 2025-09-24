@@ -114,70 +114,57 @@ const BlogPost = () => {
   useEffect(() => {
     const loadPost = async () => {
       if (!slug) return;
-      
+
       try {
-        // 同时支持 .mdx 和 .md 文件
-        const mdxModules = import.meta.glob('../content/**/*.{mdx,md}', { eager: true });
-        const decodedSlug = decodeURIComponent(slug);
-        
-        console.log('尝试加载文章:', decodedSlug);
-        
-        // 首先尝试精确匹配路径（支持 .mdx 和 .md）
-        let modulePath = Object.keys(mdxModules).find(path => {
-          const fullPath = path.replace('../content/', '').replace(/\.(mdx|md)$/, '');
-          const normalizedPath = fullPath.replace(/\\/g, '/');
-          return normalizedPath === decodedSlug;
-        });
-        
-        // 如果没有找到精确匹配，尝试查找包含该slug末尾部分的路径
-        if (!modulePath && decodedSlug.includes('/')) {
-          const slugParts = decodedSlug.split('/');
-          const lastPart = slugParts[slugParts.length - 1];
-          
-          modulePath = Object.keys(mdxModules).find(path => {
-            const pathParts = path.split('/');
-            const fileNameWithExt = pathParts[pathParts.length - 1];
-            const fileName = fileNameWithExt.replace(/\.(mdx|md)$/, '');
-            return fileName === lastPart;
-          });
+        setIsLoading(true);
+        const modules = import.meta.glob('/content/articles/**/*.{md,mdx}');
+        const decodedSlugPath = decodeURIComponent(slug);
+        console.log(`Attempting to load post with slug: ${decodedSlugPath}`);
+
+        let potentialPath = `/content/${decodedSlugPath}.mdx`;
+        if (!modules[potentialPath]) {
+          potentialPath = `/content/${decodedSlugPath}.md`;
         }
-    
-        if (!modulePath) {
-          console.error('未找到匹配文件，可用路径:', Object.keys(mdxModules).map(path => {
-            const fullPath = path.replace('../content/', '').replace(/\.(mdx|md)$/, '');
-            return fullPath.replace(/\\/g, '/');
-          }));
-          throw new Error(`找不到文章: ${slug}`);
+
+        // A more robust way to find the path
+        const matchingPath = Object.keys(modules).find(p => p.includes(decodedSlugPath));
+
+        if (!matchingPath) {
+            console.error('Available paths:', Object.keys(modules));
+            throw new Error(`Could not find post with slug: ${decodedSlugPath}`);
         }
-    
-        const module = mdxModules[modulePath] as { default: React.ComponentType; metadata?: Record<string, unknown> };
+
+        const module = (await modules[matchingPath]()) as { default: React.ComponentType; metadata?: Record<string, unknown> };
         const content = module.default;
         const metadata = module.metadata || {};
-        
-        const post: BlogPost = {
+
+        const postData: BlogPost = {
           slug,
-          title: (metadata.title as string) || '无标题',
+          title: (metadata.title as string) || 'Untitled',
           date: (metadata.date as string) || new Date().toISOString(),
-          excerpt: (metadata.excerpt as string) || '暂无描述',
+          excerpt: (metadata.excerpt as string) || '',
           tags: (metadata.tags as string[]) || [],
           content,
-          category: (metadata.category as string) || ''
+          category: (metadata.category as string) || 'Uncategorized',
         };
-        
-        setPost(post);
-        
+
+        setPost(postData);
+
+        // Load related posts
         const allPosts = await getBlogPosts();
         const related = allPosts
-          .filter(p => p.slug !== slug && p.tags.some(tag => post.tags.includes(tag)))
+          .filter(p => p.slug !== slug && p.tags.some(tag => postData.tags.includes(tag)))
           .slice(0, 3);
         setRelatedPosts(related);
-    } catch (error) {
-      console.error('加载文章失败:', error);
-      setError(error instanceof Error ? error.message : '未知错误');
-    } finally {
-      setIsLoading(false);
-    }
+
+      } catch (e) {
+        console.error('Failed to load post:', e);
+        setError(e instanceof Error ? e.message : 'An unknown error occurred');
+      } finally {
+        setIsLoading(false);
+      }
     };
+
     loadPost();
   }, [slug]);
 

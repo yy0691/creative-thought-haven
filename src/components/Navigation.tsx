@@ -46,10 +46,10 @@ const Navigation = () => {
 
   const routes = [
     { path: "/", label: "首页" },
-    { path: "/ai", label: "AI" },
+    { path: "/ai", label: "人工智能" },
     { path: "/blog", label: "文章" },
-    { path: "/portfolio", label: "软件" },
-    { path: "/designs", label: "设计" },
+    { path: "/portfolio", label: "软件&工具" },
+    // { path: "/designs", label: "设计" },
     { path: "/about", label: "关于我" },
     // { path: "/content", label: "内容管理" },
   ];

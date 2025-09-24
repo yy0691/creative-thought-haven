@@ -22,12 +22,12 @@ export interface BlogPostMeta {
 
 export async function getBlogPosts(): Promise<BlogPostMeta[]> {
     // 获取所有分类下的 MDX 和 MD 文件
-    const mdxModules = import.meta.glob('../content/**/*.{mdx,md}', { eager: true });
+    const mdxModules = import.meta.glob('/content/articles/**/*.{mdx,md}', { eager: true });
     const mdxPosts = Object.entries(mdxModules).map(([path, module]) => {
         const pathParts = path.split('/');
         const fileName = pathParts.pop() || '';
         const slug = path
-          .replace('../content/', '')
+          .replace('/content/', '')
           .replace(/\.(mdx|md)$/, '')
           .replace(/\.docx$/, '')
           .replace(/\\/g, '/');
@@ -48,7 +48,7 @@ export async function getBlogPosts(): Promise<BlogPostMeta[]> {
     });
 
     // 获取 Word 文件
-    const wordFiles = import.meta.glob('../content/*.docx', { eager: true });
+    const wordFiles = import.meta.glob('/content/articles/*.docx', { eager: true });
     const wordPosts = Object.entries(wordFiles).map(([path]) => {
         const fileName = path.split('/').pop() || '';
         const slug = fileName.replace(/\.docx$/, '');

@@ -1,5 +1,5 @@
 ---
-category: 通用大模型
+category: llm
 title: "LLM 学习笔记"
 date: "2025-01-15"
 excerpt: "大语言模型、LLM"
@@ -18,13 +18,13 @@ tags: ["LLM", "大语言模型"]
 
 人类自然语言的多样性、灵活性、歧义性、上下文依赖性、语言的变化以及世界知识和常识的应用等因素都使得让机器难以理解人的自然语言：​
 
-<mark style="background-color: #C7D5F6">1.多样性和灵活性：包括语法、词汇、语义、上下文等方面。</mark>同一个词汇在不同语境中可能有不同的含义，例如"他被杀死了"的"死"和"笑死我了"的死完全是两个含义。人们还经常使用讽刺、隐喻、比喻、口语和俚语等非字面意义的表达方式，比如"潘帕斯雄鹰真是这场盛典中的一匹黑马"，潘帕斯雄鹰指的是阿根廷队而不是一个动物，盛典指的是世界杯，黑马是比喻阿根廷队取得了超乎我们预期的表现。人是可以理解这些语言的，但机器想理解这些就非常困难。
+<mark style={{"backgroundColor": "#C7D5F6"}}>1.多样性和灵活性：包括语法、词汇、语义、上下文等方面。</mark>同一个词汇在不同语境中可能有不同的含义，例如"他被杀死了"的"死"和"笑死我了"的死完全是两个含义。人们还经常使用讽刺、隐喻、比喻、口语和俚语等非字面意义的表达方式，比如"潘帕斯雄鹰真是这场盛典中的一匹黑马"，潘帕斯雄鹰指的是阿根廷队而不是一个动物，盛典指的是世界杯，黑马是比喻阿根廷队取得了超乎我们预期的表现。人是可以理解这些语言的，但机器想理解这些就非常困难。
 
-<mark style="background-color: #C7D5F6">2.语言的歧义性：自然语言中存在丰富的歧义现象，包括词义歧义、语法歧义、指代歧义等。</mark>例如，英语中的词汇"bank"可以表示银行，也可以表示河岸，其含义取决于上下文，这是词语歧义；The animal didn't cross the street because it was too tired，对于机器来说，这里的 it 可以指代 animal，也可以指代 street。这是一种指代歧义。这种歧义性对于机器来说是一个挑战，因为需要具有推理和语境理解能力才能够正确解析歧义。
+<mark style={{"backgroundColor": "#C7D5F6"}}>2.语言的歧义性：自然语言中存在丰富的歧义现象，包括词义歧义、语法歧义、指代歧义等。</mark>例如，英语中的词汇"bank"可以表示银行，也可以表示河岸，其含义取决于上下文，这是词语歧义；The animal didn't cross the street because it was too tired，对于机器来说，这里的 it 可以指代 animal，也可以指代 street。这是一种指代歧义。这种歧义性对于机器来说是一个挑战，因为需要具有推理和语境理解能力才能够正确解析歧义。
 
-<mark style="background-color: #C7D5F6">3.上下文依赖性：人类自然语言中的表达通常依赖于上下文信息。</mark>例如，尽管大多数时候 terribly 的意思是负面的，但 The movie is terribly exciting 中，terribly 的意义就是积极的。
+<mark style={{"backgroundColor": "#C7D5F6"}}>3.上下文依赖性：人类自然语言中的表达通常依赖于上下文信息。</mark>例如，尽管大多数时候 terribly 的意思是负面的，但 The movie is terribly exciting 中，terribly 的意义就是积极的。
 
-<mark style="background-color: #C7D5F6">4.世界知识和常识：人类在语言交流中经常依赖于世界知识和常识，即我们对世界的认知和经验。</mark>当我们说"我要花 30 元去伦敦看电影"时，我们知道电影是什么，知道伦敦是个地名，知道 30 是个数字而元是货币单位。这种世界知识和常识对于理解自然语言是至关重要的，但对于机器来说，获取和应用这些知识是一项复杂的任务。
+<mark style={{"backgroundColor": "#C7D5F6"}}>4.世界知识和常识：人类在语言交流中经常依赖于世界知识和常识，即我们对世界的认知和经验。</mark>当我们说"我要花 30 元去伦敦看电影"时，我们知道电影是什么，知道伦敦是个地名，知道 30 是个数字而元是货币单位。这种世界知识和常识对于理解自然语言是至关重要的，但对于机器来说，获取和应用这些知识是一项复杂的任务。
 
 
 
@@ -40,7 +40,7 @@ tags: ["LLM", "大语言模型"]
 
 ### 命名实体识别 Named Entity Recognition, NER 
 
-命名实体识别（Named Entity Recognition, NER）是自然语言处理（NLP）中的一种任务，旨在识别文本中具有特定命名实体的片段，如人名、地名、组织名、时间、日期、货币、数量等。（陈先生和陈醋和陈仓里的陈是不一样的，我们希望机器能知道陈先生是人名，陈醋是个物品，陈仓是个地名，这样模型去做自然语言任务的性能才会提高）<mark style="background-color: #FBBFBC">NER是许多NLP应用中的重要预处理步骤</mark>。
+命名实体识别（Named Entity Recognition, NER）是自然语言处理（NLP）中的一种任务，旨在识别文本中具有特定命名实体的片段，如人名、地名、组织名、时间、日期、货币、数量等。（陈先生和陈醋和陈仓里的陈是不一样的，我们希望机器能知道陈先生是人名，陈醋是个物品，陈仓是个地名，这样模型去做自然语言任务的性能才会提高）<mark style={{"backgroundColor": "#FBBFBC"}}>NER是许多NLP应用中的重要预处理步骤</mark>。
 
 NER通常可以分为以下几种类型：​
 
@@ -58,7 +58,7 @@ NER通常可以分为以下几种类型：​
 
 7.数量（Quantity）：识别文本中的数量信息，如"3个苹果"、"10米长"等。
 
-<mark style="background-color: #FAF390">NER任务通常采用监督学习方法，其中标注了已知命名实体类型的大规模标注数据用于训练模型。</mark>
+<mark style={{"backgroundColor": "#FAF390"}}>NER任务通常采用监督学习方法，其中标注了已知命名实体类型的大规模标注数据用于训练模型。</mark>
 
 ### 句法分析  Dependency Parsing
 
@@ -68,10 +68,10 @@ Dependency Parsing是指对句子进行语法分析并画出句子成分的依�
 
 ### 语言生成 Language Generation
 
-* <mark style="background-color: #C7D5F6">语言生成（Language Generation）是自然语言处理（NLP）领域中的一种任务，指的是使用计算机生成自然语言文本的过程。</mark>
+* <mark style={{"backgroundColor": "#C7D5F6"}}>语言生成（Language Generation）是自然语言处理（NLP）领域中的一种任务，指的是使用计算机生成自然语言文本的过程。</mark>
 * 语言生成可以应用于多种应用场景，如机器翻译、文本摘要、对话系统、自动生成文章、生成代码、音乐和艺术创作等。
 
-<span style="color: #FBBFBC">*语言生成方法可以分为以下几种（*</span><span style="color: #FBBFBC"><mark style="background-color: #FBBFBC">*我们主要涉及到3和5*</mark></span><span style="color: #FBBFBC">*）*</span>：​
+<WarningText>*语言生成方法可以分为以下几种（*</WarningText><WarningText><mark style={{"backgroundColor": "#FBBFBC"}}>*我们主要涉及到3和5*</mark></WarningText><WarningText>*）*</WarningText>：​
 
 1. 基于规则（Rule-based）生成：通过预定义的规则和模板来生成文本。这种方法通常适用于生成简单的文本，如问候语、固定格式的消息等，但对于复杂的文本生成任务来说，Rule-based 方法的扩展性有限。
 2. 基于统计（Statistical-based）生成：使用统计模型来生成文本，如n-gram语言模型、隐马尔可夫模型（HMM）等。这种方法通过统计文本数据中的频率和概率信息，生成文本序列，但可能会受限于数据的数量和质量。
@@ -115,15 +115,15 @@ $P(S)=P(\omega_1,\omega_2,\omega_3,……，\omega_n)$
 
 **我们这么补充语言模型的定义：**语言模型可以根据先前的文本序列预测下一个可能出现的词或者字符，从而生成新的文本。如果是以已有的全部词序列为预测依据，那么，语言模型就是在求：$P(\omega_i|\omega_1,\omega_2,……，\omega_{i-1};\theta)$
 
-那么，语言模型的目标函数（损失函数）就变成了一个我们非常熟悉的东西<span style="color: #FBBFBC"><mark style="background-color: #FBBFBC">（2.2.2.1）</mark></span>：​
+那么，语言模型的目标函数（损失函数）就变成了一个我们非常熟悉的东西<WarningText><mark style={{"backgroundColor": "#FBBFBC"}}>（2.2.2.1）</mark></WarningText>：​
 
 ![](https://cdn.jsdelivr.net/gh/yy0691/img-bed@main/AI_Feishu/YA1NbgsZZomKkjxnQNNcd2eWnzf.png)
 
-<span style="color: #E0E1E4"><mark style="background-color: #F2F3F5">还记得交叉熵损失函数吗？它就是模型理应输出 1 的那一维向量的元素的负对数。</mark></span>
+<InfoText><mark style={{"backgroundColor": "#F2F3F5"}}>还记得交叉熵损失函数吗？它就是模型理应输出 1 的那一维向量的元素的负对数。</mark></InfoText>
 
 其中，$\large u$是巨大无比的语料库（Corpus），$\omega$是一个个的词语，$\theta$是模型的参数。我们训练语言模型的目的，就是在于调整参数，让模型接受这段话前面的词语们，尽量根据语料库，输出下一个词语. 
 
-<mark style="background-color: #FBBFBC">所以，本质上语言模型就是一个基于概率的自回归填字游戏。</mark>
+<mark style={{"backgroundColor": "#FBBFBC"}}>所以，本质上语言模型就是一个基于概率的自回归填字游戏。</mark>
 
 6.3.3我们期待语言模型能有怎样的表现？​
 
@@ -179,11 +179,11 @@ s_2:{紫 | 猫}
 
 早期的NLP常用one-hot编码来表示词向量，假如词典中共有10000个词，则这个one-hot向量长度就是10000，该词在词典中所处位置对应的值为1，其他值为0。
 
-<mark style="background-color: #C7D5F6">在自然语言处理中，Token（词元）通常指的是将句子或文本拆分成单个独立的单词或标点符号。这个过程称为分词或标记化，它是自然语言处理中的一项重要预处理任务。</mark>
+<mark style={{"backgroundColor": "#C7D5F6"}}>在自然语言处理中，Token（词元）通常指的是将句子或文本拆分成单个独立的单词或标点符号。这个过程称为分词或标记化，它是自然语言处理中的一项重要预处理任务。</mark>
 
 猫｜在｜卧室｜吃｜鱼 就是一个拆分成词元的过程。
 
-<mark style="background-color: #FAF390">在表示英文的时候，Token（词元）和单词不一样，Token是一个比单词更小的分割单位。</mark>
+<mark style={{"backgroundColor": "#FAF390"}}>在表示英文的时候，Token（词元）和单词不一样，Token是一个比单词更小的分割单位。</mark>
 
 例如，如Her words interested me a lot，这里的word加了一个s就可以衍生出一个words，interest这个单词也可以变成过去式interested（这也可以是个形容词，of course），加了ing也可以变成进行时或者另一个形容词。如果给每一种衍生方式都单独编码，增加one-hot向量的维数，那么就太麻烦了。相比之下，不如只记录word，interest，s，ed，ing这几个Token。
 
@@ -200,7 +200,7 @@ one-hot表示方法虽然简单，但其有诸多缺点：​
 
 此外，词嵌入中的向量的元素数字好像会更加意义不明。RGB我们知道代表三种颜色各自的灰度，但是词向量中的数字，恐怕除了计算机外就没有人能看懂了。
 
-<mark style="background-color: #FAF390">我们通过把One-hot向量通过一个权重矩阵投射到词嵌入里。</mark>
+<mark style={{"backgroundColor": "#FAF390"}}>我们通过把One-hot向量通过一个权重矩阵投射到词嵌入里。</mark>
 
 例如，对于一个有3000个词汇量的词典$V$，每一个词都是3000维的一个稀疏向量。对于每一个词，我们给他乘一个3000*512的权重矩阵，最终就得到一个512维的向量了。
 
@@ -212,7 +212,7 @@ one-hot表示方法虽然简单，但其有诸多缺点：​
 
 
 
-> <mark style="background-color: #FAF390">"Embedding的数学本质，就是以one hot为输入的单层全连接。世界上本没什么Embedding，有的只是one hot。"</mark>
+> <mark style={{"backgroundColor": "#FAF390"}}>"Embedding的数学本质，就是以one hot为输入的单层全连接。世界上本没什么Embedding，有的只是one hot。"</mark>
 > [词向量与Embedding究竟是怎么回事? - 科学空间|Scientific Spaces](https://kexue.fm/archives/4122)
 
 
@@ -220,21 +220,21 @@ one-hot表示方法虽然简单，但其有诸多缺点：​
 
 6.4.3Word2vec及其训练方式
 
-<mark style="background-color: #C7D5F6">Word2vec是2013年发表的一项可以实现从One-hot到词嵌入的自然语言处理技术，它使用一个两层的神经网络模型，从大型的文本语料库中学习单词关联，将自然语言中的单词转换为数学向量。</mark>它可以将单词之间的关系表示为向量空间中的距离和方向，从而使得单词的语义信息可以用数学方式表示和处理。
+<mark style={{"backgroundColor": "#C7D5F6"}}>Word2vec是2013年发表的一项可以实现从One-hot到词嵌入的自然语言处理技术，它使用一个两层的神经网络模型，从大型的文本语料库中学习单词关联，将自然语言中的单词转换为数学向量。</mark>它可以将单词之间的关系表示为向量空间中的距离和方向，从而使得单词的语义信息可以用数学方式表示和处理。
 
 还记得6.3.3里，我们提到的对语言模型所有的期待吗？Word2Vec模型就是实现我们的期待的一种方式！Word2Vec能用向量来表示各种词元，可以用余弦相似度表明这些向量所代表的单词之间的语义相似程度、检测出同义词；可以为部分句子建议额外的词、捕捉到单词的语义和句法质量。
 
-Word2vec的应用非常广泛，它获得单词级别的向量表示可以用于各种下游任务，例如用于语义分析、文本分类、机器翻译等NLP任务中。<mark style="background-color: #FAF390">显然，单词级别的向量表示这件事情在各种NLP任务中都具有极高的通用性，训练出来的一个性能足够好的Word2vec并将其开源的话，大家就可以不用重复造轮子，而是一起用这个好用的模型了。</mark>
+Word2vec的应用非常广泛，它获得单词级别的向量表示可以用于各种下游任务，例如用于语义分析、文本分类、机器翻译等NLP任务中。<mark style={{"backgroundColor": "#FAF390"}}>显然，单词级别的向量表示这件事情在各种NLP任务中都具有极高的通用性，训练出来的一个性能足够好的Word2vec并将其开源的话，大家就可以不用重复造轮子，而是一起用这个好用的模型了。</mark>
 
-<span style="color: #FBBFBC"><mark style="background-color: #FBBFBC">后面（8.1.5）会提到，word2vec可以说是NLP中的迁移学习的祖师爷</mark></span>！不过目前我们还没必要去管迁移学习这个名词，只要知道这是一个通用性非常强的工作，为各种NLP任务都提供了很好的帮助，就可以了！​
+<WarningText><mark style={{"backgroundColor": "#FBBFBC"}}>后面（8.1.5）会提到，word2vec可以说是NLP中的迁移学习的祖师爷</mark></WarningText>！不过目前我们还没必要去管迁移学习这个名词，只要知道这是一个通用性非常强的工作，为各种NLP任务都提供了很好的帮助，就可以了！​
 
 > Word2vec的作者Tomas Mikolov在Google工作期间，将word2vec的代码公开发布在了Google Code上。随着时间的推移，word2vec代码也逐渐迁移至GitHub上，并成为了开源社区中的一个重要项目。现在，大部分深度学习框架都提供了对word2vec模型的支持，因此使用和实现word2vec已经变得非常方便。
 
 
-<span style="color: #FBBFBC"><mark style="background-color: #FBBFBC">***Word2vec的训练方法有两种：CBOW和Skip-gram。***</mark></span>
+<WarningText><mark style={{"backgroundColor": "#FBBFBC"}}>***Word2vec的训练方法有两种：CBOW和Skip-gram。***</mark></WarningText>
 
 > 前文提到：​
-> * <mark style="background-color: #C0ECBC">如果"NLP"和"自然语言处理"在语料中的上下文很像，那么就可以推理出，NLP和自然语言处理是相似的。</mark>
+> * <mark style={{"backgroundColor": "#C0ECBC"}}>如果"NLP"和"自然语言处理"在语料中的上下文很像，那么就可以推理出，NLP和自然语言处理是相似的。</mark>
 > * 同样的，如果我们已知了NLP和自然语言处理这两个词是一样的，那么它们的上下文应该也是相似的。
 > * 这两种思维分别对应了CBOW和Skip-gram。
 
@@ -245,7 +245,7 @@ Word2vec的应用非常广泛，它获得单词级别的向量表示可以用于
 
 根据论文的作者（[proceedings.neurips.cc](https://proceedings.neurips.cc/paper/2013/file/9aa42b31882ec039965f3c4923ce901b-Paper.pdf)、[arxiv.org](https://arxiv.org/pdf/1301.3781.pdf%C3%AC%E2%80%94%20%C3%AC%E2%80%9E%C5%93)），CBOW训练速度更快，而Skip-gram在出现频率更少的单词上的预测上表现更好。
 
-<mark style="background-color: #F9D8B1">在Tomas Mikolov的工作下，从16亿个单词的数据集中学习高质量的单词向量只需要不到一天的时间。COOL！​</mark>
+<mark style={{"backgroundColor": "#F9D8B1"}}>在Tomas Mikolov的工作下，从16亿个单词的数据集中学习高质量的单词向量只需要不到一天的时间。COOL！​</mark>
 
 6.5基于统计方法的语言生成：N-gram模型
 
@@ -261,7 +261,7 @@ $P(S)=P(\omega_1,\omega_2,……，\omega_{i})=P(\omega_1)P(\omega_2|\omega_1)P(
 
 6.5.2马尔科夫假设
 
-一个简化的思路是去假设<mark style="background-color: #C7D5F6">一个词的出现不依赖于前面的全部词，而是仅仅依赖它前面的几个词，我们称这样的假设为马尔科夫假设。以三元语言模型（Trigram）</mark>为例，如果一个词的出现仅依赖于它前面出现的两个词，那么我们就称之为三阶马尔科夫假设，对应的语言模型就是三元语言模型：​
+一个简化的思路是去假设<mark style={{"backgroundColor": "#C7D5F6"}}>一个词的出现不依赖于前面的全部词，而是仅仅依赖它前面的几个词，我们称这样的假设为马尔科夫假设。以三元语言模型（Trigram）</mark>为例，如果一个词的出现仅依赖于它前面出现的两个词，那么我们就称之为三阶马尔科夫假设，对应的语言模型就是三元语言模型：​
 
 $P(S)=P(\omega_1)P(\omega_2|\omega_1)P(\omega_3|\omega_1，\omega_2)……P(\omega_i|\omega_{i-2} ,\omega_{i-1})$
 

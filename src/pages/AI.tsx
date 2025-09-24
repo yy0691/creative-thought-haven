@@ -33,6 +33,7 @@ import { tutorialsItems } from '../data/ai/tutorials';
 const mapCategoryToTabId = (category: string): string => {
   const categoryMap: Record<string, string> = {
     '通用大模型': 'general',
+    'llm': 'general',
     'AI智能体': 'agent',
     '通用AI': 'general',
     'AI大模型': 'general',
@@ -261,7 +262,7 @@ const AI = () => {
             return dateB - dateA;
           });
         }
-        case 'general': return (toolsItems || []).filter(item => item.category === '通用大模型');
+        case 'general': return (toolsItems || []).filter(item => mapCategoryToTabId(item.category) === 'general');
         case 'painting': return (toolsItems || []).filter(item => item.category === 'AI绘画');
         case 'coding': return (toolsItems || []).filter(item => item.category === 'AI编程');
         case 'voice': return (toolsItems || []).filter(item => item.category === 'AI语音');
