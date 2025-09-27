@@ -152,35 +152,43 @@ const components = {
   ),
   p: (props: HTMLComponentProps) => {
     const { children, className, ...rest } = props;
-    
-    const content = children?.toString() || '';
-    
-    // 检查是否包含数学公式 $...$
-    if (typeof content === 'string' && (content.includes('$') && !content.includes('\\$'))) {
-      try {
-        const parts = content.split(/(\$[^$]+\$)/g);
-        
-        return (
-          <p className={className || "mb-5 leading-7"} {...rest}>
-            {parts.map((part, i) => {
-              if (part.startsWith('$') && part.endsWith('$') && part.length > 2) {
-                const formula = part.slice(1, -1);
-                return (
-                  <ErrorBoundary key={i} fallback={`$${formula}$`}>
-                    <Math inline={true}>{formula}</Math>
-                  </ErrorBoundary>
-                );
-              }
-              return part;
-            })}
-          </p>
-        );
-      } catch (error) {
-        console.error('LaTeX渲染错误:', error);
-        return <p className={className || "mb-5 leading-7"} {...rest}>{children}</p>;
+
+    // Only attempt inline math splitting when the paragraph contains a single string child
+    const kids = React.Children.toArray(children);
+    if (kids.length === 1 && typeof kids[0] === 'string') {
+      const content = kids[0] as string;
+
+      // 检查是否包含数学公式 $...$
+      if (content.includes('$') && !content.includes('\\$')) {
+        try {
+          const parts = content.split(/(\$[^$]+\$)/g);
+
+          return (
+            <p className={className || "mb-5 leading-7"} {...rest}>
+              {parts.map((part, i) => {
+                if (part.startsWith('$') && part.endsWith('$') && part.length > 2) {
+                  const formula = part.slice(1, -1);
+                  return (
+                    <ErrorBoundary key={i} fallback={`$${formula}$`}>
+                      <Math inline={true}>{formula}</Math>
+                    </ErrorBoundary>
+                  );
+                }
+                return <React.Fragment key={i}>{part}</React.Fragment>;
+              })}
+            </p>
+          );
+        } catch (error) {
+          console.error('LaTeX渲染错误:', error);
+          return <p className={className || "mb-5 leading-7"} {...rest}>{children}</p>;
+        }
       }
+
+      // No math markers, render as-is
+      return <p className={className || "mb-5 leading-7"} {...rest}>{children}</p>;
     }
-    
+
+    // Mixed or non-string children (may include JSX like <mark/>) — render unchanged
     return <p className={className || "mb-5 leading-7"} {...rest}>{children}</p>;
   },
   ul: (props: HTMLComponentProps) => (
@@ -203,7 +211,42 @@ const components = {
   td: (props: HTMLComponentProps) => (
     <td className="border border-border px-4 py-2 dark:border-gray-700 dark:text-gray-200" {...props} />
   ),
-  mark: HighlightedMark,
+  mark: (props: HTMLComponentProps) => {
+    const { style, children, ...rest } = props;
+    return (
+      <mark 
+        style={style} 
+        className="px-1 py-0.5 rounded-sm" 
+        {...rest}
+      >
+        {children}
+      </mark>
+    );
+  },
+  span: (props: HTMLComponentProps) => {
+    const { style, className, children, ...rest } = props;
+    return (
+      <span 
+        style={style} 
+        className={className} 
+        {...rest}
+      >
+        {children}
+      </span>
+    );
+  },
+  div: (props: HTMLComponentProps) => {
+    const { style, className, children, ...rest } = props;
+    return (
+      <div 
+        style={style} 
+        className={className} 
+        {...rest}
+      >
+        {children}
+      </div>
+    );
+  },
   'colored-span': ColoredSpan,
   Warning: WarningText,
   Note: NoteText,

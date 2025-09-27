@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { projects } from '../content/projects';
+import { useProjects } from '../hooks/useContent';
 import SplashCursor from '../components/cursor';
 const Portfolio = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('');
+  const { projects } = useProjects();
 
   const categories = [
     { id: '', label: '全部' },
@@ -64,7 +65,7 @@ const Portfolio = () => {
           >
             <div className="aspect-video bg-gradient-to-br from-primary/5 to-primary/10 dark:from-primary/10 dark:to-primary/20">
               <img 
-                src={project.thumbnail} 
+                src={project.coverImage || ''} 
                 alt={project.title}
                 className="w-full h-full object-cover transition-all duration-300 group-hover:scale-105 group-hover:opacity-90"
               />

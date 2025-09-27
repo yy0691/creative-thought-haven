@@ -1,10 +1,10 @@
 import { CardItem } from '../types';
-import { midjourneyAnc } from '../update0411-1/Midjourney-anc';
-import { midjourneyLight } from '../update0411-1/Midjourney-light';
-import { midjourneySerfs } from '../update0411-1/Midjourney-serfs';
-import { midjourney21Styles105Prompt } from '../update0411-1/prompt-Midjourney';
+import { midjourneyAnc } from '../../../../content/news/待整理/update0411-1/Midjourney-anc';
+import { midjourneyLight } from '../../../../content/news/待整理/update0411-1/Midjourney-light';
+import { midjourneySerfs } from '../../../../content/news/待整理/update0411-1/Midjourney-serfs';
+import { midjourney21Styles105Prompt } from '../../../../content/news/待整理/update0411-1/prompt-Midjourney';
 import { floraContent } from '../tools-draws-content/flora';
-import { OmniSVG } from '../update0415/OmniSVG';
+import { OmniSVG } from '../../../../content/news/待整理/update0415/OmniSVG';
 export const paintingTools: CardItem[] = [
   // AI绘画
   {

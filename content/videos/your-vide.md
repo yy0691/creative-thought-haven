@@ -1,0 +1,10 @@
+---
+title: 视频标题
+description: 视频简介
+category: "教程/演示"
+publishDate: "2025-01-01"
+videoUrl: "https://www.youtube.com/watch?v=..."
+coverImage: "/images/videos/cover.png"
+---
+
+视频相关说明。

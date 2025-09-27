@@ -23,13 +23,15 @@ const mdxConfig = {
     rehypeSlug,
     rehypeAutolinkHeadings
   ],
-  providerImportSource: '@mdx-js/react'
+  providerImportSource: '@mdx-js/react',
+  // 允许HTML标签渲染
+  format: 'mdx'
 } as import('@mdx-js/rollup').Options;
 
-// 支持 .md 和 .mdx 文件
+// 支持 .mdx 文件
 const mdxPlugin = () => mdx({
   ...mdxConfig,
-  mdExtensions: ['.md']  // 添加 .md 扩展名支持
+  include: /\.mdx$/,  // 只支持 .mdx 文件
 });
 
 // https://vitejs.dev/config/

@@ -26,5 +26,5 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src"]
+  "include": ["src", "content/news/待整理/update0415", "content/news/待整理/update0411-1", "content/news/待整理/update0410", "content/news/待整理/News0412.ts", "content/news/待整理/PromptEngineering.ts", "content/news/待整理/claude-think.ts", "content/news/待整理/deepmind.ts", "content/news/待整理/deepseek-v3.ts", "content/news/待整理/GPT-4o-img.ts", "content/news/待整理/gpt5.ts", "content/news/待整理/qwen-2.5omni.ts", "content/news/待整理/test.ts", "content/news/待整理/vercel-ai-sdk.ts"]
 }

@@ -1,5 +1,5 @@
 import { CardItem } from '../types';
-import { Fiveire } from '../update0415/5ire';
+import { Fiveire } from '../../../../content/news/待整理/update0415/5ire';
 
 export const generalCnTools: CardItem[] = [
   // 通用大模型 - 国内

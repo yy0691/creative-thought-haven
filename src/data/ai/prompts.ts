@@ -1,5 +1,5 @@
 import { CardItem } from './types';
-import { PromptsModels } from './update0415/prompts-models';
+import { PromptsModels } from '../../../content/news/待整理/update0415/prompts-models';
 export const promptsItems: CardItem[] = [
   {
     id: '0',

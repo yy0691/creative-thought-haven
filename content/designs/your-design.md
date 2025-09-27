@@ -1,0 +1,9 @@
+---
+title: 设计标题
+description: 设计描述
+category: "UI/UX"
+publishDate: "2025-01-01"
+coverImage: "/images/designs/cover.png"
+---
+
+设计说明正文。

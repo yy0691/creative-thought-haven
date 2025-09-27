@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { videoMeta } from '../content/videos';
-import { projects } from '../content/projects';
+import { useProjects } from '../hooks/useContent';
 import { useState } from 'react';
 import VideoPlayer from '../components/VideoPlayer';  // 添加这行
 
@@ -13,6 +13,7 @@ interface Comment {
 
 const VideoDetails = () => {
   const { id } = useParams<{ id: string }>();
+  const { projects } = useProjects();
   const project = projects.find(p => p.id === id);
   const meta = videoMeta[id || ''];
   const [comments, setComments] = useState<Comment[]>(meta?.comments || []);
@@ -72,9 +73,11 @@ const VideoDetails = () => {
             ))}
           </div>
           <div className="prose prose-primary max-w-none dark:prose-invert">
-            {project.details.split('\n').map((line, index) => (
-              <p key={index}>{line}</p>
-            ))}
+            {(project.content || project.description || '')
+              .split('\n')
+              .map((line, index) => (
+                <p key={index}>{line}</p>
+              ))}
           </div>
         </div>
 

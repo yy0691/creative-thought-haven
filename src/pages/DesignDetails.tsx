@@ -1,12 +1,13 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { designs } from '../content/designs';
+import { useDesigns } from '../hooks/useContent';
 import SEO from '../components/SEO';
 
 interface DesignDetailsProps {}
 
 export default function DesignDetails({}: DesignDetailsProps) {
   const { id } = useParams<{ id: string }>();
+  const { designs } = useDesigns();
   const design = designs.find(d => d.id === id);
 
   if (!design) {
@@ -21,18 +22,29 @@ export default function DesignDetails({}: DesignDetailsProps) {
         {design.description && (
           <p className="text-gray-600 mb-8">{design.description}</p>
         )}
-        <div className="grid gap-6">
-          {design.images?.map((image, index) => (
-            <div key={index} className="rounded-lg overflow-hidden shadow-lg">
-              <img
-                src={image}
-                alt={`${design.title} - 图片 ${index + 1}`}
-                className="w-full h-auto"
-                loading="lazy"
-              />
-            </div>
-          ))}
-        </div>
+        {design.images && design.images.length > 0 ? (
+          <div className="grid gap-6">
+            {design.images.map((image, index) => (
+              <div key={index} className="rounded-lg overflow-hidden shadow-lg">
+                <img
+                  src={image}
+                  alt={`${design.title} - 图片 ${index + 1}`}
+                  className="w-full h-auto"
+                  loading="lazy"
+                />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="rounded-lg overflow-hidden shadow-lg">
+            <img
+              src={design.coverImage || ''}
+              alt={design.title}
+              className="w-full h-auto"
+              loading="lazy"
+            />
+          </div>
+        )}
       </div>
     </div>
   );

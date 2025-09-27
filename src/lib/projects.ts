@@ -1,4 +1,4 @@
-import { projects } from '../content/projects';
+import { defaultProjects as projects } from '../data/projects';
 
 export interface Project {
   id: string;
@@ -16,7 +16,7 @@ export interface Project {
   coverImage?: string;
 }
 
-export async function getAllProjects(): Promise<Project[]> {
+export function getAllProjects(): Project[] {
   // 直接返回 projects 数组，按需可以添加排序逻辑
-  return projects;
+  return projects as unknown as Project[];
 }

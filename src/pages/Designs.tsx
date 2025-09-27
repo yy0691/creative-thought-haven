@@ -1,9 +1,10 @@
-import { designs } from "../content/designs";
 import { Link } from "react-router-dom";
 import SplashCursor from '../components/cursor';
 import { useEffect } from 'react';
+import { useDesigns } from '../hooks/useContent';
 
 const Designs = () => {
+  const { designs } = useDesigns();
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       const ripple = document.createElement('div');
@@ -47,7 +48,7 @@ const Designs = () => {
           >
             <div className="aspect-video bg-gradient-to-br from-primary/5 to-primary/10 dark:from-primary/10 dark:to-primary/20 relative overflow-hidden">
               <img 
-                src={design.thumbnail} 
+                src={design.coverImage || ''} 
                 alt={design.title}
                 className="w-full h-full object-cover transition-all duration-300 group-hover:rotate-2 group-hover:opacity-90"
               />
@@ -56,7 +57,7 @@ const Designs = () => {
               <h3 className="text-xl font-semibold text-primary dark:text-primary">{design.title}</h3>
               <p className="text-muted-foreground dark:text-gray-300">{design.description}</p>
               <div className="flex flex-wrap gap-2">
-                {design.tools.map((tool) => (
+                {(design.tools || []).map((tool) => (
                   <span 
                     key={tool} 
                     className="text-xs bg-primary/5 dark:bg-primary/10 text-primary dark:text-primary-foreground px-3 py-1 rounded-full border border-primary/10 dark:border-primary/20 hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors"
@@ -89,6 +90,6 @@ const Designs = () => {
       </div>
     </div>
   );
-};
+} 
 
 export default Designs;

@@ -1,5 +1,5 @@
 ---
-title: OpenAI发布GPT-4.1
+title: TestOpenAI发布GPT-4.1
 description: "OpenAI以API的形式发布了三个新模型:GPT-4.1、GPT-4.1 mini和GPT-4.1 nano"
 author: OpenAI
 date: 2025-04-16

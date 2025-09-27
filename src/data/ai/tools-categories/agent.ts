@@ -1,5 +1,5 @@
 import { CardItem } from '../types';
-import { MicroAIAgent } from '../update0415/Micro-AI-Agent';
+import { MicroAIAgent } from '../../../../content/news/待整理/update0415/Micro-AI-Agent';
 export const agentTools: CardItem[] = [
   {
     id: 'agent-0',

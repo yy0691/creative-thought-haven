@@ -1,0 +1,494 @@
+[
+  {
+    "id": "learning",
+    "title": "AI 学习中心",
+    "description": "系统化AI课程、教程与学习资源",
+    "items": [
+      {
+        "id": "综合课程-deeplearning.ai",
+        "title": "DeepLearning.AI",
+        "url": "https://www.deeplearning.ai/",
+        "link": "https://www.deeplearning.ai/",
+        "description": "吴恩达创建的AI教育平台，提供多种深度学习课程和项目",
+        "group": "综合课程"
+      },
+      {
+        "id": "综合课程-fast.ai-课程",
+        "title": "fast.ai 课程",
+        "url": "https://www.fast.ai/",
+        "link": "https://www.fast.ai/",
+        "description": "强调“实践优先”的深度学习课程",
+        "group": "综合课程"
+      },
+      {
+        "id": "综合课程-google's-generative-ai-learning-path",
+        "title": "Google's Generative AI learning path",
+        "url": "https://www.cloudskillsboost.google/paths/118",
+        "link": "https://www.cloudskillsboost.google/paths/118",
+        "description": "谷歌官方的生成式AI学习路径",
+        "group": "综合课程"
+      },
+      {
+        "id": "大学公开课-cs231n-(stanford)",
+        "title": "CS231n (Stanford)",
+        "url": "https://cs231n.github.io/",
+        "link": "https://cs231n.github.io/",
+        "description": "斯坦福大学经典的计算机视觉课程",
+        "group": "大学公开课"
+      },
+      {
+        "id": "大学公开课-cs224n-(stanford)",
+        "title": "CS224N (Stanford)",
+        "url": "http://web.stanford.edu/class/cs224n/",
+        "link": "http://web.stanford.edu/class/cs224n/",
+        "description": "斯坦福大学最经典的自然语言处理（NLP）课程",
+        "group": "大学公开课"
+      },
+      {
+        "id": "大学公开课-mit-6.s191:-introduction-to-deep-learning",
+        "title": "MIT 6.S191: Introduction to Deep Learning",
+        "url": "http://introtodeeplearning.com/",
+        "link": "http://introtodeeplearning.com/",
+        "description": "MIT 深度学习导论，每年更新",
+        "group": "大学公开课"
+      },
+      {
+        "id": "大学公开课-李宏毅---机器学习-(台大)",
+        "title": "李宏毅 - 机器学习 (台大)",
+        "url": "https://speech.ee.ntu.edu.tw/~hylee/ml/2023-spring.php",
+        "link": "https://speech.ee.ntu.edu.tw/~hylee/ml/2023-spring.php",
+        "description": "李宏毅教授经典的机器学习课程系列",
+        "group": "大学公开课"
+      },
+      {
+        "id": "专题教程-hugging-face-课程",
+        "title": "Hugging Face 课程",
+        "url": "https://huggingface.co/learn/nlp-course/zh-CN/chapter1/1",
+        "link": "https://huggingface.co/learn/nlp-course/zh-CN/chapter1/1",
+        "description": "Hugging Face官方NLP课程，理论与实战结合",
+        "group": "专题教程"
+      },
+      {
+        "id": "专题教程-dive-into-deep-learning-(d2l)",
+        "title": "Dive into Deep Learning (d2l)",
+        "url": "https://d2l.ai/",
+        "link": "https://d2l.ai/",
+        "description": "《动手学深度学习》，提供代码、理论和练习",
+        "group": "专题教程"
+      },
+      {
+        "id": "专题教程-the-illustrated-transformer",
+        "title": "The Illustrated Transformer",
+        "url": "http://jalammar.github.io/illustrated-transformer/",
+        "link": "http://jalammar.github.io/illustrated-transformer/",
+        "description": "可视化图解 Transformer 原理，非常经典",
+        "group": "专题教程"
+      },
+      {
+        "id": "专题教程-langchain-docs",
+        "title": "LangChain Docs",
+        "url": "https://python.langchain.com/",
+        "link": "https://python.langchain.com/",
+        "description": "构建 LLM 应用的框架文档",
+        "group": "专题教程"
+      },
+      {
+        "id": "专题教程-llamaindex-docs",
+        "title": "LlamaIndex Docs",
+        "url": "https://docs.llamaindex.ai/",
+        "link": "https://docs.llamaindex.ai/",
+        "description": "RAG/索引工具链文档",
+        "group": "专题教程"
+      },
+      {
+        "id": "专题教程-pytorch-官方教程",
+        "title": "PyTorch 官方教程",
+        "url": "https://pytorch.org/tutorials/",
+        "link": "https://pytorch.org/tutorials/",
+        "description": "PyTorch官方教程，从基础到高级应用的全面指南",
+        "group": "专题教程"
+      },
+      {
+        "id": "专题教程-tensorflow-官方教程",
+        "title": "TensorFlow 官方教程",
+        "url": "https://www.tensorflow.org/tutorials",
+        "link": "https://www.tensorflow.org/tutorials",
+        "description": "TensorFlow学习资源",
+        "group": "专题教程"
+      },
+      {
+        "id": "学习路线与资源-ai-学习路线-(roadmap.sh)",
+        "title": "AI 学习路线 (roadmap.sh)",
+        "url": "https://roadmap.sh/ai-data-scientist",
+        "link": "https://roadmap.sh/ai-data-scientist",
+        "description": "结构清晰的AI与数据科学家学习路线图",
+        "group": "学习路线与资源"
+      },
+      {
+        "id": "学习路线与资源-ml/dl-papers-reading-list",
+        "title": "ML/DL Papers Reading List",
+        "url": "https://github.com/mli/paper-reading",
+        "link": "https://github.com/mli/paper-reading",
+        "description": "机器学习/深度学习经典论文阅读清单",
+        "group": "学习路线与资源"
+      },
+      {
+        "id": "学习路线与资源-awesome-llm",
+        "title": "Awesome LLM",
+        "url": "https://github.com/Hannibal046/Awesome-LLM",
+        "link": "https://github.com/Hannibal046/Awesome-LLM",
+        "description": "LLM 资源汇总，非常全面",
+        "group": "学习路线与资源"
+      },
+      {
+        "id": "学习路线与资源-动手学ai",
+        "title": "动手学AI",
+        "url": "https://www.showmeai.tech/",
+        "link": "https://www.showmeai.tech/",
+        "description": "国内资源，图解AI模型和学习路径",
+        "group": "学习路线与资源"
+      }
+    ]
+  },
+  {
+    "id": "prompts",
+    "title": "Prompt 工程",
+    "description": "收录常用 Prompt 模板、技巧与集合",
+    "items": [
+      {
+        "id": "prompt 指南-prompt-engineering-guide",
+        "title": "Prompt Engineering Guide",
+        "url": "https://www.promptingguide.ai/zh",
+        "link": "https://www.promptingguide.ai/zh",
+        "description": "全面的提示工程指南（中文版）",
+        "group": "Prompt 指南"
+      },
+      {
+        "id": "prompt 指南-chatgpt-prompt-engineering-for-developers",
+        "title": "ChatGPT Prompt Engineering for Developers",
+        "url": "https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/",
+        "link": "https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/",
+        "description": "吴恩达与OpenAI官方合作的课程",
+        "group": "Prompt 指南"
+      },
+      {
+        "id": "prompt 指南-learning-prompt",
+        "title": "Learning Prompt",
+        "url": "https://learningprompt.wiki/",
+        "link": "https://learningprompt.wiki/",
+        "description": "国内社区维护的提示词学习站",
+        "group": "Prompt 指南"
+      },
+      {
+        "id": "prompt 指南-midjourney-提示词指南",
+        "title": "Midjourney 提示词指南",
+        "url": "https://docs.midjourney.com/docs/prompts",
+        "link": "https://docs.midjourney.com/docs/prompts",
+        "description": "Midjourney官方文档，讲解提示词的构图、风格等",
+        "group": "Prompt 指南"
+      },
+      {
+        "id": "prompt 集合-awesome-chatgpt-prompts",
+        "title": "Awesome ChatGPT Prompts",
+        "url": "https://github.com/f/awesome-chatgpt-prompts",
+        "link": "https://github.com/f/awesome-chatgpt-prompts",
+        "description": "GitHub上最受欢迎的ChatGPT提示集合",
+        "group": "Prompt 集合"
+      },
+      {
+        "id": "prompt 集合-炼丹笔记-(flowgpt)",
+        "title": "炼丹笔记 (FlowGPT)",
+        "url": "https://flowgpt.com/prompt",
+        "link": "https://flowgpt.com/prompt",
+        "description": "社区分享的各类实用Prompt案例",
+        "group": "Prompt 集合"
+      }
+    ]
+  },
+  {
+    "id": "resources",
+    "title": "社区资源",
+    "description": "收录高质量 AI 资讯、社区与论文链接",
+    "items": [
+      {
+        "id": "科研与论文-arxiv",
+        "title": "arXiv",
+        "url": "https://arxiv.org/",
+        "link": "https://arxiv.org/",
+        "description": "预印本论文平台，AI领域最新研究的首发地",
+        "group": "科研与论文"
+      },
+      {
+        "id": "科研与论文-papers-with-code",
+        "title": "Papers with Code",
+        "url": "https://paperswithcode.com/",
+        "link": "https://paperswithcode.com/",
+        "description": "将论文与开源代码实现相结合",
+        "group": "科研与论文"
+      },
+      {
+        "id": "科研与论文-google-scholar",
+        "title": "Google Scholar",
+        "url": "https://scholar.google.com/",
+        "link": "https://scholar.google.com/",
+        "description": "学术文献搜索引擎",
+        "group": "科研与论文"
+      },
+      {
+        "id": "模型与社区-hugging-face",
+        "title": "Hugging Face",
+        "url": "https://huggingface.co/",
+        "link": "https://huggingface.co/",
+        "description": "最大的开源AI模型与数据集社区",
+        "group": "模型与社区"
+      },
+      {
+        "id": "模型与社区-kaggle",
+        "title": "Kaggle",
+        "url": "https://www.kaggle.com/",
+        "link": "https://www.kaggle.com/",
+        "description": "数据科学与机器学习竞赛平台",
+        "group": "模型与社区"
+      },
+      {
+        "id": "模型与社区-modelscope-(魔搭社区)",
+        "title": "ModelScope (魔搭社区)",
+        "url": "https://modelscope.cn/home",
+        "link": "https://modelscope.cn/home",
+        "description": "阿里巴巴牵头的国内AI模型社区",
+        "group": "模型与社区"
+      },
+      {
+        "id": "模型与社区-replicate",
+        "title": "Replicate",
+        "url": "https://replicate.com/",
+        "link": "https://replicate.com/",
+        "description": "通过API运行开源机器学习模型的平台",
+        "group": "模型与社区"
+      },
+      {
+        "id": "行业资讯-openai-blog",
+        "title": "OpenAI Blog",
+        "url": "https://openai.com/blog",
+        "link": "https://openai.com/blog",
+        "description": "OpenAI 官方博客，发布最新研究和产品更新",
+        "group": "行业资讯"
+      },
+      {
+        "id": "行业资讯-google-ai-blog",
+        "title": "Google AI Blog",
+        "url": "https://ai.google/blog/",
+        "link": "https://ai.google/blog/",
+        "description": "谷歌AI官方博客",
+        "group": "行业资讯"
+      },
+      {
+        "id": "行业资讯-机器之心",
+        "title": "机器之心",
+        "url": "https://www.jiqizhixin.com/",
+        "link": "https://www.jiqizhixin.com/",
+        "description": "国内领先的AI媒体和信息服务平台",
+        "group": "行业资讯"
+      },
+      {
+        "id": "行业资讯-量子位",
+        "title": "量子位",
+        "url": "https://www.qbitai.com/",
+        "link": "https://www.qbitai.com/",
+        "description": "国内知名的AI科技媒体",
+        "group": "行业资讯"
+      }
+    ]
+  },
+  {
+    "id": "tools",
+    "title": "AI 工具导航",
+    "description": "精选 AI 工具与站点，分类维护",
+    "items": [
+      {
+        "id": "通用模型-chatgpt",
+        "title": "ChatGPT",
+        "url": "https://chat.openai.com/",
+        "link": "https://chat.openai.com/",
+        "description": "通用对话、办公、编程",
+        "group": "通用模型"
+      },
+      {
+        "id": "通用模型-gemini",
+        "title": "Gemini",
+        "url": "https://gemini.google.com/",
+        "link": "https://gemini.google.com/",
+        "description": "谷歌通用大模型",
+        "group": "通用模型"
+      },
+      {
+        "id": "通用模型-claude",
+        "title": "Claude",
+        "url": "https://claude.ai/",
+        "link": "https://claude.ai/",
+        "description": "Anthropic 出品的通用大模型",
+        "group": "通用模型"
+      },
+      {
+        "id": "通用模型-文心一言",
+        "title": "文心一言",
+        "url": "https://yiyan.baidu.com/",
+        "link": "https://yiyan.baidu.com/",
+        "description": "百度出品的通用大模型",
+        "group": "通用模型"
+      },
+      {
+        "id": "通用模型-豆包",
+        "title": "豆包",
+        "url": "https://www.doubao.com/",
+        "link": "https://www.doubao.com/",
+        "description": "字节跳动出品的通用大模型",
+        "group": "通用模型"
+      },
+      {
+        "id": "通用模型-通义千问",
+        "title": "通义千问",
+        "url": "https://tongyi.aliyun.com/",
+        "link": "https://tongyi.aliyun.com/",
+        "description": "阿里巴巴出品的通用大模型",
+        "group": "通用模型"
+      },
+      {
+        "id": "通用模型-kimi-chat",
+        "title": "Kimi Chat",
+        "url": "https://kimi.moonshot.cn/",
+        "link": "https://kimi.moonshot.cn/",
+        "description": "月之暗面出品，擅长长文本处理",
+        "group": "通用模型"
+      },
+      {
+        "id": "ai 绘画-midjourney",
+        "title": "Midjourney",
+        "url": "https://www.midjourney.com/",
+        "link": "https://www.midjourney.com/",
+        "description": "艺术风格、高质量图像生成",
+        "group": "AI 绘画"
+      },
+      {
+        "id": "ai 绘画-stable-diffusion",
+        "title": "Stable Diffusion",
+        "url": "https://stability.ai/",
+        "link": "https://stability.ai/",
+        "description": "开源、可定制化模型",
+        "group": "AI 绘画"
+      },
+      {
+        "id": "ai 绘画-dall-e-3",
+        "title": "DALL-E 3",
+        "url": "https://openai.com/dall-e-3",
+        "link": "https://openai.com/dall-e-3",
+        "description": "OpenAI 出品，集成于ChatGPT",
+        "group": "AI 绘画"
+      },
+      {
+        "id": "ai 绘画-leonardo.ai",
+        "title": "Leonardo.Ai",
+        "url": "https://leonardo.ai/",
+        "link": "https://leonardo.ai/",
+        "description": "游戏资产、艺术品生成平台",
+        "group": "AI 绘画"
+      },
+      {
+        "id": "ai 绘画-comfyui",
+        "title": "ComfyUI",
+        "url": "https://github.com/comfyanonymous/ComfyUI",
+        "link": "https://github.com/comfyanonymous/ComfyUI",
+        "description": "强大的 Stable Diffusion 图形化界面和流程编排工具",
+        "group": "AI 绘画"
+      },
+      {
+        "id": "ai 视频-runway",
+        "title": "Runway",
+        "url": "https://runwayml.com/",
+        "link": "https://runwayml.com/",
+        "description": "AI 视频编辑、生成与处理工具",
+        "group": "AI 视频"
+      },
+      {
+        "id": "ai 视频-pika",
+        "title": "Pika",
+        "url": "https://pika.art/",
+        "link": "https://pika.art/",
+        "description": "强大的文生视频、图生视频平台",
+        "group": "AI 视频"
+      },
+      {
+        "id": "ai 视频-sora",
+        "title": "Sora",
+        "url": "https://openai.com/sora",
+        "link": "https://openai.com/sora",
+        "description": "OpenAI 出品，目前最顶尖的文生视频模型（暂未开放）",
+        "group": "AI 视频"
+      },
+      {
+        "id": "ai 视频-heygen",
+        "title": "HeyGen",
+        "url": "https://www.heygen.com/",
+        "link": "https://www.heygen.com/",
+        "description": "AI 数字人与视频翻译工具",
+        "group": "AI 视频"
+      },
+      {
+        "id": "ai 编程-github-copilot",
+        "title": "GitHub Copilot",
+        "url": "https://github.com/features/copilot",
+        "link": "https://github.com/features/copilot",
+        "description": "实时代码补全与建议",
+        "group": "AI 编程"
+      },
+      {
+        "id": "ai 编程-cursor",
+        "title": "Cursor",
+        "url": "https://cursor.sh/",
+        "link": "https://cursor.sh/",
+        "description": "AI 优先的代码编辑器",
+        "group": "AI 编程"
+      },
+      {
+        "id": "ai 编程-v0-by-vercel",
+        "title": "v0 by Vercel",
+        "url": "https://v0.dev/",
+        "link": "https://v0.dev/",
+        "description": "通过文本生成前端UI组件",
+        "group": "AI 编程"
+      },
+      {
+        "id": "ai 编程-codeium",
+        "title": "Codeium",
+        "url": "https://codeium.com/",
+        "link": "https://codeium.com/",
+        "description": "免费的AI代码补全工具",
+        "group": "AI 编程"
+      },
+      {
+        "id": "ai 效率-notion-ai",
+        "title": "Notion AI",
+        "url": "https://www.notion.so/product/ai",
+        "link": "https://www.notion.so/product/ai",
+        "description": "笔记、文档与写作助手",
+        "group": "AI 效率"
+      },
+      {
+        "id": "ai 效率-gamma",
+        "title": "Gamma",
+        "url": "https://gamma.app/",
+        "link": "https://gamma.app/",
+        "description": "AI 驱动的演示文稿（PPT）生成器",
+        "group": "AI 效率"
+      },
+      {
+        "id": "ai 效率-tome",
+        "title": "Tome",
+        "url": "https://tome.app/",
+        "link": "https://tome.app/",
+        "description": "AI 故事叙述与演示文稿生成",
+        "group": "AI 效率"
+      }
+    ]
+  }
+]

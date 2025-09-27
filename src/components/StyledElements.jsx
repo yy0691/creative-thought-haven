@@ -1,13 +1,13 @@
 import React from 'react';
 
-export const ColoredSpan = ({ color, children }) => (
-  <span style={{ color }}>
+export const ColoredSpan = ({ color, children, ...props }) => (
+  <span style={{ color }} {...props}>
     {children}
   </span>
 );
 
-export const HighlightedMark = ({ bgColor, children }) => (
-  <mark style={{ backgroundColor: bgColor }}>
+export const HighlightedMark = ({ bgColor, style, children, ...props }) => (
+  <mark style={{ backgroundColor: bgColor, ...style }} {...props}>
     {children}
   </mark>
 );

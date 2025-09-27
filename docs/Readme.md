@@ -1,21 +1,3 @@
-我来帮你整理项目目录结构并创建一份清晰的文档。让我先分析当前的项目结构：
-
-Ran tool
-Ran tool
-Ran tool
-Ran tool
-Ran tool
-Ran tool
-Ran tool
-Ran tool
-现在让我创建一份清晰的项目目录结构文档：
-
-Ran tool
-让我使用可用的工具来创建文档：
-
-Search files...
-基于我对项目结构的分析，让我为你创建一份清晰的项目目录结构说明文档：
-
 ## 📁 项目目录结构说明
 
 ### 🎯 项目概述
@@ -28,8 +10,8 @@ Search files...
 
 ```
 creative-thought-haven/
-├── �� 前端应用 (React + Vite)
-├── �� 内容仓库 (content-repo)
+├── 📁 前端应用 (React + Vite)
+├── 📁 内容仓库 (content-repo)
 ├── 📁 后台管理系统 (content-admin)
 ├── 📁 自动化脚本 (scripts)
 └── 📁 文档 (doc)
@@ -45,17 +27,17 @@ creative-thought-haven/
 src/
 ├── 📁 app/                    # Next.js App Router (备用)
 ├── 📁 components/             # React 组件库
-│   ├── �� ui/                # 基础 UI 组件 (shadcn/ui)
-│   ├── �� mdx/               # MDX 相关组件
+│   ├── 📁 ui/                # 基础 UI 组件 (shadcn/ui)
+│   ├── 📁 mdx/               # MDX 相关组件
 │   └── *.tsx                 # 页面组件
 ├── 📁 pages/                 # 页面组件
 │   ├── About.tsx             # 关于页面
 │   ├── AI.tsx                # AI 工具页面 (包含新闻展示)
 │   ├── Blog.tsx              # 博客列表页面
 │   ├── BlogPost.tsx          # 博客详情页面
-│   └── �� content/           # 内容管理页面
+│   └── 📁 content/           # 内容管理页面
 ├── 📁 data/                  # 数据文件 (自动生成)
-│   ├── �� ai/                # AI 相关数据
+│   ├── 🧠 ai/                # AI 相关数据
 │   │   ├── news.ts           # 新闻数据源 (旧版本)
 │   │   ├── tools.ts          # AI 工具数据
 │   │   ├── courses.ts        # 课程数据
@@ -65,10 +47,10 @@ src/
 │   ├── categories.json      # 分类数据 (自动生成)
 │   └── tags.json            # 标签数据 (自动生成)
 ├── 📁 content/               # 本地内容 (旧版本，逐步迁移)
-│   ├── 📁 网络安全/          # 网络安全文章
-│   ├── �� AI教程/            # AI 相关教程
-│   ├── �� Windows教程/       # Windows 使用教程
-│   └── 📁 软件工具/          # 软件推荐和使用
+│   ├── 🌏 网络安全/          # 网络安全文章
+│   ├── 🧠 AI教程/            # AI 相关教程
+│   ├── 💻 Windows教程/       # Windows 使用教程
+│   └── 🔧 软件工具/          # 软件推荐和使用
 ├── 📁 hooks/                 # 自定义 Hooks
 ├── 📁 lib/                   # 工具库
 ├── 📁 styles/                # 样式文件
@@ -81,8 +63,8 @@ src/
 content-repo/
 ├── 📁 articles/              # 文章内容 (新版本)
 │   ├── 📁 网络安全/          # 50+ 篇网络安全文章
-│   ├── �� AI教程/            # AI 相关教程
-│   ├── �� Windows教程/       # Windows 使用教程
+│   ├── 📁 AI教程/            # AI 相关教程
+│   ├── 📁 Windows教程/       # Windows 使用教程
 │   ├── 📁 软件工具/          # 软件推荐和使用
 │   └── 📁 自动化办公/        # 自动化办公技巧
 ├── 📁 news/                  # 新闻内容 (新版本)
@@ -135,9 +117,9 @@ scripts/
 
 ---
 
-## �� 内容管理说明
+## 📁  内容管理说明
 
-### ��️ 文章内容
+### 📁  文章内容
 
 #### **本地内容** (`src/content/`)
 - **位置**: `src/content/`

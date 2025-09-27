@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { projects } from '../content/projects';
+import { useProjects } from '../hooks/useContent';
 import { videoMeta } from '../content/videos';
 
 type Category = 'all' | 'tutorial' | 'demo' | 'showcase';
@@ -7,6 +7,7 @@ type Category = 'all' | 'tutorial' | 'demo' | 'showcase';
 const Videos = () => {
   const [category, setCategory] = useState<Category>('all');
   const [searchQuery, setSearchQuery] = useState('');
+  const { projects } = useProjects();
 
   // 过滤有视频的项目
   const videoPosts = projects.filter(project => project.videoUrl);
@@ -66,7 +67,7 @@ const Videos = () => {
               <div key={project.id} className="glass rounded-lg overflow-hidden card-hover">
                 <div className="aspect-video bg-gradient-to-br from-primary/5 to-primary/10 relative">
                   <img 
-                    src={project.thumbnail} 
+                    src={project.coverImage || ''} 
                     alt={project.title}
                     className="w-full h-full object-cover"
                   />

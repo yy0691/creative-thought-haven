@@ -1,0 +1,53 @@
+---
+title: "HTML标签渲染测试"
+date: "2024-01-01"
+excerpt: "测试MDX中HTML标签的渲染效果"
+tags: ["测试", "HTML", "MDX"]
+category: "测试"
+---
+
+# HTML标签渲染测试
+
+这是一个测试文件，用来验证MDX中HTML标签的渲染效果。
+
+## Mark标签测试
+
+<mark style={{"backgroundColor": "#C7D5F6"}}>这是一个带有蓝色背景的高亮文本</mark>
+
+<mark style={{"backgroundColor": "#FFE4B5"}}>这是一个带有黄色背景的高亮文本</mark>
+
+<mark style={{"backgroundColor": "#FFB6C1"}}>这是一个带有粉色背景的高亮文本</mark>
+
+## Span标签测试
+
+<span style={{"color": "#FF6B6B", "fontWeight": "bold"}}>这是红色粗体文本</span>
+
+<span style={{"color": "#4ECDC4", "fontStyle": "italic"}}>这是青色斜体文本</span>
+
+## Div标签测试
+
+<div style={{"padding": "16px", "backgroundColor": "#F0F8FF", "border": "1px solid #B0E0E6", "borderRadius": "8px", "margin": "16px 0"}}>
+这是一个带有样式的div容器，包含了内边距、背景色、边框和圆角。
+</div>
+
+## 混合使用测试
+
+<div style={{"backgroundColor": "#FFF8DC", "padding": "12px", "borderLeft": "4px solid #FFD700"}}>
+  <mark style={{"backgroundColor": "#FFFF00"}}>重要提示：</mark> 
+  <span style={{"color": "#8B4513", "fontWeight": "bold"}}>这里展示了多个HTML标签的组合使用效果。</span>
+</div>
+
+## 普通Markdown内容
+
+这是普通的Markdown文本，应该正常渲染。
+
+- 列表项1
+- 列表项2
+- 列表项3
+
+**粗体文本** 和 *斜体文本*
+
+```javascript
+// 代码块测试
+console.log("Hello, World!");
+```

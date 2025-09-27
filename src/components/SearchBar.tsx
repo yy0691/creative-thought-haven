@@ -3,7 +3,7 @@ import { Search } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { getAllPosts } from '../lib/blog';
 import { getAllProjects } from '../lib/projects';
-import { designs } from '../content/designs';
+import { useDesigns } from '../hooks/useContent';
 
 interface SearchResult {
   type: 'blog' | 'project' | 'design';
@@ -19,6 +19,7 @@ const SearchBar = () => {
   const [results, setResults] = useState<SearchResult[]>([]);
   const searchRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+  const { designs } = useDesigns();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -43,7 +44,7 @@ const SearchBar = () => {
     // 搜索博客文章
     const posts = await getAllPosts();
     const blogResults = posts
-      .filter(post => 
+      .filter(post =>
         post.title.toLowerCase().includes(searchTerm) ||
         post.description?.toLowerCase().includes(searchTerm) ||
         post.excerpt?.toLowerCase().includes(searchTerm) ||
@@ -72,7 +73,7 @@ const SearchBar = () => {
         url: `/portfolio/${project.slug}`
       }));
 
-    // 搜索设计作品
+    // 搜索设计作品（从生成数据）
     const designResults = designs
       .filter(design =>
         design.title.toLowerCase().includes(searchTerm) ||

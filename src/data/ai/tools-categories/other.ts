@@ -1,7 +1,7 @@
 import { CardItem } from '../types';
-import { AstrBot } from '../update0415/AstrBot';
-import { DeepChat } from '../update0415/DeepChat';
-import { OpenAICPOKevinWeil } from '../update0415/OpenAICPOKevin Weil';
+import { AstrBot } from '../../../../content/news/待整理/update0415/AstrBot';
+import { DeepChat } from '../../../../content/news/待整理/update0415/DeepChat';
+import { OpenAICPOKevinWeil } from '../../../../content/news/待整理/update0415/OpenAICPOKevin Weil';
 
 export const otherTools: CardItem[] = [
   {
