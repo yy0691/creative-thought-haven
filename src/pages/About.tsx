@@ -37,9 +37,10 @@ const About = () => {
         <section className="space-y-4">
           <h2 className="text-2xl md:text-3xl font-semibold bg-gradient-to-r from-primary/80 to-primary bg-clip-text text-transparent">你好！</h2>
           <p className="text-base text-muted-foreground leading-relaxed dark:text-gray-300">
-            👨‍💻 热爱把技术转化为实用工具的产品经理<br />
-            🐍 擅长用Python打造自动化工具，提升工作效率<br />
-            🔍 关注技术如何解决实际业务问题
+            👨‍💻 热爱把技术转化为实用工具的产品经理，拥有[X年]相关经验<br />
+            🐍 擅长用Python打造自动化工具，已开发[X]个提升工作效率的实用工具<br />
+            🔍 关注技术如何解决实际业务问题，曾主导[具体项目]等多个成功案例
+            💡 持续学习新技术，最近专注于AI工具的应用与创新
           </p>
         </section>
 

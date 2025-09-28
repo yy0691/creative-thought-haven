@@ -219,14 +219,14 @@ const SmallCard = ({
         loading="lazy"
         src={getFaviconUrl(item.link)} 
         alt={`${item.title} favicon`} 
-        className={`${compact ? 'w-6 h-6 mt-0.5' : 'w-7 h-7 mt-0.5'} flex-shrink-0`} 
+        className={`${compact ? 'w-8 h-8 mt-0.5' : 'w-7 h-7 mt-0.5'} flex-shrink-0`} 
       />
       <div className="flex-1 min-w-0">
         <div className="flex justify-between items-start">
-          <div className="flex items-center gap-2 min-w-0">
-            <H5 className="text-gray-900 dark:text-white group-hover:text-primary truncate">
+          <div className="flex items-center gap-1 min-w-0">
+            <H6 className="text-gray-900 dark:text-white group-hover:text-primary truncate">
               {item.title}
-            </H5>
+            </H6>
             {showBadges && (
               <div className="flex gap-1 shrink-0">
                 {isNew(item) && <span className="px-1.5 py-0.5 text-[10px] rounded bg-green-100 text-green-700">New</span>}
@@ -982,10 +982,10 @@ const AI = () => {
       {/* 侧边栏 - 桌面版 */}
       <aside className="hidden lg:block w-[200px] min-h-screen bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700">
         <div className="p-4 border-b dark:border-gray-700">
-          <H3 className="text-gray-900 dark:text-white flex items-center">
+          <H4 className="text-gray-900 dark:text-white flex items-center">
             <LucideIcons.Brain size={20} className="mr-2 text-primary" />
             AI 资源中心
-          </H3>
+          </H4>
         </div>
         <nav className="py-4 overflow-y-auto max-h-[calc(100vh-4rem)]">
           {tabCategories.map(cat => (
