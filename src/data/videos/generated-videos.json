@@ -7,6 +7,6 @@
     "publishDate": "2025-01-01",
     "videoUrl": "https://www.youtube.com/watch?v=...",
     "coverImage": "/images/videos/cover.png",
-    "content": "\r\n视频相关说明。"
+    "content": "\n视频相关说明。"
   }
 ]

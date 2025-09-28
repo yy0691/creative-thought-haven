@@ -1,19 +1,15 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import SEO from '../components/SEO';
 import * as LucideIcons from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { aiMenuEventBus } from '../components/Navigation';
+import { motion, AnimatePresence } from 'framer-motion';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import MDXComponents from '../components/MDXComponents';
-import { motion, AnimatePresence } from 'framer-motion';
-import { CardImage } from '../components/CardImage';
-import { TableOfContents } from '../components/TableOfContents';
 
 // Data Imports
 import generatedSections from '../data/ai/generated-ai-sections.json';
-// FIX: Import the actual news data from the generated JSON file.
 import generatedNews from '../data/ai/generated-news.json';
+import { H1, H2, H3, H4, H5, H6 } from '../components/ui/Heading';
 
 // --- Type Definition ---
 interface CardItem {
@@ -21,237 +17,1071 @@ interface CardItem {
   title: string;
   description: string;
   link: string;
-  group?: string; // Added to support sub-category grouping
+  group?: string;
   date?: string;
   image?: string;
   author?: string;
   content?: string;
-  // Other properties can be added here if needed
-  [key: string]: any; 
+  scene?: string; // 新增：场景标签（如"职场效率"、"创作辅助"）
+  [key: string]: any;
 }
 
-// --- Data Hooks ---
+// --- 自定义Hooks：用户行为管理 ---
+const useUserBehavior = () => {
+  // 浏览历史（最多10条）
+  const [history, setHistory] = useState<CardItem[]>(() => {
+    const stored = localStorage.getItem('aiBrowseHistory');
+    return stored ? JSON.parse(stored) : [];
+  });
 
-// FIX: The useNews hook now loads, sorts, and formats data from generated-news.json.
+  // 收藏列表
+  const [favorites, setFavorites] = useState<CardItem[]>(() => {
+    const stored = localStorage.getItem('aiFavorites');
+    return stored ? JSON.parse(stored) : [];
+  });
+
+  // 稍后读列表
+  const [laterRead, setLaterRead] = useState<CardItem[]>(() => {
+    const stored = localStorage.getItem('aiLaterRead');
+    return stored ? JSON.parse(stored) : [];
+  });
+
+  // 保存浏览记录
+  const addToHistory = (item: CardItem) => {
+    setHistory(prev => {
+      // 去重并保持最新在前
+      const newHistory = [item, ...prev.filter(i => i.id !== item.id)].slice(0, 10);
+      localStorage.setItem('aiBrowseHistory', JSON.stringify(newHistory));
+      return newHistory;
+    });
+  };
+
+  // 切换收藏状态
+  const toggleFavorite = (item: CardItem) => {
+    setFavorites(prev => {
+      const isFavorite = prev.some(i => i.id === item.id);
+      const newFavorites = isFavorite 
+        ? prev.filter(i => i.id !== item.id)
+        : [item, ...prev];
+      localStorage.setItem('aiFavorites', JSON.stringify(newFavorites));
+      return newFavorites;
+    });
+  };
+
+  // 切换稍后读状态
+  const toggleLaterRead = (item: CardItem) => {
+    setLaterRead(prev => {
+      const exists = prev.some(i => i.id === item.id);
+      const next = exists ? prev.filter(i => i.id !== item.id) : [item, ...prev];
+      localStorage.setItem('aiLaterRead', JSON.stringify(next));
+      return next;
+    });
+  };
+
+  return { history, favorites, laterRead, addToHistory, toggleFavorite, toggleLaterRead };
+};
+
+// --- Data Hooks ---
 const useNews = () => {
   const newsData = useMemo(() => {
-    return [...generatedNews]
-      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-      .map((item) => ({
-        ...item,
-        // Ensure date is formatted nicely if needed, here we just pass it through
-        date: new Date(item.date).toLocaleDateString('en-CA'), // YYYY-MM-DD format
-      }));
+    return generatedNews.map((item) => ({
+      ...item,
+      date: new Date(item.date).toLocaleDateString('en-CA'),
+      scene: "行业动态" // 为新闻添加默认场景
+    }));
   }, []);
-  
-  const isLoadingNews = false;
-  const newsError = null;
-  return { newsData, isLoadingNews, newsError };
+  return { newsData };
 };
 
 const useAISections = () => {
-    const aiSections = (generatedSections as any[]) || [];
-    return { aiSections };
+  // 为AI工具添加场景分类
+  const aiSections = useMemo(() => {
+    return (generatedSections as unknown as CardItem[]).map(section => {
+      // 场景映射：根据工具类型自动分配场景
+      const sceneMap: Record<string, string> = {
+        "写作": "创作辅助",
+        "图像": "设计创作",
+        "数据分析": "职场效率",
+        "学习": "学习提升",
+        "编程": "开发工具"
+      };
+      return {
+        ...section,
+        items: (section as any).items.map((item: CardItem) => ({
+          ...item,
+          scene: sceneMap[section.title] || "综合工具"
+        }))
+      };
+    });
+  }, []);
+  return { aiSections };
 };
-
 
 // --- Helper Functions ---
-const getDomainFromUrl = (url?: string): string | null => {
-  if (!url) return null;
-  try { return new URL(url).hostname; } 
-  catch { return null; }
+const getFaviconUrl = (url?: string): string => {
+  if (!url) return 'https://via.placeholder.com/32';
+  try {
+    const host = new URL(url).hostname;
+    return `https://icons.duckduckgo.com/ip3/${host}.ico`;
+  } catch {
+    return 'https://via.placeholder.com/32';
+  }
 };
 
-const getFaviconUrl = (url?: string): string => {
-  const host = getDomainFromUrl(url);
-  if (!host) return 'https://via.placeholder.com/32'; // Placeholder for invalid URLs
-  return `https://icons.duckduckgo.com/ip3/${host}.ico`;
+// ✨ Badge helpers
+const isNew = (item: CardItem) => {
+  if (!item.date) return false;
+  const now = new Date();
+  const d = new Date(item.date);
+  const diff = (now.getTime() - d.getTime()) / (1000 * 3600 * 24);
+  return !isNaN(d.getTime()) && diff <= 7;
 };
+
+const isTrending = (item: CardItem, history: CardItem[], favorites: CardItem[]) => {
+  const inFav = favorites.some(f => f.id === item.id);
+  const inHist = history.some(h => h.id === item.id);
+  const veryRecent = (() => {
+    if (!item.date) return false;
+    const d = new Date(item.date);
+    const diff = (Date.now() - d.getTime()) / (1000 * 3600 * 24);
+    return !isNaN(d.getTime()) && diff <= 3;
+  })();
+  return inFav || (inHist && veryRecent) || veryRecent;
+};
+
+// 筛选相关推荐内容（改为打分排序）
+const getRecommendedItems = (history: CardItem[], allItems: CardItem[], favorites: CardItem[], interests: string[]): CardItem[] => {
+  if (history.length === 0 && favorites.length === 0) return [];
+  const historyScenes = new Set(history.map(i => i.scene));
+  const favoriteScenes = new Set(favorites.map(i => i.scene));
+  const interestScenes = new Set((interests || []).filter(Boolean));
+
+  const scored = allItems
+    .filter(item => !history.some(h => h.id === item.id))
+    .map(item => {
+      let score = 0;
+      if (historyScenes.has(item.scene)) score += 2;
+      if (favoriteScenes.has(item.scene)) score += 2.5;
+      if (interestScenes.has(item.scene)) score += 2;
+      if (favorites.some(f => f.id === item.id)) score += 3;
+      if (item.date) {
+        const d = new Date(item.date);
+        if (!isNaN(d.getTime())) {
+          const days = (Date.now() - d.getTime()) / (1000 * 3600 * 24);
+          score += Math.max(0, 3 - days * 0.5); // 越新分越高
+        }
+      }
+      return { item, score };
+    })
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 6)
+    .map(s => s.item);
+
+  return scored;
+};
+
+// 获取热门内容
+const getHotItems = (allItems: CardItem[]): CardItem[] => {
+  // 简单模拟热门排序（可替换为真实热度数据）
+  return [...allItems].sort(() => Math.random() - 0.5).slice(0, 4);
+};
+
+// ✨ NEW: Helper function to create URL-friendly IDs for anchor links
+const slugify = (text: string) => text.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
 
 
 // --- UI Components ---
-const SmallCard = ({ item }: { item: CardItem }) => (
-  <a 
-    href={item.link}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="p-4 border bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 rounded-lg hover:shadow-lg hover:-translate-y-1 transition-all duration-200 group flex items-start gap-4"
-  >
-    <img src={getFaviconUrl(item.link)} alt={`${item.title} favicon`} className="w-8 h-8 mt-1 flex-shrink-0" />
-    <div className="flex-1">
-        <h4 className="font-bold text-gray-900 dark:text-white group-hover:text-primary">{item.title}</h4>
-        <p className="text-sm text-gray-600 dark:text-gray-300 line-clamp-2">{item.description}</p>
-    </div>
-  </a>
-);
-
-const LargeCard = ({ item }: { item: CardItem }) => (
+const SmallCard = ({ 
+  item, 
+  onClick, 
+  favorites, 
+  toggleFavorite,
+  history,
+  showBadges,
+  compact
+}: { 
+  item: CardItem, 
+  onClick: () => void,
+  favorites: CardItem[],
+  toggleFavorite: (item: CardItem) => void,
+  history: CardItem[],
+  showBadges?: boolean,
+  compact?: boolean
+}) => {
+  const isFavorite = favorites.some(f => f.id === item.id);
+  
+  return (
     <div 
-        key={item.id} 
-        className="card rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 bg-white dark:bg-gray-800 overflow-hidden border border-gray-200 dark:border-gray-700 h-full"
+      onClick={onClick} 
+      className={`${compact ? 'p-2.5 gap-2.5' : 'p-3 gap-3'} border bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 rounded-lg hover:shadow-lg hover:-translate-y-1 transition-all duration-200 group flex items-start cursor-pointer transform hover:scale-[1.01] active:scale-[0.99]`}
     >
-        <div className="p-4 flex flex-col h-full">
-            {item.image && <img src={item.image} alt={item.title} className="w-full h-32 object-cover mb-4 rounded" />}
-            <h3 className="text-base font-semibold text-gray-900 dark:text-white mb-2 line-clamp-2">
-                {item.title}
-            </h3>
-            <p className="text-sm text-gray-600 dark:text-gray-300 line-clamp-3 flex-grow">
-                {item.description}
-            </p>
-            <div className="pt-3 mt-auto border-t border-gray-100 dark:border-gray-700/50 w-full flex justify-between items-center">
-                <span className="text-xs text-gray-500">{item.date}</span>
-                <a 
-                    href={item.link} 
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center text-primary hover:text-primary-dark text-xs whitespace-nowrap"
-                >
-                    Learn More <LucideIcons.ChevronRight size={14} className="ml-1" />
-                </a>
-            </div>
+      <img 
+        loading="lazy"
+        src={getFaviconUrl(item.link)} 
+        alt={`${item.title} favicon`} 
+        className={`${compact ? 'w-6 h-6 mt-0.5' : 'w-7 h-7 mt-0.5'} flex-shrink-0`} 
+      />
+      <div className="flex-1 min-w-0">
+        <div className="flex justify-between items-start">
+          <div className="flex items-center gap-2 min-w-0">
+            <H5 className="text-gray-900 dark:text-white group-hover:text-primary truncate">
+              {item.title}
+            </H5>
+            {showBadges && (
+              <div className="flex gap-1 shrink-0">
+                {isNew(item) && <span className="px-1.5 py-0.5 text-[10px] rounded bg-green-100 text-green-700">New</span>}
+                {isTrending(item, history, favorites) && <span className="px-1.5 py-0.5 text-[10px] rounded bg-red-100 text-red-700">Hot</span>}
+              </div>
+            )}
+          </div>
+          <button 
+            onClick={(e) => {
+              e.stopPropagation();
+              toggleFavorite(item);
+            }}
+            className="text-gray-400 hover:text-yellow-500 transition-transform transition-colors active:scale-90"
+          >
+            {isFavorite ? <LucideIcons.Star size={16} fill="currentColor" /> : <LucideIcons.Star size={16} />}
+          </button>
         </div>
+        <p className={`${compact ? 'text-[12px]' : 'text-[13px]'} sm:text-sm text-gray-600 dark:text-gray-300 line-clamp-2 mt-0.5`}>
+          {item.description}
+        </p>
+        <span className="inline-block mt-1.5 text-[11px] sm:text-xs px-2 py-0.5 bg-primary/10 text-primary rounded-full self-start">
+          {item.scene}
+        </span>
+      </div>
     </div>
-);
+  );
+};
 
+// 大卡片
+const LargeCard = ({ 
+  item, 
+  onClick, 
+  favorites, 
+  toggleFavorite,
+  history,
+  showBadges,
+  compact
+}: { 
+  item: CardItem, 
+  onClick: () => void,
+  favorites: CardItem[],
+  toggleFavorite: (item: CardItem) => void,
+  history: CardItem[],
+  showBadges?: boolean,
+  compact?: boolean
+}) => {
+  const isFavorite = favorites.some(f => f.id === item.id);
+  
+  return (
+    <div 
+      onClick={onClick} 
+      className="card rounded-xl shadow-sm hover:shadow-md transition-all duration-300 bg-white dark:bg-gray-800 overflow-hidden border border-gray-200 dark:border-gray-700 h-full cursor-pointer flex flex-col transform hover:-translate-y-1 hover:scale-[1.01] active:scale-[0.99]"
+    >
+      {item.image && (
+        <div className="relative aspect-[16/9] w-full">
+          <img loading="lazy" src={item.image} alt={item.title} className="absolute inset-0 w-full h-full object-cover" />
+          {showBadges && (
+            <div className="absolute top-2 left-2 flex gap-1">
+              {isNew(item) && <span className="px-2 py-0.5 text-xs rounded bg-green-100 text-green-700">New</span>}
+              {isTrending(item, history, favorites) && <span className="px-2 py-0.5 text-xs rounded bg-red-100 text-red-700">Hot</span>}
+            </div>
+          )}
+          <button 
+            onClick={(e) => {
+              e.stopPropagation();
+              toggleFavorite(item);
+            }}
+            className="absolute top-2 right-2 bg-white/80 dark:bg-gray-800/80 p-1.5 rounded-full text-gray-400 hover:text-yellow-500 transition-transform transition-colors active:scale-90 backdrop-blur-sm"
+          >
+            {isFavorite ? <LucideIcons.Star size={18} fill="currentColor" /> : <LucideIcons.Star size={18} />}
+          </button>
+        </div>
+      )}
+      <div className={`${compact ? 'p-2.5' : 'p-3'} flex flex-col flex-grow`}>
+        <H6 className={`${compact ? 'mb-1' : 'mb-1.5'} font-semibold line-clamp-2`}>
+          {item.title}
+        </H6>
+        <p className={`line-clamp-2 flex-grow ${compact ? 'text-[10px] sm:text-[12px]' : 'text-[12px] sm:text-[14px]'}`}>
+          {item.description}
+        </p>
+        {/* <span className="inline-block mt-2 text-[10px] sm:text-[12px] px-2 py-0.5 bg-primary/10 text-primary rounded-full">
+          {item.scene}
+        </span> */}
+        <div className={`${compact ? 'pt-2 mt-2.5' : 'pt-2.5 mt-3'} border-t border-gray-100 dark:border-gray-700/50 w-full flex justify-between items-center text-xs text-gray-500`}>
+          <span>{item.author}</span>
+          <span>{item.date}</span>
+        </div>
+      </div>
+    </div>
+  );
+};
 
+// 标签图标
 const TabIcon = ({ iconName }: { iconName: string }) => {
   const IconComponent = (LucideIcons as any)[iconName] || LucideIcons.HelpCircle;
   return <IconComponent size={16} />;
 };
 
+// Skeletons
+const SkeletonBar = ({ className = '' }: { className?: string }) => (
+  <div className={`animate-pulse bg-gray-200 dark:bg-gray-700 rounded ${className}`} />
+);
+
+const SkeletonSmallCard = () => (
+  <div className="p-4 border bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 rounded-lg">
+    <div className="flex items-start gap-4">
+      <SkeletonBar className="w-8 h-8 rounded" />
+      <div className="flex-1 min-w-0">
+        <SkeletonBar className="h-4 w-3/4 mb-2" />
+        <SkeletonBar className="h-3 w-full mb-1" />
+        <SkeletonBar className="h-3 w-5/6" />
+      </div>
+    </div>
+  </div>
+);
+
+const SkeletonLargeCard = () => (
+  <div className="card rounded-xl shadow-sm bg-white dark:bg-gray-800 overflow-hidden border border-gray-200 dark:border-gray-700 h-full">
+    <SkeletonBar className="w-full h-40" />
+    <div className="p-4">
+      <SkeletonBar className="h-5 w-4/5 mb-2" />
+      <SkeletonBar className="h-4 w-full mb-1" />
+      <SkeletonBar className="h-4 w-5/6" />
+      <div className="pt-3 mt-4 border-t border-gray-100 dark:border-gray-700/50 w-full flex justify-between items-center">
+        <SkeletonBar className="h-3 w-20" />
+        <SkeletonBar className="h-3 w-16" />
+      </div>
+    </div>
+  </div>
+);
+
+// 详情模态
+const DetailModal = ({ 
+  item, 
+  onClose,
+  toggleFavorite,
+  isFavorite,
+  toggleLaterRead,
+  inLaterRead,
+  addToCollection
+}: { 
+  item: CardItem | null, 
+  onClose: () => void,
+  toggleFavorite: (item: CardItem) => void,
+  isFavorite: boolean,
+  toggleLaterRead: (item: CardItem) => void,
+  inLaterRead: boolean,
+  addToCollection: (item: CardItem) => void
+}) => (
+  <AnimatePresence>
+    {item && (
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+        onClick={onClose}
+      >
+        <motion.div
+          initial={{ scale: 0.9, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          exit={{ scale: 0.9, opacity: 0 }}
+          onClick={(e) => e.stopPropagation()}
+          className="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-3xl max-h-[90vh] flex flex-col"
+        >
+          <header className="p-4 border-b dark:border-gray-700 flex justify-between items-center flex-shrink-0">
+            <H4>{item.title}</H4>
+            <div className="flex gap-2">
+              <button 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  toggleFavorite(item);
+                }}
+                className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-400 hover:text-yellow-500"
+              >
+                {isFavorite ? <LucideIcons.Star size={20} fill="currentColor" /> : <LucideIcons.Star size={20} />}
+              </button>
+              <button 
+                onClick={onClose} 
+                className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700"
+              >
+                <LucideIcons.X size={20} />
+              </button>
+            </div>
+          </header>
+          <main className="p-6 overflow-y-auto">
+            {item.image && (
+              <img 
+                loading="lazy"
+                src={item.image} 
+                alt={item.title} 
+                className="w-full h-64 object-cover rounded-lg mb-6" 
+              />
+            )}
+            <div className="prose dark:prose-invert max-w-none">
+              <ReactMarkdown remarkPlugins={[remarkGfm]} components={MDXComponents as any}>
+                {item.content || item.description}
+              </ReactMarkdown>
+            </div>
+          </main>
+          <footer className="p-4 border-t dark:border-gray-700 flex justify-end gap-3 flex-shrink-0">
+            <button 
+              onClick={() => {
+                navigator.clipboard.writeText(item.link);
+                alert('链接已复制');
+              }}
+              className="inline-flex items-center px-3 py-2 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+            >
+              复制链接 <LucideIcons.Clipboard size={16} className="ml-2" />
+            </button>
+            <button
+              onClick={() => {
+                const shareData = { title: item.title, text: item.description || item.title, url: item.link };
+                if (navigator.share) {
+                  navigator.share(shareData).catch(() => {/* no-op */});
+                } else {
+                  const text = encodeURIComponent(`${item.title} - ${item.link}`);
+                  window.open(`https://twitter.com/intent/tweet?text=${text}`, '_blank');
+                }
+              }}
+              className="inline-flex items-center px-3 py-2 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+            >
+              分享 <LucideIcons.Share2 size={16} className="ml-2" />
+            </button>
+            <button 
+              onClick={() => toggleLaterRead(item)}
+              className="inline-flex items-center px-3 py-2 bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 rounded-lg hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors"
+            >
+              {inLaterRead ? '移出稍后读' : '稍后读'} <LucideIcons.Bookmark size={16} className="ml-2" />
+            </button>
+            <button 
+              onClick={() => addToCollection(item)}
+              className="inline-flex items-center px-3 py-2 bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200 rounded-lg hover:bg-amber-200 dark:hover:bg-amber-800 transition-colors"
+            >
+              加入合集 <LucideIcons.FolderPlus size={16} className="ml-2" />
+            </button>
+            <a 
+              href={item.link} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="inline-flex items-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
+            >
+              访问原文 <LucideIcons.ExternalLink size={16} className="ml-2" />
+            </a>
+          </footer>
+        </motion.div>
+      </motion.div>
+    )}
+  </AnimatePresence>
+);
+
+// 轮播组件（多卡 per view）
+const Carousel = ({ items, renderItem }: { items: CardItem[], renderItem: (item: CardItem) => React.ReactNode }) => {
+  const [itemsPerView, setItemsPerView] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0);
+  const ref = useRef<HTMLDivElement>(null);
+
+  // 根据容器宽度动态计算 itemsPerView（更强自适应）
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const MIN_CARD_WIDTH = 320; // 目标卡片宽度（含左右间距），可按需微调
+    const ro = new (window as any).ResizeObserver((entries: any[]) => {
+      const width = entries[0]?.contentRect?.width || el.clientWidth || 0;
+      if (!width) return;
+      const per = Math.max(1, Math.min(5, Math.floor(width / MIN_CARD_WIDTH)));
+      setItemsPerView(per);
+    });
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
+  // 自动翻页（按页）并在 itemsPerView 变化时重置页码合法范围
+  useEffect(() => {
+    const totalPages = Math.max(1, Math.ceil(items.length / itemsPerView));
+    setCurrentPage(prev => (prev >= totalPages ? 0 : prev));
+    const t = setInterval(() => {
+      setCurrentPage(prev => (prev + 1) % totalPages);
+    }, 5000);
+    return () => clearInterval(t);
+  }, [items.length, itemsPerView]);
+
+  if (items.length === 0) return null;
+
+  // 分页
+  const pages: CardItem[][] = [];
+  for (let i = 0; i < items.length; i += itemsPerView) {
+    pages.push(items.slice(i, i + itemsPerView));
+  }
+  const totalPages = Math.max(1, pages.length);
+
+  return (
+    <div className="relative overflow-hidden rounded-xl" ref={ref}>
+      <div
+        className="flex transition-transform duration-500 ease-out"
+        style={{ transform: `translateX(-${currentPage * 100}%)` }}
+      >
+        {pages.map((pageItems, pi) => (
+          <div key={pi} className="min-w-full px-1">
+            <div className="flex -mx-1">
+              {pageItems.map((item) => (
+                <div key={item.id} className="px-1" style={{ flexBasis: `${100 / itemsPerView}%` }}>
+                  {renderItem(item)}
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+      {/* 指示器 */}
+      <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-2">
+        {Array.from({ length: totalPages }).map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentPage(index)}
+            className={`w-2.5 h-2.5 rounded-full transition-all ${
+              index === currentPage ? 'bg-white w-8' : 'bg-white/50'
+            }`}
+            aria-label={`Go to page ${index + 1}`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
 
 // --- Main AI Component ---
 const AI = () => {
-  // Set the default tab to 'tools' for a better landing experience
-  const [activeTab, setActiveTab] = useState('tools');
-  const { newsData, isLoadingNews, newsError } = useNews();
+  const [activeTab, setActiveTab] = useState('news'); // ✨ MODIFIED: Default to news tab
+  const [selectedItem, setSelectedItem] = useState<CardItem | null>(null);
+  const [expandedGroups, setExpandedGroups] = useState<Record<string, boolean>>({});
+  const { history, favorites, laterRead, addToHistory, toggleFavorite, toggleLaterRead } = useUserBehavior();
+  const { newsData } = useNews();
   const { aiSections } = useAISections();
+  
+  // ✨ NEW: State for search and mobile menu
+  const [searchTerm, setSearchTerm] = useState('');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  // Density (comfortable|compact)
+  const [density, setDensity] = useState<'comfortable'|'compact'>(() => (localStorage.getItem('aiDensity') as any) || 'compact');
+  const [densityByGroup, setDensityByGroup] = useState<Record<string,'comfortable'|'compact'>>(() => {
+    try { const s = localStorage.getItem('aiDensityByGroup'); return s ? JSON.parse(s) : {}; } catch { return {}; }
+  });
+  // Filters
+  const [filterScene, setFilterScene] = useState<string>('all');
+  const [filterTime, setFilterTime] = useState<'all'|'7d'|'30d'>('all');
+  // Interests onboarding
+  const [interests, setInterests] = useState<string[]>(() => {
+    const s = localStorage.getItem('aiInterests');
+    return s ? JSON.parse(s) : [];
+  });
+  const [showInterestsModal, setShowInterestsModal] = useState(false);
+  // Collections
+  type Collection = { name: string; items: CardItem[] };
+  const [collections, setCollections] = useState<Collection[]>(() => {
+    const s = localStorage.getItem('aiCollections');
+    return s ? JSON.parse(s) : [];
+  });
 
-  // FIX: The sidebar generation logic is simplified and corrected to find all sections.
+  // Add to collection (prompt-based minimal UX)
+  const addToCollection = (item: CardItem) => {
+    const existingNames = collections.map(c => c.name);
+    const name = prompt(`加入到哪个合集？\n已有：${existingNames.join(', ') || '无'}\n直接输入名称（新建或追加）`, existingNames[0] || '我的收藏夹');
+    const finalName = (name || '').trim();
+    if (!finalName) return;
+    setCollections(prev => {
+      const idx = prev.findIndex(c => c.name === finalName);
+      if (idx >= 0) {
+        const exists = prev[idx].items.some(i => i.id === item.id);
+        if (exists) return prev; // no duplicates
+        const updated = [...prev];
+        updated[idx] = { ...updated[idx], items: [item, ...updated[idx].items] };
+        localStorage.setItem('aiCollections', JSON.stringify(updated));
+        return updated;
+      } else {
+        const updated = [{ name: finalName, items: [item] }, ...prev];
+        localStorage.setItem('aiCollections', JSON.stringify(updated));
+        return updated;
+      }
+    });
+  };
+
+  // Persist collections on change (safety)
+  useEffect(() => {
+    localStorage.setItem('aiCollections', JSON.stringify(collections));
+  }, [collections]);
+
+
+  // 所有可推荐的内容池
+  const allContentItems = useMemo(() => {
+    return [...newsData, ...aiSections.flatMap(section => (section as any).items)];
+  }, [newsData, aiSections]);
+
+  // 推荐内容
+  const recommendedItems = useMemo(() => {
+    const recs = getRecommendedItems(history, allContentItems, favorites, interests);
+    return recs.length > 0 ? recs : getHotItems(allContentItems);
+  }, [history, favorites, allContentItems, interests]);
+
+  // 场景化导航配置
   const tabCategories = useMemo(() => {
     const iconMap: { [key: string]: string } = {
-        learning: 'GraduationCap',
-        tools: 'Telescope',
-        prompts: 'Terminal',
-        resources: 'Library',
+      learning: 'GraduationCap', 
+      tools: 'Telescope', 
+      prompts: 'Terminal', 
+      resources: 'Library',
+      favorites: 'Star',
+      history: 'Clock'
     };
 
-    const dynamicTabs = aiSections.map(section => ({
-        id: section.id,
-        label: section.title,
-        icon: iconMap[section.id] || 'HelpCircle',
-    }));
+    const scenes = Array.from(new Set(allContentItems.map(item => item.scene).filter(Boolean)));
 
     return [
-        {
-            id: 'main',
-            title: '主要',
-            tabs: [{ id: 'news', label: 'AI新闻', icon: 'Newspaper' }],
-        },
-        {
-            id: 'content',
-            title: '导航',
-            tabs: dynamicTabs,
-        },
+      { 
+        id: 'main', 
+        title: '主要', 
+        tabs: [
+          { id: 'news', label: 'AI新闻', icon: 'Newspaper' },
+          { id: 'favorites', label: '我的收藏', icon: 'Star' },
+          { id: 'collections', label: '我的合集', icon: 'Folder' },
+          { id: 'later', label: '稍后读', icon: 'Bookmark' },
+          { id: 'history', label: '最近浏览', icon: 'Clock' }
+        ]
+      },
+      { id: 'content', title: '资源分类', tabs: aiSections.map(s => ({ 
+        id: s.id, 
+        label: s.title, 
+        icon: iconMap[s.id] || 'HelpCircle' 
+      }))}
     ];
-  }, [aiSections]);
-
-  // REFACTOR: This function now simply finds the right section by ID.
-  const getTabContent = (): CardItem[] => {
-    if (activeTab === 'news') {
-        // News items don't have a 'group' property, so we add a default one.
-        return newsData.map(item => ({ ...item, group: '最新动态' })) as CardItem[];
-    }
-    const section = aiSections.find(s => s.id === activeTab);
-    return section ? section.items as CardItem[] : [];
-  };
+  }, [allContentItems, aiSections]);
   
-  // REFACTOR: The core rendering logic is now grouped.
-  const renderTabContent = () => {
-    const items = getTabContent();
+  // 初次进入展示骨架屏
+  useEffect(() => {
+    const t = setTimeout(() => setIsLoading(false), 400);
+    return () => clearTimeout(t);
+  }, []);
 
-    if (!items || items.length === 0) {
-        return (
-            <div className="col-span-full py-20 text-center text-gray-500 dark:text-gray-400">
-                <LucideIcons.Search className="mx-auto mb-3 w-16 h-16 opacity-20" />
-                <p className="text-lg">No Content Available</p>
-            </div>
-        );
+  useEffect(() => {
+    localStorage.setItem('aiDensity', density);
+  }, [density]);
+  useEffect(() => {
+    localStorage.setItem('aiDensityByGroup', JSON.stringify(densityByGroup));
+  }, [densityByGroup]);
+
+  // Interests Onboarding: show once if empty and user visited news
+  useEffect(() => {
+    if (activeTab === 'news' && interests.length === 0) {
+      const visited = localStorage.getItem('aiInterestsVisited');
+      if (!visited) {
+        setShowInterestsModal(true);
+        localStorage.setItem('aiInterestsVisited', '1');
+      }
     }
-    
-    // Group items by the `group` property from our build script
-    const groupedItems = items.reduce((acc, item) => {
-        const group = item.group || 'General'; // Fallback group
-        if (!acc[group]) {
-            acc[group] = [];
+  }, [activeTab, interests.length]);
+
+  // ✨ MODIFIED: Reset search term when tab changes，并短暂显示骨架屏
+  useEffect(() => {
+    setSearchTerm('');
+    setIsLoading(true);
+    const t = setTimeout(() => setIsLoading(false), 250);
+    return () => clearTimeout(t);
+  }, [activeTab]);
+
+
+  const renderTabContent = () => {
+    const getBaseTabContent = (): CardItem[] => {
+      // ... (This function is the same as your original `getTabContent`)
+       switch (activeTab) {
+        case 'news':
+          return newsData.map(item => ({ ...item, group: '最新动态' }));
+        case 'favorites':
+          return favorites.length > 0 
+            ? favorites.map(item => ({ ...item, group: '我的收藏' }))
+            : [{ id: 'empty-fav', title: '暂无收藏', description: '点击卡片上的星星图标添加收藏', group: '提示', link: '#' } as CardItem];
+        case 'later':
+          return laterRead.length > 0
+            ? laterRead.map(item => ({ ...item, group: '稍后读' }))
+            : [{ id: 'empty-later', title: '暂无稍后读', description: '在详情里点“稍后读”即可加入', group: '提示', link: '#' } as CardItem];
+        case 'collections': {
+          if (collections.length === 0) {
+            return [{ id: 'empty-collections', title: '暂无合集', description: '在详情中点击“加入合集”创建并添加内容', group: '提示', link: '#' } as CardItem];
+          }
+          // Flatten collections into items, group by collection name
+          const flat: CardItem[] = [];
+          collections.forEach(col => {
+            col.items.forEach(it => flat.push({ ...it, group: col.name }));
+          });
+          return flat;
         }
-        acc[group].push(item);
-        return acc;
+        case 'history':
+          return history.length > 0
+            ? history.map(item => ({ ...item, group: '最近浏览' }))
+            : [{ id: 'empty-hist', title: '暂无浏览记录', description: '浏览内容后会显示在这里', group: '提示', link: '#' } as CardItem];
+        default:
+          if (activeTab.startsWith('scene-')) {
+            const scene = activeTab.replace('scene-', '');
+            return allContentItems
+              .filter(item => item.scene === scene)
+              .map(item => ({ ...item, group: scene }));
+          }
+          const section = aiSections.find(s => s.id === activeTab);
+          return section ? (section as any).items : [];
+      }
+    };
+
+    // ✨ NEW: Filter items based on search term
+    const filteredItems = useMemo(() => {
+      const baseItems = getBaseTabContent();
+      if (!searchTerm) {
+        // apply filters even if no search
+        return baseItems.filter(item => {
+          // scene filter
+          if (filterScene !== 'all' && item.scene !== filterScene) return false;
+          // time filter
+          if (filterTime !== 'all' && item.date) {
+            const days = (Date.now() - new Date(item.date).getTime()) / (1000*3600*24);
+            if (filterTime === '7d' && days > 7) return false;
+            if (filterTime === '30d' && days > 30) return false;
+          }
+          return true;
+        });
+      }
+      const s = searchTerm.toLowerCase();
+      return baseItems
+        .filter(item =>
+          item.title.toLowerCase().includes(s) ||
+          item.description.toLowerCase().includes(s)
+        )
+        .filter(item => {
+          if (filterScene !== 'all' && item.scene !== filterScene) return false;
+          if (filterTime !== 'all' && item.date) {
+            const days = (Date.now() - new Date(item.date).getTime()) / (1000*3600*24);
+            if (filterTime === '7d' && days > 7) return false;
+            if (filterTime === '30d' && days > 30) return false;
+          }
+          return true;
+        });
+    }, [activeTab, searchTerm, newsData, favorites, history, aiSections, filterScene, filterTime]);
+    
+    if (filteredItems.length === 0 && !searchTerm) return <div className="text-center py-20 text-gray-500">此分类下暂无内容</div>;
+
+    const groupedItems = filteredItems.reduce((acc, item) => {
+      const group = item.group || '综合内容';
+      (acc[group] = acc[group] || []).push(item);
+      return acc;
     }, {} as Record<string, CardItem[]>);
 
-    const CardComponent = activeTab === 'news' ? LargeCard : SmallCard;
+    const groupTitles = Object.keys(groupedItems);
+    
+    // ✨ MODIFIED: Initialize accordion state to be open by default
+    useEffect(() => {
+      const initialExpandedState = groupTitles.reduce((acc, title) => {
+        acc[title] = true;
+        return acc;
+      }, {} as Record<string, boolean>);
+      setExpandedGroups(initialExpandedState);
+    }, [activeTab]);
+
+    const toggleGroup = (groupTitle: string) => {
+      setExpandedGroups(prev => ({
+        ...prev,
+        [groupTitle]: !prev[groupTitle]
+      }));
+    };
+    
+    const isNewsTab = activeTab === 'news';
+    const isCompact = density === 'compact';
+    const gridTemplateClass = isCompact 
+      ? '[grid-template-columns:repeat(auto-fit,minmax(200px,1fr))]'
+      : '[grid-template-columns:repeat(auto-fit,minmax(260px,1fr))]';
+
+    // Skeleton during loading
+    if (isLoading) {
+      return (
+        <div className="space-y-10">
+          {isNewsTab && (
+            <section className="mt-2">
+              <H3 className="text-gray-900 dark:text-white mb-4">为你推荐</H3>
+              <div className="grid gap-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
+                {Array.from({ length: 3 }).map((_, i) => (
+                  <SkeletonLargeCard key={`sk-rec-${i}`} />
+                ))}
+              </div>
+            </section>
+          )}
+          <section>
+            <H3 className="text-gray-900 dark:text-white mb-4">加载中...</H3>
+            <div className="grid gap-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
+              {Array.from({ length: 6 }).map((_, i) => (
+                (isNewsTab || activeTab.startsWith('scene-'))
+                  ? <SkeletonLargeCard key={`sk-lg-${i}`} />
+                  : <SkeletonSmallCard key={`sk-sm-${i}`} />
+              ))}
+            </div>
+          </section>
+        </div>
+      );
+    }
 
     return (
-        <div className="space-y-10">
-            {Object.entries(groupedItems).map(([groupTitle, groupItems]) => (
-                <section key={groupTitle}>
-                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 pb-2 border-b-2 border-primary">
-                        {groupTitle}
-                    </h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {groupItems.map(item => (
-                            <CardComponent key={item.id} item={item} />
-                        ))}
-                    </div>
-                </section>
-            ))}
+      <div className="space-y-10">
+        {/* ✨ MODIFIED: Recommendation Carousel now ONLY shows on the News tab */}
+        {isNewsTab && recommendedItems.length > 0 && (
+          <section className="mt-2">
+            {/* Subscription CTA + RSS */}
+            <div className="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 p-3 rounded-lg bg-primary/5 border border-primary/20">
+              <div className="text-sm text-gray-700 dark:text-gray-300">
+                订阅每周精选，获取优质 AI 资讯（占位，本地保存邮箱）。
+                <a href="#" className="ml-2 text-primary underline">RSS</a>
+              </div>
+              <div className="flex gap-2">
+                <input id="ai-sub-email" placeholder="输入邮箱" className="px-2 py-1 rounded border dark:bg-gray-800" />
+                <button
+                  onClick={() => {
+                    const el = document.getElementById('ai-sub-email') as HTMLInputElement | null;
+                    const val = el?.value?.trim();
+                    if (val) { localStorage.setItem('aiSubscriberEmail', val); alert('已订阅（本地存储）'); }
+                  }}
+                  className="px-3 py-1 rounded bg-primary text-white text-sm"
+                >订阅</button>
+              </div>
+            </div>
+            <H3 className="text-gray-900 dark:text-white mb-4">{history.length > 0 ? '为你推荐' : '热门推荐'}</H3>
+            <Carousel 
+              items={recommendedItems}
+              renderItem={(item) => (
+                <LargeCard 
+                  item={item} 
+                  onClick={() => { setSelectedItem(item); addToHistory(item); }}
+                  favorites={favorites}
+                  toggleFavorite={toggleFavorite}
+                  history={history}
+                  showBadges
+                />
+              )}
+            />
+          </section>
+        )}
+
+        {/* ✨ NEW: Quick Jump Index, Filters and Search */}
+        <div className="sticky top-0 bg-gray-50/80 dark:bg-gray-900/80 backdrop-blur-sm py-4 z-6 space-y-3">
+          {groupTitles.length > 1 && (
+            <div className="flex flex-wrap gap-2">
+              <span className="text-sm font-semibold mr-2 self-center">快速跳转:</span>
+              {groupTitles.map(title => (
+                <a 
+                  key={title} 
+                  href={`#${slugify(title)}`}
+                  className="px-3 py-1 text-sm bg-gray-200 dark:bg-gray-700 rounded-full hover:bg-primary hover:text-white transition-colors"
+                >
+                  {title}
+                </a>
+              ))}
+            </div>
+          )}
+          {/* Filters */}
+          <div className="flex flex-wrap items-center gap-2">
+            <label className="text-sm text-gray-600 dark:text-gray-300">场景</label>
+            <select value={filterScene} onChange={e => setFilterScene(e.target.value)} className="px-2 py-1 rounded border dark:bg-gray-800 text-sm">
+              <option value="all">全部</option>
+              {Array.from(new Set(Object.keys(groupedItems))).map(s => (
+                <option key={s} value={s}>{s}</option>
+              ))}
+            </select>
+            <label className="ml-4 text-sm text-gray-600 dark:text-gray-300">时间</label>
+            <select value={filterTime} onChange={e => setFilterTime(e.target.value as any)} className="px-2 py-1 rounded border dark:bg-gray-800 text-sm">
+              <option value="all">全部</option>
+              <option value="7d">7天内</option>
+              <option value="30d">30天内</option>
+            </select>
+            {/* Density toggle */}
+            <div className="ml-auto flex items-center gap-1 text-sm">
+              <span className="text-gray-600 dark:text-gray-300">显示密度</span>
+              <div className="inline-flex rounded-md overflow-hidden border dark:border-gray-700">
+                <button onClick={() => setDensity('comfortable')} className={`px-2 py-1 ${density==='comfortable'?'bg-primary text-white':'bg-gray-100 dark:bg-gray-800'}`}>舒适</button>
+                <button onClick={() => setDensity('compact')} className={`px-2 py-1 ${density==='compact'?'bg-primary text-white':'bg-gray-100 dark:bg-gray-800'}`}>紧凑</button>
+              </div>
+            </div>
+          </div>
         </div>
+        
+        {filteredItems.length === 0 && searchTerm && (
+           <div className="text-center py-20 text-gray-500">
+             <p>未找到与 "{searchTerm}" 相关的内容。</p>
+             <button onClick={() => setSearchTerm('')} className="mt-2 text-primary hover:underline">清空搜索</button>
+           </div>
+        )}
+
+        {/* 分组内容 */}
+        {Object.entries(groupedItems).map(([groupTitle, groupItems]) => {
+          const sectionDensity = densityByGroup[groupTitle] || density;
+          const sectionCompact = sectionDensity === 'compact';
+          return (
+            // ✨ MODIFIED: Added id for quick jump linking
+            <section key={groupTitle} id={slugify(groupTitle)} className="animate-fadeIn scroll-mt-24">
+              <div 
+                className="flex items-center justify-between cursor-pointer group"
+                onClick={() => toggleGroup(groupTitle)}
+              >
+                <H5 className="text-gray-900 dark:text-white mb-4 pb-2 border-b-2 border-primary flex items-center">
+                  {groupTitle}
+                  <span className="ml-2 text-sm font-normal bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded">
+                    {groupItems.length}
+                  </span>
+                </H5>
+                <div className="flex items-center gap-2">
+                  {/* per-group density toggle */}
+                  <div className="inline-flex rounded-md overflow-hidden border dark:border-gray-700" onClick={(e) => e.stopPropagation()}>
+                    <button onClick={() => setDensityByGroup(prev => ({...prev, [groupTitle]: 'comfortable'}))} className={`px-2 py-1 text-xs ${sectionCompact?'bg-gray-100 dark:bg-gray-800':'bg-primary text-white'}`}>舒适</button>
+                    <button onClick={() => setDensityByGroup(prev => ({...prev, [groupTitle]: 'compact'}))} className={`px-2 py-1 text-xs ${sectionCompact?'bg-primary text-white':'bg-gray-100 dark:bg-gray-800'}`}>紧凑</button>
+                  </div>
+                  <LucideIcons.ChevronDown 
+                    size={20} 
+                    className={`transition-transform text-gray-500 group-hover:text-gray-800 dark:group-hover:text-gray-200 ${expandedGroups[groupTitle] ? 'rotate-180' : ''}`} 
+                  />
+                </div>
+              </div>
+              
+              <div className={`grid ${sectionCompact ? 'gap-3' : 'gap-4'} ${sectionCompact ? '[grid-template-columns:repeat(auto-fit,minmax(200px,1fr))]' : '[grid-template-columns:repeat(auto-fit,minmax(260px,1fr))]'} overflow-hidden transition-all duration-300 ease-in-out ${
+                !expandedGroups[groupTitle]
+                  ? 'max-h-0 opacity-0 invisible' 
+                  : 'max-h-none opacity-100 visible'
+              }`}>
+                {groupItems.map(item => (
+                  (isNewsTab || activeTab.startsWith('scene-'))
+                    ? <LargeCard 
+                        key={item.id} item={item} 
+                        onClick={() => { setSelectedItem(item); addToHistory(item); }}
+                        favorites={favorites} toggleFavorite={toggleFavorite}
+                        history={history} showBadges compact={sectionCompact}
+                      />
+                    : <SmallCard 
+                        key={item.id} item={item}
+                        onClick={() => { setSelectedItem(item); addToHistory(item); }}
+                        favorites={favorites} toggleFavorite={toggleFavorite}
+                        history={history} showBadges compact={sectionCompact}
+                      />
+                ))}
+              </div>
+            </section>
+          );
+        })}
+      </div>
     );
   };
 
-    return (
-        <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex relative">
-            <SEO title="AI资源中心" description="AI前沿新闻、工具、提示词库、学习资料和相关链接" />
-            
-            <aside className="hidden lg:block w-[280px] min-h-screen bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700">
-                <div className="p-4 border-b border-gray-200 dark:border-gray-700">
-                    <h1 className="text-xl font-bold text-gray-900 dark:text-white">AI 资源中心</h1>
-                </div>
-                <nav className="py-4 overflow-y-auto max-h-[calc(100vh-4rem)]">
-                    {tabCategories.map((category) => (
-                        <div key={category.id} className="mb-4">
-                            {category.title && (
-                                <div className="px-4 py-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                                    {category.title}
-                                </div>
-                            )}
-                            <ul>
-                                {category.tabs.map((tab) => (
-                                    <li key={tab.id}>
-                                        <button
-                                            onClick={() => setActiveTab(tab.id)}
-                                            className={`flex items-center w-full px-4 py-2 text-sm transition-all duration-200 ease-in-out ${
-                                                activeTab === tab.id 
-                                                    ? 'bg-primary/10 text-primary dark:bg-primary/20 font-medium' 
-                                                    : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700/50'
-                                            }`}
-                                        >
-                                            <span className="mr-3"><TabIcon iconName={tab.icon} /></span>
-                                            {tab.label}
-                                        </button>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    ))}
-                </nav>
-            </aside>
-            
-            <main className="flex-1 p-4 sm:p-6 lg:p-8 overflow-y-auto">
-                {renderTabContent()}
-            </main>
+  return (
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex relative">
+      <SEO title="AI资源中心" description="AI前沿新闻、工具、提示词库、学习资料和相关链接" />
+      
+      {/* 侧边栏 - 桌面版 */}
+      <aside className="hidden lg:block w-[200px] min-h-screen bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700">
+        <div className="p-4 border-b dark:border-gray-700">
+          <H3 className="text-gray-900 dark:text-white flex items-center">
+            <LucideIcons.Brain size={20} className="mr-2 text-primary" />
+            AI 资源中心
+          </H3>
         </div>
-    );
+        <nav className="py-4 overflow-y-auto max-h-[calc(100vh-4rem)]">
+          {tabCategories.map(cat => (
+            <div key={cat.id} className="mb-4">
+              <div className="px-4 py-2 text-xs font-semibold text-gray-500 uppercase">{cat.title}</div>
+              <ul>
+                {cat.tabs.map(tab => (
+                  <li key={tab.id}>
+                    <button 
+                      onClick={() => setActiveTab(tab.id)} 
+                      className={`flex items-center w-full px-4 py-2.5 text-sm transition-colors ${
+                        activeTab === tab.id 
+                          ? 'bg-primary/10 text-primary font-medium' 
+                          : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700'
+                      }`}
+                    >
+                      <TabIcon iconName={tab.icon} /><span className="ml-3">{tab.label}</span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </nav>
+      </aside>
+
+      {/* ✨ MODIFIED: Mobile menu button now functional */}
+      <button 
+        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        className="lg:hidden fixed bottom-4 right-4 z-40 bg-primary text-white p-3 rounded-full shadow-lg"
+      >
+        {isMobileMenuOpen ? <LucideIcons.X size={24} /> : <LucideIcons.Menu size={24} />}
+      </button>
+
+      <main className="flex-1 p-4 sm:p-6 lg:p-8 overflow-y-auto">
+        {renderTabContent()}
+      </main>
+
+      <DetailModal 
+        item={selectedItem} 
+        onClose={() => setSelectedItem(null)}
+        toggleFavorite={toggleFavorite}
+        isFavorite={selectedItem ? favorites.some(f => f.id === selectedItem.id) : false}
+        toggleLaterRead={toggleLaterRead}
+        inLaterRead={selectedItem ? laterRead.some(i => i.id === selectedItem.id) : false}
+        addToCollection={addToCollection}
+      />
+
+      {/* Interests Onboarding Modal */}
+      <AnimatePresence>
+        {showInterestsModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4"
+            onClick={() => setShowInterestsModal(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+              className="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-xl"
+            >
+              <div className="p-4 border-b dark:border-gray-700 flex items-center justify-between">
+                <H4>选择你感兴趣的场景</H4>
+                <button onClick={() => setShowInterestsModal(false)} className="p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700"><LucideIcons.X size={18} /></button>
+              </div>
+              <div className="p-4 space-y-3 max-h-[60vh] overflow-auto">
+                <div className="text-sm text-gray-600 dark:text-gray-300">我们将优先推荐你喜欢的内容（可随时更改）。</div>
+                <div className="flex flex-wrap gap-2">
+                  {Array.from(new Set(allContentItems.map(i => i.scene).filter(Boolean))).map(scene => (
+                    <label key={scene} className={`px-3 py-1 rounded-full border cursor-pointer text-sm ${interests.includes(scene) ? 'bg-primary text-white border-primary' : 'bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600'}`}
+                      onClick={() => {
+                        setInterests(prev => prev.includes(scene) ? prev.filter(s => s !== scene) : [...prev, scene]);
+                      }}
+                    >
+                      {scene}
+                    </label>
+                  ))}
+                </div>
+              </div>
+              <div className="p-4 border-t dark:border-gray-700 flex justify-end gap-2">
+                <button onClick={() => setShowInterestsModal(false)} className="px-3 py-2 rounded bg-gray-100 dark:bg-gray-700">稍后</button>
+                <button 
+                  onClick={() => { localStorage.setItem('aiInterests', JSON.stringify(interests)); setShowInterestsModal(false); }}
+                  className="px-3 py-2 rounded bg-primary text-white"
+                >完成</button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
 };
 
 export default AI;
