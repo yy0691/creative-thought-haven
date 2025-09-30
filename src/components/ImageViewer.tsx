@@ -201,4 +201,4 @@ export const ZoomableImage: React.FC<ZoomableImageProps> = ({
       {...props}
     />
   );
-}; 
+};

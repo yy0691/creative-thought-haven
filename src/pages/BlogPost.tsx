@@ -101,6 +101,7 @@ const BlogPost = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isTocPinned, setIsTocPinned] = useState(false);
+  const [readingHistory, setReadingHistory] = useState<BlogPostMeta[]>([]);
   const isMobile = useMediaQuery('(max-width: 768px)');
 
   // 读取目录是否固定的状态
@@ -110,6 +111,47 @@ const BlogPost = () => {
       setIsTocPinned(pinnedPreference === 'true');
     }
   }, []);
+
+  // 加载阅读历史记录
+  useEffect(() => {
+    const storedHistory = localStorage.getItem('readingHistory');
+    if (storedHistory) {
+      try {
+        setReadingHistory(JSON.parse(storedHistory));
+      } catch (e) {
+        console.error('Failed to parse reading history:', e);
+        setReadingHistory([]);
+      }
+    }
+  }, []);
+
+  // 当文章加载完成后，将其添加到阅读历史记录中
+  useEffect(() => {
+    if (post && !isLoading) {
+      // 创建当前文章的元数据
+      const currentPostMeta: BlogPostMeta = {
+        slug: post.slug,
+        title: post.title,
+        date: post.date,
+        excerpt: post.excerpt,
+        tags: post.tags,
+        category: post.category
+      };
+
+      // 更新阅读历史记录
+      setReadingHistory(prev => {
+        // 检查当前文章是否已经在历史记录中，如果是则移除
+        const updatedHistory = prev.filter(item => item.slug !== post.slug);
+        // 将当前文章添加到历史记录的开头
+        updatedHistory.unshift(currentPostMeta);
+        // 保持历史记录最多10条
+        const limitedHistory = updatedHistory.slice(0, 10);
+        // 保存到localStorage
+        localStorage.setItem('readingHistory', JSON.stringify(limitedHistory));
+        return limitedHistory;
+      });
+    }
+  }, [post, isLoading]);
 
   useEffect(() => {
     const loadPost = async () => {
@@ -237,6 +279,29 @@ const BlogPost = () => {
           </Suspense>
         </ErrorBoundary>
 
+        {/* 阅读历史记录 */}
+        {readingHistory.length > 1 && (
+          <aside className="mt-12 pt-8 border-t dark:border-gray-700">
+            <h2 className="text-2xl font-bold mb-6 dark:text-white">阅读历史</h2>
+            <div className="space-y-4">
+              {readingHistory.filter(item => item.slug !== post?.slug).map((historyItem, index) => (
+                <Link
+                  key={historyItem.slug}
+                  to={`/blog/${historyItem.slug}`}
+                  className="flex items-center justify-between p-3 bg-muted/50 dark:bg-gray-800/50 rounded-lg hover:bg-muted dark:hover:bg-gray-800 transition-colors dark:text-white dark:border-gray-700"
+                >
+                  <div>
+                    <h3 className="font-medium dark:text-white">{historyItem.title}</h3>
+                    <p className="text-xs text-muted-foreground dark:text-gray-300 mt-1">{formatDate(historyItem.date)}</p>
+                  </div>
+                  <span className="text-sm text-muted-foreground dark:text-gray-400">#{index + 1}</span>
+                </Link>
+              ))}
+            </div>
+          </aside>
+        )}
+
+        {/* 相关文章 */}
         {relatedPosts.length > 0 && (
           <aside className="mt-12 pt-8 border-t dark:border-gray-700">
             <h2 className="text-2xl font-bold mb-6 dark:text-white">相关文章</h2>

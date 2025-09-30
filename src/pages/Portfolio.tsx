@@ -87,35 +87,37 @@ const Portfolio = () => {
               </div>
               <div className="flex gap-4 pt-2">
                 {project.githubUrl && (
-                  <a 
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm text-primary hover:underline dark:text-primary"
-                    onClick={(e) => e.stopPropagation()}
+                  <span 
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      window.open(project.githubUrl, '_blank', 'noopener,noreferrer');
+                    }}
+                    className="text-sm text-primary hover:underline dark:text-primary cursor-pointer"
                   >
                     GitHub
-                  </a>
+                  </span>
                 )}
                 {project.demoUrl && (
-                  <a 
-                    href={project.demoUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm text-primary hover:underline dark:text-primary"
-                    onClick={(e) => e.stopPropagation()}
+                  <span 
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      window.open(project.demoUrl, '_blank', 'noopener,noreferrer');
+                    }}
+                    className="text-sm text-primary hover:underline dark:text-primary cursor-pointer"
                   >
                     Live Demo
-                  </a>
+                  </span>
                 )}
                 {project.videoUrl && (
-                  <Link 
-                    to={`/videos/${project.id}`}
-                    className="text-sm text-primary hover:underline dark:text-primary"
-                    onClick={(e) => e.stopPropagation()}
+                  <span 
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      window.location.href = `/videos/${project.id}`;
+                    }}
+                    className="text-sm text-primary hover:underline dark:text-primary cursor-pointer"
                   >
                     演示视频
-                  </Link>
+                  </span>
                 )}
               </div>
             </div>

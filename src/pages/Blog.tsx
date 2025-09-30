@@ -66,9 +66,18 @@ const Blog = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('');
   const [selectedSubcategory, setSelectedSubcategory] = useState<string>('');
   const [filteredPosts, setFilteredPosts] = useState<PostSummary[]>([]);
-  const [viewMode, setViewMode] = useState<'grid' | 'list' | 'compact'>('grid');
+  // 从localStorage加载视图模式，如果没有则使用默认值'grid'
+  const [viewMode, setViewMode] = useState<'grid' | 'list' | 'compact'>(() => {
+    const stored = localStorage.getItem('blogViewMode');
+    return stored === 'list' || stored === 'compact' ? stored : 'grid';
+  });
   const [sortBy, setSortBy] = useState<'date' | 'title' | 'tag'>('date');
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc');
+
+  // 当视图模式变化时，保存到localStorage
+  useEffect(() => {
+    localStorage.setItem('blogViewMode', viewMode);
+  }, [viewMode]);
 
   // 将 articles 转换为 PostSummary 格式
   // const posts: PostSummary[] = useMemo(() => {

@@ -1,24 +1,10 @@
-import React, { lazy, Suspense, useEffect } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Navigation from "./components/Navigation";
-import Index from "./pages/index";
-import Blog from "./pages/Blog";
-import Portfolio from "./pages/Portfolio";
-import Designs from "./pages/Designs";
-import About from "./pages/About";
-import Layout from "./components/Layout";
-import NotFound from "./pages/NotFound";
-import BlogPost from './pages/BlogPost';
-import VideoDetails from './pages/VideoDetails';
-import Videos from './pages/Videos';
-import DesignDetails from './pages/DesignDetails';
-import BlogManager from './pages/content/BlogManager';
-import ProjectManager from './pages/content/ProjectManager';
-import ContentManager from './pages/ContentManager';
 import { ThemeProvider } from './components/ThemeProvider';
 import Loading from './components/Loading';
 import SplashCursor from "./components/SplashCursor";
@@ -49,6 +35,15 @@ const BlogManagerComponent = lazy(() => import('./pages/content/BlogManager'));
 const ProjectManagerComponent = lazy(() => import('./pages/content/ProjectManager'));
 const AIToolsManagerComponent = lazy(() => import('./pages/content/AIToolsManager'));
 
+// 光标组件包装器 - 根据路由决定是否显示
+const CursorWrapper = () => {
+  const location = useLocation();
+  // 只在首页和About页面显示光标特效
+  const shouldShowCursor = location.pathname === '/' || location.pathname === '/about';
+  
+  return shouldShowCursor ? <SplashCursor /> : null;
+};
+
 const App = () => {
   // 初始化标题管理器
   useEffect(() => {
@@ -73,11 +68,11 @@ const App = () => {
       <QueryClientProvider client={queryClient}>
         <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
           <CursorProvider>
-            <SplashCursor />
             <TooltipProvider>
               <Toaster />
               <Sonner />
               <BrowserRouter>
+                <CursorWrapper />
                 <div className="min-h-screen bg-background">
                   <Navigation />
                   <main className="pt-20 container mx-auto px-4">
@@ -171,11 +166,11 @@ const App = () => {
                 </div>
               </BrowserRouter>
             </TooltipProvider>
-          </CursorProvider>
-        </ThemeProvider>
-      </QueryClientProvider>
-    </ErrorBoundary>
-  );
+     </CursorProvider>
+      </ThemeProvider>
+    </QueryClientProvider>
+  </ErrorBoundary>
+);
 };
 
 export default App;

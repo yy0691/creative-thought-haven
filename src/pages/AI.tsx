@@ -5,6 +5,38 @@ import { motion, AnimatePresence } from 'framer-motion';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import MDXComponents from '../components/MDXComponents';
+import { Sheet, SheetContent } from '../components/ui/sheet';
+import { aiMenuEventBus } from '../components/Navigation';
+
+// 从URL中提取域名
+export function extractDomain(url: string): string {
+  try {
+    const domain = new URL(url).hostname;
+    return domain.startsWith('www.') ? domain.substring(4) : domain;
+  } catch (error) {
+    return '';
+  }
+}
+
+// 从文章链接动态获取首图URL
+export async function getArticleImage(url: string): Promise<string | null> {
+  try {
+    // 由于浏览器安全限制，我们无法直接访问跨域网页内容
+    // 这里模拟获取图片的逻辑，可以替换为真实的API调用
+    if (!url) return null;
+    
+    // 使用域名作为图片的简单标识，实际应用中应使用专门的服务获取网页首图
+    const domain = extractDomain(url);
+    if (!domain) return null;
+    
+    // 使用免费的第三方服务获取网页缩略图
+    // 注意：在实际项目中，可能需要配置自己的代理服务或API
+    return `https://picsum.photos/seed/${domain}/800/450`;
+  } catch (error) {
+    console.error('Failed to get article image:', error);
+    return null;
+  }
+}
 
 // Data Imports
 import generatedSections from '../data/ai/generated-ai-sections.json';
@@ -263,7 +295,8 @@ const LargeCard = ({
   toggleFavorite,
   history,
   showBadges,
-  compact
+  compact,
+  dynamicImages = {}
 }: { 
   item: CardItem, 
   onClick: () => void,
@@ -271,18 +304,20 @@ const LargeCard = ({
   toggleFavorite: (item: CardItem) => void,
   history: CardItem[],
   showBadges?: boolean,
-  compact?: boolean
+  compact?: boolean,
+  dynamicImages?: Record<string, string>
 }) => {
   const isFavorite = favorites.some(f => f.id === item.id);
+  const imageUrl = item.image || dynamicImages[item.id];
   
   return (
     <div 
       onClick={onClick} 
       className="card rounded-xl shadow-sm hover:shadow-md transition-all duration-300 bg-white dark:bg-gray-800 overflow-hidden border border-gray-200 dark:border-gray-700 h-full cursor-pointer flex flex-col transform hover:-translate-y-1 hover:scale-[1.01] active:scale-[0.99]"
     >
-      {item.image && (
+      {imageUrl && (
         <div className="relative aspect-[16/9] w-full">
-          <img loading="lazy" src={item.image} alt={item.title} className="absolute inset-0 w-full h-full object-cover" />
+          <img loading="lazy" src={imageUrl} alt={item.title} className="absolute inset-0 w-full h-full object-cover" />
           {showBadges && (
             <div className="absolute top-2 left-2 flex gap-1">
               {isNew(item) && <span className="px-2 py-0.5 text-xs rounded bg-green-100 text-green-700">New</span>}
@@ -568,9 +603,6 @@ const AI = () => {
   const [isLoading, setIsLoading] = useState(true);
   // Density (comfortable|compact)
   const [density, setDensity] = useState<'comfortable'|'compact'>(() => (localStorage.getItem('aiDensity') as any) || 'compact');
-  const [densityByGroup, setDensityByGroup] = useState<Record<string,'comfortable'|'compact'>>(() => {
-    try { const s = localStorage.getItem('aiDensityByGroup'); return s ? JSON.parse(s) : {}; } catch { return {}; }
-  });
   // Filters
   const [filterScene, setFilterScene] = useState<string>('all');
   const [filterTime, setFilterTime] = useState<'all'|'7d'|'30d'>('all');
@@ -586,6 +618,8 @@ const AI = () => {
     const s = localStorage.getItem('aiCollections');
     return s ? JSON.parse(s) : [];
   });
+  // 动态图片缓存
+  const [dynamicImages, setDynamicImages] = useState<Record<string, string>>({});
 
   // Add to collection (prompt-based minimal UX)
   const addToCollection = (item: CardItem) => {
@@ -614,6 +648,42 @@ const AI = () => {
   useEffect(() => {
     localStorage.setItem('aiCollections', JSON.stringify(collections));
   }, [collections]);
+
+  // 监听全局AI菜单事件
+  useEffect(() => {
+    const unsubscribe = aiMenuEventBus.subscribe(() => {
+      setIsMobileMenuOpen(prev => !prev);
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
+  // 为新闻项目动态获取图片
+  useEffect(() => {
+    const loadDynamicImages = async () => {
+      if (activeTab !== 'news') return;
+
+      const imagesToLoad = newsData
+        .filter(item => item.link && !dynamicImages[item.id] && !item.image)
+        .slice(0, 20); // 增加同时加载的图片数量到20张
+
+      const promises = imagesToLoad.map(async (item) => {
+        const imgUrl = await getArticleImage(item.link);
+        if (imgUrl) {
+          setDynamicImages(prev => ({
+            ...prev,
+            [item.id]: imgUrl
+          }));
+        }
+      });
+
+      await Promise.allSettled(promises);
+    };
+
+    loadDynamicImages();
+  }, [activeTab, newsData, dynamicImages]);
 
 
   // 所有可推荐的内容池
@@ -669,9 +739,6 @@ const AI = () => {
   useEffect(() => {
     localStorage.setItem('aiDensity', density);
   }, [density]);
-  useEffect(() => {
-    localStorage.setItem('aiDensityByGroup', JSON.stringify(densityByGroup));
-  }, [densityByGroup]);
 
   // Interests Onboarding: show once if empty and user visited news
   useEffect(() => {
@@ -834,8 +901,8 @@ const AI = () => {
         {isNewsTab && recommendedItems.length > 0 && (
           <section className="mt-2">
             {/* Subscription CTA + RSS */}
-            <div className="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 p-3 rounded-lg bg-primary/5 border border-primary/20">
-              <div className="text-sm text-gray-700 dark:text-gray-300">
+            {/* <div className="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 p-3 rounded-lg bg-primary/5 border border-primary/20"> */}
+              {/* <div className="text-sm text-gray-700 dark:text-gray-300">
                 订阅每周精选，获取优质 AI 资讯（占位，本地保存邮箱）。
                 <a href="#" className="ml-2 text-primary underline">RSS</a>
               </div>
@@ -850,7 +917,7 @@ const AI = () => {
                   className="px-3 py-1 rounded bg-primary text-white text-sm"
                 >订阅</button>
               </div>
-            </div>
+            </div> */}
             <H3 className="text-gray-900 dark:text-white mb-4">{history.length > 0 ? '为你推荐' : '热门推荐'}</H3>
             <Carousel 
               items={recommendedItems}
@@ -919,8 +986,8 @@ const AI = () => {
 
         {/* 分组内容 */}
         {Object.entries(groupedItems).map(([groupTitle, groupItems]) => {
-          const sectionDensity = densityByGroup[groupTitle] || density;
-          const sectionCompact = sectionDensity === 'compact';
+          // 统一使用全局密度设置
+          const sectionCompact = density === 'compact';
           return (
             // ✨ MODIFIED: Added id for quick jump linking
             <section key={groupTitle} id={slugify(groupTitle)} className="animate-fadeIn scroll-mt-24">
@@ -935,11 +1002,7 @@ const AI = () => {
                   </span>
                 </H5>
                 <div className="flex items-center gap-2">
-                  {/* per-group density toggle */}
-                  <div className="inline-flex rounded-md overflow-hidden border dark:border-gray-700" onClick={(e) => e.stopPropagation()}>
-                    <button onClick={() => setDensityByGroup(prev => ({...prev, [groupTitle]: 'comfortable'}))} className={`px-2 py-1 text-xs ${sectionCompact?'bg-gray-100 dark:bg-gray-800':'bg-primary text-white'}`}>舒适</button>
-                    <button onClick={() => setDensityByGroup(prev => ({...prev, [groupTitle]: 'compact'}))} className={`px-2 py-1 text-xs ${sectionCompact?'bg-primary text-white':'bg-gray-100 dark:bg-gray-800'}`}>紧凑</button>
-                  </div>
+                  {/* 已移除分组级别的密度控制按钮，统一使用全局控制 */}
                   <LucideIcons.ChevronDown 
                     size={20} 
                     className={`transition-transform text-gray-500 group-hover:text-gray-800 dark:group-hover:text-gray-200 ${expandedGroups[groupTitle] ? 'rotate-180' : ''}`} 
@@ -1012,13 +1075,55 @@ const AI = () => {
         </nav>
       </aside>
 
-      {/* ✨ MODIFIED: Mobile menu button now functional */}
+      {/* 移动端背景遮罩 */}
+      {isMobileMenuOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-30 lg:hidden"
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+      )}
+
+      {/* 移动端菜单按钮 */}
       <button 
         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         className="lg:hidden fixed bottom-4 right-4 z-40 bg-primary text-white p-3 rounded-full shadow-lg"
       >
         {isMobileMenuOpen ? <LucideIcons.X size={24} /> : <LucideIcons.Menu size={24} />}
       </button>
+
+      {/* 移动端侧边栏 */}
+      <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+        <SheetContent
+          className="w-[18rem] bg-white dark:bg-gray-800 p-0 border-r border-gray-200 dark:border-gray-700 [&>button]:hidden"
+          side="left"
+        >
+          <div className="p-4 border-b dark:border-gray-700">
+            <H4 className="text-gray-900 dark:text-white flex items-center">
+              <LucideIcons.Brain size={20} className="mr-2 text-primary" />
+              AI 资源中心
+            </H4>
+          </div>
+          <nav className="py-4 overflow-y-auto max-h-[calc(100vh-4rem)]">
+            {tabCategories.map(cat => (
+              <div key={cat.id} className="mb-4">
+                <div className="px-4 py-2 text-xs font-semibold text-gray-500 uppercase">{cat.title}</div>
+                <ul>
+                  {cat.tabs.map(tab => (
+                    <li key={tab.id}>
+                      <button 
+                        onClick={() => {setActiveTab(tab.id); setIsMobileMenuOpen(false);}}
+                        className={`flex items-center w-full px-4 py-2.5 text-sm transition-colors ${activeTab === tab.id ? 'bg-primary/10 text-primary font-medium' : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700'}`}
+                      >
+                        <TabIcon iconName={tab.icon} /><span className="ml-3">{tab.label}</span>
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </nav>
+        </SheetContent>
+      </Sheet>
 
       <main className="flex-1 p-4 sm:p-6 lg:p-8 overflow-y-auto">
         {renderTabContent()}
