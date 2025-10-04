@@ -5,7 +5,7 @@ import { type BlogPostMeta, formatDate, getBlogPosts } from '../lib/blog';
 import { CategorySelector } from '../components/CategorySelector';
 import { categories } from '../content/categories';
 import SplashCursor from '../components/cursor';
-import { LayoutGrid, List, ArrowUpDown, Clock, Tag, AlignJustify, PinIcon } from 'lucide-react';
+import { LayoutGrid, List, ArrowUpDown, Clock, Tag, AlignJustify, Pin as PinIcon } from 'lucide-react';
 import { Virtuoso } from 'react-virtuoso';
 
 
@@ -435,60 +435,116 @@ const Blog = () => {
             <Link
               key={post.slug}
               to={`/blog/${encodeURIComponent(post.slug.replace(/^\//, ''))}`}
-              className={`glass dark:dark-card rounded-xl transition-all duration-300 border border-white/20 shadow-lg backdrop-blur-sm relative overflow-hidden ${
-                viewMode === 'list' ? 'flex gap-4 items-start p-6' : 'p-6'
-              } group hover:shadow-xl hover:border-primary/30`}
+              className={`glass dark:dark-card rounded-xl transition-all duration-300 border border-white/20 backdrop-blur-sm relative overflow-hidden group ${
+                viewMode === 'list'
+                  ? 'p-4 hover:shadow-md hover:border-primary/20 hover:bg-accent/5'
+                  : 'p-6 shadow-lg hover:shadow-xl hover:border-primary/30'
+              }`}
             >
-              {/* 置顶图标 - 右上角 */}
-              {post.isSticky && (
-                <div className="absolute top-2 right-2 z-20 bg-primary/10 p-1.5 rounded-full text-primary dark:bg-primary/30 dark:text-primary-foreground shadow-sm" title="置顶文章">
-                  <PinIcon size={14} className="animate-pulse" />
-                </div>
+              {viewMode === 'list' ? (
+                <>
+                  <div className="flex items-center justify-between gap-6">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-3">
+                        {post.isSticky && (
+                          <div className="flex-shrink-0 text-primary dark:text-primary-foreground" title="置顶文章">
+                            <PinIcon size={16} className="animate-pulse" />
+                          </div>
+                        )}
+
+                        <h2 className="text-lg font-medium group-hover:text-primary transition-colors duration-200 dark:text-white truncate">
+                          {post.title}
+                        </h2>
+                      </div>
+                    </div>
+
+                    <div className="flex-shrink-0">
+                      {post.tags && post.tags.length > 0 && (
+                        <div className="flex items-center gap-1.5">
+                          {post.tags.slice(0, 2).map((tag, index) => {
+                            const tagColors = [
+                              'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300',
+                              'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300',
+                              'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300',
+                              'bg-teal-100 text-teal-700 dark:bg-teal-900/30 dark:text-teal-300',
+                              'bg-pink-100 text-pink-700 dark:bg-pink-900/30 dark:text-pink-300'
+                            ];
+                            const colorIndex = Math.abs(tag.split('').reduce((acc: number, char) => acc + char.charCodeAt(0), 0)) % tagColors.length;
+
+                            return (
+                              <span
+                                key={index}
+                                className={`px-2.5 py-1 rounded-md text-xs font-medium ${tagColors[colorIndex]}`}
+                              >
+                                {tag}
+                              </span>
+                            );
+                          })}
+                          {post.tags.length > 2 && (
+                            <span className="text-xs text-muted-foreground dark:text-gray-400">
+                              +{post.tags.length - 2}
+                            </span>
+                          )}
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="flex-shrink-0 text-sm text-muted-foreground dark:text-gray-400 min-w-[100px] text-right">
+                      {formatDate(post.date)}
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <>
+                  {post.isSticky && (
+                    <div className="absolute top-2 right-2 z-20 bg-primary/10 p-1.5 rounded-full text-primary dark:bg-primary/30 dark:text-primary-foreground shadow-sm" title="置顶文章">
+                      <PinIcon size={14} className="animate-pulse" />
+                    </div>
+                  )}
+
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out" />
+
+                  <div className="absolute inset-px rounded-[10px] opacity-0 group-hover:opacity-100 transition-all duration-300 ease-out"
+                       style={{background: 'linear-gradient(90deg, transparent, var(--primary-50) 50%, transparent)'}} />
+
+                  <article className="relative z-10 flex-1">
+                    <div className="space-y-4">
+                      <div>
+                        <div className="flex items-center gap-2 mb-2">
+                          <h2 className="text-xl font-semibold group-hover:text-primary transition-colors duration-300 dark:text-white flex items-center">
+                            {post.title}
+                          </h2>
+                        </div>
+                        <p className="text-muted-foreground text-sm mb-3 transition-opacity duration-300 group-hover:text-foreground/90 dark:text-gray-300">{post.excerpt}</p>
+                        <div className="flex flex-wrap gap-2">
+                          {post.tags?.map((tag, index) => {
+                            const tagColors = [
+                              'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-200',
+                              'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-200',
+                              'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-200',
+                              'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-200',
+                              'bg-pink-100 text-pink-800 dark:bg-pink-900/30 dark:text-pink-200'
+                            ];
+                            const colorIndex = Math.abs(tag.split('').reduce((acc: number, char) => acc + char.charCodeAt(0), 0)) % tagColors.length;
+
+                            return (
+                              <span
+                                key={index}
+                                className={`px-2.5 py-0.5 rounded-full text-xs font-medium ${tagColors[colorIndex]} transition-all duration-300 group-hover:shadow-sm group-hover:translate-y-[-1px]`}
+                              >
+                                {tag}
+                              </span>
+                            );
+                          })}
+                        </div>
+                      </div>
+                      <div className="text-sm text-muted-foreground group-hover:text-primary/80 transition-colors duration-300">
+                        {formatDate(post.date)}
+                      </div>
+                    </div>
+                  </article>
+                </>
               )}
-              
-              {/* 悬浮效果元素 - 渐变光效 */}
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out" />
-              
-              {/* 悬浮效果元素 - 微妙的边框光晕 */}
-              <div className="absolute inset-px rounded-[10px] opacity-0 group-hover:opacity-100 transition-all duration-300 ease-out" 
-                   style={{background: 'linear-gradient(90deg, transparent, var(--primary-50) 50%, transparent)'}} />
-              
-              <article className="relative z-10 flex-1">
-                <div className={viewMode === 'list' ? 'flex items-start justify-between gap-4' : 'space-y-4'}>
-                  <div className={viewMode === 'list' ? 'flex-1' : ''}>
-                    <div className="flex items-center gap-2 mb-2">
-                      <h2 className="text-xl font-semibold group-hover:text-primary transition-colors duration-300 dark:text-white flex items-center">
-                        {post.title}
-                      </h2>
-                    </div>
-                    <p className="text-muted-foreground text-sm mb-3 transition-opacity duration-300 group-hover:text-foreground/90 dark:text-gray-300">{post.excerpt}</p>
-                    <div className="flex flex-wrap gap-2">
-                      {post.tags?.map((tag, index) => {
-                        const tagColors = [
-                          'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-200',
-                          'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-200',
-                          'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-200',
-                          'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-200',
-                          'bg-pink-100 text-pink-800 dark:bg-pink-900/30 dark:text-pink-200'
-                        ];
-                        const colorIndex = Math.abs(tag.split('').reduce((acc: number, char) => acc + char.charCodeAt(0), 0)) % tagColors.length;
-                        
-                        return (
-                          <span
-                            key={index}
-                            className={`px-2.5 py-0.5 rounded-full text-xs font-medium ${tagColors[colorIndex]} transition-all duration-300 group-hover:shadow-sm group-hover:translate-y-[-1px]`}
-                          >
-                            {tag}
-                          </span>
-                        );
-                      })}
-                    </div>
-                  </div>
-                  <div className="text-sm text-muted-foreground group-hover:text-primary/80 transition-colors duration-300 whitespace-nowrap">
-                    {formatDate(post.date)}
-                  </div>
-                </div>
-              </article>
             </Link>
           ))
         )}
