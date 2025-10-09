@@ -17,6 +17,20 @@ Preferred communication style: Simple, everyday language.
 
 ## Recent Changes
 
+### October 9, 2025 - AI Tools Navigation Auto-Update System
+- Created automated system to fetch and update AI tools from GitHub Awesome lists
+- Implemented `scripts/fetch-ai-tools-auto.js` that:
+  - Scrapes tools from 4 curated GitHub Awesome lists (738 unique tools collected)
+  - Auto-categorizes tools into Tools, Learning, Prompts, and Resources
+  - Translates top 20 new tools per category using Gemini API
+  - Saves all tools to Markdown files (translated + English)
+  - Deduplicates and merges with existing content
+- Created `config/ai-tools-sources.json` for data source configuration
+- Updated `scripts/build-ai-sections.js` to support Chinese fields (title_zh, description_zh)
+- Extended TypeScript types with description_zh field for AI tool descriptions
+- Updated `SmallToolCard` component to prioritize Chinese content display
+- System now supports bilingual AI tool navigation with automatic updates
+
 ### October 9, 2025 - AI-Powered Chinese Translation Integration
 - Successfully integrated Google Gemini API for automated Chinese translation and summarization
 - Implemented multi-account API key rotation system (3 Gemini accounts for 4,500 requests/day total)

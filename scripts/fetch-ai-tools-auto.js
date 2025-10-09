@@ -170,20 +170,14 @@ function readExistingMarkdown(category) {
 function updateMarkdownFile(category, tools, existingData) {
   const { data, existingTools } = existingData;
   
-  // 合并新旧工具，去重
-  const existingUrls = new Set(existingTools.map(t => t.url));
-  const newTools = tools.filter(t => !existingUrls.has(t.url));
-  
-  if (newTools.length === 0) {
-    console.log(`⏭️  No new tools for ${category}`);
+  // tools参数已经是新工具了，不需要再次去重
+  if (tools.length === 0) {
     return 0;
   }
   
-  console.log(`✨ Found ${newTools.length} new tools for ${category}`);
-  
   // 按组分类
   const toolsByGroup = {};
-  for (const tool of [...existingTools, ...newTools]) {
+  for (const tool of [...existingTools, ...tools]) {
     const group = tool.group || 'General';
     if (!toolsByGroup[group]) {
       toolsByGroup[group] = [];
@@ -211,8 +205,8 @@ function updateMarkdownFile(category, tools, existingData) {
   const filePath = path.join(CONTENT_DIR, `${category}.md`);
   fs.writeFileSync(filePath, frontmatter, 'utf8');
   
-  console.log(`✅ Updated ${filePath} with ${newTools.length} new tools`);
-  return newTools.length;
+  console.log(`✅ Updated ${filePath} with ${tools.length} new tools`);
+  return tools.length;
 }
 
 // 主函数
@@ -262,21 +256,43 @@ async function main() {
     
     console.log(`\n📁 Processing category: ${category} (${tools.length} tools)`);
     
-    // 翻译前10个新工具（避免API配额用尽）
-    const toolsToTranslate = tools.slice(0, 10);
+    // 读取现有数据以确定哪些工具是新的
+    const existingData = readExistingMarkdown(category);
+    const existingUrls = new Set(existingData.existingTools.map(t => t.url));
+    const newTools = tools.filter(t => !existingUrls.has(t.url));
+    
+    if (newTools.length === 0) {
+      console.log(`⏭️  No new tools for ${category}`);
+      continue;
+    }
+    
+    console.log(`✨ Found ${newTools.length} new tools for ${category}`);
+    
+    // 翻译前20个最重要的新工具（平衡API配额和覆盖范围）
+    const toolsToTranslate = newTools.slice(0, 20);
     const translatedTools = [];
     
+    console.log(`🤖 Translating ${toolsToTranslate.length} tools...`);
     for (const tool of toolsToTranslate) {
       const translated = await translateTool(tool);
       translatedTools.push(translated);
       await new Promise(resolve => setTimeout(resolve, 1000)); // 延迟避免API限流
     }
     
-    // 读取现有数据
-    const existingData = readExistingMarkdown(category);
+    // 对于未翻译的工具，保留英文
+    const remainingTools = newTools.slice(20).map(tool => ({
+      ...tool,
+      title_zh: tool.title, // 保留英文
+      description_zh: tool.description
+    }));
+    
+    // 合并翻译和未翻译的工具
+    const allNewTools = [...translatedTools, ...remainingTools];
+    
+    console.log(`💾 Saving ${allNewTools.length} tools (${translatedTools.length} translated, ${remainingTools.length} kept in English)`);
     
     // 更新文件
-    const added = updateMarkdownFile(category, translatedTools, existingData);
+    const added = updateMarkdownFile(category, allNewTools, existingData);
     totalAdded += added;
   }
   
