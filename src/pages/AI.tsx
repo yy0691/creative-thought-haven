@@ -153,14 +153,60 @@ const useAISections = () => {
 };
 
 // --- Helper Functions ---
-const getFaviconUrl = (url?: string): string => {
-  if (!url) return 'https://via.placeholder.com/32';
+// 获取网站图标，支持多个备选源以确保国内外都能访问
+const getFaviconSources = (url?: string): string[] => {
+  // SVG 占位图（在所有远程源失败后使用）
+  const placeholder = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="32" height="32"%3E%3Crect width="32" height="32" fill="%23e5e7eb"/%3E%3Ctext x="16" y="20" text-anchor="middle" font-size="20" fill="%239ca3af"%3E%3F%3C/text%3E%3C/svg%3E';
+  
+  if (!url) return [placeholder];
+  
   try {
     const host = new URL(url).hostname;
-    return `https://icons.duckduckgo.com/ip3/${host}.ico`;
+    // 按优先级排序的图标源列表（优先使用国内可访问的服务）
+    // 最后添加占位图确保在所有源失败时有兜底方案
+    return [
+      `https://favicon.yandex.net/favicon/${host}`, // Yandex 服务，国内可能可访问
+      `https://api.faviconkit.com/${host}/64`, // FaviconKit 第三方服务
+      `https://www.google.com/s2/favicons?sz=64&domain=${host}`, // Google 服务
+      `https://icons.duckduckgo.com/ip3/${host}.ico`, // DuckDuckGo 服务
+      `https://${host}/favicon.ico`, // 网站自己的 favicon
+      placeholder, // 兜底占位图
+    ];
   } catch {
-    return 'https://via.placeholder.com/32';
+    return [placeholder];
   }
+};
+
+// 图标加载组件
+const FaviconImage = ({ url, alt, className }: { url?: string; alt: string; className: string }) => {
+  const [currentSourceIndex, setCurrentSourceIndex] = React.useState(0);
+  const sources = React.useMemo(() => getFaviconSources(url), [url]);
+
+  const handleError = () => {
+    // 如果当前图标加载失败，尝试下一个源
+    if (currentSourceIndex < sources.length - 1) {
+      // 调试日志：记录失败的图标源
+      if (process.env.NODE_ENV === 'development') {
+        console.debug(`[Favicon] Failed to load from source ${currentSourceIndex}: ${sources[currentSourceIndex]}`);
+      }
+      setCurrentSourceIndex(currentSourceIndex + 1);
+    } else {
+      // 所有源都失败，使用占位图
+      if (process.env.NODE_ENV === 'development') {
+        console.warn(`[Favicon] All sources failed for ${url}, using placeholder`);
+      }
+    }
+  };
+
+  return (
+    <img
+      loading="lazy"
+      src={sources[currentSourceIndex]}
+      alt={alt}
+      className={className}
+      onError={handleError}
+    />
+  );
 };
 
 // ✨ Badge helpers
@@ -253,10 +299,9 @@ const SmallCard = ({
       <div className={`${compact ? 'p-2.5' : 'p-3'} flex items-start gap-3`}>
         {/* 工具图标 - 紧凑尺寸 */}
         <div className="flex-shrink-0">
-          <img 
-            loading="lazy"
-            src={getFaviconUrl(item.link)} 
-            alt={`${item.title} favicon`} 
+          <FaviconImage
+            url={item.link}
+            alt={`${item.title} favicon`}
             className={`${compact ? 'w-8 h-8' : 'w-9 h-9'} rounded-lg`}
           />
         </div>
