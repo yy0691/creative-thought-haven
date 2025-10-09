@@ -1,0 +1,78 @@
+{
+  "githubSources": [
+    {
+      "name": "Awesome AI Tools (mahseema)",
+      "repo": "mahseema/awesome-ai-tools",
+      "branch": "main",
+      "path": "README.md",
+      "minStars": 1000,
+      "active": true
+    },
+    {
+      "name": "Very Large AI Tools (eudk)",
+      "repo": "eudk/awesome-ai-tools", 
+      "branch": "main",
+      "path": "README.md",
+      "minStars": 500,
+      "active": true
+    },
+    {
+      "name": "Awesome Generative AI",
+      "repo": "steven2358/awesome-generative-ai",
+      "branch": "master",
+      "path": "README.md",
+      "minStars": 500,
+      "active": true
+    },
+    {
+      "name": "AI Coding Tools",
+      "repo": "ai-for-developers/awesome-ai-coding-tools",
+      "branch": "main",
+      "path": "README.md",
+      "minStars": 100,
+      "active": true
+    }
+  ],
+  "categories": {
+    "tools": {
+      "keywords": ["通用模型", "AI 绘画", "AI 视频", "AI 编程", "AI 效率"],
+      "groups": {
+        "通用模型": ["chatgpt", "claude", "gemini", "llm", "语言模型", "对话"],
+        "AI 绘画": ["midjourney", "stable diffusion", "dall-e", "image generation", "图像生成"],
+        "AI 视频": ["runway", "pika", "sora", "video generation", "视频生成"],
+        "AI 编程": ["github copilot", "cursor", "code", "programming", "开发"],
+        "AI 效率": ["notion", "productivity", "效率", "办公"]
+      }
+    },
+    "learning": {
+      "keywords": ["综合课程", "大学公开课", "专题教程", "学习路线与资源"],
+      "groups": {
+        "综合课程": ["course", "tutorial", "learning", "教程", "课程"],
+        "大学公开课": ["stanford", "mit", "university", "大学"],
+        "专题教程": ["guide", "documentation", "docs", "文档"],
+        "学习路线与资源": ["roadmap", "awesome", "resources", "路线图"]
+      }
+    },
+    "prompts": {
+      "keywords": ["Prompt 指南", "Prompt 集合"],
+      "groups": {
+        "Prompt 指南": ["prompt engineering", "guide", "提示词工程"],
+        "Prompt 集合": ["prompts", "examples", "templates", "模板"]
+      }
+    },
+    "resources": {
+      "keywords": ["科研与论文", "模型与社区", "行业资讯"],
+      "groups": {
+        "科研与论文": ["arxiv", "papers", "research", "论文"],
+        "模型与社区": ["huggingface", "github", "community", "社区"],
+        "行业资讯": ["blog", "news", "newsletter", "资讯"]
+      }
+    }
+  },
+  "qualityFilters": {
+    "minGitHubStars": 100,
+    "maxAgeMonths": 24,
+    "requiresDescription": true,
+    "preferActiveMaintenance": true
+  }
+}
