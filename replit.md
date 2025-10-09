@@ -17,6 +17,17 @@ Preferred communication style: Simple, everyday language.
 
 ## Recent Changes
 
+### October 9, 2025 - RSS Feed Sources Fix
+- Fixed critical RSS feed URL issues in AI news automation system
+- Updated RSS feed URLs in `config/ai-news-sources.json`:
+  - OpenAI Blog: Updated to `https://openai.com/news/rss.xml` (from /blog/feed)
+  - DeepMind Blog: Updated to `https://deepmind.com/blog/feed/basic/` (from deepmind.google)
+  - Meta AI Research: Disabled due to RSS feed unavailability (400 error)
+  - The Verge AI: Fixed URL path
+- Added browser-like User-Agent headers to RSS parser to prevent 403 errors
+- Successfully tested with 7 active RSS sources (OpenAI, Google, DeepMind, VentureBeat, TechCrunch, MIT Tech Review, The Verge)
+- System now reliably fetches AI news from major sources with automatic Chinese translation
+
 ### October 9, 2025 - AI Tools Navigation Auto-Update System
 - Created automated system to fetch and update AI tools from GitHub Awesome lists
 - Implemented `scripts/fetch-ai-tools-auto.js` that:

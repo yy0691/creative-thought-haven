@@ -2,7 +2,7 @@
   "sources": [
     {
       "name": "OpenAI Blog",
-      "url": "https://openai.com/blog/feed",
+      "url": "https://openai.com/news/rss.xml",
       "category": "ai-research",
       "enabled": true
     },
@@ -14,15 +14,16 @@
     },
     {
       "name": "DeepMind Blog",
-      "url": "https://deepmind.google/blog/rss",
+      "url": "https://deepmind.com/blog/feed/basic/",
       "category": "ai-research",
       "enabled": true
     },
     {
       "name": "Meta AI Research",
-      "url": "https://ai.meta.com/blog/rss/",
+      "url": "https://research.facebook.com/feed/",
       "category": "ai-research",
-      "enabled": true
+      "enabled": false,
+      "note": "RSS feed returns 400 error, ai.meta.com/blog does not have native RSS feed as of 2025"
     },
     {
       "name": "VentureBeat AI",
@@ -44,7 +45,7 @@
     },
     {
       "name": "The Verge AI",
-      "url": "https://www.theverge.com/ai-artificial-intelligence/rss/index.xml",
+      "url": "https://www.theverge.com/rss/ai-artificial-intelligence/index.xml",
       "category": "ai-industry",
       "enabled": true
     }

@@ -9,7 +9,16 @@ import GeminiService from './ai-service.js';
 const root = process.cwd();
 const configFile = path.join(root, 'config/ai-news-sources.json');
 const outputDir = path.join(root, 'content/ai-news');
-const parser = new Parser();
+
+// 配置RSS解析器，添加类似浏览器的User-Agent头
+const parser = new Parser({
+  customFields: {
+    item: ['content:encoded', 'content']
+  },
+  headers: {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+  }
+});
 
 let geminiService = null;
 try {
