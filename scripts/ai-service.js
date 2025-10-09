@@ -49,25 +49,25 @@ class GeminiService {
 内容: ${content || description}
       `.trim();
 
-        const prompt = `你是一位专业的AI新闻翻译和总结专家。请对以下英文AI新闻进行处理：
+        const prompt = `你是一位专业的AI工具翻译专家。请对以下英文内容进行处理：
 
 ${fullText}
 
 请提供以下内容（使用JSON格式回复）：
 1. title_zh: 将标题翻译成简洁、专业的中文（保持原意，不要过度润色）
-2. summary_zh: 用3-5句话总结这篇新闻的核心内容，用中文表达，突出关键信息
-3. key_points: 提取3-5个关键要点，用中文列出（数组格式）
+2. summary_zh: 用10-20个字简短描述这个工具的核心功能
+3. key_points: 提取2-3个关键特点，用中文列出（数组格式）
 
 要求：
 - 翻译要准确、自然、符合中文表达习惯
-- 摘要要简明扼要，突出新闻价值
-- 关键要点要条理清晰
+- 描述要极度简洁，只说核心功能
+- 关键要点要简短
 
 请严格按照以下JSON格式返回：
 {
   "title_zh": "中文标题",
-  "summary_zh": "中文摘要（3-5句话）",
-  "key_points": ["要点1", "要点2", "要点3"]
+  "summary_zh": "10-20字的简短描述",
+  "key_points": ["特点1", "特点2"]
 }`;
 
         const response = await ai.models.generateContent({

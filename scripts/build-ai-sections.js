@@ -45,12 +45,18 @@ function parseContent(markdown) {
       const url = linkMatch[2].trim();
       const description = linkMatch[3]?.trim() || '';
       
+      // 检测是否有中文标题和描述（使用特殊标记或直接检测中文字符）
+      // 如果标题包含中文，将其视为title_zh
+      const hasChinese = /[\u4e00-\u9fa5]/.test(title);
+      
       items.push({ 
         id: `${currentGroup.toLowerCase()}-${title.toLowerCase().replace(/\s+/g,'-')}`, 
-        title, 
+        title: hasChinese ? title : title, // 保持原样，前端会处理
+        title_zh: hasChinese ? title : undefined,
         url, 
         link: url, 
         description,
+        description_zh: hasChinese && description ? description : undefined,
         // NEW: Add the group property to each item
         group: currentGroup 
       });

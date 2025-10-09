@@ -45,8 +45,12 @@ export const SmallToolCard = ({ item, onOpenDetail }: { item: CardItem, onOpenDe
           </div>
           {/* 工具信息 */}
           <div className="flex-1 min-w-0">
-            <h2 className="text-sm font-medium text-gray-900 dark:text-white truncate">{item.title}</h2>
-            <p className="text-xs text-gray-500 dark:text-gray-400 line-clamp-1">{item.description}</p>
+            <h2 className="text-sm font-medium text-gray-900 dark:text-white truncate">
+              {item.title_zh || item.title}
+            </h2>
+            <p className="text-xs text-gray-500 dark:text-gray-400 line-clamp-1">
+              {item.description_zh || item.summary_zh || item.description}
+            </p>
           </div>
         </div>
       </HoverCardTrigger>
@@ -58,7 +62,9 @@ export const SmallToolCard = ({ item, onOpenDetail }: { item: CardItem, onOpenDe
         <div className="space-y-3">
           {/* 卡片标题 */}
           <div className="flex justify-between">
-            <h2 className="text-sm font-semibold text-gray-900 dark:text-white">{item.title}</h2>
+            <h2 className="text-sm font-semibold text-gray-900 dark:text-white">
+              {item.title_zh || item.title}
+            </h2>
             {item.category && (
               <span className="inline-flex items-center rounded-full bg-primary/10 px-2 py-1 text-xs font-medium text-primary">
                 {item.category}
@@ -77,7 +83,9 @@ export const SmallToolCard = ({ item, onOpenDetail }: { item: CardItem, onOpenDe
           )} */}
           
           {/* 完整描述 */}
-          <p className="text-sm text-gray-700 dark:text-gray-300">{item.description}</p>
+          <p className="text-sm text-gray-700 dark:text-gray-300">
+            {item.description_zh || item.summary_zh || item.description}
+          </p>
           
           {/* 附加信息 */}
           <div className="flex flex-wrap items-center gap-3 text-xs text-gray-500 dark:text-gray-400">

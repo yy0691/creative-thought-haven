@@ -119,6 +119,16 @@ async function translateTool(tool) {
   try {
     console.log(`🤖 Translating: ${tool.title}...`);
     
+    // 如果描述为空，只翻译标题
+    if (!tool.description || tool.description.trim() === '') {
+      const titleResult = await geminiService.translateTitle(tool.title);
+      return {
+        ...tool,
+        title_zh: titleResult,
+        description_zh: ''
+      };
+    }
+    
     const result = await geminiService.translateToChineseWithSummary(
       tool.title,
       tool.description,

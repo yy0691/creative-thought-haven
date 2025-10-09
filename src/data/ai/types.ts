@@ -15,8 +15,10 @@ export interface CardItem {
   content?: string; // 添加详细内容字段，用于Markdown格式的新闻内容
   isFromBlog?: boolean; // 标记是否来自博客的文章
   title_zh?: string; // 中文标题
-  summary_zh?: string; // 中文摘要
+  description_zh?: string; // 中文描述（用于AI工具导航）
+  summary_zh?: string; // 中文摘要（用于AI新闻）
   key_points?: string[]; // 关键要点
+  group?: string; // 分组（用于AI工具导航）
 }
 
 // 定义标签页类型

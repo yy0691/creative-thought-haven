@@ -5,148 +5,256 @@
     "description": "系统化AI课程、教程与学习资源",
     "items": [
       {
-        "id": "综合课程-deeplearning.ai",
+        "id": "general-deeplearning.ai",
         "title": "DeepLearning.AI",
         "url": "https://www.deeplearning.ai/",
         "link": "https://www.deeplearning.ai/",
         "description": "吴恩达创建的AI教育平台，提供多种深度学习课程和项目",
-        "group": "综合课程"
+        "group": "General"
       },
       {
-        "id": "综合课程-fast.ai-课程",
+        "id": "general-fast.ai-课程",
         "title": "fast.ai 课程",
+        "title_zh": "fast.ai 课程",
         "url": "https://www.fast.ai/",
         "link": "https://www.fast.ai/",
         "description": "强调“实践优先”的深度学习课程",
-        "group": "综合课程"
+        "description_zh": "强调“实践优先”的深度学习课程",
+        "group": "General"
       },
       {
-        "id": "综合课程-google's-generative-ai-learning-path",
+        "id": "general-google's-generative-ai-learning-path",
         "title": "Google's Generative AI learning path",
         "url": "https://www.cloudskillsboost.google/paths/118",
         "link": "https://www.cloudskillsboost.google/paths/118",
         "description": "谷歌官方的生成式AI学习路径",
-        "group": "综合课程"
+        "group": "General"
       },
       {
-        "id": "大学公开课-cs231n-(stanford)",
+        "id": "general-cs231n-(stanford)",
         "title": "CS231n (Stanford)",
         "url": "https://cs231n.github.io/",
         "link": "https://cs231n.github.io/",
         "description": "斯坦福大学经典的计算机视觉课程",
-        "group": "大学公开课"
+        "group": "General"
       },
       {
-        "id": "大学公开课-cs224n-(stanford)",
+        "id": "general-cs224n-(stanford)",
         "title": "CS224N (Stanford)",
         "url": "http://web.stanford.edu/class/cs224n/",
         "link": "http://web.stanford.edu/class/cs224n/",
         "description": "斯坦福大学最经典的自然语言处理（NLP）课程",
-        "group": "大学公开课"
+        "group": "General"
       },
       {
-        "id": "大学公开课-mit-6.s191:-introduction-to-deep-learning",
+        "id": "general-mit-6.s191:-introduction-to-deep-learning",
         "title": "MIT 6.S191: Introduction to Deep Learning",
         "url": "http://introtodeeplearning.com/",
         "link": "http://introtodeeplearning.com/",
         "description": "MIT 深度学习导论，每年更新",
-        "group": "大学公开课"
+        "group": "General"
       },
       {
-        "id": "大学公开课-李宏毅---机器学习-(台大)",
+        "id": "general-李宏毅---机器学习-(台大)",
         "title": "李宏毅 - 机器学习 (台大)",
+        "title_zh": "李宏毅 - 机器学习 (台大)",
         "url": "https://speech.ee.ntu.edu.tw/~hylee/ml/2023-spring.php",
         "link": "https://speech.ee.ntu.edu.tw/~hylee/ml/2023-spring.php",
         "description": "李宏毅教授经典的机器学习课程系列",
-        "group": "大学公开课"
+        "description_zh": "李宏毅教授经典的机器学习课程系列",
+        "group": "General"
       },
       {
-        "id": "专题教程-hugging-face-课程",
+        "id": "general-hugging-face-课程",
         "title": "Hugging Face 课程",
+        "title_zh": "Hugging Face 课程",
         "url": "https://huggingface.co/learn/nlp-course/zh-CN/chapter1/1",
         "link": "https://huggingface.co/learn/nlp-course/zh-CN/chapter1/1",
         "description": "Hugging Face官方NLP课程，理论与实战结合",
-        "group": "专题教程"
+        "description_zh": "Hugging Face官方NLP课程，理论与实战结合",
+        "group": "General"
       },
       {
-        "id": "专题教程-dive-into-deep-learning-(d2l)",
+        "id": "general-dive-into-deep-learning-(d2l)",
         "title": "Dive into Deep Learning (d2l)",
         "url": "https://d2l.ai/",
         "link": "https://d2l.ai/",
         "description": "《动手学深度学习》，提供代码、理论和练习",
-        "group": "专题教程"
+        "group": "General"
       },
       {
-        "id": "专题教程-the-illustrated-transformer",
+        "id": "general-the-illustrated-transformer",
         "title": "The Illustrated Transformer",
         "url": "http://jalammar.github.io/illustrated-transformer/",
         "link": "http://jalammar.github.io/illustrated-transformer/",
         "description": "可视化图解 Transformer 原理，非常经典",
-        "group": "专题教程"
+        "group": "General"
       },
       {
-        "id": "专题教程-langchain-docs",
+        "id": "general-langchain-docs",
         "title": "LangChain Docs",
         "url": "https://python.langchain.com/",
         "link": "https://python.langchain.com/",
         "description": "构建 LLM 应用的框架文档",
-        "group": "专题教程"
+        "group": "General"
       },
       {
-        "id": "专题教程-llamaindex-docs",
+        "id": "general-llamaindex-docs",
         "title": "LlamaIndex Docs",
         "url": "https://docs.llamaindex.ai/",
         "link": "https://docs.llamaindex.ai/",
         "description": "RAG/索引工具链文档",
-        "group": "专题教程"
+        "group": "General"
       },
       {
-        "id": "专题教程-pytorch-官方教程",
+        "id": "general-pytorch-官方教程",
         "title": "PyTorch 官方教程",
+        "title_zh": "PyTorch 官方教程",
         "url": "https://pytorch.org/tutorials/",
         "link": "https://pytorch.org/tutorials/",
         "description": "PyTorch官方教程，从基础到高级应用的全面指南",
-        "group": "专题教程"
+        "description_zh": "PyTorch官方教程，从基础到高级应用的全面指南",
+        "group": "General"
       },
       {
-        "id": "专题教程-tensorflow-官方教程",
+        "id": "general-tensorflow-官方教程",
         "title": "TensorFlow 官方教程",
+        "title_zh": "TensorFlow 官方教程",
         "url": "https://www.tensorflow.org/tutorials",
         "link": "https://www.tensorflow.org/tutorials",
         "description": "TensorFlow学习资源",
-        "group": "专题教程"
+        "description_zh": "TensorFlow学习资源",
+        "group": "General"
       },
       {
-        "id": "学习路线与资源-ai-学习路线-(roadmap.sh)",
+        "id": "general-ai-学习路线-(roadmap.sh)",
         "title": "AI 学习路线 (roadmap.sh)",
+        "title_zh": "AI 学习路线 (roadmap.sh)",
         "url": "https://roadmap.sh/ai-data-scientist",
         "link": "https://roadmap.sh/ai-data-scientist",
         "description": "结构清晰的AI与数据科学家学习路线图",
-        "group": "学习路线与资源"
+        "description_zh": "结构清晰的AI与数据科学家学习路线图",
+        "group": "General"
       },
       {
-        "id": "学习路线与资源-ml/dl-papers-reading-list",
+        "id": "general-ml/dl-papers-reading-list",
         "title": "ML/DL Papers Reading List",
         "url": "https://github.com/mli/paper-reading",
         "link": "https://github.com/mli/paper-reading",
         "description": "机器学习/深度学习经典论文阅读清单",
-        "group": "学习路线与资源"
+        "group": "General"
       },
       {
-        "id": "学习路线与资源-awesome-llm",
+        "id": "general-awesome-llm",
         "title": "Awesome LLM",
         "url": "https://github.com/Hannibal046/Awesome-LLM",
         "link": "https://github.com/Hannibal046/Awesome-LLM",
         "description": "LLM 资源汇总，非常全面",
-        "group": "学习路线与资源"
+        "group": "General"
       },
       {
-        "id": "学习路线与资源-动手学ai",
+        "id": "general-动手学ai",
         "title": "动手学AI",
+        "title_zh": "动手学AI",
         "url": "https://www.showmeai.tech/",
         "link": "https://www.showmeai.tech/",
         "description": "国内资源，图解AI模型和学习路径",
+        "description_zh": "国内资源，图解AI模型和学习路径",
+        "group": "General"
+      },
+      {
+        "id": "专题教程-memfree：开源混合ai搜索引擎",
+        "title": "MemFree：开源混合AI搜索引擎",
+        "title_zh": "MemFree：开源混合AI搜索引擎",
+        "url": "https://github.com/memfreeme/memfree",
+        "link": "https://github.com/memfreeme/memfree",
+        "description": "MemFree是一个开源混合AI搜索引擎，能够快速从互联网、书签、笔记和文档中获取精准答案。它结合了多种数据来源，旨在提供更全面和个性化的搜索体验。该工具允许用户将个人数据与网络搜索结合，从而优化搜索结果。MemFree的开源特性也使其具有高度的可定制性和可扩展性。",
+        "description_zh": "MemFree是一个开源混合AI搜索引擎，能够快速从互联网、书签、笔记和文档中获取精准答案。它结合了多种数据来源，旨在提供更全面和个性化的搜索体验。该工具允许用户将个人数据与网络搜索结合，从而优化搜索结果。MemFree的开源特性也使其具有高度的可定制性和可扩展性。",
+        "group": "专题教程"
+      },
+      {
+        "id": "大学公开课-copysmith：企业和电商ai内容创作解决方案",
+        "title": "Copysmith：企业和电商AI内容创作解决方案",
+        "title_zh": "Copysmith：企业和电商AI内容创作解决方案",
+        "url": "https://copysmith.ai/",
+        "link": "https://copysmith.ai/",
+        "description": "Copysmith是一款面向企业和电子商务领域的AI内容创作解决方案。该方案旨在帮助用户利用人工智能技术高效生成各种内容，提升内容创作效率并降低成本。目前信息较少，可能提供各种内容生成模板和定制化功能。此方案致力于满足企业和电商行业的内容创作需求。",
+        "description_zh": "Copysmith是一款面向企业和电子商务领域的AI内容创作解决方案。该方案旨在帮助用户利用人工智能技术高效生成各种内容，提升内容创作效率并降低成本。目前信息较少，可能提供各种内容生成模板和定制化功能。此方案致力于满足企业和电商行业的内容创作需求。",
+        "group": "大学公开课"
+      },
+      {
+        "id": "学习路线与资源-notebooklm",
+        "title": "NotebookLM",
+        "url": "https://notebooklm.google.com/",
+        "link": "https://notebooklm.google.com/",
+        "description": "NotebookLM是一款基于AI的聊天工具，它允许用户在自己的文档、链接和文本资源上进行AI对话。这意味着你可以利用AI来分析和理解你个人的资料库，从而更高效地提取信息、总结要点或进行深入研究。它为用户提供了一种全新的、个性化的AI互动方式，可以应用于多种场景，例如学习、研究和内容创作。使用NotebookLM，信息处理的效率将得到显著提升。",
         "group": "学习路线与资源"
+      },
+      {
+        "id": "综合课程-wellsaid-labs",
+        "title": "WellSaid Labs",
+        "url": "https://www.wellsaidlabs.com/",
+        "link": "https://www.wellsaidlabs.com/",
+        "description": "WellSaid Labs 凭借其自然流畅的语音合成技术正获得越来越多的关注，尤其是在企业培训和在线学习领域。该技术生成的语音听起来非常逼真，可以用于制作高质量的语音旁白。这使得 WellSaid Labs 在需要专业配音但又希望降低成本和提高效率的场景中具有很强的竞争力。 该公司的语音合成解决方案有望在未来得到更广泛的应用。",
+        "group": "综合课程"
+      },
+      {
+        "id": "综合课程-remusic：免费在线ai音乐生成器和音乐学习平台",
+        "title": "Remusic：免费在线AI音乐生成器和音乐学习平台",
+        "title_zh": "Remusic：免费在线AI音乐生成器和音乐学习平台",
+        "url": "https://remusic.ai/en",
+        "link": "https://remusic.ai/en",
+        "description": "Remusic是一个免费在线平台，提供AI音乐生成和音乐学习功能。用户无需付费即可体验人工智能创作音乐的乐趣。该平台旨在帮助用户轻松创作音乐，同时提供音乐学习资源，提升用户的音乐素养。Remusic的推出降低了音乐创作的门槛，让更多人能够参与到音乐创作和学习中。",
+        "description_zh": "Remusic是一个免费在线平台，提供AI音乐生成和音乐学习功能。用户无需付费即可体验人工智能创作音乐的乐趣。该平台旨在帮助用户轻松创作音乐，同时提供音乐学习资源，提升用户的音乐素养。Remusic的推出降低了音乐创作的门槛，让更多人能够参与到音乐创作和学习中。",
+        "group": "综合课程"
+      },
+      {
+        "id": "综合课程-prompt工程学习",
+        "title": "Prompt工程学习",
+        "title_zh": "Prompt工程学习",
+        "url": "https://learnprompting.org/",
+        "link": "https://learnprompting.org/",
+        "description": "该新闻介绍了一个免费、开源的Prompt工程课程。该课程旨在教授人们如何与人工智能进行有效沟通。学习者将掌握Prompt技巧，更好地利用AI工具。 这门课程的开源性质也意味着任何人都可以访问和贡献，促进Prompt工程领域的知识共享。",
+        "description_zh": "该新闻介绍了一个免费、开源的Prompt工程课程。该课程旨在教授人们如何与人工智能进行有效沟通。学习者将掌握Prompt技巧，更好地利用AI工具。 这门课程的开源性质也意味着任何人都可以访问和贡献，促进Prompt工程领域的知识共享。",
+        "group": "综合课程"
+      },
+      {
+        "id": "综合课程-提示工程指南",
+        "title": "提示工程指南",
+        "title_zh": "提示工程指南",
+        "url": "https://github.com/dair-ai/Prompt-Engineering-Guide",
+        "link": "https://github.com/dair-ai/Prompt-Engineering-Guide",
+        "description": "该新闻提供提示工程的指南和资源。提示工程是指设计有效提示，以引导人工智能模型生成期望结果的技术。 这份指南旨在帮助用户更好地理解和应用提示工程，提升AI模型的使用效果。 资源部分提供相关工具、教程和案例，便于用户学习和实践。",
+        "description_zh": "该新闻提供提示工程的指南和资源。提示工程是指设计有效提示，以引导人工智能模型生成期望结果的技术。 这份指南旨在帮助用户更好地理解和应用提示工程，提升AI模型的使用效果。 资源部分提供相关工具、教程和案例，便于用户学习和实践。",
+        "group": "综合课程"
+      },
+      {
+        "id": "综合课程-openai-cookbook",
+        "title": "OpenAI Cookbook",
+        "url": "https://github.com/openai/openai-cookbook",
+        "link": "https://github.com/openai/openai-cookbook",
+        "description": "OpenAI Cookbook 提供了使用 OpenAI API 的示例和指南。 该资源旨在帮助开发者更好地理解和应用 OpenAI 的各种模型和服务。 通过学习这些示例和指南，开发者可以更高效地构建基于 AI 的应用程序，并充分利用 OpenAI API 的强大功能。该资源是一个实用工具，方便开发者快速上手和解决实际问题。",
+        "group": "综合课程"
+      },
+      {
+        "id": "综合课程-robert-miles：ai安全频道",
+        "title": "Robert Miles：AI安全频道",
+        "title_zh": "Robert Miles：AI安全频道",
+        "url": "https://www.youtube.com/@RobertMilesAI",
+        "link": "https://www.youtube.com/@RobertMilesAI",
+        "description": "该新闻介绍了一个名为Robert Miles的YouTube频道，其专注于探讨人工智能安全问题。频道内容旨在提高人们对人工智能潜在风险的认识，并推动相关安全研究和实践。通过视频等形式，该频道致力于传播AI安全知识，引发公众讨论。这是一个关于AI安全教育和意识提升的重要平台。",
+        "description_zh": "该新闻介绍了一个名为Robert Miles的YouTube频道，其专注于探讨人工智能安全问题。频道内容旨在提高人们对人工智能潜在风险的认识，并推动相关安全研究和实践。通过视频等形式，该频道致力于传播AI安全知识，引发公众讨论。这是一个关于AI安全教育和意识提升的重要平台。",
+        "group": "综合课程"
+      },
+      {
+        "id": "综合课程-机器学习路线图",
+        "title": "机器学习路线图",
+        "title_zh": "机器学习路线图",
+        "url": "https://github.com/mrdbourke/machine-learning-roadmap",
+        "link": "https://github.com/mrdbourke/machine-learning-roadmap",
+        "description": "该新闻提供了一份机器学习路线图，旨在连接机器学习领域中最重要的概念。它指导学习者如何掌握这些概念，并推荐了执行相关任务所需的工具。这份路线图可以帮助初学者和有经验的从业者更好地理解和应用机器学习。",
+        "description_zh": "该新闻提供了一份机器学习路线图，旨在连接机器学习领域中最重要的概念。它指导学习者如何掌握这些概念，并推荐了执行相关任务所需的工具。这份路线图可以帮助初学者和有经验的从业者更好地理解和应用机器学习。",
+        "group": "综合课程"
       }
     ]
   },
@@ -182,9 +290,11 @@
       {
         "id": "prompt 指南-midjourney-提示词指南",
         "title": "Midjourney 提示词指南",
+        "title_zh": "Midjourney 提示词指南",
         "url": "https://docs.midjourney.com/docs/prompts",
         "link": "https://docs.midjourney.com/docs/prompts",
         "description": "Midjourney官方文档，讲解提示词的构图、风格等",
+        "description_zh": "Midjourney官方文档，讲解提示词的构图、风格等",
         "group": "Prompt 指南"
       },
       {
@@ -198,9 +308,11 @@
       {
         "id": "prompt 集合-炼丹笔记-(flowgpt)",
         "title": "炼丹笔记 (FlowGPT)",
+        "title_zh": "炼丹笔记 (FlowGPT)",
         "url": "https://flowgpt.com/prompt",
         "link": "https://flowgpt.com/prompt",
         "description": "社区分享的各类实用Prompt案例",
+        "description_zh": "社区分享的各类实用Prompt案例",
         "group": "Prompt 集合"
       }
     ]
@@ -253,9 +365,11 @@
       {
         "id": "模型与社区-modelscope-(魔搭社区)",
         "title": "ModelScope (魔搭社区)",
+        "title_zh": "ModelScope (魔搭社区)",
         "url": "https://modelscope.cn/home",
         "link": "https://modelscope.cn/home",
         "description": "阿里巴巴牵头的国内AI模型社区",
+        "description_zh": "阿里巴巴牵头的国内AI模型社区",
         "group": "模型与社区"
       },
       {
@@ -285,17 +399,21 @@
       {
         "id": "行业资讯-机器之心",
         "title": "机器之心",
+        "title_zh": "机器之心",
         "url": "https://www.jiqizhixin.com/",
         "link": "https://www.jiqizhixin.com/",
         "description": "国内领先的AI媒体和信息服务平台",
+        "description_zh": "国内领先的AI媒体和信息服务平台",
         "group": "行业资讯"
       },
       {
         "id": "行业资讯-量子位",
         "title": "量子位",
+        "title_zh": "量子位",
         "url": "https://www.qbitai.com/",
         "link": "https://www.qbitai.com/",
         "description": "国内知名的AI科技媒体",
+        "description_zh": "国内知名的AI科技媒体",
         "group": "行业资讯"
       }
     ]
@@ -306,188 +424,286 @@
     "description": "精选 AI 工具与站点，分类维护",
     "items": [
       {
-        "id": "通用模型-chatgpt",
+        "id": "general-chatgpt",
         "title": "ChatGPT",
         "url": "https://chat.openai.com/",
         "link": "https://chat.openai.com/",
         "description": "通用对话、办公、编程",
-        "group": "通用模型"
+        "group": "General"
       },
       {
-        "id": "通用模型-gemini",
+        "id": "general-gemini",
         "title": "Gemini",
         "url": "https://gemini.google.com/",
         "link": "https://gemini.google.com/",
         "description": "谷歌通用大模型",
-        "group": "通用模型"
+        "group": "General"
       },
       {
-        "id": "通用模型-claude",
+        "id": "general-claude",
         "title": "Claude",
         "url": "https://claude.ai/",
         "link": "https://claude.ai/",
         "description": "Anthropic 出品的通用大模型",
-        "group": "通用模型"
+        "group": "General"
       },
       {
-        "id": "通用模型-文心一言",
+        "id": "general-文心一言",
         "title": "文心一言",
+        "title_zh": "文心一言",
         "url": "https://yiyan.baidu.com/",
         "link": "https://yiyan.baidu.com/",
         "description": "百度出品的通用大模型",
-        "group": "通用模型"
+        "description_zh": "百度出品的通用大模型",
+        "group": "General"
       },
       {
-        "id": "通用模型-豆包",
+        "id": "general-豆包",
         "title": "豆包",
+        "title_zh": "豆包",
         "url": "https://www.doubao.com/",
         "link": "https://www.doubao.com/",
         "description": "字节跳动出品的通用大模型",
-        "group": "通用模型"
+        "description_zh": "字节跳动出品的通用大模型",
+        "group": "General"
       },
       {
-        "id": "通用模型-通义千问",
+        "id": "general-通义千问",
         "title": "通义千问",
+        "title_zh": "通义千问",
         "url": "https://tongyi.aliyun.com/",
         "link": "https://tongyi.aliyun.com/",
         "description": "阿里巴巴出品的通用大模型",
-        "group": "通用模型"
+        "description_zh": "阿里巴巴出品的通用大模型",
+        "group": "General"
       },
       {
-        "id": "通用模型-kimi-chat",
+        "id": "general-kimi-chat",
         "title": "Kimi Chat",
         "url": "https://kimi.moonshot.cn/",
         "link": "https://kimi.moonshot.cn/",
         "description": "月之暗面出品，擅长长文本处理",
-        "group": "通用模型"
+        "group": "General"
       },
       {
-        "id": "ai 绘画-midjourney",
+        "id": "general-midjourney",
         "title": "Midjourney",
         "url": "https://www.midjourney.com/",
         "link": "https://www.midjourney.com/",
         "description": "艺术风格、高质量图像生成",
-        "group": "AI 绘画"
+        "group": "General"
       },
       {
-        "id": "ai 绘画-stable-diffusion",
+        "id": "general-stable-diffusion",
         "title": "Stable Diffusion",
         "url": "https://stability.ai/",
         "link": "https://stability.ai/",
         "description": "开源、可定制化模型",
-        "group": "AI 绘画"
+        "group": "General"
       },
       {
-        "id": "ai 绘画-dall-e-3",
+        "id": "general-dall-e-3",
         "title": "DALL-E 3",
         "url": "https://openai.com/dall-e-3",
         "link": "https://openai.com/dall-e-3",
         "description": "OpenAI 出品，集成于ChatGPT",
-        "group": "AI 绘画"
+        "group": "General"
       },
       {
-        "id": "ai 绘画-leonardo.ai",
+        "id": "general-leonardo.ai",
         "title": "Leonardo.Ai",
         "url": "https://leonardo.ai/",
         "link": "https://leonardo.ai/",
         "description": "游戏资产、艺术品生成平台",
-        "group": "AI 绘画"
+        "group": "General"
       },
       {
-        "id": "ai 绘画-comfyui",
+        "id": "general-comfyui",
         "title": "ComfyUI",
         "url": "https://github.com/comfyanonymous/ComfyUI",
         "link": "https://github.com/comfyanonymous/ComfyUI",
         "description": "强大的 Stable Diffusion 图形化界面和流程编排工具",
-        "group": "AI 绘画"
+        "group": "General"
       },
       {
-        "id": "ai 视频-runway",
+        "id": "general-runway",
         "title": "Runway",
         "url": "https://runwayml.com/",
         "link": "https://runwayml.com/",
         "description": "AI 视频编辑、生成与处理工具",
-        "group": "AI 视频"
+        "group": "General"
       },
       {
-        "id": "ai 视频-pika",
+        "id": "general-pika",
         "title": "Pika",
         "url": "https://pika.art/",
         "link": "https://pika.art/",
         "description": "强大的文生视频、图生视频平台",
-        "group": "AI 视频"
+        "group": "General"
       },
       {
-        "id": "ai 视频-sora",
+        "id": "general-sora",
         "title": "Sora",
         "url": "https://openai.com/sora",
         "link": "https://openai.com/sora",
         "description": "OpenAI 出品，目前最顶尖的文生视频模型（暂未开放）",
-        "group": "AI 视频"
+        "group": "General"
       },
       {
-        "id": "ai 视频-heygen",
+        "id": "general-heygen",
         "title": "HeyGen",
         "url": "https://www.heygen.com/",
         "link": "https://www.heygen.com/",
         "description": "AI 数字人与视频翻译工具",
-        "group": "AI 视频"
+        "group": "General"
       },
       {
-        "id": "ai 编程-github-copilot",
+        "id": "general-github-copilot",
         "title": "GitHub Copilot",
         "url": "https://github.com/features/copilot",
         "link": "https://github.com/features/copilot",
         "description": "实时代码补全与建议",
-        "group": "AI 编程"
+        "group": "General"
       },
       {
-        "id": "ai 编程-cursor",
+        "id": "general-cursor",
         "title": "Cursor",
         "url": "https://cursor.sh/",
         "link": "https://cursor.sh/",
         "description": "AI 优先的代码编辑器",
-        "group": "AI 编程"
+        "group": "General"
       },
       {
-        "id": "ai 编程-v0-by-vercel",
+        "id": "general-v0-by-vercel",
         "title": "v0 by Vercel",
         "url": "https://v0.dev/",
         "link": "https://v0.dev/",
         "description": "通过文本生成前端UI组件",
-        "group": "AI 编程"
+        "group": "General"
       },
       {
-        "id": "ai 编程-codeium",
+        "id": "general-codeium",
         "title": "Codeium",
         "url": "https://codeium.com/",
         "link": "https://codeium.com/",
         "description": "免费的AI代码补全工具",
-        "group": "AI 编程"
+        "group": "General"
       },
       {
-        "id": "ai 效率-notion-ai",
+        "id": "general-notion-ai",
         "title": "Notion AI",
         "url": "https://www.notion.so/product/ai",
         "link": "https://www.notion.so/product/ai",
         "description": "笔记、文档与写作助手",
-        "group": "AI 效率"
+        "group": "General"
       },
       {
-        "id": "ai 效率-gamma",
+        "id": "general-gamma",
         "title": "Gamma",
         "url": "https://gamma.app/",
         "link": "https://gamma.app/",
         "description": "AI 驱动的演示文稿（PPT）生成器",
-        "group": "AI 效率"
+        "group": "General"
       },
       {
-        "id": "ai 效率-tome",
+        "id": "general-tome",
         "title": "Tome",
         "url": "https://tome.app/",
         "link": "https://tome.app/",
         "description": "AI 故事叙述与演示文稿生成",
+        "group": "General"
+      },
+      {
+        "id": "其他工具-人工智能工具精选列表",
+        "title": "人工智能工具精选列表",
+        "title_zh": "人工智能工具精选列表",
+        "url": "https://theresanai.com",
+        "link": "https://theresanai.com",
+        "description": "该新闻提供了一份最佳人工智能工具的列表。由于内容过于简洁，具体工具类型和功能未详细说明。 这份列表旨在帮助用户快速了解当前可用的优秀AI工具资源。读者需自行查找具体工具的详细信息以评估其适用性。新闻价值在于提供了AI工具探索的起点。",
+        "description_zh": "该新闻提供了一份最佳人工智能工具的列表。由于内容过于简洁，具体工具类型和功能未详细说明。 这份列表旨在帮助用户快速了解当前可用的优秀AI工具资源。读者需自行查找具体工具的详细信息以评估其适用性。新闻价值在于提供了AI工具探索的起点。",
+        "group": "其他工具"
+      },
+      {
+        "id": "其他工具-murf-ai：逼真ai语音生成",
+        "title": "Murf AI：逼真AI语音生成",
+        "title_zh": "Murf AI：逼真AI语音生成",
+        "url": "https://get.murf.ai/v8i9to5ad4oq",
+        "link": "https://get.murf.ai/v8i9to5ad4oq",
+        "description": "Murf AI 致力于通过其最逼真的 AI 语音创建画外音。该技术旨在提供高质量的语音生成服务，用于各种应用场景，例如视频制作、音频内容创作等。其核心优势在于其 AI 语音的逼真度，力求模拟真实人声，提升用户体验。 Murf AI 的目标是让用户能够轻松创建专业级的画外音。",
+        "description_zh": "Murf AI 致力于通过其最逼真的 AI 语音创建画外音。该技术旨在提供高质量的语音生成服务，用于各种应用场景，例如视频制作、音频内容创作等。其核心优势在于其 AI 语音的逼真度，力求模拟真实人声，提升用户体验。 Murf AI 的目标是让用户能够轻松创建专业级的画外音。",
+        "group": "其他工具"
+      },
+      {
+        "id": "其他工具-sanebox",
+        "title": "SaneBox",
+        "url": "https://try.sanebox.com/yzkpe5s68xk2",
+        "link": "https://try.sanebox.com/yzkpe5s68xk2",
+        "description": "SaneBox是一款邮件管理软件即服务（SaaS），旨在帮助用户更高效地管理邮件。它通过集成IMAP和Exchange Web Services邮件账户，实现智能的邮件分类和优先级排序，从而减轻用户的邮件处理负担。该服务可以帮助用户过滤掉不重要的邮件，只关注重要的信息。SaneBox致力于提升用户的工作效率，优化邮件使用体验。",
+        "group": "其他工具"
+      },
+      {
+        "id": "其他工具-meetgeek：ai会议助手",
+        "title": "MeetGeek：AI会议助手",
+        "title_zh": "MeetGeek：AI会议助手",
+        "url": "https://get.meetgeek.ai/zmrnb5xlyfs9",
+        "link": "https://get.meetgeek.ai/zmrnb5xlyfs9",
+        "description": "MeetGeek是一款AI会议助手，能够自动录制视频、转录会议内容、生成会议总结，并提取关键要点。它旨在简化会议管理流程，提高会议效率。 通过自动化的方式，MeetGeek 减轻了与会者的记录负担，让他们更专注于会议本身。 这款工具可以帮助用户快速回顾会议内容，并抓住最重要的信息。",
+        "description_zh": "MeetGeek是一款AI会议助手，能够自动录制视频、转录会议内容、生成会议总结，并提取关键要点。它旨在简化会议管理流程，提高会议效率。 通过自动化的方式，MeetGeek 减轻了与会者的记录负担，让他们更专注于会议本身。 这款工具可以帮助用户快速回顾会议内容，并抓住最重要的信息。",
+        "group": "其他工具"
+      },
+      {
+        "id": "其他工具-deepmind推出gopher语言模型",
+        "title": "DeepMind推出Gopher语言模型",
+        "title_zh": "DeepMind推出Gopher语言模型",
+        "url": "https://www.deepmind.com/blog/language-modelling-at-scale-gopher-ethical-considerations-and-retrieval",
+        "link": "https://www.deepmind.com/blog/language-modelling-at-scale-gopher-ethical-considerations-and-retrieval",
+        "description": "DeepMind发布了名为Gopher的语言模型，其拥有2800亿个参数。这款模型是DeepMind在大型语言模型研究方面的最新成果，旨在推动自然语言处理技术的进步。Gopher庞大的参数规模预示着它在文本生成、理解和翻译等任务上可能具有强大的能力。该模型的发布有望为AI领域的进一步发展提供新的可能性。",
+        "description_zh": "DeepMind发布了名为Gopher的语言模型，其拥有2800亿个参数。这款模型是DeepMind在大型语言模型研究方面的最新成果，旨在推动自然语言处理技术的进步。Gopher庞大的参数规模预示着它在文本生成、理解和翻译等任务上可能具有强大的能力。该模型的发布有望为AI领域的进一步发展提供新的可能性。",
+        "group": "其他工具"
+      },
+      {
+        "id": "其他工具-llama",
+        "title": "LLaMA",
+        "url": "https://ai.facebook.com/blog/large-language-model-llama-meta-ai/",
+        "link": "https://ai.facebook.com/blog/large-language-model-llama-meta-ai/",
+        "description": "Meta发布了一个基础性的、拥有650亿参数的大型语言模型LLaMA。该模型采用了开源策略，旨在促进人工智能研究领域的进步。LLaMA的发布将为开发者和研究人员提供一个强大的工具，以探索和改进大型语言模型的性能。此举也进一步推动了开源AI的发展。",
+        "group": "其他工具"
+      },
+      {
+        "id": "ai 效率-notion-ai",
+        "title": "Notion AI",
+        "url": "https://affiliate.notion.so/9po6cx7rvdr6-4y5a7",
+        "link": "https://affiliate.notion.so/9po6cx7rvdr6-4y5a7",
+        "description": "Notion AI 整合了问答功能，能够快速查找所需信息。它提供写作和头脑风暴助手，无需离开Notion应用，直接在Notion内部完成各项任务，简化了用户的工作流程。这意味着用户可以在一个平台上完成更多工作，避免了在多个浏览器标签之间切换的麻烦。",
         "group": "AI 效率"
+      },
+      {
+        "id": "ai 编程-openai-api",
+        "title": "OpenAI API",
+        "url": "https://openai.com/api/",
+        "link": "https://openai.com/api/",
+        "description": "OpenAI API提供对GPT-3和GPT-4模型的访问，这些模型擅长处理各种自然语言任务。此外，该API还提供Codex，它可以将自然语言转换为代码。总的来说，OpenAI API为开发者提供了强大的自然语言处理和代码生成能力。",
+        "group": "AI 编程"
+      },
+      {
+        "id": "ai 编程-facebook开源opt：开放预训练transformer模型",
+        "title": "Facebook开源OPT：开放预训练Transformer模型",
+        "title_zh": "Facebook开源OPT：开放预训练Transformer模型",
+        "url": "https://huggingface.co/facebook/opt-350m",
+        "link": "https://huggingface.co/facebook/opt-350m",
+        "description": "Facebook发布了开放预训练Transformer模型（OPT），这是一套仅包含解码器的预训练Transformer模型。此举旨在 democratize access to large-scale language models. Alpa平台托管了OPT-175B的文本生成演示。 这为研究人员和开发者提供了探索和利用大型语言模型的机会。",
+        "description_zh": "Facebook发布了开放预训练Transformer模型（OPT），这是一套仅包含解码器的预训练Transformer模型。此举旨在 democratize access to large-scale language models. Alpa平台托管了OPT-175B的文本生成演示。 这为研究人员和开发者提供了探索和利用大型语言模型的机会。",
+        "group": "AI 编程"
+      },
+      {
+        "id": "ai 编程-bloom：hugging-face发布多语言开源模型",
+        "title": "BLOOM：Hugging Face发布多语言开源模型",
+        "title_zh": "BLOOM：Hugging Face发布多语言开源模型",
+        "url": "https://huggingface.co/docs/transformers/model_doc/bloom",
+        "link": "https://huggingface.co/docs/transformers/model_doc/bloom",
+        "description": "Hugging Face发布了名为BLOOM的语言模型，其性能与GPT-3类似。该模型在46种不同语言和13种编程语言上进行了训练，具备强大的多语言处理能力。与GPT-3不同，BLOOM是开源的，允许研究人员和开发者自由使用和改进。BLOOM的发布旨在推动自然语言处理技术的开放和创新。",
+        "description_zh": "Hugging Face发布了名为BLOOM的语言模型，其性能与GPT-3类似。该模型在46种不同语言和13种编程语言上进行了训练，具备强大的多语言处理能力。与GPT-3不同，BLOOM是开源的，允许研究人员和开发者自由使用和改进。BLOOM的发布旨在推动自然语言处理技术的开放和创新。",
+        "group": "AI 编程"
       }
     ]
   }
