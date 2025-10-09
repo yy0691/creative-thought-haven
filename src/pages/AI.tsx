@@ -182,21 +182,25 @@ const FaviconImage = ({ url, alt, className }: { url?: string; alt: string; clas
   const [currentSourceIndex, setCurrentSourceIndex] = React.useState(0);
   const sources = React.useMemo(() => getFaviconSources(url), [url]);
 
-  const handleError = () => {
-    // 如果当前图标加载失败，尝试下一个源
-    if (currentSourceIndex < sources.length - 1) {
-      // 调试日志：记录失败的图标源
-      if (process.env.NODE_ENV === 'development') {
-        console.debug(`[Favicon] Failed to load from source ${currentSourceIndex}: ${sources[currentSourceIndex]}`);
+  const handleError = React.useCallback(() => {
+    // 使用函数式更新避免闭包问题
+    setCurrentSourceIndex(prevIndex => {
+      // 如果当前图标加载失败，尝试下一个源
+      if (prevIndex < sources.length - 1) {
+        // 调试日志：记录失败的图标源
+        if (process.env.NODE_ENV === 'development') {
+          console.debug(`[Favicon] Failed to load from source ${prevIndex}: ${sources[prevIndex]}`);
+        }
+        return prevIndex + 1;
+      } else {
+        // 所有源都失败，使用占位图
+        if (process.env.NODE_ENV === 'development') {
+          console.warn(`[Favicon] All sources failed for ${url}, using placeholder`);
+        }
+        return prevIndex; // 保持在占位图
       }
-      setCurrentSourceIndex(currentSourceIndex + 1);
-    } else {
-      // 所有源都失败，使用占位图
-      if (process.env.NODE_ENV === 'development') {
-        console.warn(`[Favicon] All sources failed for ${url}, using placeholder`);
-      }
-    }
-  };
+    });
+  }, [sources, url]);
 
   return (
     <img
