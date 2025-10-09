@@ -17,6 +17,14 @@ Preferred communication style: Simple, everyday language.
 
 ## Recent Changes
 
+### October 9, 2025 - AI News Automation YAML Fix
+- Fixed critical YAML parsing error in AI news automation system
+- Problem: Article titles with special characters (colons, quotes, etc.) caused YAML frontmatter parsing to fail
+- Solution: Added `escapeYamlValue()` function to properly escape and quote YAML values
+- Updated `scripts/fetch-ai-news-auto.js` to use proper YAML escaping for all frontmatter fields
+- Created `scripts/fix-yaml-frontmatter.js` to repair all 65 existing markdown files
+- Build process now runs successfully without YAML parsing errors
+
 ### October 9, 2025 - Vercel to Replit Migration
 - Successfully migrated project from Vercel to Replit
 - Updated Vite configuration for Replit compatibility:
@@ -69,6 +77,18 @@ Preferred communication style: Simple, everyday language.
 - `build-designs.js` - 处理设计作品
 - `build-videos.js` - 处理视频内容
 - `build-ai-sections.js` - 处理 AI 工具分类链接
+
+**AI新闻自动化系统**:
+- `fetch-ai-news-auto.js` - 自动从配置的RSS源抓取AI新闻并生成Markdown文件
+- `config/ai-news-sources.json` - RSS源配置文件（新闻源、抓取设置）
+- `fix-yaml-frontmatter.js` - 修复现有Markdown文件的YAML格式问题
+- 自动化流程：
+  1. 从RSS源获取最新文章
+  2. 提取元数据（标题、描述、日期、标签等）
+  3. 自动抓取文章封面图（通过Open Graph元数据）
+  4. 生成带有正确YAML frontmatter的Markdown文件
+  5. 避免重复创建（基于文件名slug检测）
+  6. 支持特殊字符自动转义（冒号、引号等）
 
 ### 数据流设计
 
