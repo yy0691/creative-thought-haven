@@ -37,8 +37,8 @@ const mdxPlugin = () => mdx({
 // https://vitejs.dev/config/
 export default defineConfig({
   server: {
-    host: "::",
-    port: 8080,
+    host: "0.0.0.0",
+    port: Number(process.env.PORT) || 5000,
   },
   build: {
     target: 'es2015',
