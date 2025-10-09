@@ -1,0 +1,45 @@
+> creative-thought-haven@1.0.0 dev
+> npm run build:content && vite
+
+
+> creative-thought-haven@1.0.0 build:content
+> node scripts/build-ai-news.js && node scripts/build-projects.js && node scripts/build-designs.js && node scripts/build-videos.js && node scripts/build-ai-sect✅ Fetched meta for: https://www.technologyreview.com/2025/10/06/1124323/enabling-real-time-responsiveness-with-event-driven-architecture/
+
+/home/runner/workspace/node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/loader.js:167
+  return new YAMLException(
+         ^
+YAMLException: incomplete explicit mapping pair; a key node is missed; or followed by a non-tabulated empty line at line 2, column 33:
+    title: Speech-to-Retrieval (S2R): A new approach to voice search
+                                    ^
+    at generateError (/home/runner/workspace/node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/loader.js:167:10)
+    at throwError (/home/runner/workspace/node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/loader.js:173:9)
+    at readBlockMapping (/home/runner/workspace/node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/loader.js:1027:9)
+    at composeNode (/home/runner/workspace/node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/loader.js:1359:12)
+    at readDocument (/home/runner/workspace/node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/loader.js:1525:3)
+    at loadDocuments (/home/runner/workspace/node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/loader.js:1588:5)
+    at load (/home/runner/workspace/node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/loader.js:1614:19)
+    at Object.safeLoad (/home/runner/workspace/node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/loader.js:1637:10)
+    at module.exports (/home/runner/workspace/node_modules/gray-matter/lib/parse.js:12:17)
+    at parseMatter (/home/runner/workspace/node_modules/gray-matter/index.js:109:17) {
+  reason: 'incomplete explicit mapping pair; a key node is missed; or followed by a non-tabulated empty line',
+  mark: Mark {
+    name: null,
+    buffer: '\n' +
+      'title: Speech-to-Retrieval (S2R): A new approach to voice search\n' +
+      'description: Machine Intelligence\n' +
+      'author: LuoYuan\n' +
+      'date: 2025-10-07\n' +
+      'image: https://storage.googleapis.com/gweb-research2023-media/images/Open_Graph.width-800.format-jpeg.jpg\n' +
+      'link: https://research.google/blog/speech-to-retrieval-s2r-a-new-approach-to-voice-search/\n' +
+      'category: ai-news\n' +
+      'tags: ["Machine Intelligence","Natural Language Processing","Product","AI","人工智能","研究"]\n' +
+      'featured: false\n' +
+      'source: Google AI Blog\n' +
+      '\x00',
+    position: 33,
+    line: 1,
+    column: 32
+  }
+}
+
+Node.js v20.19.3

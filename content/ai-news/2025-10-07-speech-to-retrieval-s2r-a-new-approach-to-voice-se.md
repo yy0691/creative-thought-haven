@@ -1,5 +1,5 @@
 ---
-title: ​​Speech-to-Retrieval (S2R): A new approach to voice search
+title: "Speech-to-Retrieval (S2R): A new approach to voice search"
 description: Machine Intelligence
 author: LuoYuan
 date: 2025-10-07
@@ -11,7 +11,7 @@ featured: false
 source: Google AI Blog
 ---
 
-## ​​Speech-to-Retrieval (S2R): A new approach to voice search
+## Speech-to-Retrieval (S2R): A new approach to voice search
 
 Machine Intelligence
 
