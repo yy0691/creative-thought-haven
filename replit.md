@@ -17,6 +17,19 @@ Preferred communication style: Simple, everyday language.
 
 ## Recent Changes
 
+### October 9, 2025 - AI-Powered Chinese Translation Integration
+- Successfully integrated Google Gemini API for automated Chinese translation and summarization
+- Implemented multi-account API key rotation system (3 Gemini accounts for 4,500 requests/day total)
+- Created `scripts/ai-service.js` with GeminiService class supporting:
+  - Automatic API key rotation across 3 accounts
+  - Retry logic with exponential backoff for 503 errors
+  - Chinese title translation, summary generation, and key point extraction
+- Extended data schema with Chinese fields (title_zh, summary_zh, key_points)
+- Updated `scripts/fetch-ai-news-auto.js` to automatically translate new articles
+- Modified frontend components (AI.tsx, SmallCard, LargeCard) to prioritize Chinese content
+- Added graceful fallback to English when translation fails
+- Successfully tested end-to-end workflow with live news articles
+
 ### October 9, 2025 - AI News Automation YAML Fix
 - Fixed critical YAML parsing error in AI news automation system
 - Problem: Article titles with special characters (colons, quotes, etc.) caused YAML frontmatter parsing to fail
