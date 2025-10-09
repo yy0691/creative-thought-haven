@@ -171,25 +171,25 @@ const Blog = () => {
   if (error) return <div>加载博客列表失败: {error}</div>;
 
   return (
-    <div className="page-transition space-y-6 py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative">
+    <div className="page-transition space-y-4 md:space-y-6 py-6 md:py-10 px-3 sm:px-4 md:px-6 lg:px-8 max-w-7xl mx-auto relative">
       {/* 确保 SplashCursor 在最顶层并且添加适当的定位和 z-index */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
         
       </div>
       
-      <header className="text-center space-y-4 relative z-10">
-        <h1 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/70 animate-gradient">博客文章</h1>
-        <p className="text-muted-foreground dark:text-gray-300">Thoughts, tutorials and insights</p>
+      <header className="text-center space-y-2 md:space-y-4 relative z-10">
+        <h1 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/70 animate-gradient">博客文章</h1>
+        <p className="text-sm md:text-base text-muted-foreground dark:text-gray-300">Thoughts, tutorials and insights</p>
       </header>
       
-      {/* 第一层：主要分类选择按钮 - 单行排列，更小的按钮，增加圆角 */}
-      <div className="flex flex-wrap justify-center gap-3 py-3 bg-background/40 backdrop-blur-md rounded-xl dark:bg-black/30">
+      {/* 第一层：主要分类选择按钮 - 移动端优化 */}
+      <div className="flex flex-wrap justify-center gap-2 md:gap-3 py-2 md:py-3 px-2 md:px-0 bg-background/40 backdrop-blur-md rounded-lg md:rounded-xl dark:bg-black/30">
         <button 
           onClick={() => {
             setSelectedCategory('');
             setSelectedSubcategory('');
           }}
-          className={`px-4 py-2 rounded-full text-center transition-all text-sm dark:text-gray-200 ${
+          className={`px-3 md:px-4 py-1.5 md:py-2 rounded-full text-center transition-all text-xs md:text-sm dark:text-gray-200 ${
             selectedCategory === '' 
               ? 'bg-primary text-primary-foreground shadow-sm dark:text-gray-900' 
               : 'hover:bg-accent hover:text-foreground dark:hover:bg-gray-800 dark:hover:text-white'
@@ -205,7 +205,7 @@ const Blog = () => {
               setSelectedCategory(category.id);
               setSelectedSubcategory('');
             }}
-            className={`px-4 py-2 rounded-full text-center transition-all text-sm dark:text-gray-200 ${
+            className={`px-3 md:px-4 py-1.5 md:py-2 rounded-full text-center transition-all text-xs md:text-sm dark:text-gray-200 ${
               selectedCategory === category.id 
                 ? 'bg-primary text-primary-foreground shadow-sm dark:text-gray-900' 
                 : 'hover:bg-accent hover:text-foreground dark:hover:bg-gray-800 dark:hover:text-white'
@@ -216,10 +216,10 @@ const Blog = () => {
         ))}
       </div>
       
-      {/* 第二层：二级分类和控制按钮 */}
-      <div className="flex flex-wrap justify-between items-center gap-3 py-3 bg-background/40 backdrop-blur-md rounded-xl dark:bg-black/30">
+      {/* 第二层：二级分类和控制按钮 - 移动端堆叠布局 */}
+      <div className="space-y-2 md:space-y-0 md:flex md:flex-wrap md:justify-between md:items-center gap-3 py-2 md:py-3 px-2 md:px-0 bg-background/40 backdrop-blur-md rounded-lg md:rounded-xl dark:bg-black/30">
         {/* 左侧：二级分类按钮 */}
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-1.5 md:gap-2">
           {selectedCategory && (
             <>
               {(() => {
@@ -232,7 +232,7 @@ const Blog = () => {
                       <button
                         key={subcat.id}
                         onClick={() => setSelectedSubcategory(subcat.id)}
-                        className={`px-3 py-1.5 rounded-full text-xs transition-all dark:text-gray-300
+                        className={`px-2.5 md:px-3 py-1 md:py-1.5 rounded-full text-[11px] md:text-xs transition-all dark:text-gray-300
                           ${selectedSubcategory === subcat.id 
                             ? 'bg-primary/10 text-primary border-primary/30 dark:bg-primary/80 dark:text-gray-900 dark:border-primary/40' 
                             : 'hover:bg-primary/5 hover:text-primary hover:border-primary/20 dark:hover:bg-primary/15 dark:hover:text-primary-foreground'}
@@ -248,46 +248,46 @@ const Blog = () => {
           )}
         </div>
         
-        {/* 右侧：控制按钮 */}
-        <div className="flex items-center gap-3">
+        {/* 右侧：控制按钮 - 移动端居中 */}
+        <div className="flex items-center justify-center md:justify-end gap-2 md:gap-3">
           {/* 排序控制 */}
-          <div className="flex items-center bg-background/70 dark:bg-black/50 rounded-lg p-1">
+          <div className="flex items-center bg-background/70 dark:bg-black/50 rounded-lg p-0.5 md:p-1">
             <button
               onClick={() => setSortBy('date')}
-              className={`p-1.5 rounded-md transition-colors dark:text-gray-300 ${
+              className={`p-1 md:p-1.5 rounded-md transition-colors dark:text-gray-300 ${
                 sortBy === 'date' 
                   ? 'bg-primary text-primary-foreground dark:text-gray-900' 
                   : 'hover:bg-accent dark:hover:bg-gray-700'
               }`}
               title="按日期排序"
             >
-              <Clock size={16} />
+              <Clock size={14} className="md:w-4 md:h-4" />
             </button>
             <button
               onClick={() => setSortBy('title')}
-              className={`p-1.5 rounded-md transition-colors dark:text-gray-300 ${
+              className={`p-1 md:p-1.5 rounded-md transition-colors dark:text-gray-300 ${
                 sortBy === 'title' 
                   ? 'bg-primary text-primary-foreground dark:text-gray-900' 
                   : 'hover:bg-accent dark:hover:bg-gray-700'
               }`}
               title="按标题排序"
             >
-              <ArrowUpDown size={16} />
+              <ArrowUpDown size={14} className="md:w-4 md:h-4" />
             </button>
             <button
               onClick={() => setSortBy('tag')}
-              className={`p-1.5 rounded-md transition-colors dark:text-gray-300 ${
+              className={`p-1 md:p-1.5 rounded-md transition-colors dark:text-gray-300 ${
                 sortBy === 'tag' 
                   ? 'bg-primary text-primary-foreground dark:text-gray-900' 
                   : 'hover:bg-accent dark:hover:bg-gray-700'
               }`}
               title="按标签排序"
             >
-              <Tag size={16} />
+              <Tag size={14} className="md:w-4 md:h-4" />
             </button>
             <button
               onClick={toggleSortDirection}
-              className="p-1.5 rounded-md hover:bg-accent dark:text-gray-300 dark:hover:bg-gray-700 transition-colors"
+              className="p-1 md:p-1.5 rounded-md hover:bg-accent dark:text-gray-300 dark:hover:bg-gray-700 transition-colors text-sm"
               title={sortDirection === 'desc' ? '降序' : '升序'}
             >
               {sortDirection === 'desc' ? '↓' : '↑'}
@@ -295,39 +295,39 @@ const Blog = () => {
           </div>
 
           {/* 视图切换 */}
-          <div className="flex items-center bg-background/70 dark:bg-black/50 rounded-lg p-1">
+          <div className="flex items-center bg-background/70 dark:bg-black/50 rounded-lg p-0.5 md:p-1">
             <button
               onClick={() => setViewMode('grid')}
-              className={`p-1.5 rounded-md transition-colors dark:text-gray-300 ${
+              className={`p-1 md:p-1.5 rounded-md transition-colors dark:text-gray-300 ${
                 viewMode === 'grid' 
                   ? 'bg-primary text-primary-foreground dark:text-gray-900' 
                   : 'hover:bg-accent dark:hover:bg-gray-700'
               }`}
               title="网格视图"
             >
-              <LayoutGrid size={16} />
+              <LayoutGrid size={14} className="md:w-4 md:h-4" />
             </button>
             <button
               onClick={() => setViewMode('list')}
-              className={`p-1.5 rounded-md transition-colors dark:text-gray-300 ${
+              className={`p-1 md:p-1.5 rounded-md transition-colors dark:text-gray-300 ${
                 viewMode === 'list' 
                   ? 'bg-primary text-primary-foreground dark:text-gray-900' 
                   : 'hover:bg-accent dark:hover:bg-gray-700'
               }`}
               title="列表视图"
             >
-              <List size={16} />
+              <List size={14} className="md:w-4 md:h-4" />
             </button>
             <button
               onClick={() => setViewMode('compact')}
-              className={`p-1.5 rounded-md transition-colors dark:text-gray-300 ${
+              className={`p-1 md:p-1.5 rounded-md transition-colors dark:text-gray-300 ${
                 viewMode === 'compact' 
                   ? 'bg-primary text-primary-foreground dark:text-gray-900' 
                   : 'hover:bg-accent dark:hover:bg-gray-700'
               }`}
               title="紧凑视图"
             >
-              <AlignJustify size={16} />
+              <AlignJustify size={14} className="md:w-4 md:h-4" />
             </button>
           </div>
         </div>
@@ -336,10 +336,10 @@ const Blog = () => {
       {/* 文章列表 */}
       <div className={
         viewMode === 'grid' 
-          ? "grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3" 
+          ? "grid gap-3 sm:gap-4 md:gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3" 
           : viewMode === 'compact'
-            ? "max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-6"
-            : "flex flex-col gap-4"
+            ? "max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-6"
+            : "flex flex-col gap-2 md:gap-4"
       }>
         {viewMode === 'compact' ? (
           <>
@@ -354,12 +354,12 @@ const Blog = () => {
               
               return columnPosts.length > 0 ? (
                 <div key={colIndex} className="border border-border dark:border-gray-800 rounded-md overflow-hidden">
-                  <table className="w-full text-base">
+                  <table className="w-full text-sm md:text-base">
                     <thead className="bg-muted/50 dark:bg-gray-800/50">
                       <tr className="border-b border-border dark:border-gray-700">
-                        <th className="text-left py-3 px-4 font-medium text-muted-foreground dark:text-gray-300">标题</th>
-                        <th className="text-right py-3 px-4 font-medium text-muted-foreground dark:text-gray-300 w-[120px]">标签</th>
-                        <th className="text-right py-3 px-4 font-medium text-muted-foreground dark:text-gray-300 w-[130px]">日期</th>
+                        <th className="text-left py-2 md:py-3 px-2 md:px-4 font-medium text-muted-foreground dark:text-gray-300 text-xs md:text-sm">标题</th>
+                        <th className="text-right py-2 md:py-3 px-2 md:px-4 font-medium text-muted-foreground dark:text-gray-300 w-[80px] md:w-[120px] text-xs md:text-sm hidden sm:table-cell">标签</th>
+                        <th className="text-right py-2 md:py-3 px-2 md:px-4 font-medium text-muted-foreground dark:text-gray-300 w-[90px] md:w-[130px] text-xs md:text-sm">日期</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -368,25 +368,25 @@ const Blog = () => {
                           key={post.slug} 
                           className="border-b border-border/50 dark:border-gray-800/70 hover:bg-muted/30 dark:hover:bg-gray-800/30 transition-colors"
                         >
-                          <td className="py-3 px-4">
+                          <td className="py-2 md:py-3 px-2 md:px-4">
                             <Link 
                               to={`/blog/${encodeURIComponent(post.slug.replace(/^\//, ''))}`}
                               className="block hover:text-primary transition-colors relative"
                             >
                               {/* 置顶图标 */}
                               {post.isSticky && (
-                                <div className="absolute -right-1 top-1/2 -translate-y-1/2 z-10  p-1 rounded-full text-primary dark:bg-primary/30 dark:text-primary-foreground" title="置顶文章">
-                                  <PinIcon size={12} className="animate-pulse" />
+                                <div className="absolute -right-1 top-1/2 -translate-y-1/2 z-10 p-1 rounded-full text-primary dark:bg-primary/30 dark:text-primary-foreground" title="置顶文章">
+                                  <PinIcon size={10} className="md:w-3 md:h-3 animate-pulse" />
                                 </div>
                               )}
                               <div className="flex items-center">
-                                <h2 className="text-[16px] font-medium leading-[1.6] line-clamp-1 pr-6 flex items-center">
+                                <h2 className="text-xs md:text-[16px] font-medium leading-[1.5] md:leading-[1.6] line-clamp-1 pr-4 md:pr-6 flex items-center">
                                   {post.title}
                                 </h2>
                               </div>
                             </Link>
                           </td>
-                          <td className="py-3 px-4 text-right">
+                          <td className="py-2 md:py-3 px-2 md:px-4 text-right hidden sm:table-cell">
                             <div className="flex items-center justify-end gap-1">
                               {post.tags && post.tags.length > 0 && (
                                 <>
@@ -403,7 +403,7 @@ const Blog = () => {
                                     
                                     return (
                                       <span
-                                        className={`px-2 py-0.5 rounded-full text-xs font-medium ${tagColors[colorIndex]}`}
+                                        className={`px-1.5 md:px-2 py-0.5 rounded-full text-[10px] md:text-xs font-medium ${tagColors[colorIndex]}`}
                                       >
                                         {tag}
                                       </span>
@@ -411,7 +411,7 @@ const Blog = () => {
                                   })()}
                                   
                                   {post.tags.length > 1 && (
-                                    <span className="text-xs text-muted-foreground">
+                                    <span className="text-[10px] md:text-xs text-muted-foreground">
                                       +{post.tags.length - 1}
                                     </span>
                                   )}
@@ -419,7 +419,7 @@ const Blog = () => {
                               )}
                             </div>
                           </td>
-                          <td className="py-3 px-4 text-sm text-muted-foreground text-right whitespace-nowrap">
+                          <td className="py-2 md:py-3 px-2 md:px-4 text-[10px] md:text-sm text-muted-foreground text-right whitespace-nowrap">
                             {formatDate(post.date)}
                           </td>
                         </tr>
@@ -435,62 +435,64 @@ const Blog = () => {
             <Link
               key={post.slug}
               to={`/blog/${encodeURIComponent(post.slug.replace(/^\//, ''))}`}
-              className={`glass dark:dark-card rounded-xl transition-all duration-300 border border-white/20 backdrop-blur-sm relative overflow-hidden group ${
+              className={`glass dark:dark-card rounded-lg md:rounded-xl transition-all duration-300 border border-white/20 backdrop-blur-sm relative overflow-hidden group ${
                 viewMode === 'list'
-                  ? 'p-4 hover:shadow-md hover:border-primary/20 hover:bg-accent/5'
-                  : 'p-6 shadow-lg hover:shadow-xl hover:border-primary/30'
+                  ? 'p-3 md:p-4 hover:shadow-md hover:border-primary/20 hover:bg-accent/5'
+                  : 'p-4 md:p-6 shadow-lg hover:shadow-xl hover:border-primary/30'
               }`}
             >
               {viewMode === 'list' ? (
                 <>
-                  <div className="flex items-center justify-between gap-6">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-6">
                     <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-2">
                         {post.isSticky && (
                           <div className="flex-shrink-0 text-primary dark:text-primary-foreground" title="置顶文章">
-                            <PinIcon size={16} className="animate-pulse" />
+                            <PinIcon size={14} className="md:w-4 md:h-4 animate-pulse" />
                           </div>
                         )}
 
-                        <h2 className="text-lg font-medium group-hover:text-primary transition-colors duration-200 dark:text-white truncate">
+                        <h2 className="text-base md:text-lg font-medium group-hover:text-primary transition-colors duration-200 dark:text-white truncate">
                           {post.title}
                         </h2>
                       </div>
                     </div>
 
-                    <div className="flex-shrink-0">
-                      {post.tags && post.tags.length > 0 && (
-                        <div className="flex items-center gap-1.5">
-                          {post.tags.slice(0, 2).map((tag, index) => {
-                            const tagColors = [
-                              'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300',
-                              'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300',
-                              'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300',
-                              'bg-teal-100 text-teal-700 dark:bg-teal-900/30 dark:text-teal-300',
-                              'bg-pink-100 text-pink-700 dark:bg-pink-900/30 dark:text-pink-300'
-                            ];
-                            const colorIndex = Math.abs(tag.split('').reduce((acc: number, char) => acc + char.charCodeAt(0), 0)) % tagColors.length;
+                    <div className="flex items-center justify-between sm:justify-end gap-3 sm:gap-4">
+                      <div className="flex-shrink-0">
+                        {post.tags && post.tags.length > 0 && (
+                          <div className="flex items-center gap-1">
+                            {post.tags.slice(0, 2).map((tag, index) => {
+                              const tagColors = [
+                                'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300',
+                                'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300',
+                                'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300',
+                                'bg-teal-100 text-teal-700 dark:bg-teal-900/30 dark:text-teal-300',
+                                'bg-pink-100 text-pink-700 dark:bg-pink-900/30 dark:text-pink-300'
+                              ];
+                              const colorIndex = Math.abs(tag.split('').reduce((acc: number, char) => acc + char.charCodeAt(0), 0)) % tagColors.length;
 
-                            return (
-                              <span
-                                key={index}
-                                className={`px-2.5 py-1 rounded-md text-xs font-medium ${tagColors[colorIndex]}`}
-                              >
-                                {tag}
+                              return (
+                                <span
+                                  key={index}
+                                  className={`px-2 md:px-2.5 py-0.5 md:py-1 rounded-md text-[10px] md:text-xs font-medium ${tagColors[colorIndex]}`}
+                                >
+                                  {tag}
+                                </span>
+                              );
+                            })}
+                            {post.tags.length > 2 && (
+                              <span className="text-[10px] md:text-xs text-muted-foreground dark:text-gray-400">
+                                +{post.tags.length - 2}
                               </span>
-                            );
-                          })}
-                          {post.tags.length > 2 && (
-                            <span className="text-xs text-muted-foreground dark:text-gray-400">
-                              +{post.tags.length - 2}
-                            </span>
-                          )}
-                        </div>
-                      )}
-                    </div>
+                            )}
+                          </div>
+                        )}
+                      </div>
 
-                    <div className="flex-shrink-0 text-sm text-muted-foreground dark:text-gray-400 min-w-[100px] text-right">
-                      {formatDate(post.date)}
+                      <div className="flex-shrink-0 text-xs md:text-sm text-muted-foreground dark:text-gray-400 min-w-[85px] md:min-w-[100px] text-right">
+                        {formatDate(post.date)}
+                      </div>
                     </div>
                   </div>
                 </>
@@ -502,27 +504,27 @@ const Blog = () => {
                        style={{background: 'linear-gradient(90deg, transparent, var(--primary-50) 50%, transparent)'}} />
 
                   <article className="relative z-10 flex-1 flex flex-col h-full">
-                    <div className="flex-1 space-y-3">
-                      <div className="flex items-start justify-between gap-3">
-                        <h2 className="text-lg font-semibold leading-tight group-hover:text-primary transition-colors duration-300 dark:text-white line-clamp-2 flex-1">
+                    <div className="flex-1 space-y-2 md:space-y-3">
+                      <div className="flex items-start justify-between gap-2">
+                        <h2 className="text-base md:text-lg font-semibold leading-tight group-hover:text-primary transition-colors duration-300 dark:text-white line-clamp-2 flex-1">
                           {post.title}
                         </h2>
                         {post.isSticky && (
                           <div className="flex-shrink-0 text-primary dark:text-primary-foreground mt-0.5" title="置顶文章">
-                            <PinIcon size={16} className="animate-pulse" />
+                            <PinIcon size={14} className="md:w-4 md:h-4 animate-pulse" />
                           </div>
                         )}
                       </div>
 
                       {post.excerpt && (
-                        <p className="text-muted-foreground text-sm leading-relaxed line-clamp-3 dark:text-gray-400">
+                        <p className="text-muted-foreground text-xs md:text-sm leading-relaxed line-clamp-2 md:line-clamp-3 dark:text-gray-400">
                           {post.excerpt}
                         </p>
                       )}
                     </div>
 
-                    <div className="mt-4 pt-4 border-t border-border/50 dark:border-gray-700/50 space-y-3">
-                      <div className="flex flex-wrap gap-1.5">
+                    <div className="mt-3 md:mt-4 pt-3 md:pt-4 border-t border-border/50 dark:border-gray-700/50 space-y-2 md:space-y-3">
+                      <div className="flex flex-wrap gap-1 md:gap-1.5">
                         {post.tags?.slice(0, 3).map((tag, index) => {
                           const tagColors = [
                             'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300',
@@ -536,20 +538,20 @@ const Blog = () => {
                           return (
                             <span
                               key={index}
-                              className={`px-2 py-0.5 rounded-md text-xs font-medium ${tagColors[colorIndex]} transition-all duration-200`}
+                              className={`px-1.5 md:px-2 py-0.5 rounded-md text-[10px] md:text-xs font-medium ${tagColors[colorIndex]} transition-all duration-200`}
                             >
                               {tag}
                             </span>
                           );
                         })}
                         {post.tags && post.tags.length > 3 && (
-                          <span className="px-2 py-0.5 text-xs text-muted-foreground dark:text-gray-400">
+                          <span className="px-1.5 md:px-2 py-0.5 text-[10px] md:text-xs text-muted-foreground dark:text-gray-400">
                             +{post.tags.length - 3}
                           </span>
                         )}
                       </div>
 
-                      <div className="flex items-center justify-between text-xs text-muted-foreground dark:text-gray-500">
+                      <div className="flex items-center justify-between text-[10px] md:text-xs text-muted-foreground dark:text-gray-500">
                         <span>{formatDate(post.date)}</span>
                         {post.category && (
                           <span className="opacity-60">{post.category.split('-').pop()}</span>
