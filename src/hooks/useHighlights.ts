@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { emitStatsUpdate } from '../utils/statsEvents';
 
 export interface Highlight {
   id: string;
@@ -46,6 +47,9 @@ export const useHighlights = (articleId: string) => {
       
       localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
       setHighlights(updatedHighlights);
+      
+      // 触发统计更新事件
+      emitStatsUpdate();
     } catch (error) {
       console.error('Failed to save highlights:', error);
     }

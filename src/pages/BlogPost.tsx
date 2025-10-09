@@ -24,6 +24,9 @@ import { NotesSidebar } from '../components/NotesSidebar';
 import { StickyNote } from 'lucide-react';
 import { TextHighlighter } from '../components/TextHighlighter';
 import { useRef } from 'react';
+import { useAchievements } from '../hooks/useAchievements';
+import { useUserStats } from '../hooks/useUserStats';
+import { AchievementUnlockNotification } from '../components/AchievementUnlockNotification';
 
 // 注释掉复杂的自定义组件配置，使用统一的MDXComponents
 // const components = {
@@ -122,6 +125,21 @@ const BlogPost = () => {
   // 笔记和高亮功能
   const { highlights, addHighlight, updateNote, deleteHighlight } = useHighlights(cleanSlug);
   const articleContentRef = useRef<HTMLDivElement>(null);
+  
+  // 成就系统
+  const { stats, refreshStats } = useUserStats();
+  const { achievements, newUnlocks, checkAndUnlock, dismissNewUnlocks } = useAchievements();
+  
+  // 检查成就解锁
+  useEffect(() => {
+    if (post) {
+      refreshStats();
+    }
+  }, [post]);
+  
+  useEffect(() => {
+    checkAndUnlock(stats);
+  }, [stats]);
 
   // 读取目录是否固定的状态
   useEffect(() => {
@@ -267,6 +285,9 @@ const BlogPost = () => {
     <div className="page-transition min-h-screen">
       {/* Toast 通知 */}
       <Toaster position="top-center" richColors />
+      
+      {/* 成就解锁通知 */}
+      <AchievementUnlockNotification achievements={newUnlocks} onDismiss={dismissNewUnlocks} />
       
       {/* 阅读进度条 */}
       <ReadingProgressBar />

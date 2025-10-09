@@ -8,17 +8,16 @@ Key features include a Static Site Generation (SSG) architecture for easy deploy
 
 ## Recent Changes
 
+### User Engagement Features - Phase 1 & 2 (October 2025)
+- **Reading Progress & Time Tracking**: Real-time progress bar, reading duration tracking with multi-tab support and visibility handling
+- **Article Interactions**: Like/share functionality with localStorage persistence
+- **Notes & Highlights**: Text selection highlighting with color options, note-taking sidebar, localStorage persistence
+- **Achievement System**: Badge system tracking likes, reading time/count, and highlights; unlock notifications; dedicated achievements page
+- **Comments Integration**: Giscus-based comment system for community engagement
+- **Bug Fixes**: Multi-layer blog routing (blog/*), TOC duplicate ID resolution, reading time calculation fixes
+
 ### Favicon Loading Optimization (October 2025)
-- **Multi-source fallback system**: Implemented `FaviconImage` component with 5 fallback services for AI tool icons:
-  - Yandex favicon service (prioritized for China accessibility)
-  - FaviconKit third-party service
-  - Google favicon service
-  - DuckDuckGo service
-  - Website's own favicon.ico
-  - SVG placeholder as final fallback
-- **Automatic fallback**: Icons automatically cycle through sources on load failure
-- **Guaranteed placeholder**: SVG placeholder ensures no broken images appear when all remote sources fail
-- **Debug telemetry**: Development-only console logging tracks failed sources for debugging
+- **Multi-source fallback system**: Implemented `FaviconImage` component with 5 fallback services for AI tool icons
 - **China-friendly**: Resolves icon loading issues in restricted networks without VPN requirement
 
 ## User Preferences

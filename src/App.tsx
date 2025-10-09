@@ -34,6 +34,7 @@ const ContentManagerComponent = lazy(() => import('./pages/ContentManager'));
 const BlogManagerComponent = lazy(() => import('./pages/content/BlogManager'));
 const ProjectManagerComponent = lazy(() => import('./pages/content/ProjectManager'));
 const AIToolsManagerComponent = lazy(() => import('./pages/content/AIToolsManager'));
+const AchievementsComponent = lazy(() => import('./pages/Achievements'));
 
 // 光标组件包装器 - 根据路由决定是否显示
 const CursorWrapper = () => {
@@ -152,6 +153,11 @@ const App = () => {
                           <Route path="content/ai-tools" element={
                             <Suspense fallback={<Loading />}>
                               <AIToolsManagerComponent />
+                            </Suspense>
+                          } />
+                          <Route path="achievements" element={
+                            <Suspense fallback={<Loading />}>
+                              <AchievementsComponent />
                             </Suspense>
                           } />
                           <Route path="*" element={

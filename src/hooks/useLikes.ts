@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { emitStatsUpdate } from '../utils/statsEvents';
 
 interface LikeData {
   count: number;
@@ -40,6 +41,9 @@ export const useLikes = (articleId: string) => {
       localStorage.setItem(`user_liked_${articleId}`, newLiked.toString());
 
       setLikeData({ count: newCount, liked: newLiked });
+      
+      // 触发统计更新事件
+      emitStatsUpdate();
     } catch (e) {
       console.error('Failed to toggle like:', e);
     }

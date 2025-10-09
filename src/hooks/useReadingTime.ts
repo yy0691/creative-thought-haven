@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { emitStatsUpdate } from '../utils/statsEvents';
 
 interface ReadingStats {
   duration: number; // 阅读时长（秒）
@@ -77,6 +78,9 @@ export const saveReadingStats = (articleId: string, stats: ReadingStats) => {
   try {
     const key = `reading_stats_${articleId}`;
     localStorage.setItem(key, JSON.stringify(stats));
+    
+    // 触发统计更新事件
+    emitStatsUpdate();
   } catch (e) {
     console.error('Failed to save reading stats:', e);
   }
