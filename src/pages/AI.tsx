@@ -182,16 +182,29 @@ const FaviconImage = ({ url, alt, className }: { url?: string; alt: string; clas
   const [currentSourceIndex, setCurrentSourceIndex] = React.useState(0);
   const sources = React.useMemo(() => getFaviconSources(url), [url]);
 
+  // 当 URL 改变时重置索引
+  React.useEffect(() => {
+    setCurrentSourceIndex(0);
+  }, [url]);
+
+  // 监听状态变化（调试）
+  React.useEffect(() => {
+    if (process.env.NODE_ENV === 'development' && currentSourceIndex > 0) {
+      console.debug(`[Favicon] Switched to source ${currentSourceIndex} for ${url}`);
+    }
+  }, [currentSourceIndex, url]);
+
   const handleError = React.useCallback(() => {
     // 使用函数式更新避免闭包问题
     setCurrentSourceIndex(prevIndex => {
+      const nextIndex = prevIndex + 1;
       // 如果当前图标加载失败，尝试下一个源
       if (prevIndex < sources.length - 1) {
         // 调试日志：记录失败的图标源
         if (process.env.NODE_ENV === 'development') {
-          console.debug(`[Favicon] Failed to load from source ${prevIndex}: ${sources[prevIndex]}`);
+          console.debug(`[Favicon] Failed source ${prevIndex}, trying source ${nextIndex}: ${sources[nextIndex]}`);
         }
-        return prevIndex + 1;
+        return nextIndex;
       } else {
         // 所有源都失败，使用占位图
         if (process.env.NODE_ENV === 'development') {
