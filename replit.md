@@ -6,6 +6,21 @@ Creative Thought Haven is a modern, static blog and portfolio website built with
 
 Key features include a Static Site Generation (SSG) architecture for easy deployment and excellent performance, a Markdown/MDX driven content management system, multi-modal content support, an AI tools and resources navigation system, and a responsive design with dark mode. The project aims to provide a personal showcase for creative works and a resource hub for AI-related information.
 
+## Recent Changes
+
+### Favicon Loading Optimization (October 2025)
+- **Multi-source fallback system**: Implemented `FaviconImage` component with 5 fallback services for AI tool icons:
+  - Yandex favicon service (prioritized for China accessibility)
+  - FaviconKit third-party service
+  - Google favicon service
+  - DuckDuckGo service
+  - Website's own favicon.ico
+  - SVG placeholder as final fallback
+- **Automatic fallback**: Icons automatically cycle through sources on load failure
+- **Guaranteed placeholder**: SVG placeholder ensures no broken images appear when all remote sources fail
+- **Debug telemetry**: Development-only console logging tracks failed sources for debugging
+- **China-friendly**: Resolves icon loading issues in restricted networks without VPN requirement
+
 ## User Preferences
 
 Preferred communication style: Simple, everyday language.
