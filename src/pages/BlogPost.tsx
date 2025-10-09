@@ -12,6 +12,12 @@ import Highlight from '../components/Highlight';
 import MDXComponents from '@/components/MDXComponents';
 import ErrorBoundary from '../components/ErrorBoundary';
 import { useMediaQuery } from '../app/hooks/useMediaQuery';
+import { ReadingProgressBar } from '../components/ReadingProgressBar';
+import { ReadingStats } from '../components/ReadingStats';
+import { useReadingTime } from '../hooks/useReadingTime';
+import { ArticleActions } from '../components/ArticleActions';
+import { Comments } from '../components/Comments';
+import { Toaster } from 'sonner';
 import React from 'react';
 
 // 注释掉复杂的自定义组件配置，使用统一的MDXComponents
@@ -103,6 +109,9 @@ const BlogPost = () => {
   const [isTocPinned, setIsTocPinned] = useState(false);
   const [readingHistory, setReadingHistory] = useState<BlogPostMeta[]>([]);
   const isMobile = useMediaQuery('(max-width: 768px)');
+  
+  // 阅读时长统计
+  const currentReadingTime = useReadingTime(cleanSlug);
 
   // 读取目录是否固定的状态
   useEffect(() => {
@@ -246,6 +255,12 @@ const BlogPost = () => {
 
   return (
     <div className="page-transition min-h-screen">
+      {/* Toast 通知 */}
+      <Toaster position="top-center" richColors />
+      
+      {/* 阅读进度条 */}
+      <ReadingProgressBar />
+      
       <article className={`prose prose-primary dark:prose-invert mx-auto py-12 px-4 transition-all duration-500 ease-in-out ${
         isTocPinned && !isMobile ? 'md:ml-64 max-w-3xl' : 'max-w-4xl'
       } ${
@@ -254,6 +269,12 @@ const BlogPost = () => {
         <header className="text-center mb-8">
           <h1 className="text-4xl font-bold mb-4 hover:scale-105 transition-transform duration-300 transform-gpu backface-visibility-hidden will-change-transform dark:text-white">{post.title}</h1>
           <div className="text-muted-foreground mb-4 dark:text-gray-300">{formatDate(post.date)}</div>
+          
+          {/* 阅读统计 */}
+          <div className="flex justify-center mb-4">
+            <ReadingStats articleId={cleanSlug} currentReadingTime={currentReadingTime} />
+          </div>
+          
           <div className="flex gap-2 justify-center flex-wrap">
             {post.tags.map(tag => (
               <span key={tag} className="px-3 py-1 bg-muted rounded-full text-sm dark:bg-gray-700 dark:text-gray-200">
@@ -278,6 +299,13 @@ const BlogPost = () => {
             </MDXProvider>
           </Suspense>
         </ErrorBoundary>
+
+        {/* 点赞和分享 */}
+        <ArticleActions 
+          articleId={cleanSlug} 
+          articleTitle={post.title}
+          articleUrl={window.location.href}
+        />
 
         {/* 阅读历史记录 */}
         {readingHistory.length > 1 && (
@@ -319,6 +347,9 @@ const BlogPost = () => {
             </div>
           </aside>
         )}
+
+        {/* 评论系统 */}
+        <Comments articleId={cleanSlug} articleTitle={post.title} />
       </article>
       <TableOfContents content={post.content} />
     </div>
