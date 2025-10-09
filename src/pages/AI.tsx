@@ -248,44 +248,85 @@ const SmallCard = ({
   return (
     <div 
       onClick={onClick} 
-      className={`${compact ? 'p-2.5 gap-2.5' : 'p-3 gap-3'} border bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 rounded-lg hover:shadow-lg hover:-translate-y-1 transition-all duration-200 group flex items-start cursor-pointer transform hover:scale-[1.01] active:scale-[0.99]`}
+      className="group relative overflow-hidden rounded-xl bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-850 border border-gray-200/60 dark:border-gray-700/60 hover:border-primary/30 dark:hover:border-primary/30 transition-all duration-300 cursor-pointer hover:shadow-xl hover:-translate-y-0.5"
     >
-      <img 
-        loading="lazy"
-        src={getFaviconUrl(item.link)} 
-        alt={`${item.title} favicon`} 
-        className={`${compact ? 'w-8 h-8 mt-0.5' : 'w-7 h-7 mt-0.5'} flex-shrink-0`} 
-      />
-      <div className="flex-1 min-w-0">
-        <div className="flex justify-between items-start">
-          <div className="flex items-center gap-1 min-w-0">
-            <H6 className="text-gray-900 dark:text-white group-hover:text-primary truncate">
-              {(item as any).title_zh || item.title}
-            </H6>
-            {showBadges && (
-              <div className="flex gap-1 shrink-0">
-                {isNew(item) && <span className="px-1.5 py-0.5 text-[10px] rounded bg-green-100 text-green-700">New</span>}
-                {isTrending(item, history, favorites) && <span className="px-1.5 py-0.5 text-[10px] rounded bg-red-100 text-red-700">Hot</span>}
-              </div>
-            )}
+      {/* 悬浮时的光晕效果 */}
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      
+      {/* 顶部装饰条 */}
+      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary/60 via-primary to-primary/60 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+      
+      <div className={`relative ${compact ? 'p-3' : 'p-4'} flex items-center gap-4`}>
+        {/* 工具图标 - 优化尺寸 */}
+        <div className="relative flex-shrink-0">
+          <div className={`${compact ? 'w-12 h-12' : 'w-14 h-14'} rounded-2xl overflow-hidden ring-2 ring-gray-100 dark:ring-gray-700 group-hover:ring-primary/30 transition-all duration-300 transform group-hover:scale-105 shadow-sm`}>
+            <img 
+              loading="lazy"
+              src={getFaviconUrl(item.link)} 
+              alt={`${item.title} favicon`} 
+              className="w-full h-full object-cover"
+            />
           </div>
-          <button 
-            onClick={(e) => {
-              e.stopPropagation();
-              toggleFavorite(item);
-            }}
-            className="text-gray-400 hover:text-yellow-500 transition-transform transition-colors active:scale-90"
-          >
-            {isFavorite ? <LucideIcons.Star size={16} fill="currentColor" /> : <LucideIcons.Star size={16} />}
-          </button>
+          {/* 图标背景光晕 */}
+          <div className="absolute inset-0 -z-10 bg-primary/10 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
         </div>
-        <p className={`${compact ? 'text-[12px]' : 'text-[13px]'} sm:text-sm text-gray-600 dark:text-gray-300 line-clamp-2 mt-0.5`}>
-          {(item as any).summary_zh || item.description}
-        </p>
-        <span className="inline-block mt-1.5 text-[11px] sm:text-xs px-2 py-0.5 bg-primary/10 text-primary rounded-full self-start">
-          {item.scene}
-        </span>
+        
+        {/* 工具信息 */}
+        <div className="flex-1 min-w-0 space-y-1">
+          <div className="flex items-center gap-2 justify-between">
+            <div className="flex items-center gap-2 min-w-0 flex-1">
+              <H6 className={`${compact ? 'text-sm' : 'text-base'} font-semibold text-gray-900 dark:text-white truncate group-hover:text-primary transition-colors duration-300`}>
+                {(item as any).title_zh || item.title}
+              </H6>
+              {showBadges && (
+                <div className="flex gap-1 shrink-0">
+                  {isNew(item) && (
+                    <span className="px-2 py-0.5 text-[10px] font-medium rounded-full bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">
+                      New
+                    </span>
+                  )}
+                  {isTrending(item, history, favorites) && (
+                    <span className="px-2 py-0.5 text-[10px] font-medium rounded-full bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400">
+                      Hot
+                    </span>
+                  )}
+                </div>
+              )}
+            </div>
+            
+            {/* 收藏按钮 */}
+            <button 
+              onClick={(e) => {
+                e.stopPropagation();
+                toggleFavorite(item);
+              }}
+              className="flex-shrink-0 opacity-60 group-hover:opacity-100 text-gray-400 hover:text-yellow-500 transition-all active:scale-90"
+            >
+              {isFavorite ? <LucideIcons.Star size={16} fill="currentColor" /> : <LucideIcons.Star size={16} />}
+            </button>
+          </div>
+          
+          <p className={`${compact ? 'text-[12px]' : 'text-sm'} text-gray-600 dark:text-gray-400 line-clamp-2 leading-relaxed`}>
+            {(item as any).description_zh || (item as any).summary_zh || item.description}
+          </p>
+          
+          {item.scene && (
+            <div className="pt-1">
+              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary-light">
+                {item.scene}
+              </span>
+            </div>
+          )}
+        </div>
+        
+        {/* 外部链接图标 */}
+        <div className="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <LucideIcons.ExternalLink className="w-5 h-5 text-gray-400 group-hover:text-primary transition-colors duration-300" />
+        </div>
       </div>
+      
+      {/* 底部阴影效果 */}
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gray-200 dark:via-gray-700 to-transparent" />
     </div>
   );
 };
