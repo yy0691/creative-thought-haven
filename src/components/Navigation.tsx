@@ -56,9 +56,9 @@ const Navigation = () => {
 
   return (
     <header className={styles.navbar}>
-      <nav className="container mx-auto px-6 py-4">
+      <nav className="container mx-auto px-3 sm:px-6 py-3 md:py-4">
         <div className="flex items-center justify-between">
-          <Link to="/" className="text-2xl font-semibold text-foreground dark:text-white hover:text-primary transition-colors duration-300">
+          <Link to="/" className="text-xl md:text-2xl font-semibold text-foreground dark:text-white hover:text-primary transition-colors duration-300">
             LuoYuan
           </Link>
 
@@ -82,62 +82,92 @@ const Navigation = () => {
           </div>
 
           {/* 移动导航按钮 */}
-          <div className="md:hidden flex items-center space-x-4">
+          <div className="md:hidden flex items-center gap-2">
             {location.pathname === '/ai' && (
               <button
                 onClick={handleAIMenuClick}
-                className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+                className="p-2 hover:bg-primary/10 dark:hover:bg-primary/20 rounded-lg transition-all duration-200 active:scale-95"
                 aria-label="打开AI侧边栏"
               >
-                <Bot size={20} />
+                <Bot size={18} className="text-gray-700 dark:text-gray-300" />
               </button>
             )}
             <button
               onClick={() => setIsOpen(!isOpen)}
               aria-label="打开导航菜单"
-              className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+              className="relative p-2 hover:bg-primary/10 dark:hover:bg-primary/20 rounded-lg transition-all duration-200 active:scale-95"
             >
-              {isOpen ? <X size={20} /> : <Menu size={20} />}
+              <div className="relative w-5 h-5">
+                {/* 汉堡菜单动画图标 */}
+                <span className={`absolute left-0 top-1 w-5 h-0.5 bg-gray-700 dark:bg-gray-300 rounded-full transition-all duration-300 ${isOpen ? 'rotate-45 translate-y-1.5' : ''}`} />
+                <span className={`absolute left-0 top-2.5 w-5 h-0.5 bg-gray-700 dark:bg-gray-300 rounded-full transition-all duration-300 ${isOpen ? 'opacity-0' : ''}`} />
+                <span className={`absolute left-0 top-4 w-5 h-0.5 bg-gray-700 dark:bg-gray-300 rounded-full transition-all duration-300 ${isOpen ? '-rotate-45 -translate-y-1.5' : ''}`} />
+              </div>
             </button>
           </div>
         </div>
       </nav>
 
+      {/* 移动端下拉菜单背景遮罩 */}
+      {isOpen && (
+        <div 
+          className="md:hidden fixed inset-0 top-[56px] bg-black/20 dark:bg-black/40 backdrop-blur-sm z-30 transition-opacity duration-300"
+          onClick={() => setIsOpen(false)}
+        />
+      )}
+
       {/* 移动端下拉菜单 */}
       <div 
-        className={`md:hidden fixed inset-x-0 top-[64px] z-40 transition-all duration-300 ease-in-out ${
+        className={`md:hidden fixed inset-x-0 top-[56px] z-40 transition-all duration-300 ease-out ${
           isOpen 
-            ? 'opacity-96 translate-y-0' 
-            : 'opacity-0 -translate-y-2 pointer-events-none'
+            ? 'opacity-100 translate-y-0' 
+            : 'opacity-0 -translate-y-4 pointer-events-none'
         }`}
       >
-        <div className="bg-white dark:bg-gray-800 shadow-lg border-t border-gray-200 dark:border-gray-700">
-          <div className="container mx-auto px-6 py-4">
-            <div className="max-w-md mx-auto">
+        <div className="bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl shadow-2xl border-t border-gray-200/50 dark:border-gray-700/50">
+          <div className="container mx-auto px-3 py-4">
+            <div className="max-w-md mx-auto space-y-4">
               {/* 搜索和主题切换 */}
-              <div className="flex justify-between items-center mb-4">
-                <div className="flex-1 max-w-[240px]">
+              <div className="flex justify-between items-center gap-3">
+                <div className="flex-1">
                   <SearchBar />
                 </div>
-                <div className="ml-4">
+                <div className="flex-shrink-0">
                   <ThemeToggle />
                 </div>
               </div>
 
               {/* 导航链接 */}
-              <div className="space-y-2">
-                {routes.map((route) => (
+              <div className="space-y-1">
+                {routes.map((route, index) => (
                   <Link
                     key={route.path}
                     to={route.path}
                     onClick={() => setIsOpen(false)}
-                    className={`block px-4 py-1.5 rounded-lg transition-all duration-200 transform hover:scale-[1.02] hover:translate-x-1 ${
+                    className={`group relative block px-4 py-2.5 rounded-lg transition-all duration-200 overflow-hidden ${
                       location.pathname === route.path
-                        ? "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-200 font-medium shadow-sm"
-                        : "text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-600 dark:hover:text-blue-300"
+                        ? "bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary-light font-medium"
+                        : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 active:scale-[0.98]"
                     }`}
+                    style={{
+                      animationDelay: `${index * 50}ms`,
+                      animation: isOpen ? 'slideInRight 0.3s ease-out forwards' : 'none'
+                    }}
                   >
-                    {route.label}
+                    {/* 波纹效果背景 */}
+                    <span className={`absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/5 to-primary/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ${location.pathname === route.path ? 'hidden' : ''}`} />
+                    
+                    {/* 激活指示器 */}
+                    {location.pathname === route.path && (
+                      <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-primary rounded-r-full" />
+                    )}
+                    
+                    <span className="relative z-10 flex items-center justify-between">
+                      <span>{route.label}</span>
+                      {location.pathname === route.path && (
+                        <span className="w-1.5 h-1.5 bg-primary rounded-full animate-pulse" />
+                      )}
+                    </span>
                   </Link>
                 ))}
               </div>
@@ -145,6 +175,27 @@ const Navigation = () => {
           </div>
         </div>
       </div>
+
+      <style>{`
+        @keyframes slideInRight {
+          from {
+            opacity: 0;
+            transform: translateX(-20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+          * {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+          }
+        }
+      `}</style>
     </header>
   );
 };
