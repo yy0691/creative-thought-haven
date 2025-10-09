@@ -263,22 +263,9 @@ const SmallCard = ({
         
         {/* 工具信息 */}
         <div className="flex-1 min-w-0">
-          <div className="flex items-start justify-between gap-2 mb-1">
-            <h3 className={`${compact ? 'text-sm' : 'text-base'} font-medium text-gray-900 dark:text-white line-clamp-1 group-hover:text-primary transition-colors`}>
-              {(item as any).title_zh || item.title}
-            </h3>
-            
-            {/* 收藏按钮 */}
-            <button 
-              onClick={(e) => {
-                e.stopPropagation();
-                toggleFavorite(item);
-              }}
-              className="flex-shrink-0 text-gray-400 hover:text-yellow-500 transition-colors"
-            >
-              {isFavorite ? <LucideIcons.Star size={14} fill="currentColor" /> : <LucideIcons.Star size={14} />}
-            </button>
-          </div>
+          <h3 className={`${compact ? 'text-sm' : 'text-base'} font-medium text-gray-900 dark:text-white line-clamp-1 group-hover:text-primary transition-colors mb-1`}>
+            {(item as any).title_zh || item.title}
+          </h3>
           
           <p className={`${compact ? 'text-xs' : 'text-sm'} text-gray-600 dark:text-gray-400 line-clamp-2 leading-relaxed mb-1.5`}>
             {(item as any).description_zh || (item as any).summary_zh || item.description}
