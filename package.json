@@ -15,6 +15,7 @@
   "dependencies": {
     "@emotion/cache": "^11.14.0",
     "@emotion/react": "^11.14.0",
+    "@google/genai": "^1.23.0",
     "@hookform/resolvers": "^3.10.0",
     "@mdx-js/loader": "^3.1.0",
     "@mdx-js/react": "^3.1.0",
