@@ -2,13 +2,15 @@
 title: Google 公布了Vertex AI平台的多项新功能
 description: "Google帮你搭建一个完整的\"Agent工厂\"平台可统一开发、部署、运行和监控你的Agent"
 author: Google
-date: 2025-04-12
-image: https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/AiNews/img_v3_02l8_f209ffcb-a4b9-4176-8148-05e87be1fdag.jpg
-link: https://cloud.google.com/blog/products/ai-machine-learning/build-and-manage-multi-system-agents-with-vertex-ai
+date: Sat Apr 12 2025 00:00:00 GMT+0000 (Coordinated Universal Time)
+image: "https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/AiNews/img_v3_02l8_f209ffcb-a4b9-4176-8148-05e87be1fdag.jpg"
+link: "https://cloud.google.com/blog/products/ai-machine-learning/build-and-manage-multi-system-agents-with-vertex-ai"
 category: ai-news
 tags: ["Google","Vertex AI","Agent","AI平台"]
 featured: false
+source: ""
 ---
+
 
 
 # Google 公布了Vertex AI平台的多项新功能

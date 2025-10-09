@@ -2,13 +2,15 @@
 title: Google NotebookLM推出Discover Sources功能
 description: 本文详细介绍了Google NotebookLM推出的Discover Sources功能，该功能能够主动从网络中搜索并推荐相关来源，帮助用户快速收集研究资料，进一步提升其作为AI研究助手的实用性和效率。
 author: LuoYuan
-date: 2025-04-10
-image: https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_News/notebooklm-discover-sources.jpg
-link: https://notebooklm.google.com
+date: Thu Apr 10 2025 00:00:00 GMT+0000 (Coordinated Universal Time)
+image: "https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_News/notebooklm-discover-sources.jpg"
+link: "https://notebooklm.google.com"
 category: ai-news
-tags: [Google NotebookLM, Discover Sources, AI研究助手, 内容推荐, 资料收集, 自动摘要, 文献检索, 知识管理]
+tags: ["Google NotebookLM","Discover Sources","AI研究助手","内容推荐","资料收集","自动摘要","文献检索","知识管理"]
 featured: false
+source: ""
 ---
+
 Google NotebookLM 推出“Discover Sources”功能，让 NotebookLM 能够主动从网络中搜索并推荐相关来源，进一步提升其作为研究助手的实用性。
 
 

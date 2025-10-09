@@ -2,13 +2,15 @@
 title: BabelDOC：基于大语言模型的PDF文档翻译工具
 description: 本文详细介绍了BabelDOC开源PDF文档翻译工具，该工具基于大语言模型（如GPT-4），能将英文PDF翻译成中文并保持原文排版，支持对照阅读功能，提供网页版、命令行和Python API多种使用方式，支持本地部署和离线使用。
 author: LuoYuan
-date: 2025-04-11
-image: https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/AiNews/img_v3_02l8_e1a2b05a-b4a3-47ce-b2dd-f0d88ba3345g.jpg
-link: https://funstory-ai.github.io/BabelDOC/
+date: Fri Apr 11 2025 00:00:00 GMT+0000 (Coordinated Universal Time)
+image: "https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/AiNews/img_v3_02l8_e1a2b05a-b4a3-47ce-b2dd-f0d88ba3345g.jpg"
+link: "https://funstory-ai.github.io/BabelDOC/"
 category: ai-news
-tags: [BabelDOC, PDF翻译, 大语言模型, GPT-4, 文档翻译, 保留排版, 对照阅读, 开源工具, 多语言翻译, 本地部署]
+tags: ["BabelDOC","PDF翻译","大语言模型","GPT-4","文档翻译","保留排版","对照阅读","开源工具","多语言翻译","本地部署"]
 featured: false
+source: ""
 ---
+
 在线体验： https://app.immersivetranslate.com/babel-doc/
 
 **BabelDOC** 是一个基于大语言模型（如GPT-4）的开源 **PDF 文档翻译工具**，它可以：

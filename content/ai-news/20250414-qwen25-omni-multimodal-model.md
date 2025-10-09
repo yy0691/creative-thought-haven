@@ -2,13 +2,15 @@
 title: 阿里云发布Qwen2.5Omni端到端全模态感知与响应模型
 description: 本文介绍了阿里云发布的Qwen2.5-Omni端到端全模态感知与响应模型，该模型支持看、听、说、写、做，能处理文本、图片、语音、视频等多种模态，实现全方位的人机交互体验。
 author: LuoYuan
-date: 2025-04-14
-image: https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/AiNews/img_v3_02kp_b2732eb4-0f15-47a2-bd47-197d0496898g.png
-link: 
+date: Mon Apr 14 2025 00:00:00 GMT+0000 (Coordinated Universal Time)
+image: "https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/AiNews/img_v3_02kp_b2732eb4-0f15-47a2-bd47-197d0496898g.png"
+link: ""
 category: ai-news
-tags: [Qwen2.5Omni, 多模态模型, 阿里云, 通义千问, 端到端全模态, 感知与响应, 语音理解, 视频分析, 人机交互]
+tags: ["Qwen2.5Omni","多模态模型","阿里云","通义千问","端到端全模态","感知与响应","语音理解","视频分析","人机交互"]
 featured: false
+source: ""
 ---
+
 **阿里云发布Qwen2.5Omni端到端全模态感知与响应模型支持看、听、说、写、做**
 
 

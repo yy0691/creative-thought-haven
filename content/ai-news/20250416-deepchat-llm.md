@@ -2,13 +2,15 @@
 title: DeepChat开源跨平台LLM聊天助手
 description: 本文详细介绍了DeepChat开源跨平台桌面应用程序，该程序将多个强大的大语言模型(LLM)和本地工具集成到一个易用、功能强大的智能聊天助手中，支持多模型切换、本地文件处理、插件式搜索引擎等功能。
 author: LuoYuan
-date: 2025-04-16
-image: https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/AiNews/img_v3_02la_f7d6ec20-07e0-4a39-a625-eefffdfb041g.png
-link: https://github.com/deepchat-org/deepchat
+date: Wed Apr 16 2025 00:00:00 GMT+0000 (Coordinated Universal Time)
+image: "https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/AiNews/img_v3_02la_f7d6ec20-07e0-4a39-a625-eefffdfb041g.png"
+link: "https://github.com/deepchat-org/deepchat"
 category: ai-news
-tags: [DeepChat, LLM, 开源应用, 跨平台, 桌面应用, 文件解析, Markdown支持, 本地部署, 聊天助手, AI工具]
+tags: ["DeepChat","LLM","开源应用","跨平台","桌面应用","文件解析","Markdown支持","本地部署","聊天助手","AI工具"]
 featured: false
+source: ""
 ---
+
 **DeepChat** 是一个开源的跨平台桌面应用程序，旨在将多个强大的大语言模型（LLM）和本地工具集成到一个易用、功能强大的智能聊天助手中。它支持：
 
 - 连接主流云端 LLM（如 OpenAI、Gemini 等）；

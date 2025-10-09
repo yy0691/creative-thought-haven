@@ -1,17 +1,16 @@
 ---
-title: Zendesk launches new AI capabilities for the Resolution Platform, creating the ultimate service experience for all 
+title: Zendesk launches new AI capabilities for the Resolution Platform, creating the ultimate service experience for all
 description: Presented by Zendesk
-
-Zendesk powers nearly 5 billion resolutions every year for over 100,000 customers around the world, with about 20,000 of its customers (and growing) using its AI services. Zendes
 author: LuoYuan
-date: 2025-10-09
-image: https://images.ctfassets.net/jdtwqhzvc2n1/4R86iST9TxSRjXnmBYAPYq/f6f37e05d97e7714daf1e1ff97064ee7/Zendesk_AI_Summit_Logo.png
-link: https://venturebeat.com/ai/zendesk-launches-new-ai-capabilities-for-the-resolution-platform-creating
+date: Thu Oct 09 2025 00:00:00 GMT+0000 (Coordinated Universal Time)
+image: "https://images.ctfassets.net/jdtwqhzvc2n1/4R86iST9TxSRjXnmBYAPYq/f6f37e05d97e7714daf1e1ff97064ee7/Zendesk_AI_Summit_Logo.png"
+link: "https://venturebeat.com/ai/zendesk-launches-new-ai-capabilities-for-the-resolution-platform-creating"
 category: ai-news
 tags: ["AI","人工智能","行业动态"]
 featured: false
 source: VentureBeat AI
 ---
+
 
 ## Zendesk launches new AI capabilities for the Resolution Platform, creating the ultimate service experience for all 
 

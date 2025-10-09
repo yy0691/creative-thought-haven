@@ -2,13 +2,15 @@
 title: 9种高效的提示词框架模板
 description: 本文介绍了9种高效的提示词框架模板，包括A.P.E、T.A.G、E.R.A、R.A.C.E、R.I.S.E、R.O.S.E.S等，可帮助用户更高效地使用AI生成各类内容，如文章写作、计划制定和场景分析等。
 author: LuoYuan
-date: 2025-04-12
-image: https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/AiNews/img_v3_02la_539e2eab-df3d-43a4-8829-de8a9c12f87g.jpg
-link: 
+date: Sat Apr 12 2025 00:00:00 GMT+0000 (Coordinated Universal Time)
+image: "https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/AiNews/img_v3_02la_539e2eab-df3d-43a4-8829-de8a9c12f87g.jpg"
+link: ""
 category: ai-news
-tags: [提示词工程, 框架模板, AI提示, A.P.E, T.A.G, E.R.A, R.A.C.E, R.I.S.E, R.O.S.E.S, 内容生成, AI写作]
+tags: ["提示词工程","框架模板","AI提示","A.P.E","T.A.G","E.R.A","R.A.C.E","R.I.S.E","R.O.S.E.S","内容生成","AI写作"]
 featured: false
+source: ""
 ---
+
 **9种高效的提示词框架模板**
 
 ![img_v3_02la_752696fd-6be3-42e1-a915-20437b391cfg]()

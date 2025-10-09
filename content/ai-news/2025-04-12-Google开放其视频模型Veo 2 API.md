@@ -2,13 +2,15 @@
 title: Google开放其视频模型Veo 2 API可以通过Gemini API使用支持文字+图像+风格描述生成高质量短视频
 description: Google开放其视频模型Veo 2 API可以通过Gemini API使用支持文字+图像+风格描述生成高质量短视频
 author: LuoYuan
-date: 2025-04-07
-image: https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02l7_d18149dc-373e-4df5-b045-1e09fbdf791g.jpg
-link: 
+date: Mon Apr 07 2025 00:00:00 GMT+0000 (Coordinated Universal Time)
+image: "https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02l7_d18149dc-373e-4df5-b045-1e09fbdf791g.jpg"
+link: ""
 category: ai-news
 tags: []
 featured: false
+source: ""
 ---
+
 
 Google开放其视频模型Veo 2API可以通过Gemini API使用支持文字+图像+风格描述生成高质量短视频
 

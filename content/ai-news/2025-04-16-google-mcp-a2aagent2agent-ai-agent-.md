@@ -1,14 +1,16 @@
 ---
 title: A2A（Agent2Agent）
-description: Google 推出了一个类似MCP的 **开放协议：A2A（Agent2Agent）** ，旨在让不同平台、不同厂商构建的 AI Agent 能够**互相通信、协作和协同完成任务**。...
+description: "Google 推出了一个类似MCP的 **开放协议：A2A（Agent2Agent）** ，旨在让不同平台、不同厂商构建的 AI Agent 能够**互相通信、协作和协同完成任务**。..."
 author: LuoYuan
-date: 2025-04-16
-image: https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02l7_07ba3f9b-06d5-4f08-89f7-c3859e0e673g.jpg
-link: https://github.com/google/A2A
+date: Wed Apr 16 2025 00:00:00 GMT+0000 (Coordinated Universal Time)
+image: "https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02l7_07ba3f9b-06d5-4f08-89f7-c3859e0e673g.jpg"
+link: "https://github.com/google/A2A"
 category: ai-news
 tags: []
 featured: false
+source: ""
 ---
+
 Google 推出了一个类似MCP的 **开放协议：A2A（Agent2Agent）** ，旨在让不同平台、不同厂商构建的 AI Agent 能够**互相通信、协作和协同完成任务**。
 
 它是一个类似“AI 代理之间的通用语言”，让企业内部或跨平台的多个 Agent 互通有无、共同工作，形成一个**智能协同体**。

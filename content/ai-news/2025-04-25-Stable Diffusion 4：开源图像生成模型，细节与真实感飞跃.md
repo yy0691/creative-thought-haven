@@ -2,13 +2,15 @@
 title: Stable Diffusion 4：开源图像生成模型，真实感与可控性双提升
 description: Stable Diffusion 4 是 Stability AI 推出的最新开源图像生成模型，支持超写实图像、精细控制与多风格创作，性能接近Midjourney。
 author: 未知
-date: 2025-04-25
-image: https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/AiNews/sd4.jpg
-link: https://stability.ai/stable-diffusion
+date: Fri Apr 25 2025 00:00:00 GMT+0000 (Coordinated Universal Time)
+image: "https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/AiNews/sd4.jpg"
+link: "https://stability.ai/stable-diffusion"
 category: ai-news
-tags: ["图像生成", "开源AI", "Stable Diffusion", "AI绘画", "超写实"]
+tags: ["图像生成","开源AI","Stable Diffusion","AI绘画","超写实"]
 featured: false
+source: ""
 ---
+
 
 **Stable Diffusion 4（SD4）** 是Stability AI发布的新一代开源图像生成模型，在图像真实感、细节还原、风格可控性上实现大幅突破，尤其在“超写实人像”“复杂场景”“材质表现”上表现亮眼，被称为“开源界的Midjourney”。
 

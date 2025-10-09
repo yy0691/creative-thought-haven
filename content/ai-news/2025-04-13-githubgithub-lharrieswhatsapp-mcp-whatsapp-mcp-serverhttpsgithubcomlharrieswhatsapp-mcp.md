@@ -2,13 +2,15 @@
 title: ElevenLabs MCP
 description: levenLabs推出 ElevenLabs MCP 服务器
 author: LuoYuan
-date: 2025-04-13
-image: 
-link: 
+date: Sun Apr 13 2025 00:00:00 GMT+0000 (Coordinated Universal Time)
+image: ""
+link: ""
 category: ai-news
 tags: []
 featured: false
+source: ""
 ---
+
 GitHub：[GitHub - lharries/whatsapp-mcp: WhatsApp MCP server](https://github.com/lharries/whatsapp-mcp)
 
 

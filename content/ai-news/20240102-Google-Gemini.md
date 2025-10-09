@@ -2,13 +2,15 @@
 title: "Google Gemini的\"摄像头+屏幕共享\"新体验"
 description: "Google Gemini Live 把你的手机变成了一个能\"看你看到的\"、\"听你说的\"的 AI 助手，支持摄像头、屏幕共享、实时互动，开启 AI 日常应用的全新体验。"
 author: Google
-date: 2024-01-02
-image: https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/AiNews/img_v3_02lb_9f8142f5-abd8-4a44-8e75-c9cc27852d4g.jpg
-link: https://support.google.com/gemini/answer/14579026?sjid=15917116769005255122-NA
+date: Tue Jan 02 2024 00:00:00 GMT+0000 (Coordinated Universal Time)
+image: "https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/AiNews/img_v3_02lb_9f8142f5-abd8-4a44-8e75-c9cc27852d4g.jpg"
+link: "https://support.google.com/gemini/answer/14579026?sjid=15917116769005255122-NA"
 category: ai-news
 tags: ["Google","Gemini","AI助手"]
 featured: true
+source: ""
 ---
+
 
 
 # Google Gemini的"摄像头+屏幕共享"新体验

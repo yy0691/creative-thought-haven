@@ -2,14 +2,15 @@
 title: A collaborative approach to image generation
 description: Generative AI
 author: LuoYuan
-date: 2025-10-02
-image: https://storage.googleapis.com/gweb-research2023-media/images/Open_Graph.width-800.format-jpeg.jpg
-link: https://research.google/blog/a-collaborative-approach-to-image-generation/
+date: Thu Oct 02 2025 00:00:00 GMT+0000 (Coordinated Universal Time)
+image: "https://storage.googleapis.com/gweb-research2023-media/images/Open_Graph.width-800.format-jpeg.jpg"
+link: "https://research.google/blog/a-collaborative-approach-to-image-generation/"
 category: ai-news
 tags: ["Generative AI","Human-Computer Interaction and Visualization","Machine Intelligence","AI","人工智能","研究"]
 featured: false
 source: Google AI Blog
 ---
+
 
 ## A collaborative approach to image generation
 

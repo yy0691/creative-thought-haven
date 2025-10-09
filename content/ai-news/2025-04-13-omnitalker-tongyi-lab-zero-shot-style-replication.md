@@ -2,13 +2,15 @@
 title: OmniTalker
 description: OmniTalker 是由阿里巴巴 Tongyi Lab 开发的一种端到端、实时、文本驱动的虚拟人头部生成系统，可以从文本直接生成配音同步的人脸视频，且支持实时零样本风格迁移（zero...
 author: LuoYuan
-date: 2025-04-13
-image: https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02l5_20bf94ad-6f78-4450-960a-6b5d89636a7g.jpg
-link: https://humanaigc.github.io/omnitalker/
+date: Sun Apr 13 2025 00:00:00 GMT+0000 (Coordinated Universal Time)
+image: "https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02l5_20bf94ad-6f78-4450-960a-6b5d89636a7g.jpg"
+link: "https://humanaigc.github.io/omnitalker/"
 category: ai-news
 tags: []
 featured: false
+source: ""
 ---
+
 
 
 **OmniTalker** 是由阿里巴巴 Tongyi Lab 开发的一种**端到端、实时、文本驱动的虚拟人头部生成系统**，可以从文本直接生成配音同步的人脸视频，且支持实时零样本风格迁移（zero-shot style replication），即**从一个参考视频中同时提取视频中人物的说话风格和面部风格，实现语音和面部动作的协调合成。**

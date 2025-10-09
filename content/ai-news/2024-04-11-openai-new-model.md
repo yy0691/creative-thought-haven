@@ -1,13 +1,16 @@
 ---
-id: openai-new-model
 title: OpenAI发布新一代大语言模型
 description: OpenAI宣布推出新一代大语言模型，性能提升显著
 author: 泺源
-date: 2024-04-11
+date: Thu Apr 11 2024 00:00:00 GMT+0000 (Coordinated Universal Time)
 image: /images/ai/news/openai-new-model.jpg
+link: "https://openai.com/blog/new-model"
 category: AI新闻
-link: https://openai.com/blog/new-model
+tags: []
+featured: false
+source: ""
 ---
+
 
 # OpenAI发布新一代大语言模型
 

@@ -2,13 +2,15 @@
 title: 46条正在改变世界的AI趋势与创业洞察（中文版）
 description: 本文是Greg Isenberg列出的46条AI趋势和创业洞察的中文版，涵盖了AI创业黄金时代的垂直行业应用、AI原生产品、流程重构、预测型AI、内容生成等关键趋势，以及未来创业机会和挑战。
 author: LuoYuan
-date: 2025-04-14
-image: https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_News/ai-trends.jpg
-link: https://x.com/gregisenberg/status/1906697683089101113
+date: Mon Apr 14 2025 00:00:00 GMT+0000 (Coordinated Universal Time)
+image: "https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_News/ai-trends.jpg"
+link: "https://x.com/gregisenberg/status/1906697683089101113"
 category: ai-news
-tags: [AI趋势, 创业洞察, Greg Isenberg, 技术变革, AI创业, 内容生成, 垂直应用, 预测型AI, 流程重构, 数字员工, ChatGPT 4o, 社区建设]
+tags: ["AI趋势","创业洞察","Greg Isenberg","技术变革","AI创业","内容生成","垂直应用","预测型AI","流程重构","数字员工","ChatGPT 4o","社区建设"]
 featured: false
+source: ""
 ---
+
 ## 中文版
 [Greg Isenberg ](https://x.com/gregisenberg/status/1906697683089101113)用一口气列出了 46 条正在“让他夜不能寐”的 AI 趋势和创业洞察。这篇推文像是一篇快速扫过 AI 当前与未来趋势的“商业宣言”。他强调：
 

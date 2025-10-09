@@ -2,13 +2,15 @@
 title: 什么是自回归图像生成？
 description: 本文介绍了自回归图像生成的概念、与扩散模型的区别、优势以及GPT-4o的生成过程和技术难点。
 author: LuoYuan
-date: 2025-04-10
-image: 
-link: 
+date: Thu Apr 10 2025 00:00:00 GMT+0000 (Coordinated Universal Time)
+image: ""
+link: ""
 category: ai-news
-tags: [自回归模型, 图像生成, GPT-4o, 扩散模型]
+tags: ["自回归模型","图像生成","GPT-4o","扩散模型"]
 featured: false
+source: ""
 ---
+
 > 你可能听说过OpenAI最新发布的GPT-4o能够流畅生成高质量图片，但与过去大热的Midjourney、DALL·E、Stable Diffusion这些“扩散模型（Diffusion Models）”不同，GPT-4o的图像生成采用了一种看起来简单却充满魔力的方式：**自回归模型（autoregressive model）**。
 
 那么，自回归到底是什么意思？GPT-4o又如何做到逐像素、逐区域地生成清晰图片？

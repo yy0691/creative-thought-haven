@@ -2,13 +2,15 @@
 title: Anima Labs相机角度摄影教程
 description: 本文详细介绍了Anima Labs提供的相机角度摄影教程，涵盖不同相机角度的使用技巧、提示词模板和实际应用案例，帮助用户在AI绘画和摄影中掌握构图技巧，增强作品表现力。
 author: LuoYuan
-date: 2025-04-18
-image: https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_News/img_v3_02l1_0ff3a2d3-dada-4616-8f83-16d0ff71961g.jpg
-link: https://www.animalabs.ai
+date: Fri Apr 18 2025 00:00:00 GMT+0000 (Coordinated Universal Time)
+image: "https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_News/img_v3_02l1_0ff3a2d3-dada-4616-8f83-16d0ff71961g.jpg"
+link: "https://www.animalabs.ai"
 category: ai-news
-tags: [Anima Labs, 相机角度, 摄影教程, AI绘画, 构图技巧, 提示词工程, 微距摄影, 特写摄影, 视觉叙事]
+tags: ["Anima Labs","相机角度","摄影教程","AI绘画","构图技巧","提示词工程","微距摄影","特写摄影","视觉叙事"]
 featured: false
+source: ""
 ---
+
 Anima Labs 提供了一个关于如何在图像提示中掌握不同相机角度的使用的教程，以增强您的摄影控制力和效果。
 
 ## **教程概览**

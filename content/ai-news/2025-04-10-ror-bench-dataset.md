@@ -2,13 +2,15 @@
 title: ROR Bench数据集：评估大模型真实推理能力
 description: 本文详细介绍了字节跳动研究团队提出的ROR Bench数据集，该研究通过轻微修改标准题目创建变异题，揭示了主流大模型在数学和推理任务上的表现大多基于模板记忆而非真正的语义理解与逻辑推理能力。
 author: LuoYuan
-date: 2025-04-10
-image: https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02l1_dc80573f-377c-4b5d-9d9b-fa83f0af041g.jpg
-link: https://arxiv.org/pdf/2504.00509
+date: Thu Apr 10 2025 00:00:00 GMT+0000 (Coordinated Universal Time)
+image: "https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02l1_dc80573f-377c-4b5d-9d9b-fa83f0af041g.jpg"
+link: "https://arxiv.org/pdf/2504.00509"
 category: ai-news
-tags: [ROR Bench, 大模型推理, 模板记忆, 数学能力, 语义理解, 逻辑推理, 字节跳动, 评测基准, 多模态评估]
+tags: ["ROR Bench","大模型推理","模板记忆","数学能力","语义理解","逻辑推理","字节跳动","评测基准","多模态评估"]
 featured: false
+source: ""
 ---
+
 论文：https://arxiv.org/pdf/2504.00509
 
 

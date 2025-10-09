@@ -1,15 +1,16 @@
 ---
 title: Enabling real-time responsiveness with event-driven architecture
-description: 
+description: ""
 author: LuoYuan
-date: 2025-10-06
-image: https://wp.technologyreview.com/wp-content/uploads/2025/09/iStock-1491232808.jpg?resize=1200,600
-link: https://www.technologyreview.com/2025/10/06/1124323/enabling-real-time-responsiveness-with-event-driven-architecture/
+date: Mon Oct 06 2025 00:00:00 GMT+0000 (Coordinated Universal Time)
+image: "https://wp.technologyreview.com/wp-content/uploads/2025/09/iStock-1491232808.jpg?resize=1200,600"
+link: "https://www.technologyreview.com/2025/10/06/1124323/enabling-real-time-responsiveness-with-event-driven-architecture/"
 category: ai-news
 tags: ["Artificial intelligence","sponsored","AI","人工智能","行业动态"]
 featured: false
 source: MIT Technology Review AI
 ---
+
 
 ## Enabling real-time responsiveness with event-driven architecture
 

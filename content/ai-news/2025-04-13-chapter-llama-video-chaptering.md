@@ -2,13 +2,15 @@
 title: Chapter-Llama：自动视频章节划分工具
 description: 本文介绍了Chapter-Llama，一个由大语言模型（LLM）驱动的视频自动分章节系统，能够将小时级别的长视频自动划分为语义清晰的章节，并为每个章节生成简洁准确的标题，从而解决当前长视频内容查找困难的问题。
 author: LuoYuan
-date: 2025-04-13
-image: https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02l1_5aeb0778-3889-4bca-beda-aa8faaa4edcg.jpg
-link: https://github.com/Chapter-Llama/Chapter-Llama
+date: Sun Apr 13 2025 00:00:00 GMT+0000 (Coordinated Universal Time)
+image: "https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02l1_5aeb0778-3889-4bca-beda-aa8faaa4edcg.jpg"
+link: "https://github.com/Chapter-Llama/Chapter-Llama"
 category: ai-news
-tags: [Chapter-Llama, 视频章节划分, 长视频分析, 内容导航, 语义分割, LLM应用, LLaMA 3.1, 多模态处理, 语音识别, 图像字幕, 自动章节生成]
+tags: ["Chapter-Llama","视频章节划分","长视频分析","内容导航","语义分割","LLM应用","LLaMA 3.1","多模态处理","语音识别","图像字幕","自动章节生成"]
 featured: false
+source: ""
 ---
+
 随着在线视频平台（如YouTube）的普及，上传视频的时长逐年增加。
 
 - 根据研究，截至2020年，25%的视频超过15分钟，5%的视频甚至超过3小时。

@@ -2,13 +2,15 @@
 title: Perplexity Pro：AI驱动的搜索引擎，实时信息+深度解析
 description: Perplexity Pro 是一款AI搜索引擎，结合实时网络数据与大模型分析，提供精准答案、来源追踪与多维度解读。
 author: 未知
-date: 2025-04-22
-image: https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/AiNews/perplexity.jpg
-link: https://www.perplexity.ai/
+date: Tue Apr 22 2025 00:00:00 GMT+0000 (Coordinated Universal Time)
+image: "https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/AiNews/perplexity.jpg"
+link: "https://www.perplexity.ai/"
 category: ai-news
-tags: ["AI搜索", "实时信息", "Perplexity", "搜索引擎", "深度分析"]
+tags: ["AI搜索","实时信息","Perplexity","搜索引擎","深度分析"]
 featured: false
+source: ""
 ---
+
 
 **Perplexity Pro** 是近年来崛起的AI搜索引擎，主打“直接给出答案+透明来源+深度分析”，区别于传统搜索引擎的“链接列表”模式，更像“自带网络的AI助手”。
 

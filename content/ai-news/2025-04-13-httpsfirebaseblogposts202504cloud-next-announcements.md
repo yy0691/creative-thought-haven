@@ -2,13 +2,15 @@
 title: Firebase Next
 description: 打造“AI 原生”的全栈开发环境
 author: LuoYuan
-date: 2025-04-13
-image: https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02l7_a368475e-78d2-468c-b3f4-cba8d55e20eg.png
-link: https://firebase.blog/posts/2025/04/cloud-next-announcements
+date: Sun Apr 13 2025 00:00:00 GMT+0000 (Coordinated Universal Time)
+image: "https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02l7_a368475e-78d2-468c-b3f4-cba8d55e20eg.png"
+link: "https://firebase.blog/posts/2025/04/cloud-next-announcements"
 category: ai-news
 tags: []
 featured: false
+source: ""
 ---
+
 
 **🧠 打造“AI 原生”的全栈开发环境**
 

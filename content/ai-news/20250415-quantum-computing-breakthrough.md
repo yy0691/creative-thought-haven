@@ -2,13 +2,15 @@
 title: 量子计算的革命性突破
 description: 本文介绍了Google DeepMind最新发布的量子计算研究成果，包括室温量子稳定性、错误校正和可扩展架构等关键突破。
 author: LuoYuan
-date: 2025-04-15
-image: https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_News/quantum-computing.jpg
-link: 
+date: Tue Apr 15 2025 00:00:00 GMT+0000 (Coordinated Universal Time)
+image: "https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_News/quantum-computing.jpg"
+link: ""
 category: ai-news
-tags: [量子计算, Google DeepMind, 室温量子, 错误校正]
+tags: ["量子计算","Google DeepMind","室温量子","错误校正"]
 featured: false
+source: ""
 ---
+
 ## 量子计算的革命性突破
 
 Google DeepMind最新发布的研究成果代表了量子计算领域的重大突破，有望加速实用量子计算机的实现。

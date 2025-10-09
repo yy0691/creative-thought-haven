@@ -2,13 +2,15 @@
 title: Luma Ray2相机运动概念功能详解
 description: 本文介绍了Luma Labs推出的Ray2中的Camera Motion Concepts功能，包括20多种经过精确调整的摄像机运动，让AI视频也能拍出专业电影级镜头运动。
 author: LuoYuan
-date: 2025-04-12
-image: 
-link: 
+date: Sat Apr 12 2025 00:00:00 GMT+0000 (Coordinated Universal Time)
+image: ""
+link: ""
 category: ai-news
-tags: [Luma Ray2, 相机运动, AI视频, 电影镜头]
+tags: ["Luma Ray2","相机运动","AI视频","电影镜头"]
 featured: false
+source: ""
 ---
+
 Luma Labs 推出 **Ray2** 中的 **Camera Motion Concepts（相机运动概念）功能**，一共20 多种经过精确调整的摄像机运动，**让 AI 视频也能拍出专业电影级镜头运动，而且还可以随意组合。**
 
 > “Camera Motion Concepts”提供了一套经过精确调校的摄像机运动选项，用户只需通过文本输入即可实现复杂的镜头控制。比如：

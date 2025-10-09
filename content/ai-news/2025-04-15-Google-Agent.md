@@ -2,13 +2,15 @@
 title: Google Agent Builder：构建企业级多Agent系统的完整平台
 description: Google 推出 Agent Builder 平台，支持构建具备推理、规划、记忆能力的多Agent系统，提供从模型到数据到Agent的全流程支持。
 author: 未知
-date: 2025-04-15
-image: https://picsum.photos/800/400?random=1
-link: https://cloud.google.com/vertex-ai
+date: Tue Apr 15 2025 00:00:00 GMT+0000 (Coordinated Universal Time)
+image: "https://picsum.photos/800/400?random=1"
+link: "https://cloud.google.com/vertex-ai"
 category: ai-news
-tags: ["多Agent系统", "Google", "Vertex AI", "企业级AI", "智能体"]
+tags: ["多Agent系统","Google","Vertex AI","企业级AI","智能体"]
 featured: false
+source: ""
 ---
+
 
 - 企业级 AI 正转向 **“多 Agent 系统”**：多个智能体协作完成任务
 - Agent 不再只是问答机器人，而是具备：

@@ -2,13 +2,15 @@
 title: Anthropic研究追踪Claude的思考过程
 description: 本文介绍了Anthropic研究团队致力于理解大型语言模型内部工作原理的研究，特别是如何追踪Claude的思考过程，以提高AI的透明度和可信度。
 author: LuoYuan
-date: 2025-04-12
-image: https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02kt_ce6dd3bb-f1f4-44a7-90d0-c429108b67eg.jpg
-link: https://www.anthropic.com/research/tracing-thoughts-language-model
+date: Sat Apr 12 2025 00:00:00 GMT+0000 (Coordinated Universal Time)
+image: "https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02kt_ce6dd3bb-f1f4-44a7-90d0-c429108b67eg.jpg"
+link: "https://www.anthropic.com/research/tracing-thoughts-language-model"
 category: ai-news
-tags: [Anthropic, Claude, AI透明度, 模型解释ability]
+tags: ["Anthropic","Claude","AI透明度","模型解释ability"]
 featured: false
+source: ""
 ---
+
 **Anthropic探索AI模型的内部工作原理，他们看到Claude的思考过程**
 
 ![img_v3_02kt_ce6dd3bb-f1f4-44a7-90d0-c429108b67eg](https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02kt_ce6dd3bb-f1f4-44a7-90d0-c429108b67eg.jpg)

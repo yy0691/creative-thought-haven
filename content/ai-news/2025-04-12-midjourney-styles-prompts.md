@@ -2,13 +2,15 @@
 title: Midjourney · 21-styles 105-prompt：艺术风格与提示词指南
 description: 本文介绍了《Midjourney · 21-styles 105-prompt》文档，包含21种不同的艺术风格（超现实主义、赛博朋克、幻想风、传统中国水墨画、电影风格等），以及105个适用于Midjourney的提示词和详细的生成参数。
 author: LuoYuan
-date: 2025-04-12
-image: https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02l1_e88050ce-ec5b-4596-a076-8ac517d72c2g.jpg
-link: https://github.com/yy0691/img-bed/blob/main/Blog/Midjourney_·_21-styles_105-prompt.2025.2.24-压缩.pdf
+date: Sat Apr 12 2025 00:00:00 GMT+0000 (Coordinated Universal Time)
+image: "https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02l1_e88050ce-ec5b-4596-a076-8ac517d72c2g.jpg"
+link: "https://github.com/yy0691/img-bed/blob/main/Blog/Midjourney_·_21-styles_105-prompt.2025.2.24-压缩.pdf"
 category: ai-news
-tags: [Midjourney, 艺术风格, 提示词, 生成参数, AI绘图, 超现实主义, 赛博朋克, 幻想风, 中国水墨画, 电影风格, 参考图片ID, RAW, NIJI 6]
+tags: ["Midjourney","艺术风格","提示词","生成参数","AI绘图","超现实主义","赛博朋克","幻想风","中国水墨画","电影风格","参考图片ID","RAW","NIJI 6"]
 featured: false
+source: ""
 ---
+
 《Midjourney · 21-styles 105-prompt》包含了21种不同的艺术风格，以及105个适用于Midjourney（AI绘图工具）的提示词（prompts）。
 
 这些提示词涵盖了不同风格的艺术创作，例如超现实主义、赛博朋克、幻想风、传统中国水墨画、电影风格等。

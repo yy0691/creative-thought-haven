@@ -2,13 +2,15 @@
 title: OpenAI CPO Kevin Weil分享AI创业关键策略
 description: 本文整理了OpenAI首席产品官Kevin Weil从创业角度分享的AI创业策略，强调速度与进化的重要性，以及AI迭代极快、处于早期爆发阶段的市场特点。
 author: LuoYuan
-date: 2025-04-14
-image: https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_News/kevin-weil.jpg
-link: 
+date: Mon Apr 14 2025 00:00:00 GMT+0000 (Coordinated Universal Time)
+image: "https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_News/kevin-weil.jpg"
+link: ""
 category: ai-news
-tags: [OpenAI, Kevin Weil, AI创业, 产品策略]
+tags: ["OpenAI","Kevin Weil","AI创业","产品策略"]
 featured: false
+source: ""
 ---
+
 **《OpenAICPO Kevin Weil》--创业角度思考**
 
 **《OpenAI CPO Kevin Weil：速度与进化，AI 创业的关键策略》**

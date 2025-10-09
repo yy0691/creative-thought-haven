@@ -2,13 +2,15 @@
 title: Google《Prompt Engineering》提示词工程指南
 description: 本文介绍了由Lee Boonstra等Google团队成员编写的《Prompt Engineering》提示词工程指南，这是一份长达60+页的PDF文档，详细讲解如何设计高质量提示来优化大语言模型输出，适用于自然语言处理、AI代码生成、多模态输入等场景。
 author: LuoYuan
-date: 2025-04-17
-image: https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02l8_c9850062-2160-4645-88ad-374c6c6d8a5g.jpg
-link: 
+date: Thu Apr 17 2025 00:00:00 GMT+0000 (Coordinated Universal Time)
+image: "https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02l8_c9850062-2160-4645-88ad-374c6c6d8a5g.jpg"
+link: ""
 category: ai-news
-tags: [Google, 提示词工程, Gemini, Vertex AI, Lee Boonstra, LLM优化, 代码生成, 多模态输入, 结构化输出]
+tags: ["Google","提示词工程","Gemini","Vertex AI","Lee Boonstra","LLM优化","代码生成","多模态输入","结构化输出"]
 featured: false
+source: ""
 ---
+
 这是由Lee Boonstra 等 Google 团队成员联合编写的《**Prompt Engineering**》提示词工程。
 
 长达 60+ 页的 PDF详细介绍如何通过设计高质量的提示来优化大语言模型（LLM）的输出。

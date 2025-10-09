@@ -1,15 +1,16 @@
 ---
-title: Echelon's AI agents take aim at Accenture and Deloitte consulting models
+title: "Echelon's AI agents take aim at Accenture and Deloitte consulting models"
 description: Echelon, an artificial intelligence startup that automates enterprise software implementations, emerged from stealth mode today with $4.75 million in seed funding led by Bain Capital Ventures, targeti
 author: LuoYuan
-date: 2025-10-09
-image: https://images.ctfassets.net/jdtwqhzvc2n1/6Wx0cy48ounMBeal2k0YPo/61ea707f3d72649cd7670e2cc4e809b6/nuneybits_Vector_art_of_AI_robot_coding_9f59b4e8-0719-4d4f-8bf3-025933b4c3f3.webp
-link: https://venturebeat.com/ai/echelons-ai-agents-take-aim-at-accenture-and-deloitte-consulting-models
+date: Thu Oct 09 2025 00:00:00 GMT+0000 (Coordinated Universal Time)
+image: "https://images.ctfassets.net/jdtwqhzvc2n1/6Wx0cy48ounMBeal2k0YPo/61ea707f3d72649cd7670e2cc4e809b6/nuneybits_Vector_art_of_AI_robot_coding_9f59b4e8-0719-4d4f-8bf3-025933b4c3f3.webp"
+link: "https://venturebeat.com/ai/echelons-ai-agents-take-aim-at-accenture-and-deloitte-consulting-models"
 category: ai-news
 tags: ["AI","Software","Enterprise","人工智能","行业动态"]
 featured: false
 source: VentureBeat AI
 ---
+
 
 ## Echelon's AI agents take aim at Accenture and Deloitte consulting models
 

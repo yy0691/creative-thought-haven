@@ -2,13 +2,15 @@
 title: AutoRAG
 description: Cloudflare 推出了一个全托管的 RAG 系统：AutoRAG ，让你可以很容易地让 AI（如 Claude、ChatGPT）连接你的数据源，读懂你自己的资料，比如 PDF 文...
 author: LuoYuan
-date: 2025-04-13
-image: https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02l5_0fe18e3c-e16f-4e1c-8d36-ba36d10cc93g.jpg
-link: 
+date: Sun Apr 13 2025 00:00:00 GMT+0000 (Coordinated Universal Time)
+image: "https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02l5_0fe18e3c-e16f-4e1c-8d36-ba36d10cc93g.jpg"
+link: ""
 category: ai-news
 tags: []
 featured: false
+source: ""
 ---
+
 Cloudflare 推出了一个全托管的 **RAG 系统**：**AutoRAG** ，让你可以很容易地让 AI（如 Claude、ChatGPT）连接你的数据源，读懂你自己的资料，比如 PDF 文档、网页、图片、CSV 表格等，并且能“根据这些内容给你更精准和准确的回答”。
 
 - **完全托管 RAG 系统**：无需搭建繁琐流程

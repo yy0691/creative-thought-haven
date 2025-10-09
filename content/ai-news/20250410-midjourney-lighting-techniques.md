@@ -2,13 +2,15 @@
 title: Midjourney摄影照明灯光技巧
 description: 本教程详细介绍了Midjourney中的摄影照明灯光技巧，包括自然采光、工作室照明、艺术照明和特效灯光等多种照明类型及其应用场景和示例Prompt。
 author: LuoYuan
-date: 2025-04-10
-image: https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02l1_982a1bce-ca00-4bcc-abf0-de785988be5g.jpg
-link: 
+date: Thu Apr 10 2025 00:00:00 GMT+0000 (Coordinated Universal Time)
+image: "https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02l1_982a1bce-ca00-4bcc-abf0-de785988be5g.jpg"
+link: ""
 category: ai-news
-tags: [Midjourney, 摄影技巧, 照明灯光, AI绘画]
+tags: ["Midjourney","摄影技巧","照明灯光","AI绘画"]
 featured: false
+source: ""
 ---
+
 # 概述
 
 这个课程为参与者提供了一个全面了解和掌握摄影中各种照明技术的平台，从基本的自然光照到复杂的特效照明，使他们能够在各种摄影和视觉艺术项目中应用这些技术。

@@ -2,13 +2,15 @@
 title: OmniSVG：基于VLM的高质量SVG生成统一框架
 description: 本文介绍了复旦大学和StepFun团队开发的OmniSVG框架，这是一个基于预训练视觉-语言模型(VLM)的SVG生成工具，支持文本到SVG、图像到SVG和角色参考SVG生成，能解决传统SVG生成方法在结构复杂性、计算成本和多模态支持上的局限。
 author: LuoYuan
-date: 2025-04-11
-image: https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/AiNews/img_v3_02la_c0fcea5c-6fe6-4e75-a84a-54ca2b0ec81g.jpg
-link: https://github.com/omnisvg-project/omnisvg
+date: Fri Apr 11 2025 00:00:00 GMT+0000 (Coordinated Universal Time)
+image: "https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/AiNews/img_v3_02la_c0fcea5c-6fe6-4e75-a84a-54ca2b0ec81g.jpg"
+link: "https://github.com/omnisvg-project/omnisvg"
 category: ai-news
-tags: [OmniSVG, SVG生成, VLM, 视觉-语言模型, 复旦大学, StepFun, 矢量图形, 文本到SVG, 图像到SVG, AI设计工具, MMSVG-2M数据集]
+tags: ["OmniSVG","SVG生成","VLM","视觉-语言模型","复旦大学","StepFun","矢量图形","文本到SVG","图像到SVG","AI设计工具","MMSVG-2M数据集"]
 featured: false
+source: ""
 ---
+
 OmniSVG 是一个用于生成高质量、可扩展矢量图形（SVG）的统一框架，基于预训练的视觉-语言模型（Vision-Language Model, VLM），旨在解决传统 SVG 生成方法在结构复杂性、计算成本和多模态支持上的局限。该项目由复旦大学和 StepFun 团队开发
 
 也就是它是一个能把**文字或图片转换成高质量 SVG 矢量图**的 AI 模型，既适合生成简单图标，也能做出复杂的动漫角色。

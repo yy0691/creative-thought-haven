@@ -2,13 +2,15 @@
 title: Orpheus TTS
 description: Orpheus TTS是一个高质量的文本转语音系统，支持多种语言和声音风格
 author: Orpheus
-date: 2025-04-12
-image: https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/AiNews/img_v3_02l8_46bba650-dd37-43d4-a2a7-c29cbf08388g.jpg
-link: https://github.com/orpheus-tts/orpheus
+date: Sat Apr 12 2025 00:00:00 GMT+0000 (Coordinated Universal Time)
+image: "https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/AiNews/img_v3_02l8_46bba650-dd37-43d4-a2a7-c29cbf08388g.jpg"
+link: "https://github.com/orpheus-tts/orpheus"
 category: ai-news
 tags: ["TTS","语音合成","开源"]
 featured: false
+source: ""
 ---
+
 
 
 # Orpheus TTS

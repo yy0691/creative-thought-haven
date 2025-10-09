@@ -1,14 +1,16 @@
 ---
-title: Google打造的"地球Al大脑"系统,将图像、地图、天气和AI模型结合自动回答复杂的地理问题
-description: Google打造的"地球Al大脑"系统,将图像、地图、天气和AI模型结合自动回答复杂的地理问题
+title: "Google打造的\"地球Al大脑\"系统,将图像、地图、天气和AI模型结合自动回答复杂的地理问题"
+description: "Google打造的\"地球Al大脑\"系统,将图像、地图、天气和AI模型结合自动回答复杂的地理问题"
 author: LuoYuan
-date: 2025-04-13
-image: https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02l7_3adcde7c-4ede-4db9-b0bb-4cee7ddcb92g.jpg
-link: https://research.google/blog/geospatial-reasoning-unlocking-insights-with-generative-ai-and-multiple-foundation-models/
+date: Sun Apr 13 2025 00:00:00 GMT+0000 (Coordinated Universal Time)
+image: "https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02l7_3adcde7c-4ede-4db9-b0bb-4cee7ddcb92g.jpg"
+link: "https://research.google/blog/geospatial-reasoning-unlocking-insights-with-generative-ai-and-multiple-foundation-models/"
 category: ai-news
 tags: []
 featured: false
+source: ""
 ---
+
 
 ![img_v3_02l7_3adcde7c-4ede-4db9-b0bb-4cee7ddcb92g](https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_Newsimg_v3_02l7_3adcde7c-4ede-4db9-b0bb-4cee7ddcb92g.jpg)
 

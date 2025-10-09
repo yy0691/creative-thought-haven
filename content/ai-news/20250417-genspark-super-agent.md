@@ -2,13 +2,15 @@
 title: Genspark Super Agent多智能体混合系统
 description: 本文详细介绍了Genspark推出的Super Agent自动化AI代理，该代理具备自主思考、规划、执行、调用工具的能力，使用了世界首个多智能体混合系统(Mixture-of-Agents)构建，可完成旅行规划、内容生成、研究分析等多种复杂任务。
 author: LuoYuan
-date: 2025-04-17
-image: https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_News/img_v3_02l1_edb27849-1fcb-4776-b05c-b65de946088g.jpg
-link: https://www.genspark.ai
+date: Thu Apr 17 2025 00:00:00 GMT+0000 (Coordinated Universal Time)
+image: "https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_News/img_v3_02l1_edb27849-1fcb-4776-b05c-b65de946088g.jpg"
+link: "https://www.genspark.ai"
 category: ai-news
-tags: [Genspark, Super Agent, 多智能体, 自动化代理, Mixture-of-Agents, 任务执行, 旅行规划, 内容生成, 研究分析, 工具集成]
+tags: ["Genspark","Super Agent","多智能体","自动化代理","Mixture-of-Agents","任务执行","旅行规划","内容生成","研究分析","工具集成"]
 featured: false
+source: ""
 ---
+
 Genspark 推出的一款多功能的自动化AI 代理：Super Agent ，具备自主思考、规划、执行、调用工具的能力，使用其了Genspark宣称的世界首个**多智能体混合系统（Mixture-of-Agents）**构建。
 
 它能够自主理解用户需求、制定计划并自主执行任务，覆盖从日常事务到复杂研究的广泛场景。

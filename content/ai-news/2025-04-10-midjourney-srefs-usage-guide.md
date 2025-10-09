@@ -2,13 +2,15 @@
 title: Midjourney srefs样式参考使用指南
 description: 本文详细介绍如何使用Midjourney中的srefs（样式参考）创建不同的图像效果，包括选择合适的srefs、调整sref权重、优化文本提示以及使用样式参考提升图像效果的完整教程，帮助用户掌握Midjourney高级图像生成技巧。
 author: LuoYuan
-date: 2025-04-10
-image: https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_News/img_v3_02l1_8e202970-1028-4323-8b14-a77df563577g.jpg
-link: https://www.midjourney.com
+date: Thu Apr 10 2025 00:00:00 GMT+0000 (Coordinated Universal Time)
+image: "https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_News/img_v3_02l1_8e202970-1028-4323-8b14-a77df563577g.jpg"
+link: "https://www.midjourney.com"
 category: ai-news
-tags: [Midjourney, srefs, 样式参考, 图像生成, 提示词工程, 权重调整, 混合风格, AI艺术, 创作技巧]
+tags: ["Midjourney","srefs","样式参考","图像生成","提示词工程","权重调整","混合风格","AI艺术","创作技巧"]
 featured: false
+source: ""
 ---
+
 在这篇教程中，我们将介绍如何使用Midjourney中的srefs（样式参考）创建不同的图像效果，并通过调整srefs的权重和文本提示来优化结果。
 
 主要内容包括选择合适的srefs、调整sref权重、优化文本提示、以及使用样式参考来进一步提升图像效果。

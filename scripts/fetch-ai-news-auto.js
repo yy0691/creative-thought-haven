@@ -62,6 +62,23 @@ function extractTags(item, category) {
   return [...new Set(tags)].slice(0, 8);
 }
 
+function escapeYamlValue(value) {
+  if (!value) return '""';
+  
+  const str = String(value);
+  
+  if (str.includes(':') || str.includes('"') || str.includes("'") || 
+      str.includes('\n') || str.includes('#') || str.includes('[') || 
+      str.includes(']') || str.includes('{') || str.includes('}') ||
+      str.includes('&') || str.includes('*') || str.includes('!') ||
+      str.includes('|') || str.includes('>') || str.includes('@') ||
+      str.includes('`')) {
+    return `"${str.replace(/"/g, '\\"').replace(/\n/g, ' ')}"`;
+  }
+  
+  return str;
+}
+
 async function createMarkdownFile(item, source, config) {
   const slug = generateSlug(item.title, item.pubDate || item.isoDate);
   const filePath = path.join(outputDir, `${slug}.md`);
@@ -76,16 +93,16 @@ async function createMarkdownFile(item, source, config) {
   const tags = extractTags(item, source.category);
   
   const frontmatter = `---
-title: ${item.title}
-description: ${description.substring(0, 200)}
-author: ${config.settings.author}
+title: ${escapeYamlValue(item.title)}
+description: ${escapeYamlValue(description.substring(0, 200))}
+author: ${escapeYamlValue(config.settings.author)}
 date: ${new Date(item.pubDate || item.isoDate).toISOString().split('T')[0]}
-image: ${image}
-link: ${item.link}
+image: ${escapeYamlValue(image)}
+link: ${escapeYamlValue(item.link)}
 category: ai-news
 tags: ${JSON.stringify(tags)}
 featured: false
-source: ${source.name}
+source: ${escapeYamlValue(source.name)}
 ---
 
 ## ${item.title}

@@ -2,13 +2,15 @@
 title: 微软AI智能体入门教程（初学者适用）
 description: 本文介绍了微软官方发布的AI智能体入门教程，包含10个模块化教程、视频、代码和多语言支持，涵盖智能体基础概念、主流框架、Agentic模式设计、工具调用等内容，帮助初学者理解并构建基于生成式AI的智能体。
 author: LuoYuan
-date: 2025-04-14
-image: https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/AiNews/img_v3_02lb_d3247ac8-f5b5-4a3d-9fe6-4a2fd2043dag.jpg
-link: https://github.com/microsoft/ai-agents-for-beginners
+date: Mon Apr 14 2025 00:00:00 GMT+0000 (Coordinated Universal Time)
+image: "https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/AiNews/img_v3_02lb_d3247ac8-f5b5-4a3d-9fe6-4a2fd2043dag.jpg"
+link: "https://github.com/microsoft/ai-agents-for-beginners"
 category: ai-news
-tags: [微软, AI智能体, 入门教程, 生成式AI, Semantic Kernel, AutoGen, LangChain, 智能体框架, 工具调用, Python示例, 多语言支持]
+tags: ["微软","AI智能体","入门教程","生成式AI","Semantic Kernel","AutoGen","LangChain","智能体框架","工具调用","Python示例","多语言支持"]
 featured: false
+source: ""
 ---
+
 这是一个由微软官方发布的**AI 智能体入门教程**，适合初学者学习构建自己的 AI 代理（AI Agents）。
 
 🧩 **项目定位**：帮助初学者理解并构建基于生成式 AI 的智能体（AI Agents）
