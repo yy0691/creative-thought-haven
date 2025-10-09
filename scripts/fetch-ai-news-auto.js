@@ -4,11 +4,20 @@ import path from 'path';
 import Parser from 'rss-parser';
 import axios from 'axios';
 import * as cheerio from 'cheerio';
+import GeminiService from './ai-service.js';
 
 const root = process.cwd();
 const configFile = path.join(root, 'config/ai-news-sources.json');
 const outputDir = path.join(root, 'content/ai-news');
 const parser = new Parser();
+
+let geminiService = null;
+try {
+  geminiService = new GeminiService();
+} catch (error) {
+  console.warn('⚠️  Gemini service not available:', error.message);
+  console.warn('⚠️  Will skip AI translation and summarization');
+}
 
 function loadConfig() {
   if (!fs.existsSync(configFile)) {
@@ -92,32 +101,62 @@ async function createMarkdownFile(item, source, config) {
   const image = item.enclosure?.url || await fetchImageFromUrl(item.link) || config.settings.defaultImage;
   const tags = extractTags(item, source.category);
   
+  let titleZh = '';
+  let summaryZh = '';
+  let keyPoints = [];
+  
+  if (geminiService) {
+    try {
+      console.log(`🤖 Translating: ${item.title.substring(0, 50)}...`);
+      const translation = await geminiService.translateToChineseWithSummary(
+        item.title,
+        description.substring(0, 500),
+        item.content ? sanitizeContent(item.content) : ''
+      );
+      
+      titleZh = translation.title_zh;
+      summaryZh = translation.summary_zh;
+      keyPoints = translation.key_points;
+      
+      await new Promise(resolve => setTimeout(resolve, 2000));
+    } catch (error) {
+      console.error(`❌ Translation failed: ${error.message}`);
+    }
+  }
+  
   const frontmatter = `---
 title: ${escapeYamlValue(item.title)}
+title_zh: ${escapeYamlValue(titleZh)}
 description: ${escapeYamlValue(description.substring(0, 200))}
+summary_zh: ${escapeYamlValue(summaryZh)}
 author: ${escapeYamlValue(config.settings.author)}
 date: ${new Date(item.pubDate || item.isoDate).toISOString().split('T')[0]}
 image: ${escapeYamlValue(image)}
 link: ${escapeYamlValue(item.link)}
 category: ai-news
 tags: ${JSON.stringify(tags)}
+key_points: ${JSON.stringify(keyPoints)}
 featured: false
 source: ${escapeYamlValue(source.name)}
 ---
 
-## ${item.title}
+## ${titleZh || item.title}
 
-${description}
+${summaryZh || description}
 
-### 原文链接
-[查看原文](${item.link})
+${keyPoints.length > 0 ? `### 🔑 关键要点\n${keyPoints.map((point, i) => `${i + 1}. ${point}`).join('\n')}\n` : ''}
+
+### 📰 原文信息
+- **标题**: ${item.title}
+- **来源**: ${source.name}
+- **链接**: [查看原文](${item.link})
 
 ---
-*本文由自动化系统从 ${source.name} 抓取生成*
+*本文由AI自动翻译和摘要生成*
 `;
 
   fs.writeFileSync(filePath, frontmatter, 'utf8');
-  console.log(`✅ Created: ${slug}`);
+  console.log(`✅ Created with translation: ${slug}`);
   return slug;
 }
 

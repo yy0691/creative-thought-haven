@@ -64,8 +64,10 @@ async function buildNews() {
     allNews.push({
       id: slug,
       title: data.title,
+      title_zh: data.title_zh || '',
       // Use description from frontmatter, or the fetched one, or generate a snippet from content.
       description: data.description || fetchedDescription || content.slice(0, 150).replace(/\s+/g, ' ').trim() + '...',
+      summary_zh: data.summary_zh || '',
       author: data.author,
       date: new Date(data.date).toISOString(),
       // Use image from frontmatter or the one we fetched.
@@ -73,6 +75,7 @@ async function buildNews() {
       link: data.link,
       category: "ai-news",
       tags: data.tags || [],
+      key_points: data.key_points || [],
       // UPDATED: The body of the MD file is now the main content.
       content: content,
     });

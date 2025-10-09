@@ -47,13 +47,16 @@ import { H1, H2, H3, H4, H5, H6 } from '../components/ui/Heading';
 interface CardItem {
   id: string;
   title: string;
+  title_zh?: string; // 中文标题
   description: string;
+  summary_zh?: string; // 中文摘要
   link: string;
   group?: string;
   date?: string;
   image?: string;
   author?: string;
   content?: string;
+  key_points?: string[]; // 关键要点
   scene?: string; // 新增：场景标签（如"职场效率"、"创作辅助"）
   [key: string]: any;
 }
@@ -257,7 +260,7 @@ const SmallCard = ({
         <div className="flex justify-between items-start">
           <div className="flex items-center gap-1 min-w-0">
             <H6 className="text-gray-900 dark:text-white group-hover:text-primary truncate">
-              {item.title}
+              {(item as any).title_zh || item.title}
             </H6>
             {showBadges && (
               <div className="flex gap-1 shrink-0">
@@ -277,7 +280,7 @@ const SmallCard = ({
           </button>
         </div>
         <p className={`${compact ? 'text-[12px]' : 'text-[13px]'} sm:text-sm text-gray-600 dark:text-gray-300 line-clamp-2 mt-0.5`}>
-          {item.description}
+          {(item as any).summary_zh || item.description}
         </p>
         <span className="inline-block mt-1.5 text-[11px] sm:text-xs px-2 py-0.5 bg-primary/10 text-primary rounded-full self-start">
           {item.scene}
@@ -337,10 +340,10 @@ const LargeCard = ({
       )}
       <div className={`${compact ? 'p-2.5' : 'p-3'} flex flex-col flex-grow`}>
         <H6 className={`${compact ? 'mb-1' : 'mb-1.5'} font-semibold line-clamp-2`}>
-          {item.title}
+          {(item as any).title_zh || item.title}
         </H6>
         <p className={`line-clamp-2 flex-grow ${compact ? 'text-[10px] sm:text-[12px]' : 'text-[12px] sm:text-[14px]'}`}>
-          {item.description}
+          {(item as any).summary_zh || item.description}
         </p>
         {/* <span className="inline-block mt-2 text-[10px] sm:text-[12px] px-2 py-0.5 bg-primary/10 text-primary rounded-full">
           {item.scene}
