@@ -1,0 +1,58 @@
+{
+  "sources": [
+    {
+      "name": "OpenAI Blog",
+      "url": "https://openai.com/blog/feed",
+      "category": "ai-research",
+      "enabled": true
+    },
+    {
+      "name": "Google AI Blog",
+      "url": "https://research.google/blog/rss",
+      "category": "ai-research",
+      "enabled": true
+    },
+    {
+      "name": "DeepMind Blog",
+      "url": "https://deepmind.google/blog/rss",
+      "category": "ai-research",
+      "enabled": true
+    },
+    {
+      "name": "Meta AI Research",
+      "url": "https://ai.meta.com/blog/rss/",
+      "category": "ai-research",
+      "enabled": true
+    },
+    {
+      "name": "VentureBeat AI",
+      "url": "https://venturebeat.com/category/ai/feed/",
+      "category": "ai-industry",
+      "enabled": true
+    },
+    {
+      "name": "TechCrunch AI",
+      "url": "https://techcrunch.com/category/artificial-intelligence/feed/",
+      "category": "ai-industry",
+      "enabled": true
+    },
+    {
+      "name": "MIT Technology Review AI",
+      "url": "https://www.technologyreview.com/topic/artificial-intelligence/feed",
+      "category": "ai-industry",
+      "enabled": true
+    },
+    {
+      "name": "The Verge AI",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/rss/index.xml",
+      "category": "ai-industry",
+      "enabled": true
+    }
+  ],
+  "settings": {
+    "maxArticlesPerSource": 3,
+    "daysToLookBack": 7,
+    "author": "LuoYuan",
+    "defaultImage": "https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_News/default.jpg"
+  }
+}
