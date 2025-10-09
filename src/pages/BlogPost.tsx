@@ -19,6 +19,11 @@ import { ArticleActions } from '../components/ArticleActions';
 import { Comments } from '../components/Comments';
 import { Toaster } from 'sonner';
 import React from 'react';
+import { useHighlights } from '../hooks/useHighlights';
+import { NotesSidebar } from '../components/NotesSidebar';
+import { StickyNote } from 'lucide-react';
+import { TextHighlighter } from '../components/TextHighlighter';
+import { useRef } from 'react';
 
 // 注释掉复杂的自定义组件配置，使用统一的MDXComponents
 // const components = {
@@ -98,7 +103,7 @@ import React from 'react';
 // };
 
 const BlogPost = () => {
-  const { slug } = useParams();
+  const { '*': slug } = useParams();
   const cleanSlug = slug?.replace(/^blog\//, '') || '';
   const decodedSlug = decodeURIComponent(cleanSlug);
   const [post, setPost] = useState<BlogPost | null>(null);
@@ -108,10 +113,15 @@ const BlogPost = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isTocPinned, setIsTocPinned] = useState(false);
   const [readingHistory, setReadingHistory] = useState<BlogPostMeta[]>([]);
+  const [showNotesSidebar, setShowNotesSidebar] = useState(false);
   const isMobile = useMediaQuery('(max-width: 768px)');
   
   // 阅读时长统计
   const currentReadingTime = useReadingTime(cleanSlug);
+  
+  // 笔记和高亮功能
+  const { highlights, addHighlight, updateNote, deleteHighlight } = useHighlights(cleanSlug);
+  const articleContentRef = useRef<HTMLDivElement>(null);
 
   // 读取目录是否固定的状态
   useEffect(() => {
@@ -261,11 +271,15 @@ const BlogPost = () => {
       {/* 阅读进度条 */}
       <ReadingProgressBar />
       
-      <article className={`prose prose-primary dark:prose-invert mx-auto py-12 px-4 transition-all duration-500 ease-in-out ${
-        isTocPinned && !isMobile ? 'md:ml-64 max-w-3xl' : 'max-w-4xl'
-      } ${
-        isTocPinned && isMobile ? 'mb-64' : ''
-      } dark:text-white`}>
+      <TextHighlighter
+        onHighlight={(text, position, color) => addHighlight(text, position, color)}
+        containerRef={articleContentRef}
+      >
+        <article ref={articleContentRef} className={`prose prose-primary dark:prose-invert mx-auto py-12 px-4 transition-all duration-500 ease-in-out ${
+          isTocPinned && !isMobile ? 'md:ml-64 max-w-3xl' : 'max-w-4xl'
+        } ${
+          isTocPinned && isMobile ? 'mb-64' : ''
+        } dark:text-white`}>
         <header className="text-center mb-8">
           <h1 className="text-4xl font-bold mb-4 hover:scale-105 transition-transform duration-300 transform-gpu backface-visibility-hidden will-change-transform dark:text-white">{post.title}</h1>
           <div className="text-muted-foreground mb-4 dark:text-gray-300">{formatDate(post.date)}</div>
@@ -306,6 +320,17 @@ const BlogPost = () => {
           articleTitle={post.title}
           articleUrl={window.location.href}
         />
+        
+        {/* 笔记按钮 */}
+        <div className="flex justify-center mt-6">
+          <button
+            onClick={() => setShowNotesSidebar(!showNotesSidebar)}
+            className="flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
+          >
+            <StickyNote className="w-4 h-4" />
+            我的笔记 {highlights.length > 0 && `(${highlights.length})`}
+          </button>
+        </div>
 
         {/* 阅读历史记录 */}
         {readingHistory.length > 1 && (
@@ -350,8 +375,19 @@ const BlogPost = () => {
 
         {/* 评论系统 */}
         <Comments articleId={cleanSlug} articleTitle={post.title} />
-      </article>
+        </article>
+      </TextHighlighter>
       <TableOfContents content={post.content} />
+      
+      {/* 笔记侧边栏 */}
+      {showNotesSidebar && (
+        <NotesSidebar
+          highlights={highlights}
+          onUpdateNote={updateNote}
+          onDelete={deleteHighlight}
+          onClose={() => setShowNotesSidebar(false)}
+        />
+      )}
     </div>
   );
 };

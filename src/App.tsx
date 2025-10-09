@@ -124,7 +124,7 @@ const App = () => {
                               <BlogComponent />
                             </Suspense>
                           } />
-                          <Route path="blog/:slug" element={
+                          <Route path="blog/*" element={
                             <Suspense fallback={<Loading />}>
                               <BlogPostComponent />
                             </Suspense>

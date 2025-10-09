@@ -48,19 +48,41 @@ export const TableOfContents = ({ content }: TableOfContentsProps) => {
       return !relatedPostsSection.contains(heading);
     });
     
+    // 首先为所有标题分配唯一 ID
+    const usedIds = new Set<string>();
+    headings.forEach((heading) => {
+      if (!heading.id) {
+        const baseId = heading.textContent?.toLowerCase().replace(/\s+/g, '-') || 'heading';
+        let uniqueId = baseId;
+        let counter = 0;
+        while (usedIds.has(uniqueId)) {
+          counter++;
+          uniqueId = `${baseId}-${counter}`;
+        }
+        heading.id = uniqueId;
+        usedIds.add(uniqueId);
+      } else {
+        // 如果已有 ID，确保它是唯一的
+        let uniqueId = heading.id;
+        let counter = 0;
+        while (usedIds.has(uniqueId) && uniqueId === heading.id) {
+          counter++;
+          uniqueId = `${heading.id}-${counter}`;
+        }
+        if (counter > 0) {
+          heading.id = uniqueId;
+        }
+        usedIds.add(heading.id);
+      }
+    });
+
+    // 然后使用实际的 DOM ID 创建 TOC 项
     const tocItems: TocItem[] = headings.map((heading) => ({
-      id: heading.id || heading.textContent?.toLowerCase().replace(/\s+/g, '-') || '',
+      id: heading.id,
       text: heading.textContent || '',
       level: parseInt(heading.tagName[1])
     }));
     setItems(tocItems);
-
-    // 设置标题ID
-    headings.forEach((heading) => {
-      if (!heading.id) {
-        heading.id = heading.textContent?.toLowerCase().replace(/\s+/g, '-') || '';
-      }
-    });
 
     // 监听滚动事件
     const handleScroll = () => {
