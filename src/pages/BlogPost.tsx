@@ -19,12 +19,13 @@ import { ArticleActions } from '../components/ArticleActions';
 import { Comments } from '../components/Comments';
 import { Toaster } from 'sonner';
 import React from 'react';
-import { useHighlights } from '../hooks/useHighlights';
 import { NotesSidebar } from '../components/NotesSidebar';
 import { StickyNote } from 'lucide-react';
-import { TextHighlighter } from '../components/TextHighlighter';
+import { AnnotationWrapper } from '../components/AnnotationWrapper';
+import { useAnnotations } from '@/app/hooks/useAnnotations';
 import { useRef } from 'react';
 import { useAchievements } from '../hooks/useAchievements';
+import { AnnotatedContent } from '@/components/AnnotatedContent';
 import { useUserStats } from '../hooks/useUserStats';
 import { AchievementUnlockNotification } from '../components/AchievementUnlockNotification';
 
@@ -123,8 +124,9 @@ const BlogPost = () => {
   const currentReadingTime = useReadingTime(cleanSlug);
   
   // 笔记和高亮功能
-  const { highlights, addHighlight, updateNote, deleteHighlight } = useHighlights(cleanSlug);
-  const articleContentRef = useRef<HTMLDivElement>(null);
+    const articleContentRef = useRef<HTMLDivElement>(null);
+  const { getAnnotationsForArticle, updateAnnotation, deleteAnnotation } = useAnnotations();
+  const annotations = getAnnotationsForArticle(cleanSlug);
   
   // 成就系统
   const { stats, refreshStats } = useUserStats();
@@ -135,11 +137,11 @@ const BlogPost = () => {
     if (post) {
       refreshStats();
     }
-  }, [post]);
+  }, [post, refreshStats]);
   
   useEffect(() => {
     checkAndUnlock(stats);
-  }, [stats]);
+  }, [stats, checkAndUnlock]);
 
   // 读取目录是否固定的状态
   useEffect(() => {
@@ -292,10 +294,7 @@ const BlogPost = () => {
       {/* 阅读进度条 */}
       <ReadingProgressBar />
       
-      <TextHighlighter
-        onHighlight={(text, position, color) => addHighlight(text, position, color)}
-        containerRef={articleContentRef}
-      >
+      <AnnotationWrapper articleId={cleanSlug}>
         <article ref={articleContentRef} className={`prose prose-primary dark:prose-invert mx-auto py-12 px-4 transition-all duration-500 ease-in-out ${
           isTocPinned && !isMobile ? 'md:ml-64 max-w-3xl' : 'max-w-4xl'
         } ${
@@ -327,10 +326,13 @@ const BlogPost = () => {
           </div>
         }>
           <Suspense fallback={<div>加载内容中...</div>}>
-            <MDXProvider
-              components={MDXComponents}
-            >
-              <post.content />
+            <MDXProvider components={MDXComponents}>
+              <AnnotatedContent 
+                annotations={annotations} 
+                onAnnotationClick={(anno) => console.log('Clicked annotation:', anno)}
+              >
+                <post.content />
+              </AnnotatedContent>
             </MDXProvider>
           </Suspense>
         </ErrorBoundary>
@@ -349,7 +351,7 @@ const BlogPost = () => {
             className="flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
           >
             <StickyNote className="w-4 h-4" />
-            我的笔记 {highlights.length > 0 && `(${highlights.length})`}
+            我的笔记 {annotations.length > 0 && `(${annotations.length})`}
           </button>
         </div>
 
@@ -397,15 +399,15 @@ const BlogPost = () => {
         {/* 评论系统 */}
         <Comments articleId={cleanSlug} articleTitle={post.title} />
         </article>
-      </TextHighlighter>
+      </AnnotationWrapper>
       <TableOfContents content={post.content} />
       
       {/* 笔记侧边栏 */}
       {showNotesSidebar && (
         <NotesSidebar
-          highlights={highlights}
-          onUpdateNote={updateNote}
-          onDelete={deleteHighlight}
+          highlights={annotations}
+          onUpdateNote={updateAnnotation}
+          onDelete={deleteAnnotation}
           onClose={() => setShowNotesSidebar(false)}
         />
       )}

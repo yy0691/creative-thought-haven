@@ -11,6 +11,7 @@ import SplashCursor from "./components/SplashCursor";
 import { CursorProvider } from './contexts/CursorContext';
 import ErrorBoundary from './components/ErrorBoundary';
 import titleManager from './app/utils/titleManager';
+import { AnnotationProvider } from './contexts/AnnotationContext';
 
 const queryClient = new QueryClient();
 
@@ -68,7 +69,8 @@ const App = () => {
     }>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
-          <CursorProvider>
+          <AnnotationProvider>
+            <CursorProvider>
             <TooltipProvider>
               <Toaster />
               <Sonner />
@@ -172,7 +174,8 @@ const App = () => {
                 </div>
               </BrowserRouter>
             </TooltipProvider>
-     </CursorProvider>
+            </CursorProvider>
+          </AnnotationProvider>
       </ThemeProvider>
     </QueryClientProvider>
   </ErrorBoundary>

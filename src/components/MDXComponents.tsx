@@ -10,6 +10,9 @@ import { lazy, Suspense } from 'react';
 import ErrorBoundary from './ErrorBoundary';
 import { ColoredSpan, HighlightedMark, WarningText, NoteText, InfoText } from './StyledElements';
 import { ZoomableImage } from './ImageViewer';
+import Highlighter from 'react-highlight-words';
+import { useAnnotations } from '@/app/hooks/useAnnotations';
+import { useParams } from 'react-router-dom';
 
 // 简化样式处理
 type StyleProps = {
@@ -45,6 +48,35 @@ interface CodeBlockProps {
   [key: string]: unknown;
 }
 
+const withHighlighting = (Component: React.ComponentType<any>) => {
+  return (props: any) => {
+    const { '*': slug } = useParams();
+    const cleanSlug = slug?.replace(/^blog\//, '') || '';
+    const { getAnnotationsForArticle } = useAnnotations();
+    const annotations = getAnnotationsForArticle(cleanSlug);
+    const searchWords = annotations.map(a => a.text);
+
+    const renderChildren = (children: ReactNode): ReactNode => {
+      return React.Children.map(children, child => {
+        if (typeof child === 'string') {
+          return <Highlighter
+            highlightClassName="bg-yellow-200 dark:bg-yellow-700/70"
+            searchWords={searchWords}
+            autoEscape={true}
+            textToHighlight={child}
+          />;
+        }
+        if (React.isValidElement(child) && child.props.children) {
+          return React.cloneElement(child, { ...child.props, children: renderChildren(child.props.children) });
+        }
+        return child;
+      });
+    };
+
+    return <Component {...props}>{renderChildren(props.children)}</Component>;
+  };
+};
+
 const LazyCodeBlock = (props: CodeBlockProps) => (
   <Suspense fallback={<div className="bg-muted p-4 rounded-lg">加载代码块...</div>}>
     <CodeBlock {...props} />
@@ -53,6 +85,7 @@ const LazyCodeBlock = (props: CodeBlockProps) => (
 
 // 简化的组件配置
 const components = {
+  Link,
   CenteredImage,
   img: (props: ImageProps) => {
     const { src, alt, width, height, style, ...rest } = props;
@@ -132,25 +165,37 @@ const components = {
       </code>
     );
   },
-  h1: (props: HTMLComponentProps) => (
+  h1: withHighlighting((props: HTMLComponentProps) => (
+    <h1 className="text-3xl font-bold mt-8 mb-4 text-primary dark:text-primary-foreground" {...props} />
+  )),
     <h1 className="text-3xl font-bold mt-8 mb-4 text-primary dark:text-primary-foreground" {...props} />
   ),
-  h2: (props: HTMLComponentProps) => (
+  h2: withHighlighting((props: HTMLComponentProps) => (
+    <h2 className="text-2xl font-bold mt-6 mb-3 text-primary dark:text-primary-foreground" {...props} />
+  )),
     <h2 className="text-2xl font-bold mt-6 mb-3 text-primary dark:text-primary-foreground" {...props} />
   ),
-  h3: (props: HTMLComponentProps) => (
+  h3: withHighlighting((props: HTMLComponentProps) => (
+    <h3 className="text-xl font-bold mt-4 mb-2 text-primary dark:text-primary-foreground" {...props} />
+  )),
     <h3 className="text-xl font-bold mt-4 mb-2 text-primary dark:text-primary-foreground" {...props} />
   ),
-  h4: (props: HTMLComponentProps) => (
+  h4: withHighlighting((props: HTMLComponentProps) => (
+    <h4 className="text-lg font-bold mt-3 mb-2 text-primary dark:text-primary-foreground" {...props} />
+  )),
     <h4 className="text-lg font-bold mt-3 mb-2 text-primary dark:text-primary-foreground" {...props} />
   ),
-  h5: (props: HTMLComponentProps) => (
+  h5: withHighlighting((props: HTMLComponentProps) => (
+    <h5 className="text-base font-bold mt-2 mb-1 text-primary dark:text-primary-foreground" {...props} />
+  )),
     <h5 className="text-base font-bold mt-2 mb-1 text-primary dark:text-primary-foreground" {...props} />
   ),
-  h6: (props: HTMLComponentProps) => (
+  h6: withHighlighting((props: HTMLComponentProps) => (
+    <h6 className="text-sm font-bold mt-2 mb-1 text-primary dark:text-primary-foreground" {...props} />
+  )),
     <h6 className="text-sm font-bold mt-2 mb-1 text-primary dark:text-primary-foreground" {...props} />
   ),
-  p: (props: HTMLComponentProps) => {
+  p: withHighlighting((props: HTMLComponentProps) => {
     const { children, className, ...rest } = props;
 
     // Only attempt inline math splitting when the paragraph contains a single string child
@@ -194,7 +239,9 @@ const components = {
   ul: (props: HTMLComponentProps) => (
     <ul className="list-disc pl-6 my-4 space-y-2 dark:text-gray-200" {...props} />
   ),
-  li: (props: HTMLComponentProps) => (
+  li: withHighlighting((props: HTMLComponentProps) => (
+    <li className="mb-2" {...props} />
+{{ ... }}
     <li className="mb-2" {...props} />
   ),
   ol: (props: HTMLComponentProps) => (

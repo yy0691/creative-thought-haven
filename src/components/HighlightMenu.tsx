@@ -2,7 +2,9 @@ import { useState, useEffect, useRef } from 'react';
 import { Highlighter, MessageSquare, Palette, Trash2 } from 'lucide-react';
 
 interface HighlightMenuProps {
+  position: { top: number; left: number };
   onHighlight: (color: string) => void;
+  onAddNote: () => void;
   onDelete?: () => void;
   existingHighlight?: boolean;
 }
@@ -15,24 +17,11 @@ const COLORS = [
   { name: '紫色', value: '#e9d5ff' }
 ];
 
-export const HighlightMenu = ({ onHighlight, onDelete, existingHighlight }: HighlightMenuProps) => {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [showColors, setShowColors] = useState(false);
+export const HighlightMenu = ({ position, onHighlight, onAddNote, onDelete, existingHighlight }: HighlightMenuProps) => {
+    const [showColors, setShowColors] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const selection = window.getSelection();
-    if (selection && selection.rangeCount > 0) {
-      const range = selection.getRangeAt(0);
-      const rect = range.getBoundingClientRect();
-      
-      setPosition({
-        x: rect.left + rect.width / 2,
-        y: rect.top - 10
-      });
-    }
-  }, []);
-
+  
   const handleHighlight = (color: string) => {
     onHighlight(color);
     setShowColors(false);
@@ -43,8 +32,8 @@ export const HighlightMenu = ({ onHighlight, onDelete, existingHighlight }: High
       ref={menuRef}
       className="fixed z-50 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 p-1 flex gap-1"
       style={{
-        left: `${position.x}px`,
-        top: `${position.y}px`,
+        left: `${position.left}px`,
+        top: `${position.top}px`,
         transform: 'translate(-50%, -100%)'
       }}
     >
@@ -68,6 +57,13 @@ export const HighlightMenu = ({ onHighlight, onDelete, existingHighlight }: High
             title="高亮"
           >
             <Highlighter className="w-4 h-4" />
+          </button>
+          <button
+            onClick={onAddNote}
+            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-colors"
+            title="添加笔记"
+          >
+            <MessageSquare className="w-4 h-4" />
           </button>
           
           {existingHighlight && onDelete && (
