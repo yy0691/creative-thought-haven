@@ -154,24 +154,84 @@ const useAISections = () => {
 
 // --- Helper Functions ---
 // 获取网站图标，支持多个备选源以确保国内外都能访问
+// 策略：本地缓存 → 网站自身 → 国际服务 → 占位图
 const getFaviconSources = (url?: string): string[] => {
   // SVG 占位图（在所有远程源失败后使用）
-  const placeholder = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="32" height="32"%3E%3Crect width="32" height="32" fill="%23e5e7eb"/%3E%3Ctext x="16" y="20" text-anchor="middle" font-size="20" fill="%239ca3af"%3E%3F%3C/text%3E%3C/svg%3E';
+  const placeholder = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="64" height="64"%3E%3Crect width="64" height="64" fill="%23e5e7eb"/%3E%3Ctext x="32" y="40" text-anchor="middle" font-size="32" fill="%239ca3af"%3E%3F%3C/text%3E%3C/svg%3E';
   
   if (!url) return [placeholder];
   
   try {
     const host = new URL(url).hostname;
-    // 按优先级排序的图标源列表（优先使用国内可访问的服务）
-    // 最后添加占位图确保在所有源失败时有兜底方案
-    return [
-      `https://favicon.yandex.net/favicon/${host}`, // Yandex 服务，国内可能可访问
-      `https://api.faviconkit.com/${host}/64`, // FaviconKit 第三方服务
-      `https://www.google.com/s2/favicons?sz=64&domain=${host}`, // Google 服务
-      `https://icons.duckduckgo.com/ip3/${host}.ico`, // DuckDuckGo 服务
-      `https://${host}/favicon.ico`, // 网站自己的 favicon
+    
+    // 域名到本地文件名的映射（用于本地缓存）
+    const localFaviconMap: Record<string, string> = {
+      'chat.openai.com': 'chatgpt',
+      'gemini.google.com': 'gemini',
+      'claude.ai': 'claude',
+      'poe.com': 'poe',
+      'kimi.moonshot.cn': 'kimi',
+      'yiyan.baidu.com': 'yiyan',
+      'www.doubao.com': 'doubao',
+      'tongyi.aliyun.com': 'tongyi',
+      'www.midjourney.com': 'midjourney',
+      'stability.ai': 'stable-diffusion',
+      'leonardo.ai': 'leonardo',
+      'ideogram.ai': 'ideogram',
+      'github.com': 'github',
+      'cursor.sh': 'cursor',
+      'codeium.com': 'codeium',
+      'replit.com': 'replit',
+      'www.deeplearning.ai': 'deeplearning-ai',
+      'www.coursera.org': 'coursera',
+      'www.fast.ai': 'fast-ai',
+      'huggingface.co': 'huggingface',
+      'd2l.ai': 'd2l',
+      'www.kaggle.com': 'kaggle',
+      'www.jiqizhixin.com': 'jiqizhixin',
+      'www.qbitai.com': 'qbitai',
+      'aibydoing.com': 'aibydoing',
+    };
+    
+    // 本地缓存的favicon路径
+    const localName = localFaviconMap[host];
+    const localPaths = localName ? [
+      `/favicons/${localName}.png`,
+      `/favicons/${localName}.ico`,
+    ] : [];
+    
+    // 针对已知中文网站的特殊路径优化
+    const chineseSitesFavicons: Record<string, string[]> = {
+      'yiyan.baidu.com': ['https://yiyan.baidu.com/favicon.ico'],
+      'www.doubao.com': ['https://www.doubao.com/favicon.ico'],
+      'tongyi.aliyun.com': ['https://tongyi.aliyun.com/favicon.ico'],
+      'kimi.moonshot.cn': ['https://kimi.moonshot.cn/favicon.ico'],
+      'www.jiqizhixin.com': ['https://www.jiqizhixin.com/favicon.ico'],
+      'www.qbitai.com': ['https://www.qbitai.com/favicon.ico'],
+      'aibydoing.com': ['https://aibydoing.com/favicon.ico'],
+    };
+    
+    // 如果是已知的中文网站，优先使用特殊路径
+    const customPaths = chineseSitesFavicons[host] || [];
+    
+    // 优先使用本地缓存 → 网站自身 → 国际服务
+    const allSources = [
+      ...localPaths, // 最优先：本地缓存（无网络请求，速度最快）
+      ...customPaths, // 特殊站点的自定义路径
+      `https://${host}/favicon.ico`, // 标准路径1（最常用）
+      `https://${host}/favicon.png`, // 标准路径2（很多中文网站用PNG）
+      `https://${host}/static/favicon.ico`, // 常见路径3
+      `https://${host}/assets/favicon.ico`, // 常见路径4
+      `https://${host}/img/favicon.ico`, // 常见路径5
+      `https://${host}/public/favicon.ico`, // 常见路径6
+      `https://icon.horse/icon/${host}`, // icon.horse（国际，稳定）
+      `https://icons.duckduckgo.com/ip3/${host}.ico`, // DuckDuckGo（相对可访问）
+      `https://www.google.com/s2/favicons?sz=64&domain=${host}`, // Google（备选）
       placeholder, // 兜底占位图
     ];
+    
+    // 去重（避免重复路径）
+    return [...new Set(allSources)];
   } catch {
     return [placeholder];
   }
@@ -220,8 +280,9 @@ const FaviconImage = ({ url, alt, className }: { url?: string; alt: string; clas
       loading="lazy"
       src={sources[currentSourceIndex]}
       alt={alt}
-      className={className}
+      className={`${className} object-contain bg-white dark:bg-gray-700`}
       onError={handleError}
+      style={{ imageRendering: 'crisp-edges' }}
     />
   );
 };
@@ -285,7 +346,13 @@ const getHotItems = (allItems: CardItem[]): CardItem[] => {
 };
 
 // ✨ NEW: Helper function to create URL-friendly IDs for anchor links
-const slugify = (text: string) => text.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
+// 修复：支持中文字符，使用 encodeURIComponent 确保所有字符都能正确处理
+const slugify = (text: string) => {
+  return text
+    .trim()
+    .replace(/\s+/g, '-')  // 空格替换为连字符
+    .replace(/[\/\\:*?"<>|]/g, ''); // 只移除文件系统不允许的特殊字符
+};
 
 
 // --- UI Components ---
@@ -299,7 +366,7 @@ const SmallCard = ({
   compact
 }: { 
   item: CardItem, 
-  onClick: () => void,
+  onClick?: () => void,
   favorites: CardItem[],
   toggleFavorite: (item: CardItem) => void,
   history: CardItem[],
@@ -308,18 +375,27 @@ const SmallCard = ({
 }) => {
   const isFavorite = favorites.some(f => f.id === item.id);
   
+  // 小卡片直接跳转，不显示弹窗
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    window.open(item.link, '_blank', 'noopener,noreferrer');
+  };
+  
   return (
-    <div 
-      onClick={onClick} 
-      className="group relative bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-primary/40 dark:hover:border-primary/40 transition-all duration-200 cursor-pointer hover:shadow-md"
+    <a 
+      href={item.link}
+      target="_blank"
+      rel="noopener noreferrer"
+      onClick={handleClick}
+      className="group relative block bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-primary/40 dark:hover:border-primary/40 transition-all duration-200 cursor-pointer hover:shadow-md"
     >
       <div className={`${compact ? 'p-2.5' : 'p-3'} flex items-start gap-3`}>
-        {/* 工具图标 - 紧凑尺寸 */}
+        {/* 工具图标 - 高清尺寸 */}
         <div className="flex-shrink-0">
           <FaviconImage
             url={item.link}
             alt={`${item.title} favicon`}
-            className={`${compact ? 'w-8 h-8' : 'w-9 h-9'} rounded-lg`}
+            className={`${compact ? 'w-10 h-10' : 'w-12 h-12'} rounded-lg shadow-sm border border-gray-200 dark:border-gray-600`}
           />
         </div>
         
@@ -329,7 +405,10 @@ const SmallCard = ({
             {(item as any).title_zh || item.title}
           </h3>
           
-          <p className={`${compact ? 'text-xs' : 'text-sm'} text-gray-600 dark:text-gray-400 line-clamp-2 leading-relaxed mb-1.5`}>
+          <p 
+            className={`${compact ? 'text-xs' : 'text-sm'} text-gray-600 dark:text-gray-400 line-clamp-1 leading-relaxed mb-1.5 group-hover:line-clamp-none transition-all`}
+            title={(item as any).description_zh || (item as any).summary_zh || item.description}
+          >
             {(item as any).description_zh || (item as any).summary_zh || item.description}
           </p>
           
@@ -356,7 +435,7 @@ const SmallCard = ({
           </div>
         </div>
       </div>
-    </div>
+    </a>
   );
 };
 
@@ -535,15 +614,16 @@ const DetailModal = ({
               </ReactMarkdown>
             </div>
           </main>
-          <footer className="p-4 border-t dark:border-gray-700 flex justify-end gap-3 flex-shrink-0">
+          <footer className="p-4 border-t dark:border-gray-700 flex justify-end gap-2 flex-shrink-0">
             <button 
               onClick={() => {
                 navigator.clipboard.writeText(item.link);
                 alert('链接已复制');
               }}
-              className="inline-flex items-center px-3 py-2 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+              className="inline-flex items-center px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors text-sm"
             >
-              复制链接 <LucideIcons.Clipboard size={16} className="ml-2" />
+              复制链接 
+              <LucideIcons.Clipboard size={14} className="ml-1.5" />
             </button>
             <button
               onClick={() => {
@@ -555,29 +635,29 @@ const DetailModal = ({
                   window.open(`https://twitter.com/intent/tweet?text=${text}`, '_blank');
                 }
               }}
-              className="inline-flex items-center px-3 py-2 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+              className="inline-flex items-center px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors text-sm"
             >
-              分享 <LucideIcons.Share2 size={16} className="ml-2" />
+              分享 <LucideIcons.Share2 size={14} className="ml-1.5" />
             </button>
             <button 
               onClick={() => toggleLaterRead(item)}
-              className="inline-flex items-center px-3 py-2 bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 rounded-lg hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors"
+              className="inline-flex items-center px-2 py-1 bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 rounded-lg hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors text-sm"
             >
-              {inLaterRead ? '移出稍后读' : '稍后读'} <LucideIcons.Bookmark size={16} className="ml-2" />
+              {inLaterRead ? '移出稍后读' : '稍后读'} <LucideIcons.Bookmark size={14} className="ml-1.5" />
             </button>
             <button 
               onClick={() => addToCollection(item)}
-              className="inline-flex items-center px-3 py-2 bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200 rounded-lg hover:bg-amber-200 dark:hover:bg-amber-800 transition-colors"
+              className="inline-flex items-center px-2 py-1 bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200 rounded-lg hover:bg-amber-200 dark:hover:bg-amber-800 transition-colors text-sm"
             >
-              加入合集 <LucideIcons.FolderPlus size={16} className="ml-2" />
+              加入合集 <LucideIcons.FolderPlus size={14} className="ml-1.5" />
             </button>
             <a 
               href={item.link} 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="inline-flex items-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
+              className="inline-flex items-center px-3 py-1 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors text-sm"
             >
-              访问原文 <LucideIcons.ExternalLink size={16} className="ml-2" />
+              原文 <LucideIcons.ExternalLink size={14} className="ml-1.5" />
             </a>
           </footer>
         </motion.div>
@@ -788,7 +868,7 @@ const AI = () => {
         id: 'main', 
         title: '主要', 
         tabs: [
-          { id: 'news', label: 'AI新闻', icon: 'Newspaper' },
+          { id: 'news', label: '前沿动态', icon: 'Newspaper' },
           { id: 'favorites', label: '我的收藏', icon: 'Star' },
           { id: 'collections', label: '我的合集', icon: 'Folder' },
           { id: 'later', label: '稍后读', icon: 'Bookmark' },
@@ -925,7 +1005,7 @@ const AI = () => {
         return acc;
       }, {} as Record<string, boolean>);
       setExpandedGroups(initialExpandedState);
-    }, [activeTab]);
+    }, [activeTab, groupTitles.join('-')]); // 动态监听 groupTitles 变化
 
     const toggleGroup = (groupTitle: string) => {
       setExpandedGroups(prev => ({
@@ -1008,47 +1088,77 @@ const AI = () => {
           </section>
         )}
 
-        {/* ✨ NEW: Quick Jump Index, Filters and Search */}
-        <div className="sticky top-0 bg-gray-50/80 dark:bg-gray-900/80 backdrop-blur-sm py-4 z-6 space-y-3">
-          {groupTitles.length > 1 && (
-            <div className="flex flex-wrap gap-2">
-              <span className="text-sm font-semibold mr-2 self-center">快速跳转:</span>
-              {groupTitles.map(title => (
-                <a 
-                  key={title} 
-                  href={`#${slugify(title)}`}
-                  className="px-3 py-1 text-sm bg-gray-200 dark:bg-gray-700 rounded-full hover:bg-primary hover:text-white transition-colors"
+        {/* ✨ 优化：快速跳转 + 密度切换 */}
+        {groupTitles.length > 1 ? (
+          <div className="sticky top-0 bg-gray-50/80 dark:bg-gray-900/80 backdrop-blur-sm py-3 z-10 border-b border-gray-200 dark:border-gray-700">
+            <div className="flex items-center justify-between gap-4">
+              <div className="flex items-center gap-2 flex-1 flex-wrap">
+                <span className="text-sm font-medium text-gray-600 dark:text-gray-400 flex items-center gap-1">
+                  <LucideIcons.Navigation size={14} />
+                  快速跳转
+                </span>
+                {groupTitles.map(title => (
+                  <button 
+                    key={title} 
+                    onClick={(e) => {
+                      e.preventDefault();
+                      // 先展开目标分组
+                      setExpandedGroups(prev => ({
+                        ...prev,
+                        [title]: true
+                      }));
+                      // 延迟滚动，等待DOM更新
+                      setTimeout(() => {
+                        const element = document.getElementById(slugify(title));
+                        if (element) {
+                          const yOffset = -100; // 偏移量，避免被sticky header遮挡
+                          const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                          window.scrollTo({ top: y, behavior: 'smooth' });
+                        }
+                      }, 100);
+                    }}
+                    className="px-3 py-1 text-xs bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full hover:border-primary hover:text-primary hover:shadow-sm transition-all duration-200 active:scale-95"
+                  >
+                    {title}
+                  </button>
+                ))}
+              </div>
+              
+              {/* 灵动的密度切换 */}
+              <div className="relative flex items-center gap-2 bg-white dark:bg-gray-800 rounded-full p-1 border border-gray-200 dark:border-gray-700 shadow-sm">
+                <button 
+                  onClick={() => setDensity('comfortable')}
+                  className={`relative z-10 px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200 ${
+                    density === 'comfortable' 
+                      ? 'text-white' 
+                      : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
+                  }`}
+                  title="舒适模式"
                 >
-                  {title}
-                </a>
-              ))}
-            </div>
-          )}
-          {/* Filters */}
-          <div className="flex flex-wrap items-center gap-2">
-            <label className="text-sm text-gray-600 dark:text-gray-300">场景</label>
-            <select value={filterScene} onChange={e => setFilterScene(e.target.value)} className="px-2 py-1 rounded border dark:bg-gray-800 text-sm">
-              <option value="all">全部</option>
-              {Array.from(new Set(Object.keys(groupedItems))).map(s => (
-                <option key={s} value={s}>{s}</option>
-              ))}
-            </select>
-            <label className="ml-4 text-sm text-gray-600 dark:text-gray-300">时间</label>
-            <select value={filterTime} onChange={e => setFilterTime(e.target.value as any)} className="px-2 py-1 rounded border dark:bg-gray-800 text-sm">
-              <option value="all">全部</option>
-              <option value="7d">7天内</option>
-              <option value="30d">30天内</option>
-            </select>
-            {/* Density toggle */}
-            <div className="ml-auto flex items-center gap-1 text-sm">
-              <span className="text-gray-600 dark:text-gray-300">显示密度</span>
-              <div className="inline-flex rounded-md overflow-hidden border dark:border-gray-700">
-                <button onClick={() => setDensity('comfortable')} className={`px-2 py-1 ${density==='comfortable'?'bg-primary text-white':'bg-gray-100 dark:bg-gray-800'}`}>舒适</button>
-                <button onClick={() => setDensity('compact')} className={`px-2 py-1 ${density==='compact'?'bg-primary text-white':'bg-gray-100 dark:bg-gray-800'}`}>紧凑</button>
+                  <LucideIcons.Maximize2 size={14} className="inline" />
+                </button>
+                <button 
+                  onClick={() => setDensity('compact')}
+                  className={`relative z-10 px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200 ${
+                    density === 'compact' 
+                      ? 'text-white' 
+                      : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
+                  }`}
+                  title="紧凑模式"
+                >
+                  <LucideIcons.Minimize2 size={14} className="inline" />
+                </button>
+                {/* 滑动背景 */}
+                <div 
+                  className="absolute top-1 bottom-1 w-[calc(50%-4px)] bg-primary rounded-full transition-all duration-300 ease-out"
+                  style={{ 
+                    left: density === 'comfortable' ? '4px' : 'calc(50% + 0px)',
+                  }}
+                />
               </div>
             </div>
           </div>
-        </div>
+        ) : null}
         
         {filteredItems.length === 0 && searchTerm && (
            <div className="text-center py-20 text-gray-500">
@@ -1098,7 +1208,6 @@ const AI = () => {
                       />
                     : <SmallCard 
                         key={item.id} item={item}
-                        onClick={() => { setSelectedItem(item); addToHistory(item); }}
                         favorites={favorites} toggleFavorite={toggleFavorite}
                         history={history} showBadges compact={sectionCompact}
                       />
@@ -1113,15 +1222,15 @@ const AI = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex relative">
-      <SEO title="AI资源中心" description="AI前沿新闻、工具、提示词库、学习资料和相关链接" />
+      <SEO title="资源中心" description="AI前沿新闻、工具、提示词库、学习资料和相关链接" />
       
       {/* 侧边栏 - 桌面版 */}
       <aside className="hidden lg:block w-[200px] min-h-screen bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700">
-        <div className="p-4 border-b dark:border-gray-700">
-          <H4 className="text-gray-900 dark:text-white flex items-center">
+        <div className="pl-4 p-2 border-b dark:border-gray-700">
+          <H5 className="text-gray-900 dark:text-white flex items-center">
             <LucideIcons.Brain size={20} className="mr-2 text-primary" />
-            AI 资源中心
-          </H4>
+            资源中心
+          </H5>
         </div>
         <nav className="py-4 overflow-y-auto max-h-[calc(100vh-4rem)]">
           {tabCategories.map(cat => (

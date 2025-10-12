@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import 'dotenv/config';
 import fs from 'fs';
 import path from 'path';
 import Parser from 'rss-parser';
@@ -116,11 +117,13 @@ async function createMarkdownFile(item, source, config) {
   
   if (geminiService) {
     try {
-      console.log(`🤖 Translating: ${item.title.substring(0, 50)}...`);
+      console.log(`🤖 Translating news: ${item.title.substring(0, 50)}...`);
       const translation = await geminiService.translateToChineseWithSummary(
         item.title,
         description.substring(0, 500),
-        item.content ? sanitizeContent(item.content) : ''
+        item.content ? sanitizeContent(item.content) : '',
+        3,  // retries
+        true  // isNews = true，使用新闻专用提示词
       );
       
       titleZh = translation.title_zh;

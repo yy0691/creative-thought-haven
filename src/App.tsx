@@ -36,6 +36,8 @@ const BlogManagerComponent = lazy(() => import('./pages/content/BlogManager'));
 const ProjectManagerComponent = lazy(() => import('./pages/content/ProjectManager'));
 const AIToolsManagerComponent = lazy(() => import('./pages/content/AIToolsManager'));
 const AchievementsComponent = lazy(() => import('./pages/Achievements'));
+const AICompareComponent = lazy(() => import('./pages/AICompare'));
+const NotesManagementComponent = lazy(() => import('./pages/NotesManagement'));
 
 // 光标组件包装器 - 根据路由决定是否显示
 const CursorWrapper = () => {
@@ -122,6 +124,11 @@ const App = () => {
                               <ToolPageComponent />
                             </Suspense>
                           } />
+                          <Route path="ai/compare" element={
+                            <Suspense fallback={<Loading />}>
+                              <AICompareComponent />
+                            </Suspense>
+                          } />
                           <Route path="blog" element={
                             <Suspense fallback={<Loading />}>
                               <BlogComponent />
@@ -160,6 +167,11 @@ const App = () => {
                           <Route path="achievements" element={
                             <Suspense fallback={<Loading />}>
                               <AchievementsComponent />
+                            </Suspense>
+                          } />
+                          <Route path="notes" element={
+                            <Suspense fallback={<Loading />}>
+                              <NotesManagementComponent />
                             </Suspense>
                           } />
                           <Route path="*" element={

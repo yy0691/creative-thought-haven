@@ -30,7 +30,7 @@ class GeminiService {
     return new GoogleGenAI({ apiKey });
   }
 
-  async translateToChineseWithSummary(title, description, content, retries = 3) {
+  async translateToChineseWithSummary(title, description, content, retries = 3, isNews = false) {
     let lastError = null;
     
     for (let attempt = 0; attempt < retries; attempt++) {
@@ -49,24 +49,55 @@ class GeminiService {
 内容: ${content || description}
       `.trim();
 
-        const prompt = `你是一位专业的AI工具翻译专家。请对以下英文内容进行处理：
+        // 根据是否为新闻使用不同的提示词
+        const prompt = isNews ? 
+        // ===== 新闻专用提示词 =====
+        `你是一位专业的AI新闻翻译专家。请对以下英文新闻内容进行翻译和摘要：
+
+${fullText}
+
+请提供以下内容（使用JSON格式回复）：
+1. title_zh: 将标题翻译成简洁、吸引人的中文新闻标题（保持原意，适度润色使其更符合中文新闻风格）
+2. summary_zh: 用60-100字详细概括这条新闻的主要内容，包括：
+   - 新闻的主要事件或发现
+   - 涉及的关键技术、公司或人物
+   - 重要的数据或结论
+   - 对行业的影响或意义
+3. key_points: 提取3-5个关键要点，用中文简明扼要地列出（每条10-20字）
+
+翻译要求：
+- 标题要准确传达新闻价值，吸引读者点击
+- 摘要要信息量充足，让读者不看原文也能了解核心内容
+- 关键要点要涵盖新闻的不同角度（技术创新、商业影响、行业趋势等）
+- 语言要流畅自然，符合中文科技媒体表达习惯
+- 专业术语要准确翻译，避免生硬直译
+
+请严格按照以下JSON格式返回：
+{
+  "title_zh": "中文新闻标题",
+  "summary_zh": "60-100字的详细摘要，包含关键信息和背景",
+  "key_points": ["要点1（10-20字）", "要点2", "要点3"]
+}` 
+        : 
+        // ===== AI工具专用提示词（保持原样）=====
+        `你是一位专业的AI工具翻译专家。请对以下英文内容进行处理：
 
 ${fullText}
 
 请提供以下内容（使用JSON格式回复）：
 1. title_zh: 将标题翻译成简洁、专业的中文（保持原意，不要过度润色）
-2. summary_zh: 用10-20个字简短描述这个工具的核心功能
+2. summary_zh: 用30-50字描述这个工具的核心功能和特点
 3. key_points: 提取2-3个关键特点，用中文列出（数组格式）
 
 要求：
 - 翻译要准确、自然、符合中文表达习惯
-- 描述要极度简洁，只说核心功能
-- 关键要点要简短
+- 描述要简洁但信息完整，突出工具价值
+- 关键要点要实用且有吸引力
 
 请严格按照以下JSON格式返回：
 {
   "title_zh": "中文标题",
-  "summary_zh": "10-20字的简短描述",
+  "summary_zh": "30-50字的工具描述",
   "key_points": ["特点1", "特点2"]
 }`;
 

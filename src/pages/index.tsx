@@ -409,30 +409,16 @@ const Index = () => {
                     to={project.link}
                     className="group relative overflow-hidden rounded-xl bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 hover:shadow-lg hover:border-primary/20 transition-all duration-500 min-w-[250px] md:min-w-[300px] snap-start"
                   >
-                    {/* 项目预览图 */}
-                    <div className="relative w-full h-[160px] overflow-hidden bg-gray-50 dark:bg-gray-900/50">
-                      <img 
-                        src={project.preview} 
-                        alt={project.title}
-                        className="w-full h-full object-cover transform group-hover:scale-105 transition-all duration-500"
-                        loading="lazy"
-                      />
-                      {/* 优化渐变遮罩 */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-gray-900/10 via-gray-900/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                      {/* 添加顶部微光效果 */}
-                      <div className="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    </div>
-                    
-                    <div className="p-4 relative">
+                    <div className="p-6 relative">
                       {/* 背景渐变效果 */}
                       <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-0 group-hover:opacity-5 transition-opacity duration-300`} />
                       
                       <div className="relative z-10">
-                        <h3 className="text-lg font-bold mb-2 text-gray-900 dark:text-white group-hover:text-primary transition-colors duration-300 line-clamp-1">
+                        <h5 className="text-base font-semibold mb-2 text-gray-900 dark:text-white group-hover:text-primary transition-colors duration-300 line-clamp-1">
                           {project.title}
-                        </h3>
+                        </h5>
                         
-                        <p className="text-sm text-gray-600 dark:text-gray-300 mb-3 line-clamp-2 group-hover:text-gray-800 dark:group-hover:text-gray-200 transition-colors duration-300">
+                        <p className="text-sm text-gray-600 dark:text-gray-400 mb-3 line-clamp-2 group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors duration-300">
                           {project.description}
                         </p>
                         

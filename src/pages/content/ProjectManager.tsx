@@ -20,7 +20,7 @@ interface Project {
 }
 
 const projectCategories = [
-  { id: 'custom', name: '自制作品', description: '个人开发的原创软件作品' },
+  { id: 'custom', name: '个人作品', description: '个人开发的原创软件作品' },
   { id: 'common', name: '常用软件', description: '精选的高效实用软件推荐' },
   { id: 'automation', name: '自动化工具', description: '提升工作效率的自动化解决方案' },
 ];

@@ -21,7 +21,12 @@ function ensureDir(dir) {
 }
 
 function slugify(filename) {
-  return filename.replace(/\.mdx?$/i, '').replace(/[^a-zA-Z0-9-_]/g, '-');
+  // 去掉文件扩展名
+  let name = filename.replace(/\.mdx?$/i, '');
+  // 去掉开头的数字和下划线（如 "1_", "2_"）
+  name = name.replace(/^\d+_/, '');
+  // 替换非字母数字字符为横线
+  return name.replace(/[^a-zA-Z0-9-_]/g, '-');
 }
 
 // REFACTORED: This function now understands H2 headings (##) as group titles.
@@ -88,11 +93,18 @@ function build() {
     // Use the updated parsing function
     const items = parseContent(content);
 
-    sections.push({ id, title, description, items });
+    // 提取文件名中的数字前缀用于排序
+    const orderMatch = file.match(/^(\d+)_/);
+    const order = orderMatch ? parseInt(orderMatch[1], 10) : 999;
+
+    sections.push({ id, title, description, items, order });
   }
 
-  // Sort sections alphabetically by their generated ID
-  sections.sort((a, b) => a.id.localeCompare(b.id));
+  // 按照文件名中的数字前缀排序，而不是按字母排序
+  sections.sort((a, b) => a.order - b.order);
+  
+  // 移除临时的 order 字段
+  sections.forEach(section => delete section.order);
 
   fs.writeFileSync(outFile, JSON.stringify(sections, null, 2), 'utf8');
   console.log(`✅ Generated ${sections.length} AI sections → ${path.relative(root, outFile)}`);

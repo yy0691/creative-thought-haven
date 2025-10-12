@@ -46,12 +46,18 @@ const Navigation = () => {
 
   const routes = [
     { path: "/", label: "首页" },
-    { path: "/ai", label: "人工智能" },
+    { path: "/ai", label: "AI" },
     { path: "/blog", label: "文章" },
-    { path: "/portfolio", label: "软件&工具" },
+    { path: "/portfolio", label: "软件" },
     // { path: "/designs", label: "设计" },
     { path: "/about", label: "关于我" },
     // { path: "/content", label: "内容管理" },
+  ];
+  
+  const quickLinks = [
+    { path: "/ai/compare", label: "AI工具对比" },
+    { path: "/notes", label: "我的笔记" },
+    { path: "/achievements", label: "成就系统" },
   ];
 
   return (
@@ -170,6 +176,23 @@ const Navigation = () => {
                     </span>
                   </Link>
                 ))}
+              </div>
+              
+              {/* 快捷链接 */}
+              <div className="pt-3 mt-3 border-t border-gray-200 dark:border-gray-700">
+                <p className="px-4 text-xs text-gray-500 dark:text-gray-400 mb-2">快捷功能</p>
+                <div className="space-y-1">
+                  {quickLinks.map((link, index) => (
+                    <Link
+                      key={link.path}
+                      to={link.path}
+                      onClick={() => setIsOpen(false)}
+                      className="group relative block px-4 py-2 rounded-lg text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-primary dark:hover:text-primary-light transition-all duration-200 active:scale-[0.98]"
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+                </div>
               </div>
             </div>
           </div>

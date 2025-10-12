@@ -168,33 +168,21 @@ const components = {
   h1: withHighlighting((props: HTMLComponentProps) => (
     <h1 className="text-3xl font-bold mt-8 mb-4 text-primary dark:text-primary-foreground" {...props} />
   )),
-    <h1 className="text-3xl font-bold mt-8 mb-4 text-primary dark:text-primary-foreground" {...props} />
-  ),
   h2: withHighlighting((props: HTMLComponentProps) => (
     <h2 className="text-2xl font-bold mt-6 mb-3 text-primary dark:text-primary-foreground" {...props} />
   )),
-    <h2 className="text-2xl font-bold mt-6 mb-3 text-primary dark:text-primary-foreground" {...props} />
-  ),
   h3: withHighlighting((props: HTMLComponentProps) => (
     <h3 className="text-xl font-bold mt-4 mb-2 text-primary dark:text-primary-foreground" {...props} />
   )),
-    <h3 className="text-xl font-bold mt-4 mb-2 text-primary dark:text-primary-foreground" {...props} />
-  ),
   h4: withHighlighting((props: HTMLComponentProps) => (
     <h4 className="text-lg font-bold mt-3 mb-2 text-primary dark:text-primary-foreground" {...props} />
   )),
-    <h4 className="text-lg font-bold mt-3 mb-2 text-primary dark:text-primary-foreground" {...props} />
-  ),
   h5: withHighlighting((props: HTMLComponentProps) => (
     <h5 className="text-base font-bold mt-2 mb-1 text-primary dark:text-primary-foreground" {...props} />
   )),
-    <h5 className="text-base font-bold mt-2 mb-1 text-primary dark:text-primary-foreground" {...props} />
-  ),
   h6: withHighlighting((props: HTMLComponentProps) => (
     <h6 className="text-sm font-bold mt-2 mb-1 text-primary dark:text-primary-foreground" {...props} />
   )),
-    <h6 className="text-sm font-bold mt-2 mb-1 text-primary dark:text-primary-foreground" {...props} />
-  ),
   p: withHighlighting((props: HTMLComponentProps) => {
     const { children, className, ...rest } = props;
 
@@ -235,15 +223,13 @@ const components = {
 
     // Mixed or non-string children (may include JSX like <mark/>) — render unchanged
     return <p className={className || "mb-5 leading-7"} {...rest}>{children}</p>;
-  },
+  }),
   ul: (props: HTMLComponentProps) => (
     <ul className="list-disc pl-6 my-4 space-y-2 dark:text-gray-200" {...props} />
   ),
   li: withHighlighting((props: HTMLComponentProps) => (
     <li className="mb-2" {...props} />
-{{ ... }}
-    <li className="mb-2" {...props} />
-  ),
+  )),
   ol: (props: HTMLComponentProps) => (
     <ol className="list-decimal pl-6 my-4 space-y-2 dark:text-gray-200" {...props} />
   ),
@@ -298,7 +284,7 @@ const components = {
   Warning: WarningText,
   Note: NoteText,
   Info: InfoText,
-  ErrorBoundary,
+  ErrorBoundary
 };
 
 export default components;

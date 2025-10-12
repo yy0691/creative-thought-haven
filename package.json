@@ -7,8 +7,11 @@
     "dev": "npm run build:content && vite",
     "build": "npm run build:content && vite build",
     "build:content": "node scripts/build-ai-news.js && node scripts/build-projects.js && node scripts/build-designs.js && node scripts/build-videos.js && node scripts/build-ai-sections.js && node scripts/build-rss.js",
+    "download:favicons": "node scripts/download-favicons.js",
     "new:news": "node scripts/manage-news.js",
     "fetch:news": "node scripts/fetch-ai-news-auto.js",
+    "retranslate:news": "node scripts/retranslate-news.js",
+    "fetch:tutorials": "node scripts/fetch-ai-tutorials-zh.js",
     "preview": "vite preview",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
   },

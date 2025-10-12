@@ -1,0 +1,51 @@
+# 文章分类配置
+# 用于博客文章的分类管理
+
+categories:
+  - id: ai-fundamentals
+    name: AI基础理论
+    description: 生成式AI、深度学习、大语言模型等核心概念与技术原理
+    icon: BookOpen
+    color: blue
+    order: 1
+
+  - id: ai-prompt-engineering
+    name: 提示词工程
+    description: 提示词撰写技巧、工具评测与最佳实践
+    icon: MessageSquare
+    color: purple
+    order: 2
+
+  - id: ai-product-management
+    name: AI产品管理
+    description: AI产品生命周期、团队协作与商业价值评估
+    icon: Briefcase
+    color: green
+    order: 3
+
+  - id: ai-tools
+    name: AI工具使用
+    description: AI工具汇总、使用技巧与实践指南
+    icon: Wrench
+    color: orange
+    order: 4
+
+  - id: ai-agent
+    name: AI智能体
+    description: 智能体系统架构、知识图谱与多智能体协作
+    icon: Bot
+    color: cyan
+    order: 5
+
+  - id: ai-image-generation
+    name: AI图像生成
+    description: AI绘画、图像创作与提示词应用
+    icon: Image
+    color: pink
+    order: 6
+
+# 旧分类映射（用于向后兼容）
+legacy_mapping:
+  llm: ai-fundamentals
+  通用大模型: ai-tools
+  AI绘画: ai-image-generation

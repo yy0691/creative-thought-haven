@@ -7,6 +7,8 @@ import { categories } from '../content/categories';
 import SplashCursor from '../components/cursor';
 import { LayoutGrid, List, ArrowUpDown, Clock, Tag, AlignJustify, Pin as PinIcon } from 'lucide-react';
 import { Virtuoso } from 'react-virtuoso';
+import { SubscriptionForm } from '../components/SubscriptionForm';
+import { H5 } from '../components/ui/Heading';
 
 
 
@@ -336,10 +338,10 @@ const Blog = () => {
       {/* 文章列表 */}
       <div className={
         viewMode === 'grid' 
-          ? "grid gap-3 sm:gap-4 md:gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3" 
+          ? "grid gap-3 sm:gap-3 md:gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3" 
           : viewMode === 'compact'
-            ? "max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-6"
-            : "flex flex-col gap-2 md:gap-4"
+            ? "max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4"
+            : "flex flex-col gap-2 md:gap-3"
       }>
         {viewMode === 'compact' ? (
           <>
@@ -357,9 +359,9 @@ const Blog = () => {
                   <table className="w-full text-sm md:text-base">
                     <thead className="bg-muted/50 dark:bg-gray-800/50">
                       <tr className="border-b border-border dark:border-gray-700">
-                        <th className="text-left py-2 md:py-3 px-2 md:px-4 font-medium text-muted-foreground dark:text-gray-300 text-xs md:text-sm">标题</th>
-                        <th className="text-right py-2 md:py-3 px-2 md:px-4 font-medium text-muted-foreground dark:text-gray-300 w-[80px] md:w-[120px] text-xs md:text-sm hidden sm:table-cell">标签</th>
-                        <th className="text-right py-2 md:py-3 px-2 md:px-4 font-medium text-muted-foreground dark:text-gray-300 w-[90px] md:w-[130px] text-xs md:text-sm">日期</th>
+                        <th className="text-left py-2 md:py-3 px-2 md:px-4 font-medium text-muted-foreground dark:text-gray-300 text-xs md:text-xs">标题</th>
+                        <th className="text-right py-2 md:py-3 px-2 md:px-4 font-medium text-muted-foreground dark:text-gray-300 w-[80px] md:w-[120px] text-xs md:text-xs hidden sm:table-cell">标签</th>
+                        <th className="text-right py-2 md:py-3 px-2 md:px-4 font-medium text-muted-foreground dark:text-gray-300 w-[90px] md:w-[130px] text-xs md:text-xs">日期</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -380,9 +382,9 @@ const Blog = () => {
                                 </div>
                               )}
                               <div className="flex items-center">
-                                <h2 className="text-xs md:text-[16px] font-medium leading-[1.5] md:leading-[1.6] line-clamp-1 pr-4 md:pr-6 flex items-center">
+                                <H5 className="text-xs md:text-[14px] font-medium leading-[1.5] md:leading-[1.6] line-clamp-1 pr-4 md:pr-6 flex items-center">
                                   {post.title}
-                                </h2>
+                                </H5>
                               </div>
                             </Link>
                           </td>
@@ -435,10 +437,10 @@ const Blog = () => {
             <Link
               key={post.slug}
               to={`/blog/${encodeURIComponent(post.slug.replace(/^\//, ''))}`}
-              className={`glass dark:dark-card rounded-lg md:rounded-xl transition-all duration-300 border border-white/20 backdrop-blur-sm relative overflow-hidden group ${
+              className={`glass dark:dark-card rounded-lg transition-all duration-300 border border-white/20 backdrop-blur-sm relative overflow-hidden group ${
                 viewMode === 'list'
-                  ? 'p-3 md:p-4 hover:shadow-md hover:border-primary/20 hover:bg-accent/5'
-                  : 'p-4 md:p-6 shadow-lg hover:shadow-xl hover:border-primary/30'
+                  ? 'p-2.5 md:p-3 hover:shadow-md hover:border-primary/20 hover:bg-accent/5'
+                  : 'p-3 md:p-4 shadow-md hover:shadow-lg hover:border-primary/30'
               }`}
             >
               {viewMode === 'list' ? (
@@ -452,7 +454,7 @@ const Blog = () => {
                           </div>
                         )}
 
-                        <h2 className="text-base md:text-lg font-medium group-hover:text-primary transition-colors duration-200 dark:text-white truncate">
+                        <h2 className="text-sm md:text-base font-medium group-hover:text-primary transition-colors duration-200 dark:text-white truncate">
                           {post.title}
                         </h2>
                       </div>
@@ -504,9 +506,9 @@ const Blog = () => {
                        style={{background: 'linear-gradient(90deg, transparent, var(--primary-50) 50%, transparent)'}} />
 
                   <article className="relative z-10 flex-1 flex flex-col h-full">
-                    <div className="flex-1 space-y-2 md:space-y-3">
+                    <div className="flex-1 space-y-1.5 md:space-y-2">
                       <div className="flex items-start justify-between gap-2">
-                        <h2 className="text-base md:text-lg font-semibold leading-tight group-hover:text-primary transition-colors duration-300 dark:text-white line-clamp-2 flex-1">
+                        <h2 className="text-sm md:text-base font-semibold leading-tight group-hover:text-primary transition-colors duration-300 dark:text-white line-clamp-2 flex-1">
                           {post.title}
                         </h2>
                         {post.isSticky && (
@@ -517,14 +519,14 @@ const Blog = () => {
                       </div>
 
                       {post.excerpt && (
-                        <p className="text-muted-foreground text-xs md:text-sm leading-relaxed line-clamp-2 md:line-clamp-3 dark:text-gray-400">
+                        <p className="text-muted-foreground text-xs leading-relaxed line-clamp-2 dark:text-gray-400">
                           {post.excerpt}
                         </p>
                       )}
                     </div>
 
-                    <div className="mt-3 md:mt-4 pt-3 md:pt-4 border-t border-border/50 dark:border-gray-700/50 space-y-2 md:space-y-3">
-                      <div className="flex flex-wrap gap-1 md:gap-1.5">
+                    <div className="mt-2.5 md:mt-3 pt-2.5 md:pt-3 border-t border-border/50 dark:border-gray-700/50 space-y-1.5 md:space-y-2">
+                      <div className="flex flex-wrap gap-1">
                         {post.tags?.slice(0, 3).map((tag, index) => {
                           const tagColors = [
                             'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300',

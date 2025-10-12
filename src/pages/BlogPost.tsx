@@ -409,6 +409,7 @@ const BlogPost = () => {
           onUpdateNote={updateAnnotation}
           onDelete={deleteAnnotation}
           onClose={() => setShowNotesSidebar(false)}
+          articleTitle={post.title}
         />
       )}
     </div>

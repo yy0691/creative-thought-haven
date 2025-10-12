@@ -1,58 +1,34 @@
 ---
 title: Google NotebookLM推出Discover Sources功能
+title_zh: Google NotebookLM推出“发现来源”功能，AI研究助手再升级
 description: 本文详细介绍了Google NotebookLM推出的Discover Sources功能，该功能能够主动从网络中搜索并推荐相关来源，帮助用户快速收集研究资料，进一步提升其作为AI研究助手的实用性和效率。
+summary_zh: Google的NotebookLM推出了“发现来源”功能，旨在提升其作为AI研究助手的实用性。用户只需描述感兴趣的主题，NotebookLM便能主动从网络搜索并推荐相关高质量来源，并以简洁摘要形式呈现。用户可一键将这些资料添加到笔记中，用于写作、演讲或自学，极大地提升了资料收集和整理的效率。
 author: LuoYuan
 date: Thu Apr 10 2025 00:00:00 GMT+0000 (Coordinated Universal Time)
 image: "https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_News/notebooklm-discover-sources.jpg"
 link: "https://notebooklm.google.com"
 category: ai-news
 tags: ["Google NotebookLM","Discover Sources","AI研究助手","内容推荐","资料收集","自动摘要","文献检索","知识管理"]
+key_points: ["NotebookLM新增“发现来源”功能。","AI自动搜索推荐相关优质网络资源。","提供简洁摘要，方便快速了解内容。","一键保存资料，简化研究流程。"]
 featured: false
 source: ""
 ---
 
-Google NotebookLM 推出“Discover Sources”功能，让 NotebookLM 能够主动从网络中搜索并推荐相关来源，进一步提升其作为研究助手的实用性。
+## Google NotebookLM推出“发现来源”功能，AI研究助手再升级
+
+Google的NotebookLM推出了“发现来源”功能，旨在提升其作为AI研究助手的实用性。用户只需描述感兴趣的主题，NotebookLM便能主动从网络搜索并推荐相关高质量来源，并以简洁摘要形式呈现。用户可一键将这些资料添加到笔记中，用于写作、演讲或自学，极大地提升了资料收集和整理的效率。
+
+### 🔑 关键要点
+1. NotebookLM新增“发现来源”功能。
+2. AI自动搜索推荐相关优质网络资源。
+3. 提供简洁摘要，方便快速了解内容。
+4. 一键保存资料，简化研究流程。
 
 
-## **核心能力**
+### 📰 原文信息
+- **标题**: Google NotebookLM推出Discover Sources功能
+- **来源**: 
+- **链接**: [查看原文](https://notebooklm.google.com)
 
-用户只需描述感兴趣的主题，NotebookLM 就会从网络中搜索并返回一组相关的优质来源。
-
-也就是你只需要告诉它你想学什么，它就会帮你找相关的文章或网站，并用简单摘要的形式呈现出来。你点一下，就能把它们添加到你的笔记中，用于写作、准备演讲或自学。这就像有了一个全天候的“AI研究助理”帮你收集资料和整理内容。
-
-1. 自动上网帮你找相关文章和资料；
-2. 把找到的内容用简单明了的摘要形式给你；
-3. 你可以点一下就把这些内容保存到你的笔记里；
-4. 然后你可以用这些资料来写文稿、做报告、做FAQ问答之类的事。
-
-## **操作方式：**
-
-1. 在 NotebookLM 的“Sources”（来源）面板中，点击新添加的“Discover”（发现）按钮（图标为放大镜加闪光点）。
-2. 在弹出的“What are you interested in?”（你对什么感兴趣？）输入框中，输入想研究的主题或问题。
-3. 当您描述主题时，NotebookLM 会在几秒钟内收集数百个潜在的网络资源。它会分析这些资源，并根据您定义的主题挑选出最相关的资源。它会提供最多 10 个资源推荐，每个资源都附有注释摘要，解释其与您的主题的相关性。
-4. 用户可以选择全部添加或逐一勾选需要的来源，点击确认后，这些来源会像手动上传的文件一样，集成到笔记本中。这样您还可以阅读原文、通过聊天提问以及使用 NotebookLM 的引用和笔记功能。
-
-- **后续使用**：添加的来源可用于 NotebookLM 的其他功能，例如生成音频概览（Audio Overviews）、常见问题解答（FAQs）、问答（Q&A）等。
-
-## **🎯 举个例子**
-
-比如你说：“我想了解人工智能的发展”，NotebookLM 就会：
-
-- 去网上找 10 个相关、靠谱的网页内容；
-- 每个网页都会附一个简短说明，比如“这个网页介绍了AI的历史”“这个网页讲的是最近的AI工具”；
-- 然后你一键加入自己的笔记，开始整理或者提问；
-
- **“I’m Feeling Curious” 按钮**
-
-- 提供一个趣味入口，系统会自动为你生成一个随机主题的资料推荐，让你能快速体验 Discover Sources 的效果。
-- 位于“Discover”输入框下方。
-- 点击后，NotebookLM 会随机生成一个主题并推荐相关来源，让用户快速体验来源发现功能。
-
-
-
-## **🛠 使用方法**
-
-1. 访问 [notebooklm.google.com](https://notebooklm.google.com/)
-2. 打开一个笔记本
-3. 在“Sources”面板点击 **Discover 按钮**
-4. 输入你感兴趣的主题
+---
+*本文由AI自动翻译和摘要生成*

@@ -1,0 +1,85 @@
+{
+  "sources": [
+    {
+      "name": "机器之心",
+      "url": "https://rsshub.rssforever.com/jiqizhixin/topic/ai",
+      "category": "ai-tutorial",
+      "language": "zh",
+      "enabled": true,
+      "description": "AI领域专业媒体，深度报道和教程"
+    },
+    {
+      "name": "量子位",
+      "url": "https://rsshub.rssforever.com/qbitai",
+      "category": "ai-tutorial",
+      "language": "zh",
+      "enabled": true,
+      "description": "专注人工智能的科技媒体"
+    },
+    {
+      "name": "AI科技大本营",
+      "url": "https://rsshub.rssforever.com/csdn/blog/csdnnews",
+      "category": "ai-tutorial",
+      "language": "zh",
+      "enabled": false,
+      "description": "CSDN AI技术文章和教程"
+    },
+    {
+      "name": "InfoQ AI",
+      "url": "https://www.infoq.cn/topic/ai/feed",
+      "category": "ai-tutorial",
+      "language": "zh",
+      "enabled": true,
+      "description": "InfoQ AI技术专题"
+    },
+    {
+      "name": "少数派 AI",
+      "url": "https://rsshub.rssforever.com/sspai/tag/ai",
+      "category": "ai-tools",
+      "language": "zh",
+      "enabled": true,
+      "description": "AI工具使用教程和评测"
+    },
+    {
+      "name": "36氪 AI",
+      "url": "https://rsshub.rssforever.com/36kr/newsflashes",
+      "category": "ai-industry",
+      "language": "zh",
+      "enabled": false,
+      "description": "AI行业资讯和创业动态"
+    },
+    {
+      "name": "爱范儿 AI",
+      "url": "https://rsshub.rssforever.com/ifanr/app",
+      "category": "ai-tools",
+      "language": "zh",
+      "enabled": true,
+      "description": "AI应用和产品评测"
+    },
+    {
+      "name": "极客公园",
+      "url": "https://rsshub.rssforever.com/geekpark/breakingnews",
+      "category": "ai-industry",
+      "language": "zh",
+      "enabled": true,
+      "description": "科技创新和AI产品报道"
+    }
+  ],
+  "settings": {
+    "maxArticlesPerSource": 5,
+    "daysToLookBack": 14,
+    "author": "LuoYuan",
+    "defaultImage": "https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_News/default.jpg",
+    "categories": {
+      "ai-tutorial": "AI教程",
+      "ai-tools": "AI工具",
+      "ai-industry": "AI行业",
+      "ai-research": "AI研究"
+    }
+  },
+  "notes": {
+    "rsshub": "使用RSSHub服务聚合各大中文平台的AI内容",
+    "rsshub_url": "https://docs.rsshub.app",
+    "language": "所有源都是中文内容，无需翻译"
+  }
+}
