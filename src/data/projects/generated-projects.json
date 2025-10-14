@@ -27,11 +27,11 @@
     ],
     "githubUrl": "https://github.com/yy0691/New_Robot",
     "publishDate": "2024-10-15",
-    "category": "自制作品",
+    "category": "custom",
     "isRecommended": true,
     "isHighlight": false,
     "coverImage": "http://st75yeaid.hb-bkt.clouddn.com/Generated%20Image%20March%2018%2C%202025%20-%207_15PM.png.jpeg",
-    "content": "\n# 新闻机器人\n\n智能新闻聚合推送系统，让团队信息同步变得轻松高效。\n\n## ✨ 核心功能\n\n- 📰 **RSS订阅管理** - 灵活管理多个新闻源订阅\n- 🏷️ **智能分类** - 自动对新闻内容进行智能分类\n- 🤖 **自动定时推送** - 按设定时间自动推送新闻\n- 📱 **飞书集成** - 无缝集成飞书群聊功能\n- 🔍 **关键词过滤** - 根据关键词筛选重要信息\n- 📊 **推送统计** - 统计分析推送数据\n- ⚙️ **灵活配置** - 丰富的配置选项满足不同需求\n\n## 🛠️ 技术实现\n\n- Python - 核心开发语言\n- RSS - 内容订阅技术\n- API - 第三方接口集成\n- Automation - 自动化任务调度\n\n## 🎯 使用场景\n\n- 团队信息同步\n- 行业动态追踪\n- 技术资讯聚合\n- 企业内部通讯\n\n## 🚀 特色优势\n\n- **自动化运行** - 无需人工干预，自动完成信息采集和推送\n- **灵活配置** - 支持多种推送策略和过滤规则\n- **实时更新** - 及时获取最新资讯\n- **团队协作** - 让信息在团队中快速流通\n\n## 📦 部署方式\n\n访问 [GitHub仓库](https://github.com/yy0691/New_Robot) 查看部署文档。\n"
+    "content": "\r\n# 新闻机器人\r\n\r\n智能新闻聚合推送系统，让团队信息同步变得轻松高效。\r\n\r\n## ✨ 核心功能\r\n\r\n- 📰 **RSS订阅管理** - 灵活管理多个新闻源订阅\r\n- 🏷️ **智能分类** - 自动对新闻内容进行智能分类\r\n- 🤖 **自动定时推送** - 按设定时间自动推送新闻\r\n- 📱 **飞书集成** - 无缝集成飞书群聊功能\r\n- 🔍 **关键词过滤** - 根据关键词筛选重要信息\r\n- 📊 **推送统计** - 统计分析推送数据\r\n- ⚙️ **灵活配置** - 丰富的配置选项满足不同需求\r\n\r\n## 🛠️ 技术实现\r\n\r\n- Python - 核心开发语言\r\n- RSS - 内容订阅技术\r\n- API - 第三方接口集成\r\n- Automation - 自动化任务调度\r\n\r\n## 🎯 使用场景\r\n\r\n- 团队信息同步\r\n- 行业动态追踪\r\n- 技术资讯聚合\r\n- 企业内部通讯\r\n\r\n## 🚀 特色优势\r\n\r\n- **自动化运行** - 无需人工干预，自动完成信息采集和推送\r\n- **灵活配置** - 支持多种推送策略和过滤规则\r\n- **实时更新** - 及时获取最新资讯\r\n- **团队协作** - 让信息在团队中快速流通\r\n\r\n## 📦 部署方式\r\n\r\n访问 [GitHub仓库](https://github.com/yy0691/New_Robot) 查看部署文档。\r\n"
   },
   {
     "id": "linktest-ilab-x",
@@ -45,11 +45,11 @@
     ],
     "githubUrl": "https://github.com/yy0691/LinkTest-ilab-x",
     "publishDate": "2024-08-20",
-    "category": "自制作品",
+    "category": "custom",
     "isRecommended": true,
     "isHighlight": false,
     "coverImage": "https://talkie.ai/app/uploads/2022/02/what-are-virtual-agents.jpg",
-    "content": "\n# 联通性测试工具\n\n专为ilab-x虚拟仿真实验平台设计的自动化测试工具，大幅提升测试效率。\n\n## ✨ 主要功能\n\n- 🔗 **批量链接检测** - 自动检测大量实验项目链接状态\n- 🤖 **自动化测试流程** - 完全自动化的测试执行\n- 📊 **测试报告生成** - 自动生成详细的测试报告\n- 🐛 **异常检测记录** - 及时发现并记录异常情况\n- ⚡ **并发测试支持** - 支持多任务并发执行\n- 📝 **详细日志记录** - 完整的测试过程日志\n- 🎯 **灵活测试用例** - 可自定义配置测试场景\n\n## 🛠️ 技术栈\n\n- Python - 主要开发语言\n- Selenium - Web自动化测试框架\n- Automation - 自动化测试技术\n- Testing - 软件测试方法论\n\n## 🎯 应用场景\n\n- 虚拟仿真实验平台测试\n- 批量链接有效性检查\n- 实验项目质量保证\n- 系统稳定性监控\n\n## 📦 使用指南\n\n访问 [GitHub仓库](https://github.com/yy0691/LinkTest-ilab-x) 获取详细使用文档。\n"
+    "content": "\r\n# 联通性测试工具\r\n\r\n专为ilab-x虚拟仿真实验平台设计的自动化测试工具，大幅提升测试效率。\r\n\r\n## ✨ 主要功能\r\n\r\n- 🔗 **批量链接检测** - 自动检测大量实验项目链接状态\r\n- 🤖 **自动化测试流程** - 完全自动化的测试执行\r\n- 📊 **测试报告生成** - 自动生成详细的测试报告\r\n- 🐛 **异常检测记录** - 及时发现并记录异常情况\r\n- ⚡ **并发测试支持** - 支持多任务并发执行\r\n- 📝 **详细日志记录** - 完整的测试过程日志\r\n- 🎯 **灵活测试用例** - 可自定义配置测试场景\r\n\r\n## 🛠️ 技术栈\r\n\r\n- Python - 主要开发语言\r\n- Selenium - Web自动化测试框架\r\n- Automation - 自动化测试技术\r\n- Testing - 软件测试方法论\r\n\r\n## 🎯 应用场景\r\n\r\n- 虚拟仿真实验平台测试\r\n- 批量链接有效性检查\r\n- 实验项目质量保证\r\n- 系统稳定性监控\r\n\r\n## 📦 使用指南\r\n\r\n访问 [GitHub仓库](https://github.com/yy0691/LinkTest-ilab-x) 获取详细使用文档。\r\n"
   },
   {
     "id": "social-simulation",
@@ -63,11 +63,11 @@
     ],
     "githubUrl": "https://github.com/yy0691/Social_Simulation",
     "publishDate": "2024-06-20",
-    "category": "自制作品",
+    "category": "custom",
     "isRecommended": true,
     "isHighlight": false,
     "coverImage": "https://www.researchgate.net/publication/347899898/figure/fig1/AS:973155462516736@1609220878623/Agent-based-Modeling-Framework-Source-Gilbert-and-Troitzsch-2005.png",
-    "content": "\n# 社会模拟系统\n\n基于多智能体技术的社会行为模拟平台，为社会科学研究提供强大的计算实验环境。\n\n## ✨ 核心特性\n\n- 🤖 **多智能体建模** - 构建复杂的智能体交互系统\n- 📈 **社会网络分析** - 分析社会关系和网络结构\n- 🎲 **随机事件模拟** - 模拟真实世界的随机性\n- 📊 **数据可视化** - 直观展示模拟结果\n- 🔬 **行为模式分析** - 深入分析群体行为规律\n- 📉 **统计数据导出** - 导出分析数据用于进一步研究\n- ⚙️ **参数配置系统** - 灵活配置模拟参数\n\n## 🛠️ 技术实现\n\n- Python - 核心开发语言\n- Multi-Agent - 多智能体系统框架\n- Simulation - 仿真模拟引擎\n- Data Analysis - 数据分析工具链\n\n## 🎯 应用场景\n\n- 社会科学研究\n- 行为经济学分析\n- 城市规划模拟\n- 疾病传播预测\n- 群体决策研究\n\n## 📦 项目地址\n\n访问 [GitHub仓库](https://github.com/yy0691/Social_Simulation) 了解更多技术细节。\n"
+    "content": "\r\n# 社会模拟系统\r\n\r\n基于多智能体技术的社会行为模拟平台，为社会科学研究提供强大的计算实验环境。\r\n\r\n## ✨ 核心特性\r\n\r\n- 🤖 **多智能体建模** - 构建复杂的智能体交互系统\r\n- 📈 **社会网络分析** - 分析社会关系和网络结构\r\n- 🎲 **随机事件模拟** - 模拟真实世界的随机性\r\n- 📊 **数据可视化** - 直观展示模拟结果\r\n- 🔬 **行为模式分析** - 深入分析群体行为规律\r\n- 📉 **统计数据导出** - 导出分析数据用于进一步研究\r\n- ⚙️ **参数配置系统** - 灵活配置模拟参数\r\n\r\n## 🛠️ 技术实现\r\n\r\n- Python - 核心开发语言\r\n- Multi-Agent - 多智能体系统框架\r\n- Simulation - 仿真模拟引擎\r\n- Data Analysis - 数据分析工具链\r\n\r\n## 🎯 应用场景\r\n\r\n- 社会科学研究\r\n- 行为经济学分析\r\n- 城市规划模拟\r\n- 疾病传播预测\r\n- 群体决策研究\r\n\r\n## 📦 项目地址\r\n\r\n访问 [GitHub仓库](https://github.com/yy0691/Social_Simulation) 了解更多技术细节。\r\n"
   },
   {
     "id": "PromptMate",
@@ -81,11 +81,11 @@
     ],
     "githubUrl": "https://github.com/yy0691/PromptMate",
     "publishDate": "2024-04-09",
-    "category": "自制作品",
+    "category": "custom",
     "isRecommended": true,
     "isHighlight": true,
     "coverImage": "https://jsd.onmicrosoft.cn/gh/yy0691/img-bed@main/Blog/Ai_News首页.png",
-    "content": "\n# PromptMate\n\nPromptMate是一款轻量级桌面应用程序，专为提高AI使用效率而设计。\n\n## ✨ 主要特点\n\n- 📝 **Prompt模板管理** - 轻松保存和组织常用提示词\n- 🎨 **苹果风格界面** - 精美的用户界面设计\n- 🌈 **多主题支持** - 支持多种主题和字体设置\n- ⌨️ **全局快捷键** - 快速唤出应用窗口\n- 📌 **窗口置顶** - 保持应用始终可见\n- 💾 **本地存储** - 数据安全存储在本地\n- 🔍 **快速搜索** - 快速查找需要的提示词\n\n## 🛠️ 技术栈\n\n- Electron - 跨平台桌面应用框架\n- Node.js - JavaScript运行环境\n- Vite - 现代化构建工具\n- TypeScript - 类型安全的JavaScript超集\n\n## 📦 安装使用\n\n访问 [GitHub仓库](https://github.com/yy0691/PromptMate) 获取最新版本。"
+    "content": "\r\n# PromptMate\r\n\r\nPromptMate是一款轻量级桌面应用程序，专为提高AI使用效率而设计。\r\n\r\n## ✨ 主要特点\r\n\r\n- 📝 **Prompt模板管理** - 轻松保存和组织常用提示词\r\n- 🎨 **苹果风格界面** - 精美的用户界面设计\r\n- 🌈 **多主题支持** - 支持多种主题和字体设置\r\n- ⌨️ **全局快捷键** - 快速唤出应用窗口\r\n- 📌 **窗口置顶** - 保持应用始终可见\r\n- 💾 **本地存储** - 数据安全存储在本地\r\n- 🔍 **快速搜索** - 快速查找需要的提示词\r\n\r\n## 🛠️ 技术栈\r\n\r\n- Electron - 跨平台桌面应用框架\r\n- Node.js - JavaScript运行环境\r\n- Vite - 现代化构建工具\r\n- TypeScript - 类型安全的JavaScript超集\r\n\r\n## 📦 安装使用\r\n\r\n访问 [GitHub仓库](https://github.com/yy0691/PromptMate) 获取最新版本。"
   },
   {
     "id": "ai-dialogue-smba",
@@ -99,11 +99,11 @@
     ],
     "githubUrl": "https://github.com/yy0691/ai-dialogue-smba",
     "publishDate": "2024-03-15",
-    "category": "自制作品",
+    "category": "custom",
     "isRecommended": true,
     "isHighlight": true,
     "coverImage": "https://miro.medium.com/v2/resize:fit:1400/1*8fGl_D4Gz2_nGC-kHqxPNQ.jpeg",
-    "content": "\n# AI对话系统（SMBA）\n\n基于大语言模型的智能对话系统，提供自然流畅的多轮对话体验。\n\n## ✨ 核心功能\n\n- 🤖 **多轮对话管理** - 智能的上下文管理和对话状态跟踪\n- 🧠 **自然语言理解** - 准确理解用户意图和需求\n- 💬 **智能回复生成** - 生成自然、准确的对话回复\n- 🎯 **意图识别** - 精准识别用户的对话意图\n- 📚 **对话历史** - 完整的对话记录和回溯\n- ⚙️ **可扩展架构** - 灵活的对话流程配置\n\n## 🛠️ 技术特点\n\n- Python - 主要开发语言\n- NLP - 自然语言处理技术\n- LLM - 大语言模型集成\n- AI - 人工智能算法应用\n\n## 🚀 应用场景\n\n- 智能客服系统\n- AI助手应用\n- 教育培训场景\n- 企业服务平台\n\n## 📦 项目地址\n\n访问 [GitHub仓库](https://github.com/yy0691/ai-dialogue-smba) 了解更多详情。\n"
+    "content": "\r\n# AI对话系统（SMBA）\r\n\r\n基于大语言模型的智能对话系统，提供自然流畅的多轮对话体验。\r\n\r\n## ✨ 核心功能\r\n\r\n- 🤖 **多轮对话管理** - 智能的上下文管理和对话状态跟踪\r\n- 🧠 **自然语言理解** - 准确理解用户意图和需求\r\n- 💬 **智能回复生成** - 生成自然、准确的对话回复\r\n- 🎯 **意图识别** - 精准识别用户的对话意图\r\n- 📚 **对话历史** - 完整的对话记录和回溯\r\n- ⚙️ **可扩展架构** - 灵活的对话流程配置\r\n\r\n## 🛠️ 技术特点\r\n\r\n- Python - 主要开发语言\r\n- NLP - 自然语言处理技术\r\n- LLM - 大语言模型集成\r\n- AI - 人工智能算法应用\r\n\r\n## 🚀 应用场景\r\n\r\n- 智能客服系统\r\n- AI助手应用\r\n- 教育培训场景\r\n- 企业服务平台\r\n\r\n## 📦 项目地址\r\n\r\n访问 [GitHub仓库](https://github.com/yy0691/ai-dialogue-smba) 了解更多详情。\r\n"
   },
   {
     "id": "file-management-app",
@@ -117,10 +117,10 @@
     ],
     "githubUrl": "https://github.com/yy0691/FileManagementApp",
     "publishDate": "2024-01-15",
-    "category": "自制作品",
+    "category": "custom",
     "isRecommended": true,
     "isHighlight": true,
     "coverImage": "https://npimg.hellouikit.com/d7/e9/d7e9bca4357b8c87b450c289ab5c7fcb?imageView2/2/w/1000",
-    "content": "\n# 出库工具\n\n一款基于C#开发的高效文件管理工具，为办公场景量身打造。\n\n## ✨ 主要功能\n\n- 📊 **Excel数据导入** - 快速导入和解析Excel表格数据\n- 🔍 **智能文件检索** - 根据关键词快速定位目标文件\n- 📝 **批量文本替换** - 一键替换多个文件中的重复文本\n- 🎯 **精准匹配** - 智能匹配算法确保替换准确性\n- 💻 **友好界面** - 基于WPF的现代化用户界面\n- 📋 **操作日志** - 完整记录所有操作历史\n- ⚡ **高性能处理** - 支持大批量文件的高效处理\n\n## 🛠️ 技术栈\n\n- C# - 主要开发语言\n- WPF - Windows Presentation Foundation界面框架\n- .NET - 微软开发平台\n- Excel - Office文档处理\n\n## 🎥 演示视频\n\n本项目提供了完整的功能演示视频，帮助快速了解工具的使用方法。\n\n## 📦 获取方式\n\n访问 [GitHub仓库](https://github.com/yy0691/FileManagementApp) 下载最新版本。\n"
+    "content": "\r\n# 出库工具\r\n\r\n一款基于C#开发的高效文件管理工具，为办公场景量身打造。\r\n\r\n## ✨ 主要功能\r\n\r\n- 📊 **Excel数据导入** - 快速导入和解析Excel表格数据\r\n- 🔍 **智能文件检索** - 根据关键词快速定位目标文件\r\n- 📝 **批量文本替换** - 一键替换多个文件中的重复文本\r\n- 🎯 **精准匹配** - 智能匹配算法确保替换准确性\r\n- 💻 **友好界面** - 基于WPF的现代化用户界面\r\n- 📋 **操作日志** - 完整记录所有操作历史\r\n- ⚡ **高性能处理** - 支持大批量文件的高效处理\r\n\r\n## 🛠️ 技术栈\r\n\r\n- C# - 主要开发语言\r\n- WPF - Windows Presentation Foundation界面框架\r\n- .NET - 微软开发平台\r\n- Excel - Office文档处理\r\n\r\n## 🎥 演示视频\r\n\r\n本项目提供了完整的功能演示视频，帮助快速了解工具的使用方法。\r\n\r\n## 📦 获取方式\r\n\r\n访问 [GitHub仓库](https://github.com/yy0691/FileManagementApp) 下载最新版本。\r\n"
   }
 ]
