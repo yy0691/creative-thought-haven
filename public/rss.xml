@@ -4,531 +4,538 @@
         <description><![CDATA[A personal blog for creative thoughts and technical explorations.]]></description>
         <link>https://your-domain.com</link>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Tue, 14 Oct 2025 10:46:32 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 14 Oct 2025 11:19:39 GMT</lastBuildDate>
         <atom:link href="https://your-domain.com/rss.xml" rel="self" type="application/rss+xml"/>
         <language><![CDATA[en]]></language>
         <item>
             <title><![CDATA[HTML标签渲染测试]]></title>
             <description><![CDATA[测试MDX中HTML标签的渲染效果]]></description>
-            <link>https://your-domain.com/articles/test-html-tags</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/test-html-tags</guid>
+            <link>https://your-domain.com/content\articles\test-html-tags</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\test-html-tags</guid>
             <pubDate>Mon, 01 Jan 2024 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[软件资源库]]></title>
             <description><![CDATA[软件、办公、效率]]></description>
-            <link>https://your-domain.com/articles/软件工具/软件资源库</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/软件工具/软件资源库</guid>
+            <link>https://your-domain.com/content\articles\软件工具\软件资源库</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\软件工具\软件资源库</guid>
             <pubDate>Wed, 15 Jan 2025 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Word中图注及图片批量处理技巧总结]]></title>
             <description><![CDATA[Word使用教程、VBA宏代码]]></description>
-            <link>https://your-domain.com/articles/自动化办公/常用技巧及VBA宏代码</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/自动化办公/常用技巧及VBA宏代码</guid>
+            <link>https://your-domain.com/content\articles\自动化办公\常用技巧及VBA宏代码</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\自动化办公\常用技巧及VBA宏代码</guid>
             <pubDate>Tue, 15 Oct 2024 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[用户和用户组权限]]></title>
             <description><![CDATA[用户和用户组权限]]></description>
-            <link>https://your-domain.com/articles/网络安全/用户和用户组权限</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/网络安全/用户和用户组权限</guid>
+            <link>https://your-domain.com/content\articles\网络安全\用户和用户组权限</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\网络安全\用户和用户组权限</guid>
             <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[漏洞与木马]]></title>
             <description><![CDATA[漏洞与木马]]></description>
-            <link>https://your-domain.com/articles/网络安全/漏洞与木马</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/网络安全/漏洞与木马</guid>
+            <link>https://your-domain.com/content\articles\网络安全\漏洞与木马</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\网络安全\漏洞与木马</guid>
             <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[漏洞]]></title>
             <description><![CDATA[漏洞]]></description>
-            <link>https://your-domain.com/articles/网络安全/漏洞</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/网络安全/漏洞</guid>
+            <link>https://your-domain.com/content\articles\网络安全\漏洞</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\网络安全\漏洞</guid>
             <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[渗透测试方法论]]></title>
             <description><![CDATA[渗透测试方法论]]></description>
-            <link>https://your-domain.com/articles/网络安全/渗透测试方法论</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/网络安全/渗透测试方法论</guid>
+            <link>https://your-domain.com/content\articles\网络安全\渗透测试方法论</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\网络安全\渗透测试方法论</guid>
             <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[文件系统及文本编辑器Vi]]></title>
             <description><![CDATA[文件系统及文本编辑器Vi]]></description>
-            <link>https://your-domain.com/articles/网络安全/文件系统及文本编辑器VI</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/网络安全/文件系统及文本编辑器VI</guid>
+            <link>https://your-domain.com/content\articles\网络安全\文件系统及文本编辑器VI</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\网络安全\文件系统及文本编辑器VI</guid>
             <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[文件查找和归档压缩]]></title>
             <description><![CDATA[文件查找和归档压缩]]></description>
-            <link>https://your-domain.com/articles/网络安全/文件查找和归档压缩</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/网络安全/文件查找和归档压缩</guid>
+            <link>https://your-domain.com/content\articles\网络安全\文件查找和归档压缩</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\网络安全\文件查找和归档压缩</guid>
             <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[基础入门——用户和组]]></title>
             <description><![CDATA[基础入门——用户和组]]></description>
-            <link>https://your-domain.com/articles/网络安全/基础入门——用户和组</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/网络安全/基础入门——用户和组</guid>
+            <link>https://your-domain.com/content\articles\网络安全\基础入门——用户和组</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\网络安全\基础入门——用户和组</guid>
             <pubDate>Sat, 15 Apr 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[基础入门——概念名词]]></title>
             <description><![CDATA[基础入门——概念名词]]></description>
-            <link>https://your-domain.com/articles/网络安全/基础入门——概念名词</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/网络安全/基础入门——概念名词</guid>
+            <link>https://your-domain.com/content\articles\网络安全\基础入门——概念名词</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\网络安全\基础入门——概念名词</guid>
             <pubDate>Sat, 15 Apr 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[基础入门——服务器远程管理]]></title>
             <description><![CDATA[基础入门——服务器远程管理]]></description>
-            <link>https://your-domain.com/articles/网络安全/基础入门——服务器远程管理</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/网络安全/基础入门——服务器远程管理</guid>
+            <link>https://your-domain.com/content\articles\网络安全\基础入门——服务器远程管理</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\网络安全\基础入门——服务器远程管理</guid>
             <pubDate>Sat, 15 Apr 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[基础入门——文件共享服务器]]></title>
             <description><![CDATA[基础入门——文件共享服务器]]></description>
-            <link>https://your-domain.com/articles/网络安全/基础入门——文件共享服务器</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/网络安全/基础入门——文件共享服务器</guid>
+            <link>https://your-domain.com/content\articles\网络安全\基础入门——文件共享服务器</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\网络安全\基础入门——文件共享服务器</guid>
             <pubDate>Sat, 15 Apr 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[基础入门——数据包拓展]]></title>
             <description><![CDATA[基础入门——数据包拓展]]></description>
-            <link>https://your-domain.com/articles/网络安全/基础入门——数据包拓展</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/网络安全/基础入门——数据包拓展</guid>
+            <link>https://your-domain.com/content\articles\网络安全\基础入门——数据包拓展</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\网络安全\基础入门——数据包拓展</guid>
             <pubDate>Sat, 15 Apr 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[基础入门——搭建安全拓展]]></title>
             <description><![CDATA[基础入门——搭建安全拓展]]></description>
-            <link>https://your-domain.com/articles/网络安全/基础入门——搭建安全拓展</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/网络安全/基础入门——搭建安全拓展</guid>
+            <link>https://your-domain.com/content\articles\网络安全\基础入门——搭建安全拓展</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\网络安全\基础入门——搭建安全拓展</guid>
             <pubDate>Sat, 15 Apr 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[基础入门——Ntfs安全权限]]></title>
             <description><![CDATA[基础入门——Ntfs安全权限]]></description>
-            <link>https://your-domain.com/articles/网络安全/基础入门——NTFS安全权限</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/网络安全/基础入门——NTFS安全权限</guid>
+            <link>https://your-domain.com/content\articles\网络安全\基础入门——NTFS安全权限</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\网络安全\基础入门——NTFS安全权限</guid>
             <pubDate>Sat, 15 Apr 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[基础入门——Ip地址]]></title>
             <description><![CDATA[基础入门——Ip地址]]></description>
-            <link>https://your-domain.com/articles/网络安全/基础入门——IP地址</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/网络安全/基础入门——IP地址</guid>
+            <link>https://your-domain.com/content\articles\网络安全\基础入门——IP地址</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\网络安全\基础入门——IP地址</guid>
             <pubDate>Sat, 15 Apr 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[基础入门——Dos命令]]></title>
             <description><![CDATA[基础入门——Dos命令]]></description>
-            <link>https://your-domain.com/articles/网络安全/基础入门——DOS命令</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/网络安全/基础入门——DOS命令</guid>
+            <link>https://your-domain.com/content\articles\网络安全\基础入门——DOS命令</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\网络安全\基础入门——DOS命令</guid>
             <pubDate>Sat, 15 Apr 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[使用Ssh远程连接Centos]]></title>
             <description><![CDATA[使用Ssh远程连接Centos]]></description>
-            <link>https://your-domain.com/articles/网络安全/使用ssh远程连接CentOS</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/网络安全/使用ssh远程连接CentOS</guid>
+            <link>https://your-domain.com/content\articles\网络安全\使用ssh远程连接CentOS</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\网络安全\使用ssh远程连接CentOS</guid>
             <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[中间人攻击]]></title>
             <description><![CDATA[中间人攻击]]></description>
-            <link>https://your-domain.com/articles/网络安全/中间人攻击</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/网络安全/中间人攻击</guid>
+            <link>https://your-domain.com/content\articles\网络安全\中间人攻击</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\网络安全\中间人攻击</guid>
             <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Xss 跨站脚本攻击]]></title>
             <description><![CDATA[Xss 跨站脚本攻击]]></description>
-            <link>https://your-domain.com/articles/网络安全/XSS 跨站脚本攻击</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/网络安全/XSS 跨站脚本攻击</guid>
+            <link>https://your-domain.com/content\articles\网络安全\XSS 跨站脚本攻击</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\网络安全\XSS 跨站脚本攻击</guid>
             <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Sql注入]]></title>
             <description><![CDATA[Sql注入]]></description>
-            <link>https://your-domain.com/articles/网络安全/SQL注入</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/网络安全/SQL注入</guid>
+            <link>https://your-domain.com/content\articles\网络安全\SQL注入</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\网络安全\SQL注入</guid>
             <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Php开发环境配置]]></title>
             <description><![CDATA[Php开发环境配置]]></description>
-            <link>https://your-domain.com/articles/网络安全/PHP开发环境配置</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/网络安全/PHP开发环境配置</guid>
+            <link>https://your-domain.com/content\articles\网络安全\PHP开发环境配置</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\网络安全\PHP开发环境配置</guid>
             <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Linux的文件系统]]></title>
             <description><![CDATA[Linux的文件系统]]></description>
-            <link>https://your-domain.com/articles/网络安全/Linux的文件系统</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/网络安全/Linux的文件系统</guid>
+            <link>https://your-domain.com/content\articles\网络安全\Linux的文件系统</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\网络安全\Linux的文件系统</guid>
             <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Linux操作系统概述]]></title>
             <description><![CDATA[Linux操作系统概述]]></description>
-            <link>https://your-domain.com/articles/网络安全/Linux操作系统概述</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/网络安全/Linux操作系统概述</guid>
+            <link>https://your-domain.com/content\articles\网络安全\Linux操作系统概述</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\网络安全\Linux操作系统概述</guid>
             <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Javascript简介]]></title>
             <description><![CDATA[Javascript简介]]></description>
-            <link>https://your-domain.com/articles/网络安全/JavaScript简介</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/网络安全/JavaScript简介</guid>
+            <link>https://your-domain.com/content\articles\网络安全\JavaScript简介</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\网络安全\JavaScript简介</guid>
             <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[00 27 Vpn]]></title>
             <description><![CDATA[00 27 Vpn]]></description>
-            <link>https://your-domain.com/articles/网络安全/00_27_VPN</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/网络安全/00_27_VPN</guid>
+            <link>https://your-domain.com/content\articles\网络安全\00_27_VPN</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\网络安全\00_27_VPN</guid>
             <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[00 26 动态路由 Rip]]></title>
             <description><![CDATA[00 26 动态路由 Rip]]></description>
-            <link>https://your-domain.com/articles/网络安全/00_26_动态路由 RIP</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/网络安全/00_26_动态路由 RIP</guid>
+            <link>https://your-domain.com/content\articles\网络安全\00_26_动态路由 RIP</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\网络安全\00_26_动态路由 RIP</guid>
             <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[00 25 Nat]]></title>
             <description><![CDATA[00 25 Nat]]></description>
-            <link>https://your-domain.com/articles/网络安全/00_25_NAT</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/网络安全/00_25_NAT</guid>
+            <link>https://your-domain.com/content\articles\网络安全\00_25_NAT</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\网络安全\00_25_NAT</guid>
             <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[00 24 Acl]]></title>
             <description><![CDATA[00 24 Acl]]></description>
-            <link>https://your-domain.com/articles/网络安全/00_24_ACL</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/网络安全/00_24_ACL</guid>
+            <link>https://your-domain.com/content\articles\网络安全\00_24_ACL</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\网络安全\00_24_ACL</guid>
             <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[00 23 Hsrp协议 Vrrp协议]]></title>
             <description><![CDATA[00 23 Hsrp协议 Vrrp协议]]></description>
-            <link>https://your-domain.com/articles/网络安全/00_23_HSRP协议 VRRP协议</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/网络安全/00_23_HSRP协议 VRRP协议</guid>
+            <link>https://your-domain.com/content\articles\网络安全\00_23_HSRP协议 VRRP协议</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\网络安全\00_23_HSRP协议 VRRP协议</guid>
             <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[00 22 三层路由交换技术]]></title>
             <description><![CDATA[00 22 三层路由交换技术]]></description>
-            <link>https://your-domain.com/articles/网络安全/00_22_三层路由交换技术</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/网络安全/00_22_三层路由交换技术</guid>
+            <link>https://your-domain.com/content\articles\网络安全\00_22_三层路由交换技术</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\网络安全\00_22_三层路由交换技术</guid>
             <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[00 21 单臂路由与Icmp协议]]></title>
             <description><![CDATA[00 21 单臂路由与Icmp协议]]></description>
-            <link>https://your-domain.com/articles/网络安全/00_21_单臂路由与ICMP协议</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/网络安全/00_21_单臂路由与ICMP协议</guid>
+            <link>https://your-domain.com/content\articles\网络安全\00_21_单臂路由与ICMP协议</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\网络安全\00_21_单臂路由与ICMP协议</guid>
             <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[00 20 Vlan Trunk]]></title>
             <description><![CDATA[00 20 Vlan Trunk]]></description>
-            <link>https://your-domain.com/articles/网络安全/00_20_VLAN_TRUNK</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/网络安全/00_20_VLAN_TRUNK</guid>
+            <link>https://your-domain.com/content\articles\网络安全\00_20_VLAN_TRUNK</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\网络安全\00_20_VLAN_TRUNK</guid>
             <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[防火墙]]></title>
             <description><![CDATA[00 19 防火墙]]></description>
-            <link>https://your-domain.com/articles/网络安全/00_19_防火墙</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/网络安全/00_19_防火墙</guid>
+            <link>https://your-domain.com/content\articles\网络安全\00_19_防火墙</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\网络安全\00_19_防火墙</guid>
             <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[IP包头分析与静态路由]]></title>
             <description><![CDATA[00 18 Ip包头分析与静态路由]]></description>
-            <link>https://your-domain.com/articles/网络安全/00_18_IP包头分析与静态路由</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/网络安全/00_18_IP包头分析与静态路由</guid>
+            <link>https://your-domain.com/content\articles\网络安全\00_18_IP包头分析与静态路由</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\网络安全\00_18_IP包头分析与静态路由</guid>
             <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[ARP协议]]></title>
             <description><![CDATA[00 17 Arp协议]]></description>
-            <link>https://your-domain.com/articles/网络安全/00_17_ARP协议</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/网络安全/00_17_ARP协议</guid>
+            <link>https://your-domain.com/content\articles\网络安全\00_17_ARP协议</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\网络安全\00_17_ARP协议</guid>
             <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[00_16_路由原理]]></title>
-            <link>https://your-domain.com/articles/网络安全/00_16_路由原理</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/网络安全/00_16_路由原理</guid>
+            <link>https://your-domain.com/content\articles\网络安全\00_16_路由原理</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\网络安全\00_16_路由原理</guid>
             <pubDate>Sun, 20 Jul 2025 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[00_15_数据链路层]]></title>
-            <link>https://your-domain.com/articles/网络安全/00_15_数据链路层</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/网络安全/00_15_数据链路层</guid>
+            <link>https://your-domain.com/content\articles\网络安全\00_15_数据链路层</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\网络安全\00_15_数据链路层</guid>
             <pubDate>Sun, 20 Jul 2025 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[OSI与TCP/IP协议簇]]></title>
             <description><![CDATA[Web安全、网络安全、笔记]]></description>
-            <link>https://your-domain.com/articles/网络安全/00_14_OSI与TCP IP协议簇</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/网络安全/00_14_OSI与TCP IP协议簇</guid>
+            <link>https://your-domain.com/content\articles\网络安全\00_14_OSI与TCP IP协议簇</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\网络安全\00_14_OSI与TCP IP协议簇</guid>
             <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[00_13_扫描与爆破]]></title>
-            <link>https://your-domain.com/articles/网络安全/00_13_扫描与爆破</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/网络安全/00_13_扫描与爆破</guid>
+            <link>https://your-domain.com/content\articles\网络安全\00_13_扫描与爆破</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\网络安全\00_13_扫描与爆破</guid>
             <pubDate>Sun, 20 Jul 2025 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[HTTPS]]></title>
             <description><![CDATA[Web安全、网络安全、笔记]]></description>
-            <link>https://your-domain.com/articles/网络安全/00_12_HTTPS</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/网络安全/00_12_HTTPS</guid>
+            <link>https://your-domain.com/content\articles\网络安全\00_12_HTTPS</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\网络安全\00_12_HTTPS</guid>
             <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[PKI体系介绍]]></title>
             <description><![CDATA[Web安全、网络安全、笔记]]></description>
-            <link>https://your-domain.com/articles/网络安全/00_11_PKI</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/网络安全/00_11_PKI</guid>
+            <link>https://your-domain.com/content\articles\网络安全\00_11_PKI</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\网络安全\00_11_PKI</guid>
             <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[渗透测试基本流程]]></title>
             <description><![CDATA[Web安全、网络安全、笔记]]></description>
-            <link>https://your-domain.com/articles/网络安全/00_10_渗透测试基本流程</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/网络安全/00_10_渗透测试基本流程</guid>
+            <link>https://your-domain.com/content\articles\网络安全\00_10_渗透测试基本流程</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\网络安全\00_10_渗透测试基本流程</guid>
             <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[IIS之WEB服务器和FTP服务器]]></title>
             <description><![CDATA[Web安全、网络安全、笔记]]></description>
-            <link>https://your-domain.com/articles/网络安全/00_09_IIS之WEB服务器和FTP服务器</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/网络安全/00_09_IIS之WEB服务器和FTP服务器</guid>
+            <link>https://your-domain.com/content\articles\网络安全\00_09_IIS之WEB服务器和FTP服务器</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\网络安全\00_09_IIS之WEB服务器和FTP服务器</guid>
             <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[00_08_DNS欺骗、ARP攻击及钓鱼网站制作]]></title>
-            <link>https://your-domain.com/articles/网络安全/00_08_DNS欺骗、ARP攻击及钓鱼网站制作</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/网络安全/00_08_DNS欺骗、ARP攻击及钓鱼网站制作</guid>
+            <link>https://your-domain.com/content\articles\网络安全\00_08_DNS欺骗、ARP攻击及钓鱼网站制作</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\网络安全\00_08_DNS欺骗、ARP攻击及钓鱼网站制作</guid>
             <pubDate>Sun, 20 Jul 2025 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[DNS部署与安全]]></title>
             <description><![CDATA[Web安全、网络安全、笔记]]></description>
-            <link>https://your-domain.com/articles/网络安全/00_07_DNS部署与安全</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/网络安全/00_07_DNS部署与安全</guid>
+            <link>https://your-domain.com/content\articles\网络安全\00_07_DNS部署与安全</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\网络安全\00_07_DNS部署与安全</guid>
             <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[00_06_DHCP部署与安全]]></title>
-            <link>https://your-domain.com/articles/网络安全/00_06_DHCP部署与安全</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/网络安全/00_06_DHCP部署与安全</guid>
+            <link>https://your-domain.com/content\articles\网络安全\00_06_DHCP部署与安全</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\网络安全\00_06_DHCP部署与安全</guid>
             <pubDate>Sun, 20 Jul 2025 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[00_04_域]]></title>
-            <link>https://your-domain.com/articles/网络安全/00_04_域</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/网络安全/00_04_域</guid>
+            <link>https://your-domain.com/content\articles\网络安全\00_04_域</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\网络安全\00_04_域</guid>
             <pubDate>Sun, 20 Jul 2025 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[FTP服务]]></title>
             <description><![CDATA[Web安全、网络安全、笔记]]></description>
-            <link>https://your-domain.com/articles/网络安全/00_03_FTP</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/网络安全/00_03_FTP</guid>
+            <link>https://your-domain.com/content\articles\网络安全\00_03_FTP</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\网络安全\00_03_FTP</guid>
             <pubDate>Wed, 15 Oct 2025 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[系统密码破解]]></title>
             <description><![CDATA[Web安全、网络安全、笔记]]></description>
-            <link>https://your-domain.com/articles/网络安全/00_02_系统密码破解</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/网络安全/00_02_系统密码破解</guid>
+            <link>https://your-domain.com/content\articles\网络安全\00_02_系统密码破解</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\网络安全\00_02_系统密码破解</guid>
             <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[基本概念介绍]]></title>
             <description><![CDATA[Web安全、网络安全、笔记]]></description>
-            <link>https://your-domain.com/articles/网络安全/00_01_基本概念介绍</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/网络安全/00_01_基本概念介绍</guid>
+            <link>https://your-domain.com/content\articles\网络安全\00_01_基本概念介绍</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\网络安全\00_01_基本概念介绍</guid>
             <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Web安全]]></title>
             <description><![CDATA[Web安全、网络安全、笔记]]></description>
-            <link>https://your-domain.com/articles/网络安全/00_00_Web安全</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/网络安全/00_00_Web安全</guid>
+            <link>https://your-domain.com/content\articles\网络安全\00_00_Web安全</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\网络安全\00_00_Web安全</guid>
             <pubDate>Mon, 01 May 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[No title]]></title>
-            <link>https://your-domain.com/articles/大模型语言/WorkTrendIndex</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/大模型语言/WorkTrendIndex</guid>
+            <link>https://your-domain.com/content\articles\大模型语言\WorkTrendIndex</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\大模型语言\WorkTrendIndex</guid>
+        </item>
+        <item>
+            <title><![CDATA[引导ChatGPT像人类一样持续写作]]></title>
+            <description><![CDATA[这份提示词像一把“人味写作”的调音器：先把作者定位为真诚会聊天的人，再用口语化、长短句交替、自然停顿与生活化比喻，写出有节奏的内容。]]></description>
+            <link>https://your-domain.com/content\articles\大模型语言\提示词\01-引导ChatGPT像人类一样持续写作</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\大模型语言\提示词\01-引导ChatGPT像人类一样持续写作</guid>
+            <pubDate>Tue, 14 Oct 2025 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[高效使用ChatGPT]]></title>
             <description><![CDATA[AI、技巧、效率]]></description>
-            <link>https://your-domain.com/articles/大模型语言/大模型/高效使用Chatgpt</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/大模型语言/大模型/高效使用Chatgpt</guid>
+            <link>https://your-domain.com/content\articles\大模型语言\大模型\高效使用Chatgpt</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\大模型语言\大模型\高效使用Chatgpt</guid>
             <pubDate>Wed, 15 Jan 2025 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[生成式 AI 导论-李宏毅]]></title>
             <description><![CDATA[大语言模型、生成式AI]]></description>
-            <link>https://your-domain.com/articles/大模型语言/大模型/生成式AI导论-李宏毅</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/大模型语言/大模型/生成式AI导论-李宏毅</guid>
+            <link>https://your-domain.com/content\articles\大模型语言\大模型\生成式AI导论-李宏毅</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\大模型语言\大模型\生成式AI导论-李宏毅</guid>
             <pubDate>Tue, 21 Jan 2025 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[对话式AI提示词撰写指南]]></title>
             <description><![CDATA[提示词、智能体、教程]]></description>
-            <link>https://your-domain.com/articles/大模型语言/大模型/如何写好语言提示词</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/大模型语言/大模型/如何写好语言提示词</guid>
+            <link>https://your-domain.com/content\articles\大模型语言\大模型\如何写好语言提示词</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\大模型语言\大模型\如何写好语言提示词</guid>
             <pubDate>Thu, 27 Mar 2025 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[工作流中的领先AI提示生成器评测]]></title>
             <description><![CDATA[提示词、工具、测评]]></description>
-            <link>https://your-domain.com/articles/大模型语言/大模型/prompts-tutorls</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/大模型语言/大模型/prompts-tutorls</guid>
+            <link>https://your-domain.com/content\articles\大模型语言\大模型\prompts-tutorls</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\大模型语言\大模型\prompts-tutorls</guid>
             <pubDate>Thu, 10 Apr 2025 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[MCP协议核心价值与AI工具化未来]]></title>
             <description><![CDATA[MCP、AI工具化]]></description>
-            <link>https://your-domain.com/articles/大模型语言/大模型/MCP</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/大模型语言/大模型/MCP</guid>
+            <link>https://your-domain.com/content\articles\大模型语言\大模型\MCP</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\大模型语言\大模型\MCP</guid>
             <pubDate>Thu, 27 Mar 2025 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[LLM 学习笔记]]></title>
             <description><![CDATA[大语言模型、LLM]]></description>
-            <link>https://your-domain.com/articles/大模型语言/大模型/LLM 学习笔记</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/大模型语言/大模型/LLM 学习笔记</guid>
+            <link>https://your-domain.com/content\articles\大模型语言\大模型\LLM 学习笔记</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\大模型语言\大模型\LLM 学习笔记</guid>
             <pubDate>Wed, 15 Jan 2025 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[AI工具汇总（国外）]]></title>
             <description><![CDATA[大语言模型、AI、产品经理]]></description>
-            <link>https://your-domain.com/articles/大模型语言/大模型/AI工具汇总</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/大模型语言/大模型/AI工具汇总</guid>
+            <link>https://your-domain.com/content\articles\大模型语言\大模型\AI工具汇总</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\大模型语言\大模型\AI工具汇总</guid>
             <pubDate>Wed, 15 Jan 2025 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[AI小教程]]></title>
             <description><![CDATA[AI、技巧、效率]]></description>
-            <link>https://your-domain.com/articles/大模型语言/大模型/AI小教程</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/大模型语言/大模型/AI小教程</guid>
+            <link>https://your-domain.com/content\articles\大模型语言\大模型\AI小教程</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\大模型语言\大模型\AI小教程</guid>
             <pubDate>Wed, 15 Jan 2025 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[AI产品经理行业资料库]]></title>
             <description><![CDATA[大语言模型、AI、产品经理]]></description>
-            <link>https://your-domain.com/articles/大模型语言/大模型/AI产品经理行业资料库（持续更新）</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/大模型语言/大模型/AI产品经理行业资料库（持续更新）</guid>
+            <link>https://your-domain.com/content\articles\大模型语言\大模型\AI产品经理行业资料库（持续更新）</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\大模型语言\大模型\AI产品经理行业资料库（持续更新）</guid>
             <pubDate>Wed, 15 Jan 2025 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[一套提示词帮你实现小红书、公众号封面自由]]></title>
             <description><![CDATA[提示词、卡片、教程]]></description>
-            <link>https://your-domain.com/articles/大模型语言/AI绘画/prompts-card</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/大模型语言/AI绘画/prompts-card</guid>
+            <link>https://your-domain.com/content\articles\大模型语言\AI绘画\prompts-card</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\大模型语言\AI绘画\prompts-card</guid>
             <pubDate>Wed, 09 Apr 2025 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[使用软件&插件推荐 2023版]]></title>
             <description><![CDATA[软件、教程]]></description>
-            <link>https://your-domain.com/articles/Windows教程/测试文件</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/Windows教程/测试文件</guid>
+            <link>https://your-domain.com/content\articles\Windows教程\测试文件</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\Windows教程\测试文件</guid>
             <pubDate>Wed, 15 Oct 2025 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[使用软件&插件推荐 2023版]]></title>
             <description><![CDATA[软件、教程]]></description>
-            <link>https://your-domain.com/articles/Windows教程/实用软件插件</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/Windows教程/实用软件插件</guid>
+            <link>https://your-domain.com/content\articles\Windows教程\实用软件插件</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\Windows教程\实用软件插件</guid>
             <pubDate>Tue, 15 Oct 2024 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[如何查看隐藏文件或文件扩展名]]></title>
             <description><![CDATA[windows、教程]]></description>
-            <link>https://your-domain.com/articles/Windows教程/如何看到隐藏文件和文件扩展名</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/Windows教程/如何看到隐藏文件和文件扩展名</guid>
+            <link>https://your-domain.com/content\articles\Windows教程\如何看到隐藏文件和文件扩展名</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\Windows教程\如何看到隐藏文件和文件扩展名</guid>
             <pubDate>Tue, 15 Oct 2024 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[如何打开系统还原和卷影复制]]></title>
             <description><![CDATA[windows、教程]]></description>
-            <link>https://your-domain.com/articles/Windows教程/如何打开系统还原和卷影复制</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/Windows教程/如何打开系统还原和卷影复制</guid>
+            <link>https://your-domain.com/content\articles\Windows教程\如何打开系统还原和卷影复制</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\Windows教程\如何打开系统还原和卷影复制</guid>
             <pubDate>Tue, 15 Oct 2024 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[如何打开磁盘清理？]]></title>
             <description><![CDATA[windows、教程]]></description>
-            <link>https://your-domain.com/articles/Windows教程/如何打开磁盘清理？</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/Windows教程/如何打开磁盘清理？</guid>
+            <link>https://your-domain.com/content\articles\Windows教程\如何打开磁盘清理？</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\Windows教程\如何打开磁盘清理？</guid>
             <pubDate>Tue, 15 Oct 2024 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[如何打开临时文件清理]]></title>
             <description><![CDATA[windows、教程]]></description>
-            <link>https://your-domain.com/articles/Windows教程/如何打开临时文件清理</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/Windows教程/如何打开临时文件清理</guid>
+            <link>https://your-domain.com/content\articles\Windows教程\如何打开临时文件清理</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\Windows教程\如何打开临时文件清理</guid>
             <pubDate>Tue, 15 Oct 2024 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[如何修改虚拟内存文件位置]]></title>
             <description><![CDATA[windows、教程]]></description>
-            <link>https://your-domain.com/articles/Windows教程/如何修改虚拟内存文件位置</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/Windows教程/如何修改虚拟内存文件位置</guid>
+            <link>https://your-domain.com/content\articles\Windows教程\如何修改虚拟内存文件位置</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\Windows教程\如何修改虚拟内存文件位置</guid>
             <pubDate>Tue, 15 Oct 2024 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[从哪里下载软件？]]></title>
             <description><![CDATA[软件、教程]]></description>
-            <link>https://your-domain.com/articles/Windows教程/从哪里下载软件？</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/Windows教程/从哪里下载软件？</guid>
+            <link>https://your-domain.com/content\articles\Windows教程\从哪里下载软件？</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\Windows教程\从哪里下载软件？</guid>
             <pubDate>Wed, 15 Oct 2025 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Windows使用技巧]]></title>
             <description><![CDATA[教程、基础]]></description>
-            <link>https://your-domain.com/articles/Windows教程/WINDOWS_USE</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/Windows教程/WINDOWS_USE</guid>
+            <link>https://your-domain.com/content\articles\Windows教程\WINDOWS_USE</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\Windows教程\WINDOWS_USE</guid>
             <pubDate>Wed, 15 Oct 2025 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[WIN10重装系统]]></title>
             <description><![CDATA[windows、教程]]></description>
-            <link>https://your-domain.com/articles/Windows教程/WIN10重装系统</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/Windows教程/WIN10重装系统</guid>
+            <link>https://your-domain.com/content\articles\Windows教程\WIN10重装系统</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\Windows教程\WIN10重装系统</guid>
             <pubDate>Tue, 15 Oct 2024 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[PDF编辑工具]]></title>
             <description><![CDATA[软件、插件]]></description>
-            <link>https://your-domain.com/articles/Windows教程/PDF编辑工具</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/Windows教程/PDF编辑工具</guid>
+            <link>https://your-domain.com/content\articles\Windows教程\PDF编辑工具</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\Windows教程\PDF编辑工具</guid>
             <pubDate>Wed, 15 Oct 2025 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[C盘清理方法总结]]></title>
             <description><![CDATA[windows、教程]]></description>
-            <link>https://your-domain.com/articles/Windows教程/C盘清理方法总结</link>
-            <guid isPermaLink="false">https://your-domain.com/articles/Windows教程/C盘清理方法总结</guid>
+            <link>https://your-domain.com/content\articles\Windows教程\C盘清理方法总结</link>
+            <guid isPermaLink="false">https://your-domain.com/content\articles\Windows教程\C盘清理方法总结</guid>
             <pubDate>Wed, 15 Oct 2025 00:00:00 GMT</pubDate>
         </item>
     </channel>
